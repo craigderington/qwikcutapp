@@ -15,13 +15,6 @@
 					<!-- Boostrap and Font-Awesome -->
 					<link href="css/bootstrap.min.css" rel="stylesheet">
 					<link href="font-awesome/css/font-awesome.css" rel="stylesheet">
-
-					<!-- Toastr style -->
-					<link href="css/plugins/toastr/toastr.min.css" rel="stylesheet">
-
-					<!-- Gritter -->
-					<link href="js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
-
 					<link href="css/animate.css" rel="stylesheet">
 					<link href="css/style.css" rel="stylesheet">			
 
@@ -35,11 +28,81 @@
 					<META HTTP-EQUIV="pragma" CONTENT="no-cache">
 					<META HTTP-EQUIV="cache-control" CONTENT="no-cache,no-store,must-revalidate">
 				
-				</head>			
+				</head>
 				
-				<!--- // used to debug/track cfif and cftoken session variables 
-				<cfinclude template="secchk.cfm">
-				--->			
-				
-				<!--- include the top-bar header all users --->
-				<cfinclude template="top-bar-nav.cfm">
+				<body class="top-navigation">
+					<div id="wrapper">
+						<div id="page-wrapper" class="gray-bg">
+							<div class="row border-bottom white-bg">
+								<nav class="navbar navbar-static-top" role="navigation">
+									<div class="navbar-header">
+										<button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+											<i class="fa fa-reorder"></i>
+										</button>
+										<a href="#" class="navbar-brand">QWIKCUT</a>
+									</div>
+					
+										<div class="navbar-collapse collapse" id="navbar">
+											<ul class="nav navbar-nav">
+												<li class="active">
+													<a aria-expanded="false" role="button" href="index.cfm"> Game Video &amp; Analytics</a>
+												</li>
+												<li class="dropdown">
+													<a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Conferences <span class="caret"></span></a>
+													<ul role="menu" class="dropdown-menu">
+														<li><a href="">Menu item</a></li>
+														<li><a href="">Menu item</a></li>
+														<li><a href="">Menu item</a></li>
+														<li><a href="">Menu item</a></li>
+													</ul>
+												</li>
+												<li class="dropdown">
+													<a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Teams <span class="caret"></span></a>
+													<ul role="menu" class="dropdown-menu">
+														<li><a href="">Menu item</a></li>
+														<li><a href="">Menu item</a></li>
+														<li><a href="">Menu item</a></li>
+														<li><a href="">Menu item</a></li>
+													</ul>
+												</li>
+												<li class="dropdown">
+													<a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Game Schedules <span class="caret"></span></a>
+													<ul role="menu" class="dropdown-menu">
+														<li><a href="">Menu item</a></li>
+														<li><a href="">Menu item</a></li>
+														<li><a href="">Menu item</a></li>
+														<li><a href="">Menu item</a></li>
+													</ul>
+												</li>
+												<li class="dropdown">
+													<a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> My Profile <span class="caret"></span></a>
+													<ul role="menu" class="dropdown-menu">
+														<li><a href="">Menu item</a></li>
+														<li><a href="">Menu item</a></li>
+														<li><a href="">Menu item</a></li>
+														<li><a href="">Menu item</a></li>
+													</ul>
+												</li>
+												
+												<li class="dropdown">
+													<a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Administration <span class="caret"></span></a>
+													<ul role="menu" class="dropdown-menu">
+														<li><a href="">Menu item</a></li>
+														<li><a href="">Menu item</a></li>
+														<li><a href="">Menu item</a></li>
+														<li><a href="">Menu item</a></li>
+													</ul>
+												</li>
+												
+
+											</ul>
+											<ul class="nav navbar-top-links navbar-right">
+												<li>
+													<a href="logout.cfm">
+														<i class="fa fa-sign-out"></i> Log out
+													</a>
+												</li>
+											</ul>
+										</div>
+								</nav>
+							</div>
