@@ -121,6 +121,7 @@
 						<cfinclude template="login.cfm">
 						<cfabort>
 					<cfelse>
+						<!---
 						<cfquery name="loginquery">
 							SELECT u.userid, u.username, u.passcode, u.role, u.firstname, u.lastname, 
 							       u.acl, u.deptid, c.companyid, c.dba, u.lastlogindate, u.lastloginip, 
@@ -152,7 +153,7 @@
 								<cfset session.welcomehomesess = 0 />--->								
 								
 								
-								<!--- Log this users activity to the database 
+								 Log this users activity to the database 
 								<cfquery datasource="#application.dsn#" name="logUser">
 									update users
 									   set lastlogindate = <cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />,
@@ -160,7 +161,7 @@
 									 where userid = <cfqueryparam value="#loginquery.userid#" cfsqltype="cf_sql_integer" />									   
 						        </cfquery>
 							   
-							    <!--- Log this users activity to the login history table ---> 
+							     Log this users activity to the login history table 
 								<cfquery datasource="#application.dsn#" name="logUser">
 									   insert into loginhistory(userid, logindate, loginip, username)
 											 values(
@@ -171,12 +172,13 @@
 													);
 									 									   
 						       </cfquery>
-							   ---> 						   		   
+							    						   		   
 						<cfelse>
 							<cfset REQUEST.badlogin = true />    
 							<cfinclude template="login.cfm">
 							<cfabort>
 						</cfif>
+						--->
 					</cfif>    
 				</cfif>
 			</cflogin>			
