@@ -2,7 +2,7 @@
 
 
 				
-		<!--- // include the header --->
+		<!--- // include the header 
 		<cfinclude template="header.cfm">	
 				
 		<!--- // scope the URL variable --->
@@ -16,3 +16,6 @@
 		
 		<!--- // include the footer --->			
 		<cfinclude template="footer.cfm">	
+		--->
+		
+		<h1>Page.Index</h1>
