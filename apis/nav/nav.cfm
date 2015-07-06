@@ -1,7 +1,7 @@
 
 
 
-			<!--- // CLD 07-06-2015 // templating engine --->
+			<!--- // CLD 07-06-2015 // QwikCut Game App templating engine --->
 
 			<!--- Scope the URL variable --->
 			<cfparam name="event" default="page.index">
@@ -13,8 +13,7 @@
 				</cfcase>
 				<cfcase value="page.logout">					
 					<cfinclude template="../../templates/page.logout.cfm">					
-				</cfcase>
-				
+				</cfcase>				
 				<!--- default case --->
 				<cfdefaultcase>
 					<cfinclude template="../../templates/page.index.cfm">
