@@ -148,18 +148,12 @@
 						<cfinclude template="login.cfm">
 						<cfabort>
 					<cfelse>
-						<!---
+						
 						<cfquery name="loginquery">
-							SELECT u.userid, u.username, u.passcode, u.role, u.firstname, u.lastname, 
-							       u.acl, u.deptid, c.companyid, c.dba, u.lastlogindate, u.lastloginip, 
-								   d.deptname, c.advisory, c.implement, u.leadid
-							  FROM users u, company c, dept d
-							 WHERE u.companyid = c.companyid
-							   AND u.deptid = d.deptid
-							   AND u.username = <cfqueryparam value="#cflogin.name#" cfsqltype="cf_sql_varchar" />
-							   AND u.passcode = <cfqueryparam value="#hash( cflogin.password, "SHA-384", "UTF-8" )#" cfsqltype="cf_sql_clob" maxlength="255" />
-							   AND u.active = <cfqueryparam value="1" cfsqltype="cf_sql_bit" />
-							   AND c.active = <cfqueryparam value="1" cfsqltype="cf_sql_bit" />
+							SELECT u.id, u.username, u.password, u.confid, u.firstname, u.lastname							       
+							  FROM dbo.users u
+							 WHERE u.username = <cfqueryparam value="#cflogin.name#" cfsqltype="cf_sql_varchar" />
+							   AND u.passcode = <cfqueryparam value="#hash( cflogin.password, "SHA-384", "UTF-8" )#" cfsqltype="cf_sql_clob" maxlength="255" />							   
 						</cfquery>
 						<cfif loginquery.userid NEQ "">
 							<cfloginuser 
@@ -167,19 +161,14 @@
 								password = "#hash( cflogin.password, "SHA-384", "UTF-8" )#" 
 								roles="#loginquery.role#">
 								
-								<!--- Start a few session vars we will require for our queries 
-								<cfset session.companyid = #loginquery.companyid# />
-								<cfset session.companyname = "#loginquery.dba#" />
-								<cfset session.userid = #loginquery.userid# />
-								<cfset session.deptid = #loginquery.deptid# />
-								<cfset session.username = "#loginquery.firstname# #loginquery.lastname#" />
-								<cfset session.acl = #loginquery.acl# />
-								<cfset session.lastip = "#loginquery.lastloginip#" />
-								<cfset session.lastdate = "#loginquery.lastlogindate#" />
-								<cfset session.deptname = "#loginquery.deptname#" />								
-								<cfset session.welcomehomesess = 0 />--->								
+								<!--- Start a few session vars we will require for our queries --->
 								
+								<cfset session.userid = #loginquery.id# />								
+								<cfset session.username = "#loginquery.firstname# #loginquery.lastname#" />								
 								
+															
+								
+								<!---
 								 Log this users activity to the database 
 								<cfquery datasource="#application.dsn#" name="logUser">
 									update users
@@ -198,14 +187,14 @@
 													<cfqueryparam value="#session.username#" cfsqltype="cf_sql_varchar" />												
 													);
 									 									   
-						       </cfquery>
-							    						   		   
+						        </cfquery>
+							    --->						   		   
 						<cfelse>
 							<cfset REQUEST.badlogin = true />    
 							<cfinclude template="login.cfm">
 							<cfabort>
 						</cfif>
-						--->
+						
 					</cfif>    
 				</cfif>
 			</cflogin>			
