@@ -20,7 +20,7 @@
 						<h3>Welcome to QwikCut App</h3>
 						<p>Login required to proceed.</p>
 						
-						<form class="m-t" role="form" action="/index.cfm" method="post">
+						<form class="m-t" role="form" action="index.cfm" method="post">
 							<div class="form-group">
 								<div class="input-group">
 									<div class="input-group-addon"><i class="fa fa-user"></i></div>
