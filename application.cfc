@@ -153,7 +153,7 @@
 							SELECT u.id, u.username, u.password, u.confid, u.firstname, u.lastname							       
 							  FROM dbo.users u
 							 WHERE u.username = <cfqueryparam value="#cflogin.name#" cfsqltype="cf_sql_varchar" />
-							   AND u.passcode = <cfqueryparam value="#cflogin.password#" cfsqltype="cf_sql_varchar" />							   
+							   AND u.password = <cfqueryparam value="#cflogin.password#" cfsqltype="cf_sql_varchar" />							   
 						</cfquery>
 						<cfif loginquery.userid NEQ "">
 							<cfloginuser 
