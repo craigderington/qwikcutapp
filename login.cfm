@@ -37,7 +37,7 @@
 
 						<a href="#"><small>Forgot password?</small></a>
 						<p class="text-muted text-center"><small>Don't have an account?</small></p>
-						<a class="btn btn-sm btn-white btn-block" href="register.html">Create an account</a>
+						<a class="btn btn-sm btn-white btn-block" href="register.cfm">Create an account</a>
 					</form>
 					
 					<p class="m-t">
