@@ -3,17 +3,45 @@
 	output="true"
 	hint="Handle the application.">	
 	
-	<!--- Setup the application --->
+	<!--- default application settings --->
 	<cfscript>
-       this.name = hash( getcurrenttemplatepath() );
+       
+	   // define application name
+	   this.name = hash( getcurrenttemplatepath() );
+	   
+	   // define application session variables
+	   this.sessiontype = "j2ee";
+	   
+	   // define default datasource
 	   this.datasource = "qwikcutapp";
+	   
+	   // define application and client timeout
 	   this.applicationtimeout = createtimespan(1,0,0,0);
-       this.clientmanagement = "true";       
-       this.sessionmanagement = "true";
-       this.sessiontimeout = createtimespan(0,1,30,0);
-       this.loginstorage = "session";
+       
+	   // define client management settings
+	   this.clientmanagement = "true";       
+       
+	   // enable session management
+	   this.sessionmanagement = "true";
+       
+	   // define session timeout
+	   this.sessiontimeout = createtimespan(0,1,30,0);
+       
+	   // define client login storage
+	   this.loginstorage = "session";
+	   
+	   // define client cookie settings
 	   this.setclientcookies = "false";       
-       this.scriptprotect = "all";    
+       
+	   // enable cross site scripting protection
+	   this.scriptprotect = "all";
+	   
+	   // converts FORM fields of the same name to an array
+	   this.sameFormFieldsAsArray = "true";
+	   
+	   //Converts URL fields of the samme name to an array
+	   this.sameURLFieldsAsArray ="true"
+	   
    </cfscript>
 	
  
@@ -33,8 +61,7 @@
 		hint="Fires when the application is first created.">	
 		
 		 <cfscript>
-			//set your app vars for the application          
-			
+			//set your app vars for the application			
 			application.title = "Qwikcut Game Day Video Application";
 			application.developer = "Craig Derington, Inc.";
 			application.bootver = "v 3.3.2";
@@ -58,7 +85,7 @@
             
                 <cfreturn false>
             </cfcatch>
-       </cftry>
+        </cftry>
        
        <cflog file="#this.name#" type="Information" text="Application #this.name# Started">
  
