@@ -23,8 +23,7 @@
 		<!--- // log out the user --->
 		<cflogout>
 		
-		<!--- // redirect to index page --->
-		
+		<!--- // redirect to index page --->		
 		<cfif structkeyexists( url, "rdurl" ) and url.rdurl is not "">
 			<cflocation url="#application.root#?event=page.index&#url.rdurl#=1" addtoken="no">
 		<cfelse>
