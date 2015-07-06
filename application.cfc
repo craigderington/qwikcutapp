@@ -66,7 +66,7 @@
 			application.developer = "Craig Derington, Inc.";
 			application.bootver = "v 3.3.2";
 			application.softver = "v 1.0.0 Alpha";
-			application.root = "index.cfm?";
+			application.root = "index.cfm?event=";
 			application.sessions = 0;
 		</cfscript>
 		

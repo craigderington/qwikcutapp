@@ -13,7 +13,10 @@
 				</cfcase>
 				<cfcase value="page.logout">					
 					<cfinclude template="../../templates/page.logout.cfm">					
-				</cfcase>				
+				</cfcase>
+				<cfcase value="page.register">					
+					<cfinclude template="../../templates/page.register.cfm">					
+				</cfcase>
 				<!--- default case --->
 				<cfdefaultcase>
 					<cfinclude template="../../templates/page.index.cfm">

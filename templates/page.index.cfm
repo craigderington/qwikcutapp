@@ -14,7 +14,7 @@
                             <h5>Views</h5>
                         </div>
                         <div class="ibox-content">
-                            <h1 class="no-margins">386,200</h1>
+                            <h1 class="no-margins">1,386,200</h1>
                             <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div>
                             <small>Total views</small>
                         </div>

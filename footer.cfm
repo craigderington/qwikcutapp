@@ -13,6 +13,9 @@
 				<div>
 					<strong>&copy; #year( now() )#</strong> Qwikcut.com | Game Film Video &amp; Analytics
 				</div>
+				<div class="pull-right">
+					<a href="mailto:info@qwikcut.com"><i class="fa fa-envelope"></i> info@qwikcut.com</a>
+				</div>
 			</div>
 		</cfoutput>
 		

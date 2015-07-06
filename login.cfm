@@ -20,7 +20,7 @@
 						<h3>Welcome to QwikCut App</h3>
 						<p>Login required to proceed.</p>
 						
-						<form class="m-t" role="form" action="index.cfm" method="post">
+						<form class="m-t" role="form" action="#application.root#page.index" method="post">
 							<div class="form-group">
 								<div class="input-group">
 									<div class="input-group-addon"><i class="fa fa-user"></i></div>
@@ -38,7 +38,7 @@
 
 							<a href="javascript:void(0);"><small>Forgot password?</small></a>
 							<p class="text-muted text-center"><small>Don't have an account?</small></p>
-							<a class="btn btn-sm btn-white btn-block" href="register.cfm">Create an account</a>
+							<a class="btn btn-sm btn-white btn-block" href="#application.root#page.register">Create an account</a>
 						</form>
 						
 						<p class="m-t">							
