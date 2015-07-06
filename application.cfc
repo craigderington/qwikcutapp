@@ -153,13 +153,13 @@
 							SELECT u.id, u.username, u.password, u.confid, u.firstname, u.lastname							       
 							  FROM dbo.users u
 							 WHERE u.username = <cfqueryparam value="#cflogin.name#" cfsqltype="cf_sql_varchar" />
-							   AND u.passcode = <cfqueryparam value="#hash( cflogin.password, "SHA-384", "UTF-8" )#" cfsqltype="cf_sql_clob" maxlength="255" />							   
+							   AND u.passcode = <cfqueryparam value="#cflogin.password#" cfsqltype="cf_sql_varchar" />							   
 						</cfquery>
 						<cfif loginquery.userid NEQ "">
 							<cfloginuser 
 								name = "#cflogin.name#" 
-								password = "#hash( cflogin.password, "SHA-384", "UTF-8" )#" 
-								roles="#loginquery.role#">
+								password = "#cflogin.password#" 
+								roles="admin">
 								
 								<!--- Start a few session vars we will require for our queries --->
 								
