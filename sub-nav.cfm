@@ -7,13 +7,13 @@
 										<button aria-controls="navbar" aria-expanded="false" data-target="##navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
 											<i class="fa fa-reorder"></i>
 										</button>
-										<a href="#application.root#page.index" class="navbar-brand"><i class="fa fa-upload"></i> QWIKCUT</a>
+										<a href="#application.root#page.index" class="navbar-brand"><i class="fa fa-upload"></i> QC+</a>
 									</div>
 					
 										<div class="navbar-collapse collapse" id="navbar">
 											<ul class="nav navbar-nav">
 												<li class="active">
-													<a aria-expanded="false" role="button" href="#application.root#page.index"> Game Video &amp; Analytics</a>
+													<a aria-expanded="false" role="button" href="#application.root#page.index"> Game Video &amp; Analytics | Dashboard</a>
 												</li>
 												<li class="dropdown">
 													<a aria-expanded="false" role="button" href="##" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-trophy"></i> Conferences <span class="caret"></span></a>

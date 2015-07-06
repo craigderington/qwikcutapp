@@ -11,10 +11,10 @@
 		<cfoutput>
 			<div class="footer fixed">
 				<div class="pull-right">
-					<a href="mailto:info@qwikcut.com"><i class="fa fa-envelope"></i> info@qwikcut.com</a>
+					Game Video &amp; Analytics
 				</div>
 				<div>
-					<strong>&copy; #year( now() )# Qwikcut.com | Game Film Video &amp; Analytics</strong>
+					<strong>&copy; #year( now() )# Qwikcut.com</strong>
 				</div>				
 			</div>
 		</cfoutput>
