@@ -53,19 +53,20 @@
 															<li><a href="#application.root#event=shooters">Shooters</a></li>
 														</ul>
 												</li>
-											
-												<ul class="nav navbar-right">
-													<li class="dropdown">
-														<a aria-expanded="false" role="button" href="##" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gears"></i> Settings <span class="caret"></span></a>
-															<ul role="menu" class="dropdown-menu">
-																<li><a href=""><i class="fa fa-user"></i> My Profile</a></li>
-																<li><a href=""><i class="fa fa-gears"></i> Settings</a></li>
-																<li><a href=""><i class="fa fa-calendar-o"></i> Reminders</a></li>
-																<li><a href="#application.root#event=page.logout"><i class="fa fa-sign-out"></i> Log Out</a></li>																								
-															</ul>
-													</li>
-												</ul>
 											</ul>
+												
+											<ul class="nav navbar-right">
+												<li class="dropdown">
+													<a aria-expanded="false" role="button" href="##" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gears"></i> Settings <span class="caret"></span></a>
+														<ul role="menu" class="dropdown-menu">
+															<li><a href=""><i class="fa fa-user"></i> My Profile</a></li>
+															<li><a href=""><i class="fa fa-gears"></i> Settings</a></li>
+															<li><a href=""><i class="fa fa-calendar-o"></i> Reminders</a></li>
+															<li><a href="#application.root#event=page.logout"><i class="fa fa-sign-out"></i> Log Out</a></li>																								
+														</ul>
+												</li>
+											</ul>
+											
 										</div>
 								</nav>
 							</cfoutput>
