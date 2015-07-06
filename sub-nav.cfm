@@ -13,7 +13,7 @@
 										<div class="navbar-collapse collapse" id="navbar">
 											<ul class="nav navbar-nav">
 												<li class="active">
-													<a aria-expanded="false" role="button" href="index.cfm"> Game Video &amp; Analytics</a>
+													<a aria-expanded="false" role="button" href="#application.root#page.index"> Game Video &amp; Analytics</a>
 												</li>
 												<li class="dropdown">
 													<a aria-expanded="false" role="button" href="##" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-trophy"></i> Conferences <span class="caret"></span></a>
@@ -57,7 +57,7 @@
 												
 											<ul class="nav navbar-right">
 												<li class="dropdown">
-													<a aria-expanded="false" role="button" href="##" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gears"></i> Settings <span class="caret"></span></a>
+													<a aria-expanded="false" role="button" href="##" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gears"></i> #getauthuser()# <span class="caret"></span></a>
 														<ul role="menu" class="dropdown-menu">
 															<li><a href=""><i class="fa fa-user"></i> My Profile</a></li>
 															<li><a href=""><i class="fa fa-gears"></i> Settings</a></li>
