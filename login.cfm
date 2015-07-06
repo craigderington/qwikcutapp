@@ -20,11 +20,11 @@
 						<h3>Welcome to QwikCut App</h3>
 						<p>Login required to proceed.</p>
 						
-						<form class="m-t" role="form" action="index.cfm" method="post">
+						<form class="m-t" role="form" action="/index.cfm" method="post">
 							<div class="form-group">
 								<div class="input-group">
 									<div class="input-group-addon"><i class="fa fa-user"></i></div>
-									<input type="text" name="j_username"class="form-control" placeholder="Enter Username">
+									<input type="text" name="j_username" class="form-control" placeholder="Enter Username">
 								</div>
 							</div>
 							<div class="form-group">
@@ -41,10 +41,9 @@
 						</form>
 						
 						<p class="m-t">							
-								<small>&copy; Qwikcut.com  #year( now() )#.  All Rights Reserved. 
-									<br />Game Film Video and Analytics.
-								</small>
-							
+							<small>&copy; Qwikcut.com  #year( now() )#.  All Rights Reserved. 
+								<br />Game Film Video and Analytics.
+							</small>							
 						</p>
 					</div>
 				</div>
