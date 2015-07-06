@@ -5,9 +5,9 @@
 	
 	<!--- Setup the application --->
 	<cfscript>
-       this.name = hash( getcurrenttemplatepath() );	  
+       this.name = hash( getcurrenttemplatepath() );
 	   this.datasource = "qwikcutapp";
-       this.applicationtimeout = createtimespan(1,0,0,0);
+	   this.applicationtimeout = createtimespan(1,0,0,0);
        this.clientmanagement = "true";       
        this.sessionmanagement = "true";
        this.sessiontimeout = createtimespan(0,1,30,0);
