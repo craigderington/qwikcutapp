@@ -39,7 +39,7 @@
 										<button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
 											<i class="fa fa-reorder"></i>
 										</button>
-										<a href="#" class="navbar-brand">QWIKCUT</a>
+										<a href="##" class="navbar-brand">QWIKCUT</a>
 									</div>
 					
 										<div class="navbar-collapse collapse" id="navbar">
@@ -48,7 +48,7 @@
 													<a aria-expanded="false" role="button" href="index.cfm"> Game Video &amp; Analytics</a>
 												</li>
 												<li class="dropdown">
-													<a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Conferences <span class="caret"></span></a>
+													<a aria-expanded="false" role="button" href="##" class="dropdown-toggle" data-toggle="dropdown"> Conferences <span class="caret"></span></a>
 													<ul role="menu" class="dropdown-menu">
 														<li><a href="">Menu item</a></li>
 														<li><a href="">Menu item</a></li>
@@ -57,7 +57,7 @@
 													</ul>
 												</li>
 												<li class="dropdown">
-													<a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Teams <span class="caret"></span></a>
+													<a aria-expanded="false" role="button" href="##" class="dropdown-toggle" data-toggle="dropdown"> Teams <span class="caret"></span></a>
 													<ul role="menu" class="dropdown-menu">
 														<li><a href="">Menu item</a></li>
 														<li><a href="">Menu item</a></li>
@@ -66,7 +66,7 @@
 													</ul>
 												</li>
 												<li class="dropdown">
-													<a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Game Schedules <span class="caret"></span></a>
+													<a aria-expanded="false" role="button" href="##" class="dropdown-toggle" data-toggle="dropdown"> Game Schedules <span class="caret"></span></a>
 													<ul role="menu" class="dropdown-menu">
 														<li><a href="">Menu item</a></li>
 														<li><a href="">Menu item</a></li>
@@ -75,7 +75,7 @@
 													</ul>
 												</li>
 												<li class="dropdown">
-													<a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> My Profile <span class="caret"></span></a>
+													<a aria-expanded="false" role="button" href="##" class="dropdown-toggle" data-toggle="dropdown"> My Profile <span class="caret"></span></a>
 													<ul role="menu" class="dropdown-menu">
 														<li><a href="">Menu item</a></li>
 														<li><a href="">Menu item</a></li>
@@ -85,7 +85,7 @@
 												</li>
 												
 												<li class="dropdown">
-													<a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Administration <span class="caret"></span></a>
+													<a aria-expanded="false" role="button" href="##" class="dropdown-toggle" data-toggle="dropdown"> Administration <span class="caret"></span></a>
 													<ul role="menu" class="dropdown-menu">
 														<li><a href="">Menu item</a></li>
 														<li><a href="">Menu item</a></li>
