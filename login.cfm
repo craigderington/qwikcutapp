@@ -24,16 +24,19 @@
 						<div class="form-group">
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-user"></i></div>
-								<input type="email" name="j_username"class="form-control" placeholder="Username" required="">
+								<input type="email" name="j_username"class="form-control" placeholder="Enter Username">
 							</div>
 						</div>
 						<div class="form-group">
-							<input type="password" name="j_password" class="form-control" placeholder="Password" required="">
+							<div class="input-group">
+								<div class="input-group-addon"><i class="fa fa-lock"></i></div>
+								<input type="password" name="j_password" class="form-control" placeholder="Enter Password">
+							</div>
 						</div>
 						<button type="submit" class="btn btn-primary block full-width m-b">Login</button>
 
 						<a href="#"><small>Forgot password?</small></a>
-						<p class="text-muted text-center"><small>Do not have an account?</small></p>
+						<p class="text-muted text-center"><small>Don't have an account?</small></p>
 						<a class="btn btn-sm btn-white btn-block" href="register.html">Create an account</a>
 					</form>
 					
