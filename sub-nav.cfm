@@ -54,16 +54,15 @@
 													</ul>
 												</li>
 												
-
-											</ul>
-											<ul class="nav navbar-top-links navbar-right">
-												<a aria-expanded="false" role="button" href="##" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gears"></i> Settings <span class="caret"></span></a>
-													<ul role="menu" class="dropdown-menu">
-														<li><i class="fa fa-user"></i><a href=""> My Profile</a></li>
-														<li><i class="fa fa-gears"></i><a href=""> Settings</a></li>
-														<li><i class="fa fa-calendar-o"></i><a href=""> Reminders</a></li>
-														<li><a href="#application.root#event=page.logout"><i class="fa fa-sign-out"></i> Log Out</a></li>														
-													</ul>												
+												<li class="dropdown pull-right">
+													<a aria-expanded="false" role="button" href="##" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gears"></i> Settings <span class="caret"></span></a>
+														<ul role="menu" class="dropdown-menu">
+															<li><i class="fa fa-user"></i><a href=""> My Profile</a></li>
+															<li><i class="fa fa-gears"></i><a href=""> Settings</a></li>
+															<li><i class="fa fa-calendar-o"></i><a href=""> Reminders</a></li>
+															<li><a href="#application.root#event=page.logout"><i class="fa fa-sign-out"></i> Log Out</a></li>														
+														</ul>
+												</li>
 											</ul>
 										</div>
 								</nav>
