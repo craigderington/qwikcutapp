@@ -39,8 +39,8 @@
 	   // converts FORM fields of the same name to an array
 	   this.sameFormFieldsAsArray = "true";
 	   
-	   //Converts URL fields of the samme name to an array
-	   this.sameURLFieldsAsArray ="true"
+	   // converts URL fields of the samme name to an array
+	   this.sameURLFieldsAsArray = "true";
 	   
    </cfscript>
 	
@@ -147,15 +147,14 @@
 						<cfset REQUEST.badlogin = true />
 						<cfinclude template="login.cfm">
 						<cfabort>
-					<cfelse>
-						
+					<cfelse>						
 						<cfquery name="loginquery">
 							SELECT u.id, u.username, u.password, u.confid, u.firstname, u.lastname							       
 							  FROM dbo.users u
 							 WHERE u.username = <cfqueryparam value="#cflogin.name#" cfsqltype="cf_sql_varchar" />
 							   AND u.password = <cfqueryparam value="#cflogin.password#" cfsqltype="cf_sql_varchar" />							   
 						</cfquery>
-						<cfif loginquery.userid NEQ "">
+						<cfif loginquery.id NEQ "">
 							<cfloginuser 
 								name = "#cflogin.name#" 
 								password = "#cflogin.password#" 

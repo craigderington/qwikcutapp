@@ -24,7 +24,8 @@
 							<div class="form-group">
 								<div class="input-group">
 									<div class="input-group-addon"><i class="fa fa-user"></i></div>
-									<input type="text" name="j_username" class="form-control" placeholder="Enter Username">
+									<input type="text" name="j_username" class="form-control" placeholder="Enter Username" autocomplete="off">
+									<input type="hidden" name="login" value="">
 								</div>
 							</div>
 							<div class="form-group">
