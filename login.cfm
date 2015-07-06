@@ -22,7 +22,10 @@
 					
 					<form class="m-t" role="form" action="index.html">
 						<div class="form-group">
-							<input type="email" name="j_username"class="form-control" placeholder="Username" required="">
+							<div class="input-group">
+								<div class="input-group-addon"><i class="fa fa-user"></i></div>
+								<input type="email" name="j_username"class="form-control" placeholder="Username" required="">
+							</div>
 						</div>
 						<div class="form-group">
 							<input type="password" name="j_password" class="form-control" placeholder="Password" required="">
