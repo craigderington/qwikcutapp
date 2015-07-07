@@ -14,7 +14,7 @@
 					Game Video &amp; Analytics
 				</div>
 				<div>
-					<strong>&copy; #year( now() )# Qwikcut.com</strong>
+					<strong>&copy; #year( now() )# Qwikcut.com.  All Rights Reserved.</strong>
 				</div>				
 			</div>
 		</cfoutput>
