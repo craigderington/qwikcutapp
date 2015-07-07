@@ -6,7 +6,7 @@
 			
         <div class="wrapper wrapper-content">
             <div class="container">
-				<div class="row" style="margin-top:5px;">
+				<div class="row" style="margin-top:10px;">
 					<div class="col-md-2">
 						<div class="ibox float-e-margins">
 							<div class="ibox-title">
