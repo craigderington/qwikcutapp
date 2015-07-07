@@ -2,7 +2,7 @@
 					
 					
 							<cfoutput>	
-								<nav class="navbar navbar-static-top" role="navigation">
+								<nav class="navbar navbar-fixed-top" role="navigation">
 									<div class="navbar-header">
 										<button aria-controls="navbar" aria-expanded="false" data-target="##navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
 											<i class="fa fa-reorder"></i>
