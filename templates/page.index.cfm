@@ -27,9 +27,9 @@
 								<h5>Orders</h5>
 							</div>
 							<div class="ibox-content">
-										<h1 class="no-margins">80,800</h1>
-										<div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i></div>
-										<small>New orders</small>
+								<h1 class="no-margins">80,800</h1>
+								<div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i></div>
+									<small>New Orders</small>
 							</div>
 						</div>
 					</div>
@@ -38,12 +38,12 @@
 						<div class="ibox float-e-margins">
 							<div class="ibox-title">
 								<span class="label label-primary pull-right">Today</span>
-								<h5>Vistits</h5>
+								<h5>Website Visitors</h5>
 							</div>
 							<div class="ibox-content">
 								<div class="row">
 									<div class="col-md-6">
-										<h1 class="no-margins">$ 406,420</h1>
+										<h1 class="no-margins">$406,420</h1>
 										<div class="font-bold text-navy">44% <i class="fa fa-level-up"></i> <small>Rapid pace</small></div>
 									</div>
 									<div class="col-md-6">
@@ -58,14 +58,15 @@
 					<div class="col-md-4">
 						<div class="ibox float-e-margins">
 							<div class="ibox-title">
-								<h5>Monthly income</h5>
+								<h5>Monthly Income</h5>
 								<div class="ibox-tools">
-									<span class="label label-primary">Updated 12.2015</span>
+									<span class="label label-primary">Updated July 2015</span>
 								</div>
 							</div>
 							<div class="ibox-content no-padding">
-								<div class="flot-chart m-t-lg" style="height: 55px;">
-									<div class="flot-chart-content" id="flot-chart1"></div>
+								<div class="ibox-content">
+									<h1 class="no-margins">$95,897.89</h1>
+									<small>Recurring Billing</small>
 								</div>
 							</div>
 
