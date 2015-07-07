@@ -30,7 +30,7 @@
 				
 				</head>
 				
-				<body class="fixed-nav">
+				<body class="top-navigation">
 					<div id="wrapper">
 						<div id="page-wrapper" class="gray-bg">
 							<div class="row border-bottom white-bg">
