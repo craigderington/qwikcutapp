@@ -155,23 +155,23 @@
 							 WHERE u.username = <cfqueryparam value="#cflogin.name#" cfsqltype="cf_sql_varchar" />
 							   AND u.password = <cfqueryparam value="#cflogin.password#" cfsqltype="cf_sql_varchar" />							   
 						</cfquery>
-						<cfif loginquery.id NEQ "">
+						<cfif loginquery.userid NEQ "">
 							<cfloginuser 
 								name = "#cflogin.name#" 
 								password = "#cflogin.password#" 
 								roles="#loginquery.userrole#">
 								
-								<!--- Start a few session vars we will require for our queries --->
-								
-								<cfset session.userid = loginquery.userid />								
+								<!--- Start a few session vars we will require for our queries --->								
+								<cfset session.userid = #loginquery.userid# />								
 								<cfset session.username = "#loginquery.firstname# #loginquery.lastname#" />							
 								
 								<!--- Log this users activity to the database --->
 								<cfquery datasource="#application.dsn#" name="logUser">
-									update dbo.users
-									   set lastlogindate = <cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />,
-									       lastloginip = <cfqueryparam value="#cgi.remote_addr#" cfsqltype="cf_sql_varchar" />
-									 where userid = <cfqueryparam value="#loginquery.userid#" cfsqltype="cf_sql_integer" />									   
+									update 
+									       dbo.users u
+									   set u.lastlogindate = <cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />,
+									       u.lastloginip = <cfqueryparam value="#cgi.remote_addr#" cfsqltype="cf_sql_varchar" />
+									 where u.userid = <cfqueryparam value="#loginquery.userid#" cfsqltype="cf_sql_integer" />									   
 						        </cfquery>
 							   
 							    <!---Log this users activity to the login history table 
