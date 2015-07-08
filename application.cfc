@@ -153,12 +153,12 @@
 								   u.userrole, u.useracl
 							  FROM dbo.users u
 							 WHERE u.username = <cfqueryparam value="#cflogin.name#" cfsqltype="cf_sql_varchar" />
-							   AND u.password = <cfqueryparam value="#cflogin.password#" cfsqltype="cf_sql_varchar" />							   
+							   AND u.password = <cfqueryparam value="#hash( cflogin.password, "SHA-384", "UTF-8" )#" cfsqltype="cf_sql_varchar" />							   
 						</cfquery>
 						<cfif loginquery.userid NEQ "">
 							<cfloginuser 
 								name = "#cflogin.name#" 
-								password = "#cflogin.password#" 
+								password = "#hash( cflogin.password, "SHA-384", "UTF-8" )#" 
 								roles="#loginquery.userrole#">
 								
 								<!--- Start a few session vars we will require for our queries --->								

@@ -16,7 +16,7 @@
 					<link href="css/bootstrap.min.css" rel="stylesheet">
 					<link href="font-awesome/css/font-awesome.css" rel="stylesheet">
 					<link href="css/animate.css" rel="stylesheet">
-					<link href="css/style.css" rel="stylesheet">			
+					<link href="css/style.css" rel="stylesheet">		
 
 					<!--- // make sure that none of our dynamic pages are cached by the users browser --->
 					<cfheader name="cache-control" value="no-cache,no-store,must-revalidate" >

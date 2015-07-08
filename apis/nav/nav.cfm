@@ -4,22 +4,28 @@
 			<!--- // CLD 07-06-2015 // QwikCut Game App templating engine --->
 
 			<!--- Scope the URL variable --->
-			<cfparam name="event" default="page.index">
+			<cfparam name="event" default="user.home">
 
 			<!--- generate page template based on event scope --->
 			<cfswitch expression="#event#">				
-				<cfcase value="page.index">					
-					<cfinclude template="../../templates/page.index.cfm">					
+				<cfcase value="user.home">					
+					<cfinclude template="../../templates/index.cfm">					
 				</cfcase>
-				<cfcase value="page.logout">					
-					<cfinclude template="../../templates/page.logout.cfm">					
+				<cfcase value="admin.states">					
+					<cfinclude template="../../templates/admin.states.cfm">					
 				</cfcase>
-				<cfcase value="page.register">					
-					<cfinclude template="../../templates/page.register.cfm">					
+				<cfcase value="admin.users">					
+					<cfinclude template="../../templates/admin.users.cfm">					
 				</cfcase>
+				<cfcase value="user.logout">					
+					<cfinclude template="../../templates/logout.cfm">					
+				</cfcase>
+				<cfcase value="user.register">					
+					<cfinclude template="../../templates/register.cfm">					
+				</cfcase>
+				
 				<!--- default case --->
 				<cfdefaultcase>
-					<cfinclude template="../../templates/page.index.cfm">
-				</cfdefaultcase>
-			
+					<cfinclude template="../../templates/index.cfm">
+				</cfdefaultcase>			
 			</cfswitch>

@@ -27,20 +27,15 @@
 
 		<!-- Custom and plugin javascript -->
 		<script src="js/inspinia.js"></script>
-		<script src="js/plugins/pace/pace.min.js"></script>
+		
 
-		<!-- Flot -->
+		<!-- Flot 
 		<script src="js/plugins/flot/jquery.flot.js"></script>
 		<script src="js/plugins/flot/jquery.flot.tooltip.min.js"></script>
-		<script src="js/plugins/flot/jquery.flot.resize.js"></script>
-
-		<!-- ChartJS-->
-		<script src="js/plugins/chartJs/Chart.min.js"></script>
-
-		<!-- Peity -->
-		<script src="js/plugins/peity/jquery.peity.min.js"></script>
-		<!-- Peity demo -->
+		<script src="js/plugins/flot/jquery.flot.resize.js"></script>		
+		<script src="js/plugins/chartJs/Chart.min.js"></script>		
+		<script src="js/plugins/peity/jquery.peity.min.js"></script>		
 		<script src="js/demo/peity-demo.js"></script>
-	
+		-->
 	</body>
 </html>

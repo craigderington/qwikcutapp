@@ -7478,3 +7478,14 @@ body.skin-3 {
     display: none;
   }
 }
+/* custom css styles */
+ .wg-collapse-count {
+    max-width: 20%;
+    float: right;
+    background-color: #466e1c;
+    padding: 2px 12px;
+    border-radius: 4px;
+    margin-right: -2px;
+    color: #fff;
+    margin-top: -2px;
+}

@@ -25,7 +25,7 @@
 		
 		<!--- // redirect to index page --->		
 		<cfif structkeyexists( url, "rdurl" ) and url.rdurl is not "">
-			<cflocation url="#application.root#page.index&#url.rdurl#=1" addtoken="no">
+			<cflocation url="#application.root#user.home&#url.rdurl#=1" addtoken="no">
 		<cfelse>
-			<cflocation url="#application.root#page.index&logout=1" addtoken="no">
+			<cflocation url="#application.root#user.home&logout=1" addtoken="no">
 		</cfif>
