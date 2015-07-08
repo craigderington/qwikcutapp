@@ -73,7 +73,7 @@
 		<cftry>
             <!--- Test whether the DB is accessible by selecting some data. --->
             <cfquery name="testdb" maxrows="2">
-                select count(id) 
+                select count(userid) 
                   from dbo.users
             </cfquery>
             <!--- If we get a database error, report an error to the user, log the error information, and do not start the application. --->
@@ -149,7 +149,8 @@
 						<cfabort>
 					<cfelse>						
 						<cfquery name="loginquery">
-							SELECT u.id, u.username, u.password, u.confid, u.firstname, u.lastname							       
+							SELECT u.userid, u.username, u.password, u.confid, u.firstname, u.lastname,
+								   u.userrole, u.useracl
 							  FROM dbo.users u
 							 WHERE u.username = <cfqueryparam value="#cflogin.name#" cfsqltype="cf_sql_varchar" />
 							   AND u.password = <cfqueryparam value="#cflogin.password#" cfsqltype="cf_sql_varchar" />							   
@@ -158,25 +159,22 @@
 							<cfloginuser 
 								name = "#cflogin.name#" 
 								password = "#cflogin.password#" 
-								roles="admin">
+								roles="#loginquery.userrole#">
 								
 								<!--- Start a few session vars we will require for our queries --->
 								
-								<cfset session.userid = #loginquery.id# />								
-								<cfset session.username = "#loginquery.firstname# #loginquery.lastname#" />								
+								<cfset session.userid = loginquery.userid />								
+								<cfset session.username = "#loginquery.firstname# #loginquery.lastname#" />							
 								
-															
-								
-								<!---
-								 Log this users activity to the database 
+								<!--- Log this users activity to the database --->
 								<cfquery datasource="#application.dsn#" name="logUser">
-									update users
+									update dbo.users
 									   set lastlogindate = <cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />,
 									       lastloginip = <cfqueryparam value="#cgi.remote_addr#" cfsqltype="cf_sql_varchar" />
 									 where userid = <cfqueryparam value="#loginquery.userid#" cfsqltype="cf_sql_integer" />									   
 						        </cfquery>
 							   
-							     Log this users activity to the login history table 
+							    <!---Log this users activity to the login history table 
 								<cfquery datasource="#application.dsn#" name="logUser">
 									   insert into loginhistory(userid, logindate, loginip, username)
 											 values(
