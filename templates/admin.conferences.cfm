@@ -3,14 +3,13 @@
 	
 
 		<!--- admin.states- administration --->
-		<cfinvoke component="apis.com.admin.stateadminservice" method="getstates" returnvariable="statelist">
-		</cfinvoke>
-		
-		<cfif structkeyexists( url, "fuseaction" )>
-			<cfif structkeyexists( url, "stateid" )>
-				<cfif url.stateid neq 0>
-					<cfinvoke component="apis.com.admin.stateadminservice" method="getstatedetail" returnvariable="statedetail">
-						<cfinvokeargument name="stateid" value="#url.stateid#">
+		<cfinvoke component="apis.com.admin.conferenceadminservice" method="getconferences" returnvariable="conferencelist"></cfinvoke>
+		<cfinvoke component="apis.com.admin.stateadminservice" method="getstates" returnvariable="statelist"></cfinvoke>	
+		<cfif structkeyexists( url, "fuseaction" )>				
+			<cfif structkeyexists( url, "id" )>
+				<cfif url.id neq 0>
+					<cfinvoke component="apis.com.admin.conferenceadminservice" method="getconferencedetail" returnvariable="conferencedetail">
+						<cfinvokeargument name="id" value="#url.id#">
 					</cfinvoke>
 				</cfif>
 			</cfif>
@@ -20,24 +19,24 @@
 				<div class="wrapper wrapper-content">
 					<div class="container">				
 						<!-- // include the page heading --->
-						<cfinclude template="views/state-admin-page-heading.cfm">
+						<cfinclude template="views/conference-admin-page-heading.cfm">
 						
-						<!-- // include the view state -->
+						<!-- // include the conference view state -->
 						<cfif not structkeyexists( url, "fuseaction" )>				
-							<cfinclude template="views/states/state.list.cfm">
+							<cfinclude template="views/conferences/conference.list.cfm">
 						<cfelseif structkeyexists( url, "fuseaction" )>
-							<cfif trim( url.fuseaction ) eq "state.edit">
-								<cfinclude template="views/states/state.edit.cfm">
-							<cfelseif trim( url.fuseaction ) eq "state.delete">
-								<cfinclude template="views/states/state.delete.cfm">
-							<cfelseif trim( url.fuseaction ) eq "state.add">
-								<cfinclude template="views/states/state.add.cfm">
+							<cfif trim( url.fuseaction ) eq "conference.edit">
+								<cfinclude template="views/conferences/conference.edit.cfm">
+							<cfelseif trim( url.fuseaction ) eq "conference.delete">
+								<cfinclude template="views/conferences/conference.delete.cfm">
+							<cfelseif trim( url.fuseaction ) eq "conference.add">
+								<cfinclude template="views/conferences/conference.add.cfm">
 							<cfelse>
 								<!-- // no view found, show message -->
 								<div class="alert alert-danger" style="margin-top:10px;">
 									<h4><i class="fa fa-warning"></i> SYSTEM ALERT</h4>
 									<p>The selected view could not be found...  Please <a class="alert-link" href="#application.root#user.home">click here</a> to navigate to the homepage.</p>
-								</div>						
+								</div>
 							</cfif>
 						<cfelse>
 							<!-- // no view found, show message -->

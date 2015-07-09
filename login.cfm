@@ -18,7 +18,7 @@
 					<div class="alert alert-danger alert-dismissable fade in">
 						<button type="button" class="close" data-dismiss="alert">&times;</button>
 							<h4 class="alert-heading"><i class="fa fa-warning"></i> Login Failed!</h4>
-								<p>Sorry, your login credentials have failed.  Either your username and password was entered incorrectly.  Please try again...</p>
+								<p>Sorry, your login credentials have failed.  Either your username OR password was entered incorrectly.  Please try again...</p>
 					</div>						
 				<cfelseif isdefined( "url.logout" ) and url.logout eq 1>
 					<div class="alert alert-success alert-dismissable fade in">

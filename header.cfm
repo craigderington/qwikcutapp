@@ -23,6 +23,10 @@
 					<cfheader name="pragma" value="no-cache" >
 					<cfheader name="expires" value="#getHttpTimeString( Now() )#" >
 					
+					<!--- // shortcut icon --->
+					<link rel="shortcut icon" href="http://qwikcut.cloudapp.net/qwikcutapp/favicon.ico?v=2" type="image/x-icon" />
+					<link rel="icon" href="http://qwikcut.cloudapp.net/qwikcutapp/favicon.ico?v=2" type="image/x-icon">
+					
 					<!--- // also ensure that non-dynamic pages are not cached by the users browser --->
 					<META HTTP-EQUIV="expires" CONTENT="-1">
 					<META HTTP-EQUIV="pragma" CONTENT="no-cache">

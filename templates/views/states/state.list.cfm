@@ -1,7 +1,7 @@
 						
 						
 						<div class="row">
-							<div class="col-lg-12">
+							
 								<div class="ibox float-e-margins">
 									
 									
@@ -38,7 +38,7 @@
 															<td>#stateid#</td>
 															<td><strong>#statename#</strong></td>
 															<td>#stateabbr#</td>																										
-															<td><a href="##"><i class="fa fa-check text-navy"></i></a></td>
+															<td><a href="##" title="Active"><i class="fa fa-check text-navy"></i></a></td>
 														</tr>
 													</cfoutput>																			 
 												</tbody>
@@ -47,5 +47,5 @@
 
 									</div>
 								</div>
-							</div>
+							
 						</div>

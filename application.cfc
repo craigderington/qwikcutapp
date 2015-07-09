@@ -315,9 +315,11 @@
 			default=""
 			/>			
 			
-			<!--- log the error 
-			<cfif cgi.server_name neq "localhost" and cgi.server_name neq "127.0.0.1">
-				<!--- // if this is the live production server, handle the error --->
+			<!--- log the error --->
+			<cfif cgi.server_name eq "localhost" or cgi.server_name eq "127.0.0.1">
+				<!--- // for development only // 
+				     // write error to dev server logs //
+					 // handle the error // --->
 				<cfinclude template="cferror.cfm">
 					<cflog file="#this.name#" type="error" text="Event Name: #arguments.eventname#" >
 					<cflog file="#this.name#" type="error" text="Message: #arguments.exception.message#">
@@ -329,7 +331,7 @@
 				<cfdump var="#arguments.exception#" label="Error Exception" />			
 			</cfif>
 			
-			--->
+			
 			
 		<!--- Return out. --->
 		<cfreturn />

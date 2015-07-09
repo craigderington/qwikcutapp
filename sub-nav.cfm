@@ -15,6 +15,8 @@
 													<li class="active">
 														<a aria-expanded="false" role="button" href="#application.root#user.home"> Game Video &amp; Analytics <cfif structkeyexists( url, "event" ) and trim( url.event ) eq "user.home">| Dashboard</cfif></a>
 													</li>
+												</ul>	
+													<!---
 													<li class="dropdown">
 														<a aria-expanded="false" role="button" href="##" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-trophy"></i> Conferences <span class="caret"></span></a>
 															<ul role="menu" class="dropdown-menu">
@@ -42,7 +44,10 @@
 																<li><a href="">Menu item</a></li>
 															</ul>
 													</li>												
+													--->
+												<ul class="nav navbar-right">
 													
+													<!---
 													<li class="dropdown">
 														<a aria-expanded="false" role="button" href="##" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gear"></i> Administration <span class="caret"></span></a>
 															<ul role="menu" class="dropdown-menu">
@@ -54,12 +59,13 @@
 																<li><a href="#application.root#admin.users">Users</a></li>
 															</ul>
 													</li>
-												</ul>
+													--->
 													
-												<ul class="nav navbar-right">
+												
 													<li class="dropdown">
 														<a aria-expanded="false" role="button" href="##" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gears"></i> #GetAuthUser()# <span class="caret"></span></a>
 															<ul role="menu" class="dropdown-menu">
+																<cfif isuserinrole( "admin" )><li><a href="#application.root#admin.home"><i class="fa fa-cog"></i> Administration</a></li></cfif>
 																<li><a href=""><i class="fa fa-user"></i> My Profile</a></li>
 																<li><a href=""><i class="fa fa-gears"></i> Settings</a></li>
 																<li><a href=""><i class="fa fa-calendar-o"></i> Reminders</a></li>

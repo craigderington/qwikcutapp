@@ -154,20 +154,71 @@
 			</cfif>
 			 
 			 
-			<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-			<html>
-			<head>
-				<title>An Error Occurred</title>
-			</head>
-			<body>
-			 
-				<h1>
-					Opps.  500 | Internal Server Error
-				</h1>
-			 
-				<p>
+			<!doctype html>
+				<html lang="en">			
+					<head>
+						<cfoutput>
+							<title>#application.title#</title>
+						</cfoutput>									
+										
+						<meta charset="utf-8">
+						<meta name="viewport" content="width=device-width, initial-scale=1.0">
+						<meta name="apple-mobile-web-app-capable" content="yes"> 				
+						
+						<!-- Boostrap and Font-Awesome -->
+						<link href="css/bootstrap.min.css" rel="stylesheet">
+						<link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+						<link href="css/animate.css" rel="stylesheet">
+						<link href="css/style.css" rel="stylesheet">		
 					
-				</p>
-			 
-			</body>
-			</html>
+					</head>
+					
+			
+						<body class="top-navigation">
+							<div id="wrapper">
+								<div id="page-wrapper" class="gray-bg">
+									<div class="row border-bottom white-bg" style="min-height:800px;">
+										
+										<nav class="navbar navbar-fixed-top" role="navigation">
+											<div class="navbar-header">
+												<button aria-controls="navbar" aria-expanded="false" data-target="##navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+													<i class="fa fa-reorder"></i>
+												</button>
+												<a href="##" class="navbar-brand"><i class="fa fa-upload"></i> QwikCut</a>
+											</div>
+											
+											<div class="navbar-collapse collapse" id="navbar">										
+												<ul class="nav navbar-nav">
+													<li class="active">
+														<a aria-expanded="false" role="button" href="#application.root#user.home"> Game Video &amp; Analytics <cfif structkeyexists( url, "event" ) and trim( url.event ) eq "user.home">| Dashboard</cfif></a>
+													</li>
+												</ul>											
+											</div>
+										</nav>
+										
+										<div class="container" style="margin-top:50px;">									
+											
+											<div class="ibox float-e-margins">
+												
+												
+												<div class="ibox-content">												
+													<div class="panel panel-success">
+														<div class="panel-heading">
+															<i class="fa fa-warning"></i> <strong>Internal Server Error</strong> <span class="wg-collapse-count">500</span>
+														</div>
+														<div class="panel-body">
+															<p>Sorry, but an internal error has occured.</p>
+															<p>Please see the Railo4 server log for detailed debugging information.</p>
+														</div>
+														<div class="panel-footer">
+															Powered by Tomcat 7.0.3 <span class="pull-right"><a href="http://tomcat.apache.org">Apache Projects</a></span>
+														</div>
+													</div>												
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								
+							<cfinclude template="footer.cfm">

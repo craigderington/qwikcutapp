@@ -1,4 +1,5 @@
 <cfcomponent displayname="useradminservice">		
+	
 	<cffunction name="init" access="public" output="false" returntype="useradminservice" hint="I create an initialized user admin service data object.">
 		<cfreturn this >
 	</cffunction>
@@ -7,7 +8,7 @@
 		<cfset var userlist = "" />
 			<cfquery name="userlist">
 					select userid, username, firstname, lastname, password, confid, lastloginip, lastlogindate, email, userrole, useracl
-				      from users
+				      from dbo.users
 				  order by lastname, firstname asc
 			</cfquery>
 		<cfreturn userlist>
@@ -18,13 +19,10 @@
 			<cfset var userdetail = "" />
 				<cfquery name="userdetail">
 					select userid, username, firstname, lastname, password, confid, lastloginip, lastlogindate, email, userrole, useracl
-					  from users
+					  from dbo.users
 					 where userid = <cfqueryparam value="#arguments.id#" cfsqltype="cf_sql_integer" /> 
 				</cfquery>
 		<cfreturn userdetail>
-	</cffunction>
-			
-			
-			
+	</cffunction>			
 			
 </cfcomponent>

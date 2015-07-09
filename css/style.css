@@ -3551,7 +3551,7 @@ code {
 }
 .ibox {
   clear: both;
-  margin-bottom: 25px;
+  margin-bottom: 10px;
   margin-top: 0;
   padding: 0;
 }
@@ -7482,7 +7482,7 @@ body.skin-3 {
  .wg-collapse-count {
     max-width: 20%;
     float: right;
-    background-color: #466e1c;
+    background-color: #000;
     padding: 2px 12px;
     border-radius: 4px;
     margin-right: -2px;
