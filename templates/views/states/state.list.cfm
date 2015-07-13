@@ -22,7 +22,9 @@
 											<table class="table table-striped">
 												<thead>
 													<tr>
-														<th>Actions</th>
+														<cfif isuserinrole( "admin" )>
+															<th>Actions</th>
+														</cfif>
 														<th>State ID</th>
 														<th>State Name </th>
 														<th>State Abbreviation </th>
@@ -32,9 +34,12 @@
 												<tbody>
 													<cfoutput query="statelist">
 														<tr>
-															<td><a class="btn btn-sm btn-primary" href="#application.root#admin.states&fuseaction=state.edit&stateid=#stateid#" title="Edit State"><i class="fa fa-edit"></i></a>
-															    <a class="btn btn-sm btn-danger" href="#application.root#admin.states&fuseaction=state.delete&stateid=#stateid#" title="Delete State"><i class="fa fa-trash"></i></a>
-															</td>
+															<cfif isuserinrole( "admin" )>
+																<td>
+																	<a class="btn btn-sm btn-primary" href="#application.root#admin.states&fuseaction=state.edit&stateid=#stateid#" title="Edit State"><i class="fa fa-edit"></i></a>
+																	<a class="btn btn-sm btn-danger" href="#application.root#admin.states&fuseaction=state.delete&stateid=#stateid#" title="Delete State"><i class="fa fa-trash"></i></a>
+																</td>
+															</cfif>
 															<td>#stateid#</td>
 															<td><strong>#statename#</strong></td>
 															<td>#stateabbr#</td>																										

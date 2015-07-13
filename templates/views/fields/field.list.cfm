@@ -2,7 +2,6 @@
 
 
 
-
 									
 						
 						<div class="row">
@@ -37,18 +36,17 @@
 												</div>											
 												<div class="col-sm-4">
 													<div class="form-group">
-														<label class="control-label" for="product_name">Conference Name</label>
-														<input type="text" id="conferencename" name="conferencename" value="" placeholder="Search by Conference Name" class="form-control">
+														<label class="control-label" for="">Conference</label>
+														<select name="conference" id="conference" class="form-control">
+															<option value="" selected>Filter by Conference</option>
+															<option value="">List of Conferences</option>
+														</select>
 													</div>
 												</div>									
-												<div class="col-sm-2">
+												<div class="col-sm-4">
 													<div class="form-group">
-														<label class="control-label" for="status">Status</label>
-														<select name="status" id="status" class="form-control">
-															<option value="" selected>Filter by Status</option>
-															<option value="1">Active</option>
-															<option value="0">Inactive</option>
-														</select>
+														<label class="control-label" for="product_name">Field Name</label>
+														<input type="text" id="fieldname" name="fieldname" value="" placeholder="Search by Field Name" class="form-control">
 													</div>
 												</div>
 											</div>
@@ -59,8 +57,8 @@
 								<div class="ibox" style="margin-top:-15px;">								
 									<cfoutput>
 										<div class="ibox-title">
-											<h5><i class="fa fa-database"></i> The database found #conferencelist.recordcount# conferences.</h5>										
-											<a href="#application.root#admin.conferences&fuseaction=conference.add" class="btn btn-xs btn-primary pull-right"><i class="fa fa-plus"></i> Add Conference</a>
+											<h5><i class="fa fa-database"></i> The database found #fieldlist.recordcount# game field<cfif fieldlist.recordcount gt 1>s</cfif>.</h5>										
+											<a href="#application.root#admin.conferences&fuseaction=conference.add" class="btn btn-xs btn-primary pull-right"><i class="fa fa-plus"></i> Add Field</a>
 										</div>
 									</cfoutput>						
 									
@@ -72,24 +70,28 @@
 														<cfif isuserinrole( "admin" )>
 															<th>Actions</th>
 														</cfif>
-														<th>State</th>
-														<th>Conference Type </th>
+														<th>State</th>														
 														<th>Conference</th>
+														<th>Field Name</th>
+														<th>Address</th>
+														<th>Field Contact</th>
 														<th>Status</th>
 													</tr>
 												</thead>
 												<tbody>
-													<cfoutput query="conferencelist">
+													<cfoutput query="fieldlist">
 														<tr>
 															<cfif isuserinrole( "admin" )>
 																<td>
-																	<a class="btn btn-sm btn-primary" href="#application.root#admin.conferences&fuseaction=conference.edit&id=#confid#" title="Edit Conference"><i class="fa fa-edit"></i></a>
-																	<a class="btn btn-sm btn-danger" href="#application.root#admin.conferences&fuseaction=conference.delete&id=#confid#" title="Delete Conference"><i class="fa fa-trash"></i></a>
+																	<a class="btn btn-sm btn-primary" href="#application.root#admin.fields&fuseaction=field.edit&id=#fieldid#" title="Edit Field Details"><i class="fa fa-edit"></i></a>
+																	<a class="btn btn-sm btn-danger" href="#application.root#admin.fields&fuseaction=field.delete&id=#fieldid#" title="Delete Field Details"><i class="fa fa-trash"></i></a>
 																</td>
 															</cfif>
 															<td>#statename#</td>
-															<td>#conftype#</td>	
-															<td><strong>#confname#</strong></td>																																								
+															<td>#confname#</td>
+															<td><strong><a href="#application.root#admin.fields&fuseaction=field.view&id=#fieldid#">#fieldname#</a></strong></td>
+															<td><small>#fieldaddress1# <a href="" style="margin-left:5px;"><i class="fa fa-map-marker"></i></a><cfif fieldaddress2 neq ""><br />#fieldaddress2#</cfif><br />#fieldcity#, #fieldstate# #fieldzip#</small></td>
+															<td><small>#fieldcontactname#<br />#fieldcontacttitle#<br />#fieldcontactnumber#</small></td>
 															<td><a href="##" title="Active"><i class="fa fa-check text-navy"></i></a></td>
 														</tr>
 													</cfoutput>																			 

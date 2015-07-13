@@ -2,7 +2,7 @@
 
 	
 
-		<!--- admin.states- administration --->
+		<!--- admin.conferences - administration --->
 		<cfinvoke component="apis.com.admin.conferenceadminservice" method="getconferences" returnvariable="conferencelist"></cfinvoke>
 		<cfinvoke component="apis.com.admin.stateadminservice" method="getstates" returnvariable="statelist"></cfinvoke>	
 		<cfif structkeyexists( url, "fuseaction" )>				

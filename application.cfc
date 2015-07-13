@@ -165,14 +165,14 @@
 								<cfset session.userid = #loginquery.userid# />								
 								<cfset session.username = "#loginquery.firstname# #loginquery.lastname#" />							
 								
-								<!--- Log this users activity to the database 
-								<cfquery datasource="#application.dsn#" name="logUser">
+								<!--- Log this users activity to the database --->
+								<cfquery name="logUser">
 									update dbo.users
 									   set lastlogindate = <cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />,
 									       lastloginip = <cfqueryparam value="#cgi.remote_addr#" cfsqltype="cf_sql_varchar" />
 									 where userid = <cfqueryparam value="#loginquery.userid#" cfsqltype="cf_sql_integer" />									   
 						        </cfquery>
-							   --->
+							   
 							    <!---Log this users activity to the login history table 
 								<cfquery datasource="#application.dsn#" name="logUser">
 									   insert into loginhistory(userid, logindate, loginip, username)

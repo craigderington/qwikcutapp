@@ -21,7 +21,9 @@
 											<table class="table table-striped">
 												<thead>
 													<tr>
-														<th>Actions</th>														
+														<cfif isuserinrole( "admin" )>
+															<th>Actions</th>
+														</cfif>
 														<th>Username </th>
 														<th>First Name </th>
 														<th>Last Name</th>
@@ -33,9 +35,12 @@
 												<tbody>
 													<cfoutput query="userlist">
 														<tr>
-															<td><a class="btn btn-sm btn-primary" href="#application.root#admin.users&fuseaction=user.edit&id=#userid#" title="Edit User"><i class="fa fa-edit"></i></a>
-															    <a class="btn btn-sm btn-danger" href="#application.root#admin.users&fuseaction=user.delete&id=#userid#" title="Delete User"><i class="fa fa-trash"></i></a>
-															</td>
+															<cfif isuserinrole( "admin" )>
+																<td>
+																	<a class="btn btn-sm btn-primary" href="#application.root#admin.users&fuseaction=user.edit&id=#userid#" title="Edit User"><i class="fa fa-edit"></i></a>
+																	<a class="btn btn-sm btn-danger" href="#application.root#admin.users&fuseaction=user.delete&id=#userid#" title="Delete User"><i class="fa fa-trash"></i></a>
+																</td>
+															</cfif>
 															<td><strong>#username#</strong></td>
 															<td>#firstname#</td>
 															<td>#lastname#</td>																										

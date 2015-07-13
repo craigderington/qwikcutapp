@@ -23,15 +23,24 @@
 						<cfinclude template="views/user-admin-page-heading.cfm">
 						
 						<!-- // include the user view -->
-						<cfif not structkeyexists( url, "fuseaction" )>				
-							<cfinclude template="views/users/user.list.cfm">
-						<cfelseif structkeyexists( url, "fuseaction" )>
-							<cfif trim( url.fuseaction ) eq "user.edit">
-								<cfinclude template="views/users/user.edit.cfm">
-							<cfelseif trim( url.fuseaction ) eq "user.delete">
-								<cfinclude template="views/users/user.delete.cfm">
-							<cfelseif trim( url.fuseaction ) eq "user.add">
-								<cfinclude template="views/users/user.add.cfm">
+						<cfif isuserinrole( "admin" )>
+						
+							<cfif not structkeyexists( url, "fuseaction" )>				
+								<cfinclude template="views/users/user.list.cfm">
+							<cfelseif structkeyexists( url, "fuseaction" )>
+								<cfif trim( url.fuseaction ) eq "user.edit">
+									<cfinclude template="views/users/user.edit.cfm">
+								<cfelseif trim( url.fuseaction ) eq "user.delete">
+									<cfinclude template="views/users/user.delete.cfm">
+								<cfelseif trim( url.fuseaction ) eq "user.add">
+									<cfinclude template="views/users/user.add.cfm">
+								<cfelse>
+									<!-- // no view found, show message -->
+									<div class="alert alert-danger" style="margin-top:10px;">
+										<h4><i class="fa fa-warning"></i> SYSTEM ALERT</h4>
+										<p>The selected view could not be found...  Please <a class="alert-link" href="#application.root#user.home">click here</a> to navigate to the homepage.</p>
+									</div>
+								</cfif>
 							<cfelse>
 								<!-- // no view found, show message -->
 								<div class="alert alert-danger" style="margin-top:10px;">
@@ -39,12 +48,15 @@
 									<p>The selected view could not be found...  Please <a class="alert-link" href="#application.root#user.home">click here</a> to navigate to the homepage.</p>
 								</div>
 							</cfif>
+							
 						<cfelse>
+						
 							<!-- // no view found, show message -->
-							<div class="alert alert-danger" style="margin-top:10px;">
-								<h4><i class="fa fa-warning"></i> SYSTEM ALERT</h4>
-								<p>The selected view could not be found...  Please <a class="alert-link" href="#application.root#user.home">click here</a> to navigate to the homepage.</p>
-							</div>
+								<div class="alert alert-danger" style="margin-top:10px;">
+									<h4><i class="fa fa-warning fa-3x"></i> SYSTEM ALERT</h4>
+									<p>You are attempting to access a restricted resource within this system without proper authorization.   Please <a class="alert-link" href="#application.root#user.home">click here</a> to navigate away from this page.</p>
+								</div>
+						
 						</cfif>
 						
 						

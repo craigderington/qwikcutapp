@@ -41,7 +41,7 @@
 												</div>
 												<div class="col-lg-3">
 													<a href="#application.root#admin.conferences">
-														<div class="widget style1 red-bg">
+														<div class="widget style1 navy-bg">
 															<div class="row vertical-align">
 																<div class="col-xs-3">
 																	<i class="fa fa-shield fa-3x"></i>
@@ -86,7 +86,7 @@
 												</div>
 												<div class="col-lg-3">
 													<a  href="#application.root#admin.games">
-														<div class="widget style1 red-bg">
+														<div class="widget style1 blue-bg">
 															<div class="row vertical-align">
 																<div class="col-xs-3">
 																	<i class="fa fa-play fa-3x"></i>
@@ -101,7 +101,7 @@
 												</div>
 												<div class="col-lg-3">
 													<a href="#application.root#admin.shooters">
-														<div class="widget style1 yellow-bg">
+														<div class="widget style1 navy-bg">
 															<div class="row vertical-align">
 																<div class="col-xs-3">
 																	<i class="fa fa-camera fa-3x"></i>
