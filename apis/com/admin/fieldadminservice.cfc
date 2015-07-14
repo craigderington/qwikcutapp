@@ -14,7 +14,12 @@
 			  from fields f, conferences c, states s
 			 where f.confid = c.confid
 			   and c.stateid = s.stateid
-			   and f.confid = <cfqueryparam value="#arguments.conferenceid#" cfsqltype="cf_sql_integer" />
+			   <!---and f.confid = <cfqueryparam value="#arguments.conferenceid#" cfsqltype="cf_sql_integer" />--->
+			   <cfif structkeyexists( form, "filterresults" )>
+					<cfif structkeyexists( form, "state" )>
+						and s.stateid = <cfqueryparam value="#form.state#" cfsqltype="cf_sql_integer" />
+					</cfif>
+			   </cfif>
 			 order by f.fieldname asc
 		</cfquery>
 		<cfreturn fieldlist>

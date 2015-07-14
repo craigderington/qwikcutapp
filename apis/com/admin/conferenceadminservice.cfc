@@ -11,6 +11,14 @@
 					       s.statename, s.stateabbr					       
 					  from dbo.conferences c, dbo.states s
 					 where c.stateid = s.stateid
+						   <cfif structkeyexists( form, "filterresults" )>
+								<cfif structkeyexists( form, "state" ) and trim( form.state ) neq "">
+									and s.stateid = <cfqueryparam value="#form.state#" cfsqltype="cf_sql_integer" />
+								</cfif>
+								<cfif structkeyexists( form, "conferencetype" ) and trim( form.conferencetype ) neq "">
+									and c.conftype = <cfqueryparam value="#form.conferencetype#" cfsqltype="cf_sql_varchar" />
+								</cfif>
+						   </cfif>
 				  order by c.stateid, c.confname asc
 			</cfquery>
 		<cfreturn conferencelist>

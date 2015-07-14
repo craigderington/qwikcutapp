@@ -23,6 +23,6 @@
 					 where stateid = <cfqueryparam value="#arguments.stateid#" cfsqltype="cf_sql_integer" /> 
 				</cfquery>
 		<cfreturn statedetail>
-	</cffunction>		
-			
+	</cffunction>
+	
 </cfcomponent>

@@ -14,16 +14,24 @@
 									
 								<div class="ibox" style="margin-top:-15px;">								
 									<div class="ibox-title">
-										<h5>Field Details | #fielddetail.fieldname#</h5>
+										<h5>Field Details | #fielddetail.fieldname#  <a href="#application.root##url.event#" style="margin-left:20px;margin-top:-2px;" class="btn btn-white btn-xs"><i class="fa fa-arrow-circle-left"></i> Return to Fields</a></h5>
 									</div>
 										
 									<div class="ibox-content">									
 										<div class="tabs-container">
 											<ul class="nav nav-tabs">
-												<li class="active"><a data-toggle="tab" href="##tab-1"> Field Details</a></li>
-												<li class=""><a data-toggle="tab" href="##tab-2"> Edit Field</a></li>
-												<li class=""><a data-toggle="tab" href="##tab-3"> Field Contacts</a></li>
-												<li class=""><a data-toggle="tab" href="##tab-4"> More &raquo;</a></li>
+												<li class="active"><a data-toggle="tab" href="##tab-1"><i class="fa fa-stop"></i> Field Details</a></li>
+												<li class=""><a data-toggle="tab" href="##tab-2"><i class="fa fa-group"></i> Field Contacts</a></li>
+												<li class=""><a data-toggle="tab" href="##tab-3"><i class="fa fa-play"></i> Scheduled Games</a></li>
+												<li class="dropdown">
+													<a aria-expanded="false" role="button" href="##" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog"></i> Fields Options <span class="caret"></span></a>
+													<ul role="menu" class="dropdown-menu">
+														<li><a href="">Options Item 1</a></li>
+														<li><a href="">Options Item 2</a></li>
+														<li><a href="">Options Item 3</a></li>
+														<li><a href="">Options Item 4</a></li>
+													</ul>
+												</li>												
 											</ul>
 											
 											<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBy6kNfIxQ6yP_Q0wbyqdH-v93-gfh0miU"></script>

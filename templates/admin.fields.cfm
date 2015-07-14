@@ -12,12 +12,18 @@
 		<cfinvoke component="apis.com.admin.stateadminservice" method="getstates" returnvariable="statelist">
 		</cfinvoke>
 		
+		<!--- // data filters --->
+		<cfinvoke component="apis.com.admin.conferenceadminservice" method="getconferences" returnvariable="conferencelist">
+		</cfinvoke>
+		
 		<cfif structkeyexists( url, "fuseaction" )>
 			<cfif structkeyexists( url, "id" )>
 				<cfif url.id neq 0>
 					<cfinvoke component="apis.com.admin.fieldadminservice" method="getfielddetail" returnvariable="fielddetail">
 						<cfinvokeargument name="id" value="#url.id#">
 					</cfinvoke>
+				<cfelse>
+					<cfinvoke component="apis.com.admin.fieldadminservice" method="getstateforconference" returnvariable="stateconference">
 				</cfif>
 			</cfif>
 		</cfif>
