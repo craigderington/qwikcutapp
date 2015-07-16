@@ -28,7 +28,7 @@
 												
 												<!--- define our form structure and set form values --->
 												<cfset f = structnew() />
-												<cfset f.conferenceid = form.conferenceid />
+												<cfset f.stateid = form.stateid />
 												<cfset f.fieldname = trim( form.fieldname ) />
 												<cfset f.fieldactive = 1 />
 												<cfset f.fieldaddress1 = trim( form.fieldaddress1 ) />
@@ -41,9 +41,9 @@
 												<cfset f.fieldcontactnumber = trim( form.fieldcontactnumber ) />
 												
 													<cfquery name="addfield">
-														insert into fields(confid, fieldname, fieldactive, fieldaddress1, fieldaddress2, fieldcity, fieldstate, fieldzip, fieldcontactname, fieldcontacttitle, fieldcontactnumber)
+														insert into fields(stateid, fieldname, fieldactive, fieldaddress1, fieldaddress2, fieldcity, fieldstate, fieldzip, fieldcontactname, fieldcontacttitle, fieldcontactnumber)
 														 values(
-																<cfqueryparam value="#f.conferenceid#" cfsqltype="cf_sql_integer" />,
+																<cfqueryparam value="#f.stateid#" cfsqltype="cf_sql_integer" />,
 																<cfqueryparam value="#f.fieldname#" cfsqltype="cf_sql_varchar" maxlength="50" />,
 																<cfqueryparam value="#f.fieldactive#" cfsqltype="cf_sql_bit" />,
 																<cfqueryparam value="#f.fieldaddress1#" cfsqltype="cf_sql_varchar" maxlength="50" />,
@@ -82,17 +82,7 @@
 											<fieldset class="form-horizontal">				
 												<div class="form-group"><label class="col-sm-2 control-label">Field:</label>
 													<div class="col-sm-10"><input type="text" name="fieldname" class="form-control" placeholder="Field Name" /></div>
-												</div>																
-												<div class="form-group"><label class="col-sm-2 control-label">Conference:</label>
-													<div class="col-sm-10">
-														<select class="form-control" name="conferenceid">
-															<option value="">Select Conference</option>
-																<cfloop query="conferencelist">															
-																	<option value="#confid#">#conferencelist.stateabbr# - #conferencelist.confname#</option>
-																</cfloop>
-														</select>
-													</div>
-												</div>
+												</div>											
 												<div class="form-group"><label class="col-sm-2 control-label">Address:</label>
 													<div class="col-sm-10"><input type="text" name="fieldaddress1" class="form-control" placeholder="Address 1" /></div>
 												</div>
@@ -103,7 +93,14 @@
 													<div class="col-sm-10"><input type="text" name="fieldcity" class="form-control" placeholder="City" /></div>
 												</div>
 												<div class="form-group"><label class="col-sm-2 control-label">State:</label>
-													<div class="col-sm-10"><input type="text" name="fieldstate" maxlength="2" class="form-control" placeholder="State" value="" /></div>
+													<div class="col-sm-10">
+														<select class="form-control" name="stateid">
+															<option value="">Select State</option>
+																<cfloop query="statelist">															
+																	<option value="#stateid#">#statename#</option>
+																</cfloop>
+														</select>
+													</div>
 												</div>
 												<div class="form-group"><label class="col-sm-2 control-label">Zip:</label>
 													<div class="col-sm-10"><input type="text" name="fieldzip" maxlength="5" class="form-control" placeholder="Zip Code" /></div>
@@ -123,7 +120,7 @@
 													<div class="col-lg-offset-2 col-lg-10">
 														<button class="btn btn-primary" type="submit" name="stateFieldRecord"><i class="fa fa-save"></i> Save Field</button>
 														<a href="#application.root##url.event#" class="btn btn-default"><i class="fa fa-remove"></i> Cancel</a>																		
-														<input name="validate_require" type="hidden" value="conferenceid|Please select a conference for this field.;fieldname|Please enter a name for this field.;fieldaddress1|Please enter the primary address.;fieldcity|Please enter the city for this field.;fieldstate|Please select the state.;fieldzip|Please enter the field zip code.;fieldcontactname|Please enter the field contact name.;fieldcontactnumber|Please enter the primary contacts phone number.;fieldcontacttitle|Please enter the field contact title." />																
+														<input name="validate_require" type="hidden" value="stateid|Please select a state for this field.;fieldname|Please enter a name for this field.;fieldaddress1|Please enter the primary address.;fieldcity|Please enter the city for this field.;fieldzip|Please enter the field zip code.;fieldcontactname|Please enter the field contact name.;fieldcontactnumber|Please enter the primary contacts phone number.;fieldcontacttitle|Please enter the field contact title." />																
 													</div>
 												</div>																
 											</fieldset>

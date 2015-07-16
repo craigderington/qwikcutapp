@@ -8,18 +8,16 @@
 		<cfargument name="conferenceid" type="numeric" required="yes" default="1">
 		<cfset var fieldlist = "" />
 		<cfquery name="fieldlist">
-			select f.fieldid, f.confid, f.fieldname, f.fieldaddress1, f.fieldaddress2, f.fieldcity, f.fieldstate, f.fieldzip,
+			select f.fieldid, f.stateid, f.fieldname, f.fieldaddress1, f.fieldaddress2, f.fieldcity, f.fieldstate, f.fieldzip,
 				   f.fieldcontactnumber, f.fieldcontactname, f.fieldcontacttitle, f.fieldactive, 
-				   c.conftype, c.confname, s.statename
-			  from fields f, conferences c, states s
-			 where f.confid = c.confid
-			   and c.stateid = s.stateid
-			   <!---and f.confid = <cfqueryparam value="#arguments.conferenceid#" cfsqltype="cf_sql_integer" />--->
-			   <cfif structkeyexists( form, "filterresults" )>
-					<cfif structkeyexists( form, "state" )>
-						and s.stateid = <cfqueryparam value="#form.state#" cfsqltype="cf_sql_integer" />
-					</cfif>
-			   </cfif>
+				   s.statename, s.stateabbr
+			  from fields f, states s
+			 where f.stateid = s.stateid			  
+				   <cfif structkeyexists( form, "filterresults" )>
+						<cfif structkeyexists( form, "state" )>
+							and s.stateid = <cfqueryparam value="#form.state#" cfsqltype="cf_sql_integer" />
+						</cfif>
+				   </cfif>
 			 order by f.fieldname asc
 		</cfquery>
 		<cfreturn fieldlist>
@@ -29,12 +27,11 @@
 		<cfargument name="id" type="numeric" required="yes" default="#url.id#">
 		<cfset var fielddetail = "" />
 		<cfquery name="fielddetail">
-			select f.fieldid, f.confid, f.fieldname, f.fieldaddress1, f.fieldaddress2, f.fieldcity, f.fieldstate, f.fieldzip,
+			select f.fieldid, f.stateid, f.fieldname, f.fieldaddress1, f.fieldaddress2, f.fieldcity, f.fieldstate, f.fieldzip,
 				   f.fieldcontactnumber, f.fieldcontactname, f.fieldcontacttitle, f.fieldactive, 
-				   c.conftype, c.confname, c.stateid, s.statename
-			  from fields f, conferences c, states s
-			 where f.confid = c.confid
-			   and c.stateid = s.stateid
+				   s.statename, s.stateabbr
+			  from fields f, states s
+			 where f.stateid = s.stateid
 			   and f.fieldid = <cfqueryparam value="#arguments.id#" cfsqltype="cf_sql_integer" />
 		</cfquery>
 		<cfreturn fielddetail>

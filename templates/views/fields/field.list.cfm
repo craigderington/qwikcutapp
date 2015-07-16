@@ -12,7 +12,7 @@
 											<h5><i class="fa fa-search"></i> Filter Your Results</h5>
 										</div>
 										<div class="ibox-content m-b-sm border-bottom">
-											<form class="form-horizontal" name="data-filter" method="post" action="">
+											<form name="data-filter" method="post" action="">
 												<div class="row">
 													<div class="col-sm-2">
 														<div class="form-group">
@@ -34,27 +34,23 @@
 																<option value="YF">Youth Football</option>
 															</select>
 														</div>
-													</div>											
-													<div class="col-sm-3">
-														<div class="form-group">
-															<label class="control-label" for="">Conference</label>
-															<select name="conference" id="conference" class="form-control">
-																<option value="" selected>Filter by Conference</option>
-																<cfloop query="conferencelist">
-																	<option value="#confid#">#stateabbr# - #confname#</option>
-																</cfloop>
-															</select>
-														</div>
-													</div>									
+													</div>																				
 													<div class="col-sm-3">
 														<div class="form-group">
 															<label class="control-label" for="product_name">Field Name</label>
 															<input type="text" id="fieldname" name="fieldname" value="" placeholder="Search by Field Name" class="form-control">
 														</div>
 													</div>
+													<div class="col-sm-3">
+														<div class="form-group">
+															<label class="control-label" for="product_name">Zip Code</label>
+															<input type="text" id="zipcode" name="zipcode" value="" placeholder="Search by Zip Code" class="form-control">
+														</div>
+													</div>
 													<input name="filterresults" type="hidden" value="true" />													
+													<!---<button type="submit" name="filterresults" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> Filter Results</button>--->
 													<cfif structkeyexists( form, "filterresults" )>
-														<a style="margin-left:3px;margin-top:23px;" href="#application.root##url.event#" class="btn btn-md btn-white"><i class="fa fa-remove"></i> Reset Filters</a>
+														<a style="margin-left:3px;margin-top:24px;" href="#application.root##url.event#" class="btn btn-md btn-success"><i class="fa fa-remove"></i> Reset Filters</a>
 													</cfif>
 												</div>
 											</form>
@@ -84,7 +80,6 @@
 																<th>Actions</th>
 															</cfif>
 															<th>State</th>														
-															<th>Conference</th>
 															<th>Field Name</th>
 															<th>Address</th>
 															<th>Field Contact</th>
@@ -100,8 +95,7 @@
 																		<a class="btn btn-sm btn-danger" href="#application.root#admin.fields&fuseaction=field.delete&id=#fieldid#" title="Delete Field Details"><i class="fa fa-trash"></i></a>
 																	</td>
 																</cfif>
-																<td>#statename#</td>
-																<td>#confname#</td>
+																<td>#statename#</td>																
 																<td><strong><a href="#application.root#admin.fields&fuseaction=field.view&id=#fieldid#">#fieldname#</a></strong></td>
 																<td><small>#fieldaddress1# <a href="" style="margin-left:5px;"><i class="fa fa-map-marker"></i></a><cfif fieldaddress2 neq ""><br />#fieldaddress2#</cfif><br />#fieldcity#, #fieldstate# #fieldzip#</small></td>
 																<td><small>#fieldcontactname#<br />#fieldcontacttitle#<br />#fieldcontactnumber#</small></td>
