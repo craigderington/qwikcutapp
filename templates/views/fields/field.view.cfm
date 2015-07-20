@@ -3,8 +3,8 @@
 
 
 
-
-			
+					<!--- // get the google map geocoder api --->
+					<cfinclude template="../../../apis/udfs/geocoder.cfm">
 
 
 
@@ -14,15 +14,16 @@
 									
 								<div class="ibox" style="margin-top:-15px;">								
 									<div class="ibox-title">
-										<h5>Field Details | #fielddetail.fieldname#  <a href="#application.root##url.event#" style="margin-left:20px;margin-top:-2px;" class="btn btn-white btn-xs"><i class="fa fa-arrow-circle-left"></i> Return to Fields</a></h5>
+										<h5>Field Details | #fielddetail.fieldname#  <a href="#application.root##url.event#" style="margin-left:20px;margin-top:-2px;" class="btn btn-white btn-xs"><i class="fa fa-arrow-circle-left"></i> Return to Fields</a><cfif isuserinrole( "admin" )><a href="#application.root##url.event#&fuseaction=field.edit&id=#url.id#" style="margin-left:10px;margin-top:-2px;" class="btn btn-default btn-xs"><i class="fa fa-edit"></i> Edit Field</a></cfif></h5>
 									</div>
 										
 									<div class="ibox-content">									
 										<div class="tabs-container">
 											<ul class="nav nav-tabs">
 												<li class="active"><a data-toggle="tab" href="##tab-1"><i class="fa fa-stop"></i> Field Details</a></li>
-												<li class=""><a data-toggle="tab" href="##tab-2"><i class="fa fa-group"></i> Field Contacts</a></li>
-												<li class=""><a data-toggle="tab" href="##tab-3"><i class="fa fa-play"></i> Scheduled Games</a></li>
+												<li class=""><a href="#application.root##url.event#&fuseaction=field.contacts&id=#url.id#"><i class="fa fa-group"></i> Field Contacts</a></li>
+												<li class=""><a href="#application.root##url.event#&fuseaction=field.games&id=#url.id#"><i class="fa fa-play"></i> Scheduled Games</a></li>																							
+												<!--- // remove until needed 
 												<li class="dropdown">
 													<a aria-expanded="false" role="button" href="##" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog"></i> Fields Options <span class="caret"></span></a>
 													<ul role="menu" class="dropdown-menu">
@@ -31,7 +32,8 @@
 														<li><a href="">Options Item 3</a></li>
 														<li><a href="">Options Item 4</a></li>
 													</ul>
-												</li>												
+												</li>
+												--->												
 											</ul>
 											
 											<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBy6kNfIxQ6yP_Q0wbyqdH-v93-gfh0miU"></script>
@@ -45,8 +47,9 @@
 																	<div class="col-sm-10"><input type="text" class="form-control" placeholder="Field ID" value="#fielddetail.fieldid#" readonly></div>
 																</div>
 																<div class="form-group"><label class="col-sm-2 control-label">Field:</label>
-																	<div class="col-sm-10"><input type="text" class="form-control" placeholder="Address" value="#fielddetail.fieldname#"></div>
+																	<div class="col-sm-10"><input type="text" class="form-control" placeholder="Field Name" value="#fielddetail.fieldname#"></div>
 																</div>																
+																<!---
 																<div class="form-group"><label class="col-sm-2 control-label">Conference:</label>
 																	<div class="col-sm-10">
 																		<select class="form-control" >
@@ -55,6 +58,7 @@
 																		</select>
 																	</div>
 																</div>
+																--->
 																<div class="form-group"><label class="col-sm-2 control-label">Address:</label>
 																	<div class="col-sm-10"><input type="text" class="form-control" placeholder="Address" value="#fielddetail.fieldaddress1#"></div>
 																</div>
@@ -65,7 +69,14 @@
 																	<div class="col-sm-10"><input type="text" class="form-control" placeholder="City" value="#fielddetail.fieldcity#"></div>
 																</div>
 																<div class="form-group"><label class="col-sm-2 control-label">State:</label>
-																	<div class="col-sm-10"><input type="text" class="form-control" placeholder="State" value="#fielddetail.fieldstate#"></div>
+																	<div class="col-sm-10">
+																		<select class="form-control" name="stateid">
+																			<option value=""></option>
+																			<cfloop query="statelist">
+																				<option value="#statelist.stateid#"<cfif fielddetail.stateid eq statelist.stateid>selected</cfif>>#statelist.statename#</option>
+																			</cfloop>
+																		</select>
+																	</div>
 																</div>
 																<div class="form-group"><label class="col-sm-2 control-label">Zip:</label>
 																	<div class="col-sm-10"><input type="text" class="form-control" placeholder="Zip Code" value="#fielddetail.fieldzip#"></div>
@@ -73,8 +84,8 @@
 																<div class="form-group"><label class="col-sm-2 control-label">Status:</label>
 																	<div class="col-sm-10">
 																		<select class="form-control" >
-																			<option>option 1</option>
-																			<option>option 2</option>
+																			<option value="1"<cfif trim( fielddetail.fieldactive ) eq 1>selected</cfif>>Field Active</option>
+																			<option value="0"<cfif trim( fielddetail.fieldactive ) eq 0>selected</cfif>>Field Inactive</option>
 																		</select>
 																	</div>
 																</div>
@@ -108,22 +119,22 @@
 													<script type="text/javascript">
 														// When the window has finished loading google map
 														google.maps.event.addDomListener(window, 'load', init);
-
 														function init() {
 															// Options for Google map															
 															var mapOptions1 = {
-																zoom: 13,
-																center: new google.maps.LatLng(28.720768, -81.310818),
+																zoom: 15,
+																center: new google.maps.LatLng(<cfoutput>#thislat#, #thislong#</cfoutput>),
 															};					
 															
 															// Get all html elements for map
 															var mapElement1 = document.getElementById('map1');														
-
 															// Create the Google Map using elements
 															var map1 = new google.maps.Map(mapElement1, mapOptions1);
 															
 														}
-													</script>	
+													</script>
+
+													
 												
 												
 												

@@ -28,7 +28,7 @@
 													<div class="col-sm-2">
 														<div class="form-group">
 															<label class="control-label" for="">Type</label>
-															<select name="conferencetype" id="conferencetype" class="form-control">
+															<select name="conferencetype" id="conferencetype" class="form-control" onchange="javascript:this.form.submit();">
 																<option value="" selected>Filter by Type</option>
 																<option value="HS">High School Football</option>
 																<option value="YF">Youth Football</option>

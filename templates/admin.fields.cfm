@@ -29,31 +29,48 @@
 						<!-- // include the page heading --->
 						<cfinclude template="views/field-admin-page-heading.cfm">
 						
-						<!-- // include the view state -->
-						<cfif not structkeyexists( url, "fuseaction" )>				
-							<cfinclude template="views/fields/field.list.cfm">
-						<cfelseif structkeyexists( url, "fuseaction" )>
-							<cfif trim( url.fuseaction ) eq "field.edit">
-								<cfinclude template="views/field/field.edit.cfm">
-							<cfelseif trim( url.fuseaction ) eq "field.delete">
-								<cfinclude template="views/fields/field.delete.cfm">
-							<cfelseif trim( url.fuseaction ) eq "field.add">
-								<cfinclude template="views/fields/field.add.cfm">
-							<cfelseif trim( url.fuseaction ) eq "field.view">
-								<cfinclude template="views/fields/field.view.cfm">
+						<!--- // check the users role --->
+						<cfif isuserinrole( "admin" )>						
+						
+							<!-- // include the view state -->
+							<cfif not structkeyexists( url, "fuseaction" )>				
+								<cfinclude template="views/fields/field.list.cfm">
+							<cfelseif structkeyexists( url, "fuseaction" )>
+								<cfif trim( url.fuseaction ) eq "field.edit">
+									<cfinclude template="views/fields/field.edit.cfm">
+								<cfelseif trim( url.fuseaction ) eq "field.delete">
+									<cfinclude template="views/fields/field.delete.cfm">
+								<cfelseif trim( url.fuseaction ) eq "field.add">
+									<cfinclude template="views/fields/field.add.cfm">
+								<cfelseif trim( url.fuseaction ) eq "field.view">
+									<cfinclude template="views/fields/field.view.cfm">
+								<cfelseif trim( url.fuseaction ) eq "field.contacts">
+									<cfinclude template="views/fields/field.contacts.cfm">
+								<cfelseif trim( url.fuseaction ) eq "field.games">
+									<cfinclude template="views/fields/field.games.cfm">
+								<cfelse>
+									<!-- // no view found, show message -->
+									<div class="alert alert-danger" style="margin-top:10px;">
+										<h4><i class="fa fa-warning"></i> SYSTEM ALERT</h4>
+										<p>The selected view could not be found...  Please <a class="alert-link" href="#application.root#user.home">click here</a> to navigate to the homepage.</p>
+									</div>						
+								</cfif>
 							<cfelse>
 								<!-- // no view found, show message -->
 								<div class="alert alert-danger" style="margin-top:10px;">
 									<h4><i class="fa fa-warning"></i> SYSTEM ALERT</h4>
 									<p>The selected view could not be found...  Please <a class="alert-link" href="#application.root#user.home">click here</a> to navigate to the homepage.</p>
-								</div>						
+								</div>
 							</cfif>
+						
 						<cfelse>
+						
 							<!-- // no view found, show message -->
-							<div class="alert alert-danger" style="margin-top:10px;">
-								<h4><i class="fa fa-warning"></i> SYSTEM ALERT</h4>
-								<p>The selected view could not be found...  Please <a class="alert-link" href="#application.root#user.home">click here</a> to navigate to the homepage.</p>
-							</div>
+								<div class="alert alert-danger" style="margin-top:10px;">
+									<h4><i class="fa fa-warning fa-3x"></i> SYSTEM ALERT</h4>
+									<p>You are attempting to access a restricted resource within this system without proper authorization.   Please <a class="alert-link" href="#application.root#user.home">click here</a> to navigate away from this page.</p>
+								</div>
+						
 						</cfif>
 						
 						

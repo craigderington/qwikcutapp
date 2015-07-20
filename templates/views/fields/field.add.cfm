@@ -33,23 +33,21 @@
 												<cfset f.fieldactive = 1 />
 												<cfset f.fieldaddress1 = trim( form.fieldaddress1 ) />
 												<cfset f.fieldaddress2 = trim( form.fieldaddress2 ) />
-												<cfset f.fieldcity = trim( form.fieldcity ) />
-												<cfset f.fieldstate = trim( ucase( form.fieldstate )) />
+												<cfset f.fieldcity = trim( form.fieldcity ) />												
 												<cfset f.fieldzip = form.fieldzip />
 												<cfset f.fieldcontactname = trim( form.fieldcontactname ) />
 												<cfset f.fieldcontacttitle = trim( form.fieldcontacttitle ) />
 												<cfset f.fieldcontactnumber = trim( form.fieldcontactnumber ) />
 												
 													<cfquery name="addfield">
-														insert into fields(stateid, fieldname, fieldactive, fieldaddress1, fieldaddress2, fieldcity, fieldstate, fieldzip, fieldcontactname, fieldcontacttitle, fieldcontactnumber)
+														insert into fields(stateid, fieldname, fieldactive, fieldaddress1, fieldaddress2, fieldcity, fieldzip, fieldcontactname, fieldcontacttitle, fieldcontactnumber)
 														 values(
 																<cfqueryparam value="#f.stateid#" cfsqltype="cf_sql_integer" />,
 																<cfqueryparam value="#f.fieldname#" cfsqltype="cf_sql_varchar" maxlength="50" />,
 																<cfqueryparam value="#f.fieldactive#" cfsqltype="cf_sql_bit" />,
 																<cfqueryparam value="#f.fieldaddress1#" cfsqltype="cf_sql_varchar" maxlength="50" />,
 																<cfqueryparam value="#f.fieldaddress2#" cfsqltype="cf_sql_varchar" maxlength="50" />,
-																<cfqueryparam value="#f.fieldcity#" cfsqltype="cf_sql_varchar" maxlength="50" />,
-																<cfqueryparam value="#f.fieldstate#" cfsqltype="cf_sql_varchar" maxlength="2" />,
+																<cfqueryparam value="#f.fieldcity#" cfsqltype="cf_sql_varchar" maxlength="50" />,																
 																<cfqueryparam value="#f.fieldzip#" cfsqltype="cf_sql_numeric" />,
 																<cfqueryparam value="#f.fieldcontactname#" cfsqltype="cf_sql_varchar" maxlength="50" />,
 																<cfqueryparam value="#f.fieldcontacttitle#" cfsqltype="cf_sql_varchar" maxlength="50" />,
@@ -81,41 +79,41 @@
 										<form class="form-horizontal" method="post" action="#application.root##url.event#&fuseaction=#url.fuseaction#">
 											<fieldset class="form-horizontal">				
 												<div class="form-group"><label class="col-sm-2 control-label">Field:</label>
-													<div class="col-sm-10"><input type="text" name="fieldname" class="form-control" placeholder="Field Name" /></div>
+													<div class="col-sm-10"><input type="text" name="fieldname" class="form-control" placeholder="Field Name" <cfif isdefined( "form.fieldname" )>value="#form.fieldname#"</cfif> /></div>
 												</div>											
 												<div class="form-group"><label class="col-sm-2 control-label">Address:</label>
-													<div class="col-sm-10"><input type="text" name="fieldaddress1" class="form-control" placeholder="Address 1" /></div>
+													<div class="col-sm-10"><input type="text" name="fieldaddress1" class="form-control" placeholder="Address 1" <cfif isdefined( "form.fieldaddress1" )>value="#form.fieldaddress1#"</cfif> /></div>
 												</div>
 												<div class="form-group"><label class="col-sm-2 control-label">Address:</label>
-													<div class="col-sm-10"><input type="text" name="fieldaddress2" class="form-control" placeholder="Address 2" /></div>
+													<div class="col-sm-10"><input type="text" name="fieldaddress2" class="form-control" placeholder="Address 2" <cfif isdefined( "form.fieldaddress2" )>value="#form.fieldaddress2#"</cfif> /></div>
 												</div>
 												<div class="form-group"><label class="col-sm-2 control-label">City:</label>
-													<div class="col-sm-10"><input type="text" name="fieldcity" class="form-control" placeholder="City" /></div>
+													<div class="col-sm-10"><input type="text" name="fieldcity" class="form-control" placeholder="City" <cfif isdefined( "form.fieldcity" )>value="#form.fieldcity#"</cfif> /></div>
 												</div>
 												<div class="form-group"><label class="col-sm-2 control-label">State:</label>
 													<div class="col-sm-10">
 														<select class="form-control" name="stateid">
 															<option value="">Select State</option>
 																<cfloop query="statelist">															
-																	<option value="#stateid#">#statename#</option>
+																	<option value="#stateid#"<cfif isdefined( "form.stateid" )><cfif form.stateid = statelist.stateid>selected</cfif></cfif>>#statename#</option>
 																</cfloop>
 														</select>
 													</div>
 												</div>
 												<div class="form-group"><label class="col-sm-2 control-label">Zip:</label>
-													<div class="col-sm-10"><input type="text" name="fieldzip" maxlength="5" class="form-control" placeholder="Zip Code" /></div>
+													<div class="col-sm-10"><input type="text" name="fieldzip" maxlength="5" class="form-control" placeholder="Zip Code" <cfif isdefined( "form.fieldzip" )>value="#form.fieldzip#"</cfif> /></div>
 												</div>													
 												<div class="form-group"><label class="col-sm-2 control-label">Contact:</label>
-													<div class="col-sm-10"><input type="text" name="fieldcontactname" class="form-control" placeholder="Primary Contact" /></div>
+													<div class="col-sm-10"><input type="text" name="fieldcontactname" class="form-control" placeholder="Primary Contact" <cfif isdefined( "form.fieldcontactname" )>value="#form.fieldcontactname#"</cfif> /></div>
 												</div>
 												<div class="form-group"><label class="col-sm-2 control-label">Title:</label>
-													<div class="col-sm-10"><input type="text" name="fieldcontacttitle" class="form-control" placeholder="Primary Contact Title" /></div>
+													<div class="col-sm-10"><input type="text" name="fieldcontacttitle" class="form-control" placeholder="Primary Contact Title" <cfif isdefined( "form.fieldcontacttitle" )>value="#form.fieldcontacttitle#"</cfif>  /></div>
 												</div>
 												<div class="form-group"><label class="col-sm-2 control-label">Number:</label>
-													<div class="col-sm-10"><input type="text" name="fieldcontactnumber" class="form-control" placeholder="Contact Phone Number" /></div>
+													<div class="col-sm-10"><input type="text" name="fieldcontactnumber" class="form-control" placeholder="Contact Phone Number" <cfif isdefined( "form.fieldcontactnumber" )>value="#form.fieldcontactnumber#"</cfif> /></div>
 												</div>
 												<br />
-												<div class="hr-line-dashed" style-="margin-top:25px;"></div>
+												<div class="hr-line-dashed" style="margin-top:25px;"></div>
 												<div class="form-group">
 													<div class="col-lg-offset-2 col-lg-10">
 														<button class="btn btn-primary" type="submit" name="stateFieldRecord"><i class="fa fa-save"></i> Save Field</button>
