@@ -18,6 +18,9 @@
 										
 										<!--- // begin form processing --->
 										<cfif isDefined( "form.fieldnames" )>
+										
+											<cfset validate_require = "stateid|Please select a state for this field.;fieldname|Please enter a name for this field.;fieldaddress1|Please enter the primary address.;fieldcity|Please enter the city for this field.;fieldzip|Please enter the field zip code.;fieldcontactname|Please enter the field contact name.;fieldcontactnumber|Please enter the primary contacts phone number.;fieldcontacttitle|Please enter the field contact title." />
+											
 											<cfscript>
 												objValidation = createobject( "component","apis.udfs.validation" ).init();
 												objValidation.setFields( form );
@@ -118,7 +121,6 @@
 													<div class="col-lg-offset-2 col-lg-10">
 														<button class="btn btn-primary" type="submit" name="stateFieldRecord"><i class="fa fa-save"></i> Save Field</button>
 														<a href="#application.root##url.event#" class="btn btn-default"><i class="fa fa-remove"></i> Cancel</a>																		
-														<input name="validate_require" type="hidden" value="stateid|Please select a state for this field.;fieldname|Please enter a name for this field.;fieldaddress1|Please enter the primary address.;fieldcity|Please enter the city for this field.;fieldzip|Please enter the field zip code.;fieldcontactname|Please enter the field contact name.;fieldcontactnumber|Please enter the primary contacts phone number.;fieldcontacttitle|Please enter the field contact title." />																
 													</div>
 												</div>																
 											</fieldset>

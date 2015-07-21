@@ -2270,7 +2270,7 @@ table.dataTable thead .sorting:after {
 }
 /* Google Maps */
 .google-map {
-  height: 300px;
+  height: 400px;
 }
 /* Validation */
 label.error {

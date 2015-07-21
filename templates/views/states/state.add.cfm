@@ -15,6 +15,9 @@
                             
 							<!--- // begin form processing --->
 									<cfif isDefined( "form.fieldnames" )>
+									
+										<cfset form.validate_require = "statename|The state name is required to add a new record.;stateabbr|The state abbreviation is required to add a new state." />
+										
 										<cfscript>
 											objValidation = createobject( "component","apis.udfs.validation" ).init();
 											objValidation.setFields( form );
@@ -83,7 +86,6 @@
                                     <div class="col-lg-offset-2 col-lg-10">
                                         <button class="btn btn-primary" type="submit" name="stateSaveRecord"><i class="fa fa-save"></i> Save State</button>
 										<a href="#application.root#admin.states" class="btn btn-default"><i class="fa fa-remove"></i> Cancel</a>																		
-										<input name="validate_require" type="hidden" value="statename|The state name is required to add a new record.;stateabbr|The state abbreviation is required to add a new state." />																
 									</div>
                                 </div>
                             </form>

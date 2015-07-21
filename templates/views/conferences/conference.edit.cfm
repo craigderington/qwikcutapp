@@ -22,6 +22,9 @@
                             
 									<!--- // begin form processing --->
 									<cfif isDefined( "form.fieldnames" )>
+										
+										<cfset form.validate_require = "conferenceid|The form encountered an unexpected error.;conferencename|The conference name is required to edit the record.;stateid|The state id is required to edit the conference." />
+										
 										<cfscript>
 											objValidation = createobject( "component","apis.udfs.validation" ).init();
 											objValidation.setFields( form );
@@ -107,7 +110,6 @@
 												<button class="btn btn-primary" type="submit" name="conferenceSaveRecord"><i class="fa fa-save"></i> Save Conference</button>
 												<a href="#application.root#admin.conferences" class="btn btn-default"><i class="fa fa-remove"></i> Cancel</a>																		
 												<input type="hidden" name="conferenceid" value="#conferencedetail.confid#" />
-												<input name="validate_require" type="hidden" value="conferenceid|The form encountered an unexpected error.;conferencename|The conference name is required to edit the record.;stateid|The state id is required to edit the conference." />																
 											</div>
 										</div>
 									</form>

@@ -20,9 +20,10 @@
 									<div class="ibox-content">									
 										<div class="tabs-container">
 											<ul class="nav nav-tabs">
-												<li class="active"><a data-toggle="tab" href="##tab-1"><i class="fa fa-stop"></i> Field Details</a></li>
+												<li class="active"><a data-toggle="tab" href="##tab-1"><i class="fa fa-stop"></i> Edit Field Details</a></li>
 												<li class=""><a href="#application.root##url.event#&fuseaction=field.contacts&id=#url.id#"><i class="fa fa-group"></i> Field Contacts</a></li>
-												<li class=""><a href="#application.root##url.event#&fuseaction=field.games&id=#url.id#"><i class="fa fa-play"></i> Scheduled Games</a></li>																							
+												<li class=""><a href="#application.root##url.event#&fuseaction=field.games&id=#url.id#"><i class="fa fa-play"></i> Scheduled Games</a></li>
+												<li class=""><a href="#application.root##url.event#&fuseaction=field.map&id=#url.id#"><i class="fa fa-map-marker"></i> Field Map</a></li>
 											</ul>
 											
 											<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBy6kNfIxQ6yP_Q0wbyqdH-v93-gfh0miU"></script>
@@ -34,6 +35,9 @@
 														
 															<!--- // begin form processing --->
 															<cfif isDefined( "form.fieldnames" )>
+															
+																<cfset form.validate_require = "fieldid|Sorry, and internal error has occurred.;stateid|The state is required to edit this record.;fieldname|Please enter a name for this field.;fieldaddress1|Please enter the primary address.;fieldcity|Please enter the city for this field.;fieldzip|Please enter the field zip code.;fieldcontactname|Please enter the field contact name.;fieldcontactnumber|Please enter the primary contacts phone number.;fieldcontacttitle|Please enter the field contact title." />
+																
 																<cfscript>
 																	objValidation = createobject( "component","apis.udfs.validation" ).init();
 																	objValidation.setFields( form );
@@ -156,7 +160,6 @@
 																			<button class="btn btn-primary" type="submit" name="saveFieldRecord"><i class="fa fa-save"></i> Save Field</button>
 																			<a href="#application.root##url.event#" class="btn btn-default"><i class="fa fa-remove"></i> Cancel</a>																		
 																			<input type="hidden" name="fieldid" value="#fielddetail.fieldid#" />
-																			<input name="validate_require" type="hidden" value="fieldid|Sorry, and internal error has occurred.;stateid|The state is required to edit this record.;fieldname|Please enter a name for this field.;fieldaddress1|Please enter the primary address.;fieldcity|Please enter the city for this field.;fieldzip|Please enter the field zip code.;fieldcontactname|Please enter the field contact name.;fieldcontactnumber|Please enter the primary contacts phone number.;fieldcontacttitle|Please enter the field contact title." />																
 																		</div>
 																	</div>															
 																</fieldset>

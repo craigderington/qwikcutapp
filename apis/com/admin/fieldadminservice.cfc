@@ -4,8 +4,7 @@
 		<cfreturn this >
 	</cffunction>
 
-	<cffunction name="getfields" access="remote" output="false" hint="I get the list of fields.">
-		<cfargument name="conferenceid" type="numeric" required="yes" default="1">
+	<cffunction name="getfields" access="remote" output="false" hint="I get the list of fields.">		
 		<cfset var fieldlist = "" />
 		<cfquery name="fieldlist">
 			select f.fieldid, f.stateid, f.fieldname, f.fieldaddress1, f.fieldaddress2, f.fieldcity, f.fieldstate, f.fieldzip,
@@ -14,8 +13,14 @@
 			  from fields f, states s
 			 where f.stateid = s.stateid			  
 				   <cfif structkeyexists( form, "filterresults" )>
-						<cfif structkeyexists( form, "state" )>
+						<cfif structkeyexists( form, "state" ) and form.state neq "">
 							and s.stateid = <cfqueryparam value="#form.state#" cfsqltype="cf_sql_integer" />
+						</cfif>
+						<cfif structkeyexists( form, "fieldname" ) and form.fieldname neq "">
+							and f.fieldname LIKE <cfqueryparam value="#trim( form.fieldname )#%" cfsqltype="cf_sql_varchar" />
+						</cfif>
+						<cfif structkeyexists( form, "fieldzipcode" ) and form.fieldzipcode neq "">
+							and f.fieldzip = <cfqueryparam value="#form.fieldzipcode#" cfsqltype="cf_sql_numeric" />
 						</cfif>
 				   </cfif>
 			 order by f.fieldname asc
@@ -36,5 +41,33 @@
 		</cfquery>
 		<cfreturn fielddetail>
 	</cffunction>
+	
+	<cffunction name="getfieldcontacts" access="remote" output="false" hint="I get the field contacts list.">
+		<cfargument name="id" type="numeric" required="yes" default="#url.id#">
+		<cfset var fieldcontacts = "" />
+		<cfquery name="fieldcontacts">
+			select fc.fieldcontactid, fc.fieldid, fc.fieldcontactname, fc.fieldcontactnumber, fc.fieldcontacttitle, 
+			       fc.fieldcontactemail, f.fieldname
+			  from fieldcontacts fc, fields f
+			 where f.fieldid = fc.fieldid
+			   and fc.fieldid = <cfqueryparam value="#arguments.id#" cfsqltype="cf_sql_integer" />
+		</cfquery>
+		<cfreturn fieldcontacts>
+	</cffunction>
+	
+	<cffunction name="getfieldcontact" access="remote" output="false" hint="I get the field contact details.">
+		<cfargument name="id" type="numeric" required="yes" default="#url.contactid#">
+		<cfset var fieldcontactdetails = "" />
+		<cfquery name="fieldcontactdetails">
+			select fc.fieldcontactid, fc.fieldid, fc.fieldcontactname, fc.fieldcontactnumber, fc.fieldcontacttitle, 
+			       fc.fieldcontactemail, f.fieldname
+			  from fieldcontacts fc, fields f
+			 where f.fieldid = fc.fieldid
+			   and fc.fieldcontactid = <cfqueryparam value="#arguments.id#" cfsqltype="cf_sql_integer" />
+		</cfquery>
+		<cfreturn fieldcontactdetails>
+	</cffunction>
+	
+	
 
 </cfcomponent>

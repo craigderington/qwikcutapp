@@ -15,6 +15,9 @@
                             
 							<!--- // begin form processing --->
 									<cfif isDefined( "form.fieldnames" )>
+									
+										<cfset form.validate_require = "stateid|The form encountered an unexpected error." />                              
+									
 										<cfscript>
 											objValidation = createobject( "component","apis.udfs.validation" ).init();
 											objValidation.setFields( form );
@@ -91,8 +94,8 @@
                                         <button class="btn btn-danger" type="submit" name="stateSaveRecord"><i class="fa fa-save"></i> Delete State</button>
 										<a href="#application.root#admin.states" class="btn btn-default"><i class="fa fa-remove"></i> Cancel</a>																		
 										<input type="hidden" name="stateid" value="#statedetail.stateid#" />
-										<input name="validate_require" type="hidden" value="stateid|The form encountered an unexpected error." />
-                                </div>
+									</div>
+								</div>
                             </form>
                         </div>
                     </div>

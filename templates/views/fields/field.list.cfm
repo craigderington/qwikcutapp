@@ -25,6 +25,7 @@
 															</select>
 														</div>
 													</div>											
+													<!--- // remove conference type from filter
 													<div class="col-sm-2">
 														<div class="form-group">
 															<label class="control-label" for="">Type</label>
@@ -34,17 +35,18 @@
 																<option value="YF">Youth Football</option>
 															</select>
 														</div>
-													</div>																				
+													</div>
+													--->													
 													<div class="col-sm-3">
 														<div class="form-group">
 															<label class="control-label" for="product_name">Field Name</label>
-															<input type="text" id="fieldname" name="fieldname" value="" placeholder="Search by Field Name" class="form-control">
+															<input type="text" id="fieldname" name="fieldname" placeholder="Search by Field Name" class="form-control" <cfif structkeyexists( form, "fieldname" )>value="#trim( form.fieldname )#"</cfif> onchange="javascript:this.form.submit();" />
 														</div>
 													</div>
 													<div class="col-sm-3">
 														<div class="form-group">
 															<label class="control-label" for="product_name">Zip Code</label>
-															<input type="text" id="zipcode" name="zipcode" value="" placeholder="Search by Zip Code" class="form-control">
+															<input type="text" id="fieldzipcode" name="fieldzipcode" placeholder="Search by Zip Code" class="form-control" <cfif structkeyexists( form, "fieldzipcode" )>value="#trim( form.fieldzipcode )#"</cfif> onchange="javascript:this.form.submit();" />
 														</div>
 													</div>
 													<input name="filterresults" type="hidden" value="true" />													
@@ -97,7 +99,7 @@
 																</cfif>
 																<td>#statename#</td>																
 																<td><strong><a href="#application.root#admin.fields&fuseaction=field.view&id=#fieldid#">#fieldname#</a></strong></td>
-																<td><small>#fieldaddress1# <a href="" style="margin-left:5px;"><i class="fa fa-map-marker"></i></a><cfif fieldaddress2 neq ""><br />#fieldaddress2#</cfif><br />#fieldcity#, #fieldstate# #fieldzip#</small></td>
+																<td><small>#fieldaddress1# <a href="#application.root##url.event#&fuseaction=field.map&id=#fieldid#" style="margin-left:5px;"><i class="fa fa-map-marker"></i></a><cfif fieldaddress2 neq ""><br />#fieldaddress2#</cfif><br />#fieldcity#, #fieldstate# #fieldzip#</small></td>
 																<td><small>#fieldcontactname#<br />#fieldcontacttitle#<br />#fieldcontactnumber#</small></td>
 																<td><a href="##" title="Active"><i class="fa fa-check text-navy"></i></a></td>
 															</tr>

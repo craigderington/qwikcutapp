@@ -21,6 +21,9 @@
                             
 							<!--- // begin form processing --->
 									<cfif isDefined( "form.fieldnames" )>
+										
+										<cfset form.validate_require = "stateid|The state is required to add a new conference.;conferencename|The conference name is required to save the record.;conferencetype|Please select a conference type." />
+										
 										<cfscript>
 											objValidation = createobject( "component","apis.udfs.validation" ).init();
 											objValidation.setFields( form );
@@ -109,7 +112,6 @@
                                     <div class="col-lg-offset-2 col-lg-10">
                                         <button class="btn btn-primary" type="submit" name="stateSaveRecord"><i class="fa fa-save"></i> Save Conference</button>
 										<a href="#application.root#admin.conferences" class="btn btn-default"><i class="fa fa-remove"></i> Cancel</a>																		
-										<input name="validate_require" type="hidden" value="stateid|The state is required to add a new conference.;conferencename|The conference name is required to save the record.;conferencetype|Please select a conference type." />																
 									</div>
                                 </div>
                             </form>

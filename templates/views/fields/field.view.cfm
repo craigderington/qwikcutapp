@@ -22,7 +22,8 @@
 											<ul class="nav nav-tabs">
 												<li class="active"><a data-toggle="tab" href="##tab-1"><i class="fa fa-stop"></i> Field Details</a></li>
 												<li class=""><a href="#application.root##url.event#&fuseaction=field.contacts&id=#url.id#"><i class="fa fa-group"></i> Field Contacts</a></li>
-												<li class=""><a href="#application.root##url.event#&fuseaction=field.games&id=#url.id#"><i class="fa fa-play"></i> Scheduled Games</a></li>																							
+												<li class=""><a href="#application.root##url.event#&fuseaction=field.games&id=#url.id#"><i class="fa fa-play"></i> Scheduled Games</a></li>
+												<li class=""><a href="#application.root##url.event#&fuseaction=field.map&id=#url.id#"><i class="fa fa-map-marker"></i> Field Map</a></li>
 												<!--- // remove until needed 
 												<li class="dropdown">
 													<a aria-expanded="false" role="button" href="##" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog"></i> Fields Options <span class="caret"></span></a>
@@ -103,8 +104,8 @@
 														<div class="col-md-6">
 															<div class="ibox ">
 																<div class="ibox-title">
-																	<h5><i class="fa fa-map-marker"></i> Field Map  <span style="margin-left:10px;"><small>#fielddetail.fieldaddress1# #fielddetail.fieldaddress2# #fielddetail.fieldcity# #fielddetail.fieldstate# #fielddetail.fieldzip#</small></span></h5>
-																</div>
+																	<h5><i class="fa fa-map-marker"></i> <span style="margin-left:10px;"><small>#fielddetail.fieldaddress1# #fielddetail.fieldaddress2# #fielddetail.fieldcity# #fielddetail.fieldstate# #fielddetail.fieldzip#</small></span></h5>
+																</div>																
 																<div class="ibox-content">																
 																	<div class="google-map" id="map1"></div>
 																</div>

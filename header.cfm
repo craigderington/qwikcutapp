@@ -26,6 +26,7 @@
 					<!--- // shortcut icon --->
 					<link rel="shortcut icon" href="http://qwikcut.cloudapp.net/qwikcutapp/favicon.ico?v=2" type="image/x-icon" />
 					<link rel="icon" href="http://qwikcut.cloudapp.net/qwikcutapp/favicon.ico?v=2" type="image/x-icon">
+					<link rel="apple-touch-icon" href="http://qwikcut.cloudapp.net/qwikcutapp/img/qwikcut-icon-60x60.png"/>
 					
 					<!--- // also ensure that non-dynamic pages are not cached by the users browser --->
 					<META HTTP-EQUIV="expires" CONTENT="-1">
