@@ -12,6 +12,9 @@
 			<cfinvoke component="apis.com.admin.conferenceadminservice" method="getconferences" returnvariable="conferencelist">
 			</cfinvoke>
 			
+			<cfinvoke component="apis.com.admin.teamadminservice" method="getteamlevels" returnvariable="teamlevels">
+			</cfinvoke>
+			
 			
 			
 			
@@ -36,6 +39,8 @@
 								<cfinclude template="views/teams/team.view.cfm">
 							<cfelseif trim( url.fuseaction ) eq "teams.view">
 								<cfinclude template="views/teams/teams.view.cfm">
+							<cfelseif trim( url.fuseaction ) eq "team.levels">
+								<cfinclude template="views/teams/team.levels.cfm">
 							<cfelse>
 								<!-- // no view found, show message -->
 								<div class="alert alert-danger" style="margin-top:10px;">

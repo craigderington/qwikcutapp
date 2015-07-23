@@ -1160,7 +1160,7 @@ button.dim:active:before {
   background-color: #f4f4f4;
   border-color: #DDDDDD;
   color: inherit;
-  cursor: default;
+  cursor: pointer;
   z-index: 2;
 }
 .pagination > li > a,
@@ -3782,11 +3782,17 @@ table.table-mail tr td {
   margin-top: 0;
 }
 /* COLORS */
+.text-black {
+  color: #000;
+}
 .text-navy {
-  color: #7fb539;
+  color: #000066;
+}
+.text-blue {
+  color: #0033ff;
 }
 .text-primary {
-  color: inherit;
+  color: #7fb539;
 }
 .text-success {
   color: #1c84c6;

@@ -21,7 +21,7 @@
 									<div id="tab-1" class="tab-pane active">
 										<div class="panel-body">
 											<div class="col-md-12">
-												<div class="col-sm-7">
+												<div class="col-md-7">
 													<cfinclude template="field-contact-list.cfm">
 												</div>
 												<div class="col-md-5">

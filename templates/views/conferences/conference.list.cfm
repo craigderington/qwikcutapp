@@ -100,7 +100,7 @@
 																<td>#statename#</td>
 																<td>#conftype#</td>	
 																<td><strong>#confname#</strong></td>																																								
-																<td><a href="##" title="Active"><i class="fa fa-check text-navy"></i></a></td>
+																<td><a href="##" title="Active"><i class="fa fa-check text-primary"></i></a></td>
 															</tr>
 														</cfoutput>																			 
 													</tbody>

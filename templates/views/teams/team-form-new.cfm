@@ -6,7 +6,9 @@
                         <!--- // a conference was selected, get the conference detail and display the rest of the form --->	
 						<cfinvoke component="apis.com.admin.conferenceadminservice" method="getconferencedetail" returnvariable="conferencedetail">
 							<cfinvokeargument name="id" value="#numberformat( form.conference, "99" )#">
-						</cfinvoke>	
+						</cfinvoke>
+
+						<cfparam name="teamlevelarr" default="">
 
 							
 							<cfif isDefined( "form.fieldnames" ) and structkeyexists( form, "confid" )>
@@ -32,23 +34,27 @@
 											<cfset t.teammascot = trim( form.teammascot ) />
 											<cfset t.teamcolors = trim( form.teamcolors ) />
 																				
-														
-												<!---// add team data operartion --->
-												<cfquery name="addteam">
-													insert into teams(confid, teamname, teamcity, teamcolors, teammascot, teamactive, teamrecord, teamlevel, teamorgname)
-														values(
-																<cfqueryparam value="#t.conferenceid#" cfsqltype="cf_sql_integer" />,
-																<cfqueryparam value="#t.teamname#" cfsqltype="cf_sql_varchar" maxlength="50" />,
-																<cfqueryparam value="#t.teamcity#" cfsqltype="cf_sql_varchar" maxlength="50" />,
-																<cfqueryparam value="#t.teamcolors#" cfsqltype="cf_sql_varchar" maxlength="50" />,
-																<cfqueryparam value="#t.teammascot#" cfsqltype="cf_sql_varchar" maxlength="50" />,
-																<cfqueryparam value="1" cfsqltype="cf_sql_bit" />,
-																<cfqueryparam value="0-0" cfsqltype="cf_sql_varchar" maxlength="50" />,
-																<cfqueryparam value="#t.teamlevel#" cfsqltype="cf_sql_varchar" maxlength="50" />,
-																<cfqueryparam value="#t.teamorgname#" cfsqltype="cf_sql_varchar" maxlength="50" />
-																);
-												</cfquery>										
+											
+											<!--- // 7-23-2015 modify to loop array and add all teams --->
+											<cfset teamlevelarr = listtoarray( form.teamlevel ) />
 												
+												<cfloop from="1" to="#arraylen( teamlevelarr )#" step="1" index="i">
+													<!--- // add team data operation --->													
+													<cfquery name="addteams">
+														insert into teams(confid, teamname, teamcity, teamcolors, teammascot, teamactive, teamrecord, teamlevelid, teamorgname)
+															values(
+																	<cfqueryparam value="#t.conferenceid#" cfsqltype="cf_sql_integer" />,
+																	<cfqueryparam value="#t.teamname#" cfsqltype="cf_sql_varchar" maxlength="50" />,
+																	<cfqueryparam value="#t.teamcity#" cfsqltype="cf_sql_varchar" maxlength="50" />,
+																	<cfqueryparam value="#t.teamcolors#" cfsqltype="cf_sql_varchar" maxlength="50" />,
+																	<cfqueryparam value="#t.teammascot#" cfsqltype="cf_sql_varchar" maxlength="50" />,
+																	<cfqueryparam value="1" cfsqltype="cf_sql_bit" />,
+																	<cfqueryparam value="0-0" cfsqltype="cf_sql_varchar" maxlength="50" />,
+																	<cfqueryparam value="#teamlevelarr[i]#" cfsqltype="cf_sql_integer" />,
+																	<cfqueryparam value="#t.teamorgname#" cfsqltype="cf_sql_varchar" maxlength="50" />
+																	);
+													</cfquery>										
+												</cfloop>
 												
 												<cflocation url="#application.root##url.event#" addtoken="no">			
 														
@@ -87,35 +93,30 @@
 												</div>
 												
 												<div class="form-group">
-													<label class="col-lg-2 control-label">Type</label>
+													<label class="col-lg-2 control-label">Conference Type</label>
 													<div class="col-lg-10"><p class="form-control-static"><cfif trim( conferencedetail.conftype ) eq "YF">Youth Football<cfelse>High School Football</cfif></p></div>
 													<input type="hidden" name="conferencetype" value="#ucase( conferencedetail.conftype )#" />
 												</div>
 												
 												<div class="hr-line-dashed"></div>
+													
+													<!--- // 7-23-2015 // modify to systemize and output team levels from database --->
+													<!--- // this enables the user to add all team levels for the team being added --->
+													<cfinvoke component="apis.com.admin.teamadminservice" method="getteamlevelsforconference" returnvariable="teamlevels">
+														<cfinvokeargument name="teamlevelconftype" value="#trim( conferencedetail.conftype )#">
+													</cfinvoke>
 												
-												<cfif trim( conferencedetail.conftype ) eq "YF">
+												
 													<div class="form-group">
-														<label class="col-lg-2 control-label">Team Level</label>
+														<label class="col-lg-2 control-label">Team Levels <br /><small><a href="#application.root##url.event#&fuseaction=team.levels">Manage Levels</a></small></label>
 														<div class="col-lg-10">
-															<div class="i-checks"><label> <input type="radio" value="YT-TM" name="teamlevel" checked /> <i></i> Tiny Mite</label></div>
-															<div class="i-checks"><label> <input type="radio" value="YT-MM" name="teamlevel" /> <i></i> Mighty Mite</label></div>
-															<div class="i-checks"><label> <input type="radio" value="YT-JPW" name="teamlevel"> <i></i> Junior PeeWee </label></div>
-															<div class="i-checks"><label> <input type="radio" value="YT-PW" name="teamlevel" /> <i></i> PeeWee </label></div>
-															<div class="i-checks"><label> <input type="radio" value="YT-JM" name="teamlevel" /> <i></i> Junior Midget</label></div>
-															<div class="i-checks"><label> <input type="radio" value="YT-UL" name="teamlevel" /> <i></i> Unlimited </label></div>
+															<cfloop query="teamlevels">
+																<div class="i-checks"><label> <input type="checkbox" value="#teamlevelid#" name="teamlevel" checked /> <i></i> #teamlevelname#</label></div>
+															</cfloop>
 														</div>
 													</div>
-												<cfelseif trim( conferencedetail.conftype ) eq "HS">
-													<div class="form-group">
-														<label class="col-lg-2 control-label">Team Level</label>
-														<div class="col-lg-10">
-															<div class="i-checks"><label> <input type="radio" value="HS-FR" name="teamlevel" checked /> <i></i> Freshman</label></div>
-															<div class="i-checks"><label> <input type="radio" value="HS-JV" name="teamlevel" /> <i></i> Junior Varsity </label></div>
-															<div class="i-checks"><label> <input type="radio" value="HS-V" name="teamlevel" /> <i></i> Varsity </label></div>
-														</div>
-													</div>
-												</cfif>
+												
+												
 												
 												<div class="hr-line-dashed"></div>
 											

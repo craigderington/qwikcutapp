@@ -43,7 +43,7 @@
 															<td>#stateid#</td>
 															<td><strong>#statename#</strong></td>
 															<td>#stateabbr#</td>																										
-															<td><a href="##" title="Active"><i class="fa fa-check text-navy"></i></a></td>
+															<td><a href="##" title="Active"><i class="fa fa-check text-primary"></i></a></td>
 														</tr>
 													</cfoutput>																			 
 												</tbody>
