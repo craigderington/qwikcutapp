@@ -14,20 +14,28 @@
 			 where t.confid = c.confid
 			   and c.stateid = s.stateid
 			   and t.teamlevelid = tl.teamlevelid
-				   <cfif structkeyexists( form, "filterresults" )>
+				    <cfif structkeyexists( form, "filterresults" )>
+						<!---
 						<cfif structkeyexists( form, "conferenceid" ) and form.conferenceid neq "">
-							and t.confid = <cfqueryparam value="#form.conferenceid#" cfsqltype="cf_sql_integer" />
+							and t.confid = <cfqueryparam value="#form.conferenceid#" cfsqltype="cf_sql_integer" />												
 						</cfif>
 						<cfif structkeyexists( form, "teamlevelid" ) and form.teamlevelid neq "">
-							and tl.teamlevelid = <cfqueryparam value="#form.teamlevelid#" cfsqltype="cf_sql_integer" />
+							and tl.teamlevelid = <cfqueryparam value="#form.teamlevelid#" cfsqltype="cf_sql_integer" />						
 						</cfif>
+						--->
 						<cfif structkeyexists( form, "teamname" ) and form.teamname neq "">
 							and t.teamname LIKE <cfqueryparam value="%#trim( form.teamname )#%" cfsqltype="cf_sql_varchar" />
 						</cfif>
 						<cfif structkeyexists( form, "teamcity" ) and form.teamcity neq "">
 							and t.teamcity LIKE <cfqueryparam value="%#trim( form.teamcity )#%" cfsqltype="cf_sql_varchar" />
-						</cfif>
-				   </cfif>
+						</cfif>			
+				    </cfif>
+					<cfif structkeyexists( session, "conferenceid" )>					
+						and t.confid = <cfqueryparam value="#session.conferenceid#" cfsqltype="cf_sql_integer" />
+					</cfif>
+					<cfif structkeyexists( session, "teamlevelid" )>
+						and tl.teamlevelid = <cfqueryparam value="#session.teamlevelid#" cfsqltype="cf_sql_integer" />
+					</cfif>
 			 order by c.confid, t.teamname, tl.teamlevelid asc
 		</cfquery>
 		<cfreturn teamlist>

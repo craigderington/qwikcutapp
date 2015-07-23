@@ -25,7 +25,7 @@
 								<div class="col-lg-12">
 									<div class="col-lg-8">							
 										<p><cfif trim( left( teamdetail.teamlevel, 2 )) eq "YT"><span class="btn btn-xs btn-success"><i class="fa fa-play"></i> Youth Football</span><cfelse><span class="btn btn-xs btn-success"><i class="fa fa-fast-forward"></i> High School Football</span></cfif>  <cfif isuserinrole( "admin" )><a style="margin-left:10px;" href="#application.root##url.event#&fuseaction=team.edit&id=#teamdetail.teamid#" class="btn btn-xs btn-primary btn-outline"><i class="fa fa-edit"></i> Edit Team</a></cfif></p>
-										<h1><strong>#teamdetail.teamname#</strong> <cfif teamdetail.teamactive eq 1><i class="fa fa-check-circle-o" style="margin-left:5px;color:##7fb539"></i></cfif></h1>
+										<h1><strong>#teamdetail.teamname#</strong> <cfif teamdetail.teamactive eq 1><i class="fa fa-check-circle-o text-primary" style="margin-left:5px;"></i></cfif></h1>
 										<h3>#ucase( teamdetail.confname )#</h3>
 										<p>#teamdetail.teamcity#, #ucase( teamdetail.stateabbr )#</p>										
 										<p>#teamdetail.teammascot#</p>

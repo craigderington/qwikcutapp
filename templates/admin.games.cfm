@@ -3,6 +3,18 @@
 
 
 
+
+				<cfinvoke component="apis.com.admin.gameadminservice" method="getgameslist" returnvariable="gameslist">
+					<cfinvokeargument name="gameseasonid" value="1">
+				</cfinvoke>
+				
+				<cfinvoke component="apis.com.admin.conferenceadminservice" method="getconferences" returnvariable="conferencelist">
+				</cfinvoke>
+			
+				<cfinvoke component="apis.com.admin.teamadminservice" method="getteamlevels" returnvariable="teamlevels">
+				</cfinvoke>
+
+
 				
 				<div class="wrapper wrapper-content">
 					<div class="container">

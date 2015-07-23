@@ -1,7 +1,21 @@
 
 
 			
-		
+			<!--- // set data filters to session objects --->
+			<cfif structkeyexists( form, "filterresults" )>
+				<cfif structkeyexists( form, "conferenceid" ) and form.conferenceid neq "">
+					<cfset session.conferenceid = numberformat( form.conferenceid, "99" ) />
+				</cfif>
+				<cfif structkeyexists( form, "teamlevelid" ) and form.teamlevelid neq "">
+					<cfset session.teamlevelid = numberformat( form.teamlevelid, "99" ) />
+				</cfif>
+			</cfif>
+			
+			<cfif structkeyexists( url, "resetfilter" )>
+				<cfset tempa = structdelete( session, "conferenceid" ) />
+				<cfset tempb = structdelete( session, "teamlevelid" ) />
+				<cflocation url="#application.root##url.event#" addtoken="no">
+			</cfif>
 		
 		
 			<!--- // get our data components --->
@@ -13,10 +27,7 @@
 			</cfinvoke>
 			
 			<cfinvoke component="apis.com.admin.teamadminservice" method="getteamlevels" returnvariable="teamlevels">
-			</cfinvoke>
-			
-			
-			
+			</cfinvoke>		
 			
 			
 			<cfoutput>

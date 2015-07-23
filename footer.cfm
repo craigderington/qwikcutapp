@@ -23,10 +23,27 @@
 		<script src="js/jquery-2.1.1.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
-		<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-
+		<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>	
+		
 		<!-- Custom and plugin javascript -->
 		<script src="js/inspinia.js"></script>
+		
+		<!-- date picker -->
+								<script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
+								<script>
+									$(document).ready(function(){          
+
+										$('#data_1 .input-group.date').datepicker({
+											todayBtn: "linked",
+											keyboardNavigation: false,
+											forceParse: false,
+											calendarWeeks: true,
+											autoclose: true
+										});
+									});
+									
+
+								</script>
 		
 
 		<!-- Flot 

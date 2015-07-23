@@ -21,7 +21,7 @@
 															<select name="conferenceid" id="conferenceid" class="form-control" onchange="javascript:this.form.submit();">
 																<option value="" selected>Filter by Conference</option>
 																<cfloop query="conferencelist">
-																	<option value="#confid#"<cfif structkeyexists( form, "conferenceid" )><cfif form.conferenceid eq conferencelist.confid>selected</cfif></cfif>>#confname#</option>
+																	<option value="#confid#"<cfif structkeyexists( form, "conferenceid" )><cfif form.conferenceid eq conferencelist.confid>selected</cfif><cfelseif structkeyexists( session, "conferenceid" )><cfif session.conferenceid eq conferencelist.confid>selected</cfif></cfif>>#confname#</option>
 																</cfloop>
 															</select>
 														</div>
@@ -32,7 +32,7 @@
 															<select name="teamlevelid" id="teamlevelid" class="form-control" onchange="javascript:this.form.submit();">
 																<option value="" selected>Filter by Team Level</option>
 																<cfloop query="teamlevels">
-																	<option value="#teamlevelid#"<cfif structkeyexists( form, "teamlevelid" )><cfif form.teamlevelid eq teamlevels.teamlevelid>selected</cfif></cfif>>#teamlevelconftype# - #teamlevelname#</option>
+																	<option value="#teamlevelid#"<cfif structkeyexists( form, "teamlevelid" )><cfif form.teamlevelid eq teamlevels.teamlevelid>selected</cfif><cfelseif structkeyexists( session, "teamlevelid" )><cfif session.teamlevelid eq teamlevels.teamlevelid>selected</cfif></cfif>>#teamlevelconftype# - #teamlevelname#</option>
 																</cfloop>
 															</select>
 														</div>
@@ -51,8 +51,11 @@
 													</div>
 													<input name="filterresults" type="hidden" value="true" />													
 													<!---<button type="submit" name="filterresults" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> Filter Results</button>--->
-													<cfif structkeyexists( form, "filterresults" )>
+													<cfif structkeyexists( form, "filterresults" ) and ( not structkeyexists( session, "conferenceid" ) and not structkeyexists( session, "conferenceid" ))>
 														<a style="margin-left:3px;margin-top:24px;" href="#application.root##url.event#" class="btn btn-md btn-success"><i class="fa fa-remove"></i> Reset Filters</a>
+													</cfif>
+													<cfif structkeyexists( session, "conferenceid" ) or structkeyexists( session, "teamlevelid" )>
+														<a style="margin-left:3px;margin-top:24px;" href="#application.root##url.event#&resetfilter=true" class="btn btn-md btn-primary btn-outline"><i class="fa fa-remove"></i> Reset Filters</a>
 													</cfif>
 												</fieldset>
 											</form>
@@ -120,7 +123,7 @@
 																<td><small>#teammascot#</small></td>
 																<td><small>#teamcity#, #stateabbr#</small></td>
 																<td>#teamrecord#</td>
-																<td><a href="##" title="Active"><i class="fa fa-check text-primary"></i></a><a style="margin-left:5px;" href="##" title="Schedule Game"><i class="fa fa-calendar text-blue"></i></a><a style="margin-left:5px;" href="##" title="Assign Shooter"><i class="fa fa-video-camera text-success"></i></a></td>
+																<td><a href="##" title="Active"><i class="fa fa-check text-primary"></i></a><a style="margin-left:5px;" href="##" title="Schedule Game"><i class="fa fa-clock-o text-blue"></i></a><a style="margin-left:5px;" href="##" title="Assign Shooter"><i class="fa fa-video-camera text-success"></i></a></td>
 															</tr>
 														</cfoutput>																		 
 													</tbody>
