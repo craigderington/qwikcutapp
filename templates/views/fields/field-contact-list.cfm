@@ -70,7 +70,7 @@
 										<tr>
 											<th>Actions</th>
 											<th>Contact Name</th>
-											<th>Number</th>
+											<th>Organization</th>
 											<th>Email</th>
 										</tr>
 									</thead>
@@ -79,8 +79,8 @@
 											<tr>
 												<td><a href="#application.root##url.event#&fuseaction=#url.fuseaction#&id=#url.id#&contactid=#fieldcontactid#" title="Edit Field Contact"><i class="fa fa-edit"></i></a> <a style="margin-left:5px;" href="#application.root##url.event#&fuseaction=#url.fuseaction#&id=#url.id#&contactid=#fieldcontactid#&deletecontact=true" title="Delete Field Contact" onclick="javascript:confirm('Are you sure you want to delete this field contact?')"><i class="fa fa-trash"></i></a> </td>
 												<td>#fieldcontactname# <br /><small>#fieldcontacttitle#</small></td>
-												<td>#fieldcontactnumber#</td>
-												<td>#fieldcontactemail# <a style="margin-left:4px;" href=""><small><i class="fa fa-envelope"></i></small></a></td>
+												<td>#fieldcontactorg#</td>
+												<td><small>#fieldcontactnumber#<br />#fieldcontactemail# <a style="margin-left:4px;" href=""><i class="fa fa-envelope"></i></small></a></td>
 											</tr>
 										</cfoutput>
 									</tbody>

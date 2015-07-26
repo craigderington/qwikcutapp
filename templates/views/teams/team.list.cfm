@@ -51,7 +51,7 @@
 													</div>
 													<input name="filterresults" type="hidden" value="true" />													
 													<!---<button type="submit" name="filterresults" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> Filter Results</button>--->
-													<cfif structkeyexists( form, "filterresults" ) and ( not structkeyexists( session, "conferenceid" ) and not structkeyexists( session, "conferenceid" ))>
+													<cfif structkeyexists( form, "filterresults" ) and ( not structkeyexists( session, "conferenceid" ) or not structkeyexists( session, "conferenceid" ))>
 														<a style="margin-left:3px;margin-top:24px;" href="#application.root##url.event#" class="btn btn-md btn-success"><i class="fa fa-remove"></i> Reset Filters</a>
 													</cfif>
 													<cfif structkeyexists( session, "conferenceid" ) or structkeyexists( session, "teamlevelid" )>

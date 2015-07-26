@@ -47,7 +47,7 @@
 		<cfset var fieldcontacts = "" />
 		<cfquery name="fieldcontacts">
 			select fc.fieldcontactid, fc.fieldid, fc.fieldcontactname, fc.fieldcontactnumber, fc.fieldcontacttitle, 
-			       fc.fieldcontactemail, f.fieldname
+			       fc.fieldcontactemail, f.fieldname, fc.fieldcontactorg
 			  from fieldcontacts fc, fields f
 			 where f.fieldid = fc.fieldid
 			   and fc.fieldid = <cfqueryparam value="#arguments.id#" cfsqltype="cf_sql_integer" />
@@ -60,7 +60,7 @@
 		<cfset var fieldcontactdetails = "" />
 		<cfquery name="fieldcontactdetails">
 			select fc.fieldcontactid, fc.fieldid, fc.fieldcontactname, fc.fieldcontactnumber, fc.fieldcontacttitle, 
-			       fc.fieldcontactemail, f.fieldname
+			       fc.fieldcontactemail, f.fieldname, fc.fieldcontactorg
 			  from fieldcontacts fc, fields f
 			 where f.fieldid = fc.fieldid
 			   and fc.fieldcontactid = <cfqueryparam value="#arguments.id#" cfsqltype="cf_sql_integer" />

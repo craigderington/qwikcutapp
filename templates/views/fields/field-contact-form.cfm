@@ -36,17 +36,19 @@
 																<cfset fc.fieldcontacttitle = trim( form.fieldcontacttitle ) />
 																<cfset fc.fieldcontactnumber = trim( form.fieldcontactnumber ) />
 																<cfset fc.fieldcontactemail = trim( form.fieldcontactemail ) />
+																<cfset fc.fieldcontactorg = trim( form.fieldcontactorg ) />
 																
 																<cfif fc.fcid eq 0>
 																
 																	<cfquery name="addfieldcontact">
-																		insert into fieldcontacts(fieldid, fieldcontactname, fieldcontacttitle, fieldcontactnumber, fieldcontactemail)
+																		insert into fieldcontacts(fieldid, fieldcontactname, fieldcontacttitle, fieldcontactnumber, fieldcontactemail, fieldcontactorg)
 																		 values(
 																				<cfqueryparam value="#fc.fieldid#" cfsqltype="cf_sql_integer" />,																				
 																				<cfqueryparam value="#fc.fieldcontactname#" cfsqltype="cf_sql_varchar" maxlength="50" />,
 																				<cfqueryparam value="#fc.fieldcontacttitle#" cfsqltype="cf_sql_varchar" maxlength="50" />,
 																				<cfqueryparam value="#fc.fieldcontactnumber#" cfsqltype="cf_sql_varchar" maxlength="50" />,
-																				<cfqueryparam value="#fc.fieldcontactemail#" cfsqltype="cf_sql_varchar" maxlength="80" />
+																				<cfqueryparam value="#fc.fieldcontactemail#" cfsqltype="cf_sql_varchar" maxlength="80" />,
+																				<cfqueryparam value="#fc.fieldcontactorg#" cfsqltype="cf_sql_varchar" maxlength="50" />
 																				);
 																	</cfquery>										
 																	
@@ -59,7 +61,8 @@
 																		   set fieldcontactname = <cfqueryparam value="#fc.fieldcontactname#" cfsqltype="cf_sql_varchar" maxlength="50" />,
 																			   fieldcontacttitle = <cfqueryparam value="#fc.fieldcontacttitle#" cfsqltype="cf_sql_varchar" maxlength="50" />,
 																			   fieldcontactnumber = <cfqueryparam value="#fc.fieldcontactnumber#" cfsqltype="cf_sql_varchar" maxlength="50" />,
-																			   fieldcontactemail = <cfqueryparam value="#fc.fieldcontactemail#" cfsqltype="cf_sql_varchar" maxlength="80" />
+																			   fieldcontactemail = <cfqueryparam value="#fc.fieldcontactemail#" cfsqltype="cf_sql_varchar" maxlength="80" />,
+																			   fieldcontactorg = <cfqueryparam value="#fc.fieldcontactorg#" cfsqltype="cf_sql_varchar" maxlength="50" />
 																		 where fieldcontactid = <cfqueryparam value="#fc.fcid#" cfsqltype="cf_sql_integer" />																			
 																	</cfquery>										
 																	
@@ -107,6 +110,12 @@
 																	<label class="col-lg-2 control-label">Title</label>
 																	<div class="col-lg-10">
 																		<input type="text" placeholder="Contact Title" name="fieldcontacttitle" class="form-control" <cfif structkeyexists( form, "fieldcontacttitle" )>value="#trim( form.fieldcontacttitle )#"<cfelseif structkeyexists( url, "contactid" )>value="#trim( fieldcontactdetails.fieldcontacttitle )#"</cfif> />									
+																	</div>
+																</div>
+																<div class="form-group">
+																	<label class="col-lg-2 control-label">Org</label>
+																	<div class="col-lg-10">
+																		<input type="text" placeholder="Contact Organization" name="fieldcontactorg" class="form-control" <cfif structkeyexists( form, "fieldcontactorg" )>value="#trim( form.fieldcontactorg )#"<cfelseif structkeyexists( url, "contactid" )>value="#trim( fieldcontactdetails.fieldcontactorg )#"</cfif> />									
 																	</div>
 																</div>
 																<div class="form-group">

@@ -6,7 +6,7 @@
                         					
 							<cfif isDefined( "form.fieldnames" ) and structkeyexists( form, "teamid" )>
 							
-								<cfset form.validate_require = "teamid|Opps, internal form error.;teamname|Please enter the team name.;teamlevel|Please select a team level.;teamcolors|Please enter the team colors.;teammascot|Please enter the team mascot.;teamcity|Please enter the team city.;teamorgname|Please enter the team organization name." />
+								<cfset form.validate_require = "teamid|Opps, internal form error.;teamname|Please enter the team name.;teamlevelid|Please select a team level.;teamcolors|Please enter the team colors.;teammascot|Please enter the team mascot.;teamcity|Please enter the team city.;teamorgname|Please enter the team organization name." />
 										
 										<cfscript>
 											objValidation = createobject( "component","apis.udfs.validation" ).init();
@@ -21,7 +21,7 @@
 											<!--- define our form structure and set form values --->
 											<cfset t = structnew() />
 											<cfset t.teamid = form.teamid />
-											<cfset t.teamlevel = trim( form.teamlevel ) />
+											<cfset t.teamlevelid = form.teamlevelid />
 											<cfset t.teamname = trim( form.teamname ) />
 											<cfset t.teamcity = trim( form.teamcity ) />
 											<cfset t.teamorgname = trim( form.teamorgname ) />
@@ -36,7 +36,7 @@
 													       teamcity = <cfqueryparam value="#t.teamcity#" cfsqltype="cf_sql_varchar" maxlength="50" />,
 														   teamcolors = <cfqueryparam value="#t.teamcolors#" cfsqltype="cf_sql_varchar" maxlength="50" />,
 														   teammascot = <cfqueryparam value="#t.teammascot#" cfsqltype="cf_sql_varchar" maxlength="50" />,												  
-														   teamlevel = <cfqueryparam value="#t.teamlevel#" cfsqltype="cf_sql_varchar" maxlength="50" />,
+														   teamlevelid = <cfqueryparam value="#t.teamlevelid#" cfsqltype="cf_sql_varchar" maxlength="50" />,
 														   teamorgname = <cfqueryparam value="#t.teamorgname#" cfsqltype="cf_sql_varchar" maxlength="50" />									
 													 where teamid = <cfqueryparam value="#t.teamid#" cfsqltype="cf_sql_integer" />														
 												</cfquery>										
@@ -83,28 +83,21 @@
 												
 												<div class="hr-line-dashed"></div>
 												
-												<cfif trim( teamdetail.conftype ) eq "YF">
+													<!--- // 7-23-2015 // modify to systemize and output team levels from database --->
+													<!--- // this enables the user to add all team levels for the master team being added --->
+													<cfinvoke component="apis.com.admin.teamadminservice" method="getteamlevelsforconference" returnvariable="teamlevels">
+														<cfinvokeargument name="teamlevelconftype" value="#trim( teamdetail.conftype )#">
+													</cfinvoke>
+												
+												
 													<div class="form-group">
-														<label class="col-lg-2 control-label">Team Level</label>
+														<label class="col-lg-2 control-label">Team Levels <br /><small><a href="#application.root##url.event#&fuseaction=team.levels">Manage Levels</a></small></label>
 														<div class="col-lg-10">
-															<div class="i-checks"><label> <input type="radio" value="YT-TM" name="teamlevel" <cfif trim( teamdetail.teamlevel ) eq "YT-TM"> checked</cfif> /> <i></i> Tiny Mite</label></div>
-															<div class="i-checks"><label> <input type="radio" value="YT-MM" name="teamlevel" <cfif trim( teamdetail.teamlevel ) eq "YT-MM"> checked</cfif> /> <i></i> Mighty Mite</label></div>
-															<div class="i-checks"><label> <input type="radio" value="YT-JPW" name="teamlevel" <cfif trim( teamdetail.teamlevel ) eq "YT-JPW"> checked</cfif> /> <i></i> Junior PeeWee </label></div>
-															<div class="i-checks"><label> <input type="radio" value="YT-PW" name="teamlevel" <cfif trim( teamdetail.teamlevel ) eq "YT-PW"> checked</cfif> /> <i></i> PeeWee </label></div>
-															<div class="i-checks"><label> <input type="radio" value="YT-JM" name="teamlevel" <cfif trim( teamdetail.teamlevel ) eq "YT-JM"> checked</cfif> /> <i></i> Junior Midget</label></div>
-															<div class="i-checks"><label> <input type="radio" value="YT-UL" name="teamlevel" <cfif trim( teamdetail.teamlevel ) eq "YT-UL"> checked</cfif> /> <i></i> Unlimited </label></div>
+															<cfloop query="teamlevels">
+																<div class="i-checks"><label> <input type="radio" value="#teamlevelid#" name="teamlevelid"<cfif teamdetail.teamlevelid eq teamlevels.teamlevelid>checked</cfif> /> <i></i> #teamlevelname#</label></div>
+															</cfloop>
 														</div>
 													</div>
-												<cfelseif trim( teamdetail.conftype ) eq "HS">
-													<div class="form-group">
-														<label class="col-lg-2 control-label">Team Level</label>
-														<div class="col-lg-10">
-															<div class="i-checks"><label> <input type="radio" value="HS-FR" name="teamlevel" <cfif trim( teamdetail.teamlevel ) eq "HS-FR"> checked</cfif> /> <i></i> Freshman</label></div>
-															<div class="i-checks"><label> <input type="radio" value="HS-JV" name="teamlevel" <cfif trim( teamdetail.teamlevel ) eq "HS-JV"> checked</cfif> /> <i></i> Junior Varsity </label></div>
-															<div class="i-checks"><label> <input type="radio" value="HS-V" name="teamlevel" <cfif trim( teamdetail.teamlevel ) eq "HS-V"> checked</cfif> /> <i></i> Varsity </label></div>
-														</div>
-													</div>
-												</cfif>
 												
 												<div class="hr-line-dashed"></div>
 											
