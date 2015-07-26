@@ -28,22 +28,22 @@
 		<!-- Custom and plugin javascript -->
 		<script src="js/inspinia.js"></script>
 		
+		
 		<!-- date picker -->
-								<script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
-								<script>
-									$(document).ready(function(){          
-
-										$('#data_1 .input-group.date').datepicker({
-											todayBtn: "linked",
-											keyboardNavigation: false,
-											forceParse: false,
-											calendarWeeks: true,
-											autoclose: true
-										});
-									});
+		<script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
+			<script>
+			$(document).ready(function(){
+				$('#data_1 .input-group.date').datepicker({
+					todayBtn: "linked",
+					keyboardNavigation: false,
+					forceParse: false,
+					calendarWeeks: true,
+					autoclose: true
+				});
+			});
 									
 
-								</script>
+		</script>
 		
 
 		<!-- Flot 

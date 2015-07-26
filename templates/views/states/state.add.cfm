@@ -37,8 +37,8 @@
 															<cfqueryparam value="#state.statename#" cfsqltype="cf_sql_varchar" maxlength="50" />,
 															<cfqueryparam value="#state.stateabbr#" cfsqltype="cf_sql_varchar" maxlength="2" />
 															);
-												</cfquery>										
-												
+												</cfquery>												
+																									
 												<cflocation url="#application.root#admin.states" addtoken="no">				
 											
 								
@@ -84,7 +84,7 @@
                                 <div class="hr-line-dashed" style-="margin-top:25px;"></div>
                                 <div class="form-group">
                                     <div class="col-lg-offset-2 col-lg-10">
-                                        <button class="btn btn-primary" type="submit" name="stateSaveRecord"><i class="fa fa-save"></i> Save State</button>
+                                        <button class="btn btn-primary" type="submit" id="saveStateRecord" name="stateSaveRecord"><i class="fa fa-save"></i> Save State</button>
 										<a href="#application.root#admin.states" class="btn btn-default"><i class="fa fa-remove"></i> Cancel</a>																		
 									</div>
                                 </div>

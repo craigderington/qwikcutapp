@@ -9,6 +9,14 @@
 			<cfquery name="userlist">
 					select userid, username, firstname, lastname, password, confid, lastloginip, lastlogindate, email, userrole, useracl
 				      from dbo.users
+					 where 
+				    <cfif not structkeyexists( form, "filterresults" )>
+						userrole = <cfqueryparam value="admin" cfsqltype="cf_sql_varchar" />   
+				    <cfelse>
+						<cfif structkeyexists( form, "usertype" ) and trim( form.usertype ) neq "">
+						userrole = <cfqueryparam value="#trim( form.usertype )#" cfsqltype="cf_sql_varchar" />
+						</cfif>						
+					</cfif>
 				  order by lastname, firstname asc
 			</cfquery>
 		<cfreturn userlist>

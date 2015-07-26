@@ -16,7 +16,7 @@
 					<link href="css/bootstrap.min.css" rel="stylesheet">
 					<link href="font-awesome/css/font-awesome.css" rel="stylesheet">
 					<link href="css/animate.css" rel="stylesheet">
-					<link href="css/style.css" rel="stylesheet">
+					<link href="css/style.css" rel="stylesheet">					
 					<link href="css/plugins/datapicker/datepicker3.css" rel="stylesheet">
 
 					<!--- // make sure that none of our dynamic pages are cached by the users browser --->
@@ -36,8 +36,8 @@
 				
 				</head>
 				
-				<body class="top-navigation">
-					<div id="wrapper">
+				<body class="top-navigation">				
+					<div id="wrapper">					
 						<div id="page-wrapper" class="gray-bg">
 							<div class="row border-bottom white-bg">
 								<cfinclude template="sub-nav.cfm">

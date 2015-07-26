@@ -6,6 +6,10 @@
 		<cfinvoke component="apis.com.admin.useradminservice" method="getusers" returnvariable="userlist">
 		</cfinvoke>
 		
+		<cfinvoke component="apis.com.admin.stateadminservice" method="getstates" returnvariable="statelist">
+		</cfinvoke>	
+		
+		
 		<cfif structkeyexists( url, "fuseaction" )>
 			<cfif structkeyexists( url, "id" )>
 				<cfif url.id neq 0>
