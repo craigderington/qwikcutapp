@@ -67,7 +67,7 @@
 														</div>
 														<div class="col-sm-8">
 															<h3><strong>#shooterfirstname# #shooterlastname#</strong></h3>
-															<p><i class="fa fa-map-marker"></i> #shootercity# / #shooterzip#</p>
+															<p><i class="fa fa-map-marker"></i> #shootercity#, #stateabbr#</p>
 															<address>															
 																#shooteraddress1#<br/>
 																#shootercity#, #stateabbr# #shooterzip#<br />

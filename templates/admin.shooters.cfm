@@ -19,7 +19,7 @@
 
 
 				<cfoutput>
-					<div class="wrapper wrapper-content">
+					<div class="wrapper wrapper-content animated fadeIn">
 						<div class="container">
 							<!--- // include the page heading --->
 							<cfinclude template="views/shooters-admin-page-heading.cfm">

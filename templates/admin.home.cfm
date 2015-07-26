@@ -8,7 +8,7 @@
 		
 		
 		
-			<div class="wrapper wrapper-content">
+			<div class="wrapper wrapper-content animated fadeIn">
 				<div class="container">				
 					<!-- // include the page heading --->
 					<cfinclude template="views/admin-page-heading.cfm">

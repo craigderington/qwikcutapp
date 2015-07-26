@@ -4141,13 +4141,16 @@ body.modal-open {
 }
 /* CONTACTS */
 .contact-box {
-  background-color: #ffffff;
+  /*background-color: #ffffff;*/
   border: 1px solid #e7eaec;
   padding: 20px;
   margin-bottom: 20px;
 }
 .contact-box a {
   color: inherit;
+}
+.contact-box a:hover {
+  background-color: #f2f2f2;
 }
 /* INVOICE */
 .invoice-table tbody > tr > td:last-child,
