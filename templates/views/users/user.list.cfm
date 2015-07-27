@@ -108,12 +108,13 @@
 																<td>#lastname#</td>																										
 																<td>#email#</td>
 																<td>#userrole#</th>
-																<td><i class="fa fa-check text-navy"></i> <small>#dateformat( lastlogindate, "mm/dd/yyyy" )#</small></td>
+																<td><i class="fa fa-check text-primary"></i> <small>#dateformat( lastlogindate, "mm/dd/yyyy" )#</small></td>
 															</tr>
 														</cfoutput>																			 
 													</tbody>
 												</table>
 											</div>
+										
 										<cfelse>
 										
 											<div class="alert alert-danger alert-dismissable">
