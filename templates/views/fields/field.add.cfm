@@ -19,7 +19,7 @@
 										<!--- // begin form processing --->
 										<cfif isDefined( "form.fieldnames" )>
 										
-											<cfset validate_require = "stateid|Please select a state for this field.;fieldname|Please enter a name for this field.;fieldaddress1|Please enter the primary address.;fieldcity|Please enter the city for this field.;fieldzip|Please enter the field zip code.;fieldcontactname|Please enter the field contact name.;fieldcontactnumber|Please enter the primary contacts phone number.;fieldcontacttitle|Please enter the field contact title." />
+											<cfset form.validate_require = "stateid|Please select a state for this field.;fieldname|Please enter a name for this field.;fieldaddress1|Please enter the primary address.;fieldcity|Please enter the city for this field.;fieldzip|Please enter the field zip code.;fieldcontactname|Please enter the field contact name.;fieldcontactnumber|Please enter the primary contacts phone number.;fieldcontacttitle|Please enter the field contact title." />
 											
 											<cfscript>
 												objValidation = createobject( "component","apis.udfs.validation" ).init();
