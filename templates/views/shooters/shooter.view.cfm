@@ -33,7 +33,7 @@
 										<li class=""><a href="#application.root##url.event#&fuseaction=shooter.fields&id=#url.id#"><i class="fa fa-map-marker"></i> Assigned Fields</a></li>
 										<li class=""><a href="#application.root##url.event#&fuseaction=shooter.dates&id=#url.id#"><i class="fa fa-calendar"></i> Availability</a></li>
 										<li class=""><a href="#application.root##url.event#&fuseaction=shooter.games&id=#url.id#"><i class="fa fa-play"></i> Scheduled Games</a></li>										
-										<li class=""><a href="#application.root##url.event#&fuseaction=shooter.comments#url.id#"><i class="fa fa-comments"></i> Rating &amp; Comments</a></li>																							
+										<li class=""><a href="#application.root##url.event#&fuseaction=shooter.comments&#url.id#"><i class="fa fa-comments"></i> Rating &amp; Comments</a></li>																							
 									</ul>			
 											
 																					
@@ -43,10 +43,12 @@
 												<div class="col-md-6">
 													<div class="form-group">														
 														<div class="col-lg-10">
-															<p class="form-control-static">#shooter.shooterfirstname#  #shooter.shooterlastname#</p>
+															<h3 class="form-control-static">#shooter.shooterfirstname#  #shooter.shooterlastname#</h3>
 															<cfif shooter.shooteraddress1 neq "" and shooter.shootercity neq "">
 																<p class="form-control-static">#shooter.shooteraddress1#</p>															
+																<cfif shooter.shooteraddress2 neq "">
 																<p class="form-control-static">#shooter.shooteraddress2#</p>
+																</cfif>
 																<p class="form-control-static">#shooter.shootercity#, #shooter.stateabbr#  #shooter.shooterzip#</p>
 															</cfif>
 														</div>														

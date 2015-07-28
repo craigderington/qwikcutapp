@@ -31,6 +31,8 @@
 		
 		<!-- date picker -->
 		<script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
+		<!-- Date range picker -->
+		<script src="js/plugins/daterangepicker/daterangepicker.js"></script>
 			<script>
 			$(document).ready(function(){
 				$('#data_1 .input-group.date').datepicker({
@@ -40,10 +42,15 @@
 					calendarWeeks: true,
 					autoclose: true
 				});
+				$('#data_5 .input-daterange').datepicker({
+					keyboardNavigation: false,
+					forceParse: false,
+					autoclose: true
+				});
 			});
-									
-
 		</script>
+		
+		
 		
 
 		<!-- Flot 

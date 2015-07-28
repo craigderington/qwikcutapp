@@ -10,6 +10,9 @@
 					<cfinvoke component="apis.com.admin.shooteradminservice" method="getshooter" returnvariable="shooter">			
 						<cfinvokeargument name="id" value="#url.id#">
 					</cfinvoke>
+					<cfif shooter.recordcount eq 0>
+						<cflocation url="#application.root##url.event#&error=1" addtoken="yes">
+					</cfif>
 				</cfif>			
 				
 				
@@ -35,6 +38,14 @@
 									<cfinclude template="views/shooters/shooter.add.cfm">
 								<cfelseif trim( url.fuseaction ) eq "shooter.view">
 									<cfinclude template="views/shooters/shooter.view.cfm">
+								<cfelseif trim( url.fuseaction ) eq "shooter.fields">
+									<cfinclude template="views/shooters/shooter.fields.cfm">
+								<cfelseif trim( url.fuseaction ) eq "shooter.games">
+									<cfinclude template="views/shooters/shooter.games.cfm">
+								<cfelseif trim( url.fuseaction ) eq "shooter.dates">
+									<cfinclude template="views/shooters/shooter.dates.cfm">
+								<cfelseif trim( url.fuseaction ) eq "shooter.comments">
+									<cfinclude template="views/shooters/shooter.comments.cfm">
 								<cfelse>
 									<!-- // no view found, show message --->
 									<div class="alert alert-danger" style="margin-top:10px;">

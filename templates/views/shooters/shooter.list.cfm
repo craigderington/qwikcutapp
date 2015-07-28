@@ -49,7 +49,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="row">
+							<div class="row">							
 								<div class="ibox" style="margin-top:-15px;">								
 									<div class="ibox-title">
 										<h5><i class="fa fa-database"></i> The database found #shooterlist.recordcount# record<cfif shooterlist.recordcount gt 0 or shooterlist.recordcount eq 0>s</cfif>.</h5>										

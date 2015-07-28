@@ -155,8 +155,7 @@
 									<label class="col-md-2 control-label">User Role</label>
                                     <div class="col-md-4">				
 										<select class="form-control" multiple="true" name="userrole">
-											<option value="admin">Admin</option>
-											<option value="shooter">Shooter</option>
+											<option value="admin">Admin</option>											
 											<option value="data">Data & Analytics</option>
 											<option value="future-use">Future Use</option>
 										</select>

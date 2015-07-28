@@ -39,5 +39,43 @@
 			</cfquery>
 		<cfreturn shooter>
 	</cffunction>
+	
+	<cffunction name="getshooterfields" output="false" returntype="query" access="remote" hint="I get the shooter assigned fields.">
+		<cfargument name="id" type="numeric" required="yes" default="#url.id#">
+		<cfset var shooterfieldslist = "" />
+			<cfquery name="shooterfieldslist">
+				 select sf.shooterfieldid, sf.shooterid, sf.fieldid, 
+						f.fieldname, f.fieldcity, f.fieldstate, 
+						f.fieldzip, f.stateid, s.statename, s.stateabbr
+				   from dbo.shooterfields sf, dbo.fields f, dbo.states s
+				  where sf.fieldid = f.fieldid
+					and f.stateid = s.stateid
+					and sf.shooterid = <cfqueryparam value="#arguments.id#" cfsqltype="cf_sql_integer" />
+			</cfquery>
+		<cfreturn shooterfieldslist>
+	</cffunction>
+	
+	<cffunction name="getshooterfielddetails" output="false" returntype="query" access="remote" hint="I get the shooter assigned field id.">
+		<cfargument name="sfid" type="numeric" required="yes" default="#url.sfid#">
+		<cfset var shooterfielddetails = "" />
+			<cfquery name="shooterfielddetails">
+				 select sf.shooterfieldid, f.fieldname, f.fieldid
+				   from dbo.shooterfields sf, dbo.fields f
+				  where sf.fieldid = f.fieldid
+					and sf.shooterfieldid = <cfqueryparam value="#arguments.sfid#" cfsqltype="cf_sql_integer" />
+			</cfquery>
+		<cfreturn shooterfielddetails>
+	</cffunction>
+	
+	<cffunction name="getshooterdates" output="false" returntype="query" access="remote" hint="I get the shooter block out dates.">
+		<cfargument name="id" type="numeric" required="yes" default="#url.id#">
+		<cfset var shooterblockdates = "" />
+			<cfquery name="shooterblockdates">
+				 select sbd.shooterblockid, sbd.shooterid, sbd.fromdate, sbd.todate, sbd.blockreason
+				   from dbo.shooterblockoutdates sbd
+				  where sbd.shooterid = <cfqueryparam value="#arguments.id#" cfsqltype="cf_sql_integer" />
+			</cfquery>
+		<cfreturn shooterblockdates>
+	</cffunction>
 
 </cfcomponent>

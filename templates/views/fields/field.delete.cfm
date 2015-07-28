@@ -33,9 +33,9 @@
 																		
 												<!--- // check our user id against the shooters table and throw error if found --->
 												<cfquery name="chkdata">
-													select f.fieldid, f.fieldname, g.gameid
-													  from fields f, states s, games g
-													 where f.fieldid = g.fieldid
+													select f.fieldid, f.fieldname, sf.shooterfieldid
+													  from fields f, shooterfields sf
+													 where f.fieldid = sf.fieldid
 													   and f.fieldid = <cfqueryparam value="#f.fieldid#" cfsqltype="cf_sql_integer" />
 												</cfquery>
 												
