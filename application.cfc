@@ -13,7 +13,7 @@
 	   this.sessiontype = "j2ee";
 	   
 	   // define default datasource
-	   this.datasource = "qwikcutapp";
+	   this.defaultdatasource = "qwikcutapp";
 	   
 	   // define application and client timeout
 	   this.applicationtimeout = createtimespan(1,0,0,0);
@@ -293,7 +293,7 @@
 		<cfreturn />
 	</cffunction>
  
- 
+	
 	<cffunction
 		name="OnError"
 		access="public"
@@ -329,11 +329,8 @@
 					<cfdump var="#arguments.eventname#" label="Error Event Name"/>
 				</cfif>
 				<cfdump var="#arguments.exception#" label="Error Exception" />			
-			</cfif>
-			
-			
-			
-		<!--- Return out. --->
+			</cfif>		
+		
 		<cfreturn />
-	</cffunction> 
+	</cffunction> <!--- // return out --->
 </cfcomponent>

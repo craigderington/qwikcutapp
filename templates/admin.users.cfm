@@ -22,12 +22,16 @@
 		
 			<cfoutput>
 				<div class="wrapper wrapper-content animated fadeIn">
-					<div class="container">				
-						<!-- // include the page heading --->
-						<cfinclude template="views/user-admin-page-heading.cfm">
-						
+					<div class="container">
+					
 						<!-- // include the user view -->
-						<cfif isuserinrole( "admin" )>
+						<cfif isuserinrole( "admin" )>				
+						
+						
+							<!-- // include the page heading --->
+							<cfinclude template="views/user-admin-page-heading.cfm">
+						
+						
 						
 							<cfif not structkeyexists( url, "fuseaction" )>				
 								<cfinclude template="views/users/user.list.cfm">
@@ -55,7 +59,7 @@
 							
 						<cfelse>
 						
-							<!-- // no view found, show message -->
+								<!-- // security issue detected, show message -->
 								<div class="alert alert-danger" style="margin-top:10px;">
 									<h4><i class="fa fa-warning fa-3x"></i> SYSTEM ALERT</h4>
 									<p>You are attempting to access a restricted resource within this system without proper authorization.   Please <a class="alert-link" href="#application.root#user.home">click here</a> to navigate away from this page.</p>

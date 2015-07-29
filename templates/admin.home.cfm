@@ -1,12 +1,14 @@
 
 
 	
-			
+			<cfif not isuserinrole( "admin" )>
+				<cflocation url="#application.root#user.home&accessdenied=1" addtoken="yes">
+			</cfif>
 			
 			
 			<cfinvoke component="apis.com.admin.admindashboardservice" method="getadmindashboard" returnvariable="admindashboard"></cfinvoke>
 		
-		
+			
 		
 			<div class="wrapper wrapper-content animated fadeIn">
 				<div class="container">				

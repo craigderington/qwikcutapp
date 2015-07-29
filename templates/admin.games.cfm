@@ -15,14 +15,17 @@
 				</cfinvoke>
 
 
-				
+			<cfoutput>	
 				<div class="wrapper wrapper-content animated fadeIn">
 					<div class="container">
-							<!-- // include the page heading --->
-							<cfinclude template="views/games-admin-page-heading.cfm">
-							
+					
 							<!--- // check the users role --->
-							<cfif isuserinrole( "admin" )>						
+							<cfif isuserinrole( "admin" )>	
+								
+								<!-- // include the page heading --->
+								<cfinclude template="views/games-admin-page-heading.cfm">
+							
+												
 							
 								<!-- // include the view state -->
 								<cfif not structkeyexists( url, "fuseaction" )>				
@@ -64,3 +67,4 @@
 							</cfif>					
 					</div>
 				</div>
+			</cfoutput>

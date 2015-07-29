@@ -38,7 +38,7 @@
 											<cfif datecompare( s.fromdate, s.todate, "d" ) eq -1>
 											
 												<!--- add the new user record --->
-												<cfquery name="addnewuser">
+												<cfquery name="addshooterdates">
 													insert into shooterblockoutdates(shooterid, fromdate, todate, blockreason)
 														values(
 																<cfqueryparam value="#s.shooterid#" cfsqltype="cf_sql_integer" />,
