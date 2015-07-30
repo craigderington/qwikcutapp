@@ -27,6 +27,7 @@
 							<cfset sh.shootercity = trim( form.shootercity ) />
 							<cfset sh.shooterzip = form.shooterzip />
 							<cfset sh.shootercellphone = trim( form.shootercellphone ) />
+							<cfset sh.shooterregcode = #createuuid()# />
 							
 							<cfif sh.shooterid eq 0>							
 													
@@ -52,7 +53,7 @@
 												
 										<!--- add the new user record --->
 										<cfquery name="addnewuser">
-											insert into users(username, firstname, lastname, email, password, userrole, useracl)
+											insert into users(username, firstname, lastname, email, password, userrole, useracl, regcode)
 												values(
 														<cfqueryparam value="#sh.shooteremail#" cfsqltype="cf_sql_varchar" maxlength="50" />,
 														<cfqueryparam value="#sh.shooterfirstname#" cfsqltype="cf_sql_varchar" maxlength="50" />,
@@ -60,7 +61,8 @@
 														<cfqueryparam value="#sh.shooteremail#" cfsqltype="cf_sql_varchar" maxlength="50" />,
 														<cfqueryparam value="#hash( sh.shooterlastname, "SHA-384", "UTF-8" )#" cfsqltype="cf_sql_clob" maxlength="128" />,
 														<cfqueryparam value="shooter" cfsqltype="cf_sql_varchar" maxlength="50" />,
-														<cfqueryparam value="5" cfsqltype="cf_sql_numeric" />
+														<cfqueryparam value="5" cfsqltype="cf_sql_numeric" />,
+														<cfqueryparam value="#sh.shooterregcode#" cfsqltype="cf_sql_varchar" maxlength="35" />
 														); select @@identity as newuserid
 										</cfquery>								
 								
@@ -83,7 +85,16 @@
 														);
 										</cfquery>
 
-										<!--- // send shooter invitation // to do --->													
+										<!--- // send shooter invitation // still need to do --->
+										<cfinvoke component="apis.com.admin.notificationservice" method="sendshooterinvite" returnvariable="msgstatus">
+											<cfinvokeargument name="shooteremail" value="#sh.shooteremail#">
+											<cfinvokeargument name="shootername" value="#sh.shooterfirstname# #sh.shooterlastname#">
+											<cfinvokeargument name="shooterregcode" value="#sh.shooterregcode#">
+										</cfinvoke>
+										<!--- // end shooter email notification --->
+										
+										
+										<!--- // redirect to shooter page --->
 										<cflocation url="#application.root##url.event#" addtoken="no">
 										
 									</cfif>
