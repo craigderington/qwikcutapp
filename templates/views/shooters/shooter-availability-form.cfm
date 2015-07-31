@@ -17,7 +17,7 @@
 								
 								<cfif isdefined( "form.fieldnames" ) and structkeyexists( form, "shooterid" )>
 										
-									<cfset form.validate_require = "shooterid|Opps, internal form error.;start|Please select the block out start date;end|Please select the block out end date.;blockreason|Please enter the block out date reason." />
+									<cfset form.validate_require = "shooterid|Opps, internal form error.;start|Please select the block out start date;end|Please select the block out end date." />
 										
 										<cfscript>
 											objValidation = createobject( "component","apis.udfs.validation" ).init();
@@ -31,20 +31,17 @@
 											<cfset s = structnew() />
 											<cfset s.shooterid = numberformat( form.shooterid, "99" ) />
 											<cfset s.fromdate = form.start  />
-											<cfset s.todate = form.end />
-											<cfset s.blockreason = trim( blockreason ) />
-											
+											<cfset s.todate = form.end />										
 											
 											<cfif datecompare( s.fromdate, s.todate, "d" ) eq -1>
 											
 												<!--- add the new user record --->
 												<cfquery name="addshooterdates">
-													insert into shooterblockoutdates(shooterid, fromdate, todate, blockreason)
+													insert into shooterblockoutdates(shooterid, fromdate, todate)
 														values(
 																<cfqueryparam value="#s.shooterid#" cfsqltype="cf_sql_integer" />,
 																<cfqueryparam value="#s.fromdate#" cfsqltype="cf_sql_date" />,
-																<cfqueryparam value="#s.todate#" cfsqltype="cf_sql_date"  />,
-																<cfqueryparam value="#s.blockreason#" cfsqltype="cf_sql_varchar" maxlength="50" />															
+																<cfqueryparam value="#s.todate#" cfsqltype="cf_sql_date"  />																														
 															);
 												</cfquery>
 
@@ -86,11 +83,7 @@
 											<span class="input-group-addon">to</span>
 											<input type="text" class="input-sm form-control" name="end" value="#dateformat( today, "mm/dd/yyyy" )#">
 										</div>
-									</div>			
-									<div class="hr-line-dashed"></div>
-									<div class="form-group">					
-										<input type="text" class="form-control" placeholder="Block Reason" name="blockreason" />										
-									</div>
+									</div>									
 									<div class="hr-line-dashed"></div>									
 									<div class="form-group">									
 										<input type="hidden" name="shooterid" value="#url.id#" />								

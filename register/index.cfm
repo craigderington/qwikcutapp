@@ -287,7 +287,7 @@
 													<!--- // begin form processing // shooter block out dates ---->
 													<cfif isdefined( "form.fieldnames" ) and structkeyexists( form, "addblockdates" )>
 										
-														<cfset form.validate_require = "start|Please select the block out start date;end|Please select the block out end date.;blockreason|Please enter the block out date reason." />
+														<cfset form.validate_require = "start|Please select the block out start date;end|Please select the block out end date." />
 															
 															<cfscript>
 																objValidation = createobject( "component","apis.udfs.validation" ).init();
@@ -301,20 +301,17 @@
 																<cfset s = structnew() />
 																<cfset s.shooterid = numberformat( session.shooterid, "99" ) />
 																<cfset s.fromdate = form.start  />
-																<cfset s.todate = form.end />
-																<cfset s.blockreason = trim( blockreason ) />
-																
+																<cfset s.todate = form.end />															
 																
 																<cfif datecompare( s.fromdate, s.todate, "d" ) eq -1>
 																
 																	<!--- add the new user record --->
 																	<cfquery name="addshooterblockdates">
-																		insert into shooterblockoutdates(shooterid, fromdate, todate, blockreason)
+																		insert into shooterblockoutdates(shooterid, fromdate, todate)
 																			values(
 																					<cfqueryparam value="#s.shooterid#" cfsqltype="cf_sql_integer" />,
 																					<cfqueryparam value="#s.fromdate#" cfsqltype="cf_sql_date" />,
-																					<cfqueryparam value="#s.todate#" cfsqltype="cf_sql_date"  />,
-																					<cfqueryparam value="#s.blockreason#" cfsqltype="cf_sql_varchar" maxlength="50" />															
+																					<cfqueryparam value="#s.todate#" cfsqltype="cf_sql_date"  />																																		
 																				);
 																	</cfquery>
 
@@ -428,8 +425,8 @@
 																<div class="steps clearfix">
 																	<ul role="tablist">
 																		<li role="tab" class="first current" aria-disabled="false" aria-selected="true"><a id="form-t-0" href="##form-h-0" aria-controls="form-p-0"><span class="current-info audible">current step: </span><span class="number">1.</span> Account</a></li>
-																		<li role="tab" class="disabled" aria-disabled="true"><a id="form-t-1" href="index.cfm?step=2" aria-controls="form-p-1"><span class="number">2.</span> Profile</a></li>
-																		<li role="tab" class="disabled" aria-disabled="true"><a id="form-t-2" href="index.cfm?step=3" aria-controls="form-p-2"><span class="number">3.</span> Block Dates</a></li>
+																		<li role="tab" class="disabled" aria-disabled="false"><a id="form-t-1" href="index.cfm?step=2" aria-controls="form-p-1"><span class="number">2.</span> Profile</a></li>
+																		<li role="tab" class="disabled" aria-disabled="false"><a id="form-t-2" href="index.cfm?step=3" aria-controls="form-p-2"><span class="number">3.</span> Block Dates</a></li>
 																		<li role="tab" class="disabled last" aria-disabled="true"><a id="form-t-3" href="" aria-controls="form-p-3"><span class="number">4.</span> Finish</a></li>										
 																	</ul>
 																</div>
@@ -475,10 +472,10 @@
 																<form id="form" action="" method="post" class="wizard-big wizard clearfix" role="application" novalidate="novalidate">
 																	<div class="steps clearfix">
 																		<ul role="tablist">
-																			<li role="tab" class="disabled" aria-disabled="false" aria-selected="true"><a id="form-t-0" href="" aria-controls="form-p-0"><span class="current-info audible">current step: </span><span class="number">1.</span> Account</a></li>
-																			<li role="tab" class="disabled current" aria-disabled="true"><a id="form-t-1" href="index.cfm?step=2" aria-controls="form-p-1"><span class="number">2.</span> Profile</a></li>
-																			<li role="tab" class="disabled" aria-disabled="true"><a id="form-t-2" href="index.cfm?step=3" aria-controls="form-p-2"><span class="number">3.</span> Block Dates</a></li>
-																			<li role="tab" class="disabled last" aria-disabled="true"><a id="form-t-3" href="" aria-controls="form-p-3"><span class="number">4.</span> Finish</a></li>										
+																			<li role="tab" class="disabled" ><a id="form-t-0" href="index.cfm?step=1"><span class="current-info audible">current step: </span><span class="number">1.</span> Account</a></li>
+																			<li role="tab" class="disabled current"><a id="form-t-1" href="index.cfm?step=2"><span class="number">2.</span> Profile</a></li>
+																			<li role="tab" class="disabled"><a id="form-t-2" href="index.cfm?step=3"><span class="number">3.</span> Block Dates</a></li>
+																			<li role="tab" class="disabled last"><a id="form-t-3" href=""><span class="number">4.</span> Finish</a></li>										
 																		</ul>
 																	</div>
 																
@@ -593,9 +590,9 @@
 																<form id="form-shooter-dates" method="post" action="" class="wizard-big wizard clearfix" role="application" novalidate="novalidate">
 																	<div class="steps clearfix">
 																		<ul role="tablist">
-																			<li role="tab" class="disabled" aria-disabled="false" aria-selected="true"><a id="form-t-0" href="" aria-controls="form-p-0"><span class="current-info audible">current step: </span><span class="number">1.</span> Account</a></li>
-																			<li role="tab" class="disabled" aria-disabled="true"><a id="form-t-1" href="" aria-controls="form-p-1"><span class="number">2.</span> Profile</a></li>
-																			<li role="tab" class="disabled current" aria-disabled="true"><a id="form-t-2" href="index.cfm?step=3" aria-controls="form-p-2"><span class="number">3.</span> Block Dates</a></li>
+																			<li role="tab" class="disabled" aria-disabled="false" aria-selected="true"><a id="form-t-0" href="index.cfm?step=1" aria-controls="form-p-0"><span class="current-info audible">current step: </span><span class="number">1.</span> Account</a></li>
+																			<li role="tab" class="disabled" aria-disabled="false"><a id="form-t-1" href="index.cfm?step=2" aria-controls="form-p-1"><span class="number">2.</span> Profile</a></li>
+																			<li role="tab" class="disabled current" aria-disabled="false"><a id="form-t-2" href="index.cfm?step=3" aria-controls="form-p-2"><span class="number">3.</span> Block Dates</a></li>
 																			<li role="tab" class="disabled last" aria-disabled="true"><a id="form-t-3" href="" aria-controls="form-p-3"><span class="number">4.</span> Finish</a></li>										
 																		</ul>
 																	</div>
@@ -616,15 +613,14 @@
 																										<table class="table table-striped table-hover">
 																											<thead>
 																												<th>From Date</th>
-																												<th>To Date</th>
-																												<th>Reason</th>
+																												<th>To Date</th>																												
 																											</thead>
 																											<tbody>
 																												<cfloop query="shooterdates">
 																													<tr>
+																														<td><i class="fa fa-calendar"></i></td>
 																														<td>#dateformat( fromdate, "mm/dd/yyyy" )#</td>
-																														<td>#dateformat( todate, "mm/dd/yyyy" )#</td>
-																														<td>#blockreason#</td>
+																														<td>#dateformat( todate, "mm/dd/yyyy" )#</td>																														
 																													</tr>
 																												</cfloop>
 																											</tbody>
@@ -660,10 +656,7 @@
 																										<span class="input-group-addon">to</span>
 																										<input type="text" class="input-sm form-control" name="end" value="#dateformat( today, "mm/dd/yyyy" )#">
 																									</div>
-																								</div>
-																								<div class="form-group">					
-																									<input type="text" class="form-control" placeholder="Block Reason" name="blockreason" />										
-																								</div>
+																								</div>																								
 																								<div class="hr-line-dashed"></div>									
 																								<div class="form-group">																														
 																									<button class="btn btn-sm btn-primary" name="addblockdates" type="submit"><i class="fa fa-save"></i> Add Block Out Dates</button>								

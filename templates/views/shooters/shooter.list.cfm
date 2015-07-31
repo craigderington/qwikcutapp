@@ -59,10 +59,18 @@
 											</span>
 									</div>
 															
-									<div class="ibox-content" style="min-height:500px;">									
+									<div class="ibox-content" style="min-height:600px;">									
 										
 										<cfif shooterlist.recordcount gt 0>
-											<cfoutput query="shooterlist">
+										
+											<!--- // pagination --->
+											<cfparam name="url.startRow" default="1" >
+											<cfparam name="url.rowsPerPage" default="9" >
+											<cfparam name="currentPage" default="1" >
+											<cfparam name="totalPages" default="0" >
+										
+										
+											<cfoutput query="shooterlist" startrow="#url.startrow#" maxrows="#url.rowsperpage#">
 												<div class="col-lg-4">											
 													<div class="contact-box">
 														<a href="#application.root##url.event#&fuseaction=shooter.view&id=#shooterid#">
@@ -87,7 +95,7 @@
 																		#shooteraddress1#<br/>
 																		#shootercity#, #stateabbr# #shooterzip#<br />
 																		#shootercellphone#<br />
-																		#shooteremail#																
+																		<small>#shooteremail#</small>															
 																	</address>
 																<cfelse>
 																	<h3><strong>#shooterfirstname# #shooterlastname#</strong></h3>
@@ -96,7 +104,7 @@
 																		Address Not Entered<br/>
 																		Located In: #stateabbr#<br />
 																		No Phone Saved <br />
-																		#shooteremail#																
+																		<small>#shooteremail#</small>																
 																	</address>
 																</cfif>
 																
@@ -106,7 +114,46 @@
 													</div>											
 												</div>
 											</cfoutput>
-										
+											
+											<div class="row" style="margin-left:15px;">
+												
+											<!--- // pagination conditionals --->
+													<cfset totalRecords = shooterlist.recordcount />
+													<cfset totalPages = totalRecords / rowsPerPage />
+													<cfset endRow = (startRow + rowsPerPage) - 1 />													
+
+														<!--- If the endrow is greater than the total, set the end row to to total --->
+														<cfif endRow GT totalRecords>
+															<cfset endRow = totalRecords />
+														</cfif>
+
+														<!--- Add an extra page if you have leftovers --->
+														<cfif (totalRecords MOD rowsPerPage) GT 0 >
+															<cfset totalPages = totalPages + 1 />
+														</cfif>
+
+														<!--- Display all of the pages --->
+														<cfif totalPages gte 2>												
+															<cfoutput>
+																<table>
+																	<tr>
+																		<td colspan="8" class="footable-visible">
+																			<ul class="pagination pull-right">
+																				<cfloop from="1" to="#totalPages#" index="i">
+																					<cfset startRow = (( i - 1 ) * rowsPerPage ) + 1 />
+																					<cfif currentPage neq i>
+																						<li class="footable-page active"><a href="#application.root##url.event#&startRow=#startRow#&currentPage=#i#">#i#</a></li>
+																					<cfelse>
+																						<li class="footable-page"><a href="javascript:;">#i#</a></li>
+																					</cfif>													
+																				</cfloop>																																				
+																			</ul>
+																		</td>
+																	</tr>
+																</table>
+															</cfoutput>														
+														</cfif>
+											</div>
 										<cfelse>
 										
 											<div class="alert alert-danger alert-dismissable">

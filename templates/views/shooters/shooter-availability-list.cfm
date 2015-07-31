@@ -19,17 +19,17 @@
 										<table class="table table-striped" >
 											<thead>
 												<tr>												
+													<th></th>
 													<th>From Date</th>
-													<th>To Date</th>
-													<th>Reason</th>
+													<th>To Date</th>													
 												</tr>
 											</thead>
 											<tbody>
 												<cfloop query="shooterblockdates">
 													<tr class="small">
-														<th>#dateformat( fromdate, "mm/dd/yyyy" )#</th>
-														<th>#dateformat( todate, "mm/dd/yyyy" )#</th>
-														<th>#blockreason#</th>
+														<td><i class="fa fa-calendar"></i></td>
+														<td>#dateformat( fromdate, "mm/dd/yyyy" )#</td>
+														<td>#dateformat( todate, "mm/dd/yyyy" )#</td>														
 													</tr>
 												</cfloop>
 											</tbody>
