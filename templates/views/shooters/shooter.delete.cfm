@@ -52,26 +52,40 @@
 													</div>
 												
 												<cfelse>
+												
+													<!--- // get the shooters user id --->
+													<cfquery name="getshooter">
+														select shooterid, userid 
+														  from shooters												   
+														 where shooterid = <cfqueryparam value="#sh.shooterid#" cfsqltype="cf_sql_integer" />														
+													</cfquery>													
 													
 													<!--- // no games or other related data found, allow the delete record operation --->
 													<cfquery name="deleteshooter">
 														delete 
 														  from shooters												   
-														 where shooterid = <cfqueryparam value="#sh.shooterid#" cfsqltype="cf_sql_integer" />														
+														 where shooterid = <cfqueryparam value="#getshooter.shooterid#" cfsqltype="cf_sql_integer" />														
 													</cfquery>
 
 													<!--- // clean up the shooter block out dates table --->
 													<cfquery name="deleteshooterdates">
 														delete 
 														  from shooterblockoutdates												   
-														 where shooterid = <cfqueryparam value="#sh.shooterid#" cfsqltype="cf_sql_integer" />														
+														 where shooterid = <cfqueryparam value="#getshooter.shooterid#" cfsqltype="cf_sql_integer" />														
 													</cfquery>
 													
 													<!--- // clean up the shooter assigned fields table --->
 													<cfquery name="deleteshooterfields">
 														delete 
 														  from shooterfields												   
-														 where shooterid = <cfqueryparam value="#sh.shooterid#" cfsqltype="cf_sql_integer" />														
+														 where shooterid = <cfqueryparam value="#getshooter.shooterid#" cfsqltype="cf_sql_integer" />														
+													</cfquery>
+													
+													<!--- // clean up the shooter assigned fields table --->
+													<cfquery name="inactivateshooteruser">
+														update users
+														   set useractive = <cfqueryparam value="0" cfsqltype="cf_sql_bit" />
+														 where userid = <cfqueryparam value="#getshooter.userid#" cfsqltype="cf_sql_integer" />														
 													</cfquery>
 												
 												<cflocation url="#application.root##url.event#&scope=s3" addtoken="no">
@@ -107,7 +121,7 @@
 						
 							<form class="form-horizontal" method="post" action="#application.root##url.event#&fuseaction=#url.fuseaction#&id=#shooter.shooterid#">
                                 <h4><i class="fa fa-warning" style="color:##f00;"></i> Delete Confirmation</h4>
-								<p>This action can not be un-done.  Are you sure you want to delete #shooter.shooterfirstname# #shooter.shooterlastname# videographer profile?</p>                               
+								<p>This action can not be un-done.  Are you sure you want to delete #shooter.shooterfirstname# #shooter.shooterlastname#'s videographer profile?</p>                               
 								<br /><br /><br />
                                 <div class="hr-line-dashed" style-="margin-top:25px;"></div>
                                 <div class="form-group">

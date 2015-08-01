@@ -149,11 +149,12 @@
 						<cfabort>
 					<cfelse>						
 						<cfquery name="loginquery">
-							SELECT u.userid, u.username, u.password, u.confid, u.firstname, u.lastname,
-								   u.userrole, u.useracl
-							  FROM dbo.users u
-							 WHERE u.username = <cfqueryparam value="#cflogin.name#" cfsqltype="cf_sql_varchar" />
-							   AND u.password = <cfqueryparam value="#hash( cflogin.password, "SHA-384", "UTF-8" )#" cfsqltype="cf_sql_varchar" />							   
+							select u.userid, u.username, u.password, u.confid, u.firstname, u.lastname,
+								   u.userrole, u.useracl, u.useractive
+							  from dbo.users u
+							 where u.username = <cfqueryparam value="#cflogin.name#" cfsqltype="cf_sql_varchar" />
+							   and u.password = <cfqueryparam value="#hash( cflogin.password, "SHA-384", "UTF-8" )#" cfsqltype="cf_sql_varchar" />
+							   and u.useractive = <cfqueryparam value="1" cfsqltype="cf_sql_bit" />
 						</cfquery>
 						<cfif loginquery.userid NEQ "">
 							<cfloginuser 
