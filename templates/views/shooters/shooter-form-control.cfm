@@ -218,10 +218,15 @@
 						</div>											
 						<div class="hr-line-dashed"></div>
 						<div class="form-group">
-							<div class="col-sm-4 col-sm-offset-2">
+							<div class="col-sm-6 col-sm-offset-2">
 								<button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> Save Shooter</button>
 								<input type="hidden" name="shooterid" value="#numberformat( url.id, "99" )#" />
-								<a href="#application.root##url.event#" class="btn btn-white" type="submit"><i class="fa fa-remove"></i> Cancel</a>													
+								<cfif isuserinrole( "admin" )>
+									<cfif structkeyexists( url, "id" ) and url.id neq 0>
+										<a href="#application.root##url.event#&fuseaction=shooter.delete&id=#shooter.shooterid#" class="btn btn-danger"><i class="fa fa-times-circle"></i> Delete Shooter</a>
+									</cfif>
+								</cfif>
+								<a href="#application.root##url.event#" class="btn btn-white"><i class="fa fa-remove"></i> Cancel</a>													
 							</div>
 						</div>						
 					</form>

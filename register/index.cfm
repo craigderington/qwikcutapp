@@ -443,11 +443,11 @@
 																						</div>
 																						<div class="form-group">
 																							<label>Password</label>
-																							<input id="password" name="password" type="text" class="form-control">
+																							<input id="password" name="password" type="password" class="form-control">
 																						</div>
 																						<div class="form-group">
 																							<label>Confirm Password</label>
-																							<input id="confirm" name="confirmpassword" type="text" class="form-control">
+																							<input id="confirm" name="confirmpassword" type="password" class="form-control">
 																						</div>
 																					</div>
 																					<div class="col-lg-4">
@@ -685,7 +685,7 @@
 																			<p class="small">Please agree to the terms...</p>
 																			<form name="register-game-videographer-verify" method="post" action="">
 																				<input id="acceptTerms" name="acceptTerms" type="checkbox" class="required" aria-required="true" value="1">
-																				<label for="acceptTerms"> I agree with the <a href="">terms and conditions</a>.</label> <br /><br />
+																				<label for="acceptTerms"> I agree with the <a href="terms.html" target="_blank">terms and conditions</a>.</label> <br /><br />
 																				<button class="btn btn-primary btn-lg" name="finishregistration" type="submit"><i class="fa fa-arrow-circle-right"></i> Complete Registration</button>																				
 																			</form>
 																		</div>
