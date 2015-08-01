@@ -11,8 +11,8 @@
 		
 		<cfset arguments.senderemail = "info@qwikcut.com"  />
 		<cfset msgstatus = "" />
-			<cfmail from="#arguments.senderemail#" to="#arguments.shooteremail#" bcc="craig@craigderington.me,todd@qwikcut.com" subject="QwikCut - Videographer Registration - Action Required" type="HTML"><cfoutput><div align="center"><a href="http://www.qwikcut.com"><img src="http://qwikcut.cloudapp.net/qwikcutapp/img/qc-logo.jpg" height="234" width="800"></a></div>
-			
+			<cfmail from="#arguments.senderemail#" to="#arguments.shooteremail#" bcc="craig@craigderington.me,todd@qwikcut.com" subject="QwikCut - Videographer Registration - Action Required" type="HTML"><cfoutput><div align="center"><a href="http://www.qwikcut.com"><img src="http://qwikcut.cloudapp.net/qwikcutapp/img/qc-logo-600x176.jpg" height="176" width="600"></a></div>
+<div style="padding:7px;">			
 <h3>Hi, #shootername#</h3>
 			
 <p>Great News!  Your QwikCut videographer profile has been created.</p>
@@ -27,6 +27,7 @@
 
 <p><small>This is an automated email sent from a unattended mailbox. Please do not reply to this email directly.  Please direct all questions or comments to info@qwikcut.com</small></p>
 <p><small>Email sent on behalf of QwikCut.com on #dateformat( now(), "mm/dd/yyyy" )# at #timeformat( now(), "hh:mm:ss tt" )#</small></p>
+</div>
 </cfoutput>
 			<cfmailparam name="reply-to" value="info@qwikcut.com">
 			</cfmail>
