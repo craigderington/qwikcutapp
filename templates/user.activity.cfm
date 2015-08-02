@@ -3,11 +3,10 @@
 	
 	
 	
-			<!---
-			<cfinvoke component="apis.com.user.userservice" method="getusersettings" returnvariable="usersettings">
+			<!--- // get the user activity --->
+			<cfinvoke component="apis.com.activity.activityservice" method="getuseractivity" returnvariable="useractivity">
 				<cfinvokeargument name="id" value="#session.userid#">
 			</cfinvoke>
-			--->
 
 				
 			<cfoutput>	
@@ -31,7 +30,38 @@
 									<div class="tab-content">
 										<div id="tab-1" class="tab-pane active">
 											<div class="panel-body">
-												{{ user login activity }}
+												<cfif useractivity.recordcount gt 0>
+													<div class="table-responsive">
+														<table class="table table-bordered table-hover">
+															<thead>
+																<tr>
+																	<th>Date</th>
+																	<th>Type</th>
+																	<th>Activity</th>
+																</tr>
+															</thead>
+															<tbody>												
+																<cfloop query="useractivity">
+																	<tr>
+																		<td>#dateformat( activitydate, "mm/dd/yyyy" )# at #timeformat( activitydate, "hh:mm tt" )#</td>
+																		<td>#activitytype#</td>
+																		<td>#firstname# #lastname# #trim( activitytext )#</td>
+																	</tr>
+																</cfloop>												
+															</tbody>
+															<tfoot>
+																<tr>
+																	<td colspan="3"><span class="pull-right"><i class="fa fa-th-list"></i> Showing #useractivity.recordcount# record<cfif useractivity.recordcount gt 1>s</cfif>.</span></td>
+																</tr>
+															</tfoot>
+														</table>
+													</div>
+												<cfelse>
+													<div class="alert alert-danger">
+														<p><i class="fa fa-warning"></i> <a class="alert-link" href="">No Records Found!</a></p>
+														<p>There are no user activity records to display in this view...</p>
+													</div>								
+												</cfif>
 											</div>
 										</div>                              
 									</div>

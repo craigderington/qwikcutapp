@@ -84,6 +84,14 @@
 																<cfqueryparam value="#hash( user.password, "SHA-384", "UTF-8" )#" cfsqltype="cf_sql_clob" maxlength="128" />,
 																<cfqueryparam value="#user.role#" cfsqltype="cf_sql_varchar" maxlength="50" />,
 																<cfqueryparam value="#user.acl#" cfsqltype="cf_sql_numeric" />
+																); select @@identity as newuserid
+													</cfquery>
+													
+													<!--- create user settings record in table --->
+													<cfquery name="adduser">
+														insert into usersettings(userid)
+														 values(
+																<cfqueryparam value="#adduser.newuserid#" cfsqltype="cf_sql_integer" />																
 																);
 													</cfquery>
 													

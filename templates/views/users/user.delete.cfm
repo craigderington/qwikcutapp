@@ -62,6 +62,13 @@
 														  from users													   
 														 where userid = <cfqueryparam value="#user.userid#" cfsqltype="cf_sql_integer" />												
 													</cfquery>
+													
+													<!--- // no conferences or related data found, allow the delete record operation --->
+													<cfquery name="deleteusersettings">
+														delete 
+														  from usersettings													   
+														 where userid = <cfqueryparam value="#user.userid#" cfsqltype="cf_sql_integer" />												
+													</cfquery>
 
 													<!--- // record the activity --->
 													<cfquery name="activitylog">

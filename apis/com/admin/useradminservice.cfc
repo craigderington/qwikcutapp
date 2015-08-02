@@ -7,14 +7,15 @@
 	<cffunction name="getusers" output="false" returntype="query" access="remote" hint="I get the list of users">
 		<cfset var userlist = "" />
 			<cfquery name="userlist">
-					select userid, username, firstname, lastname, password, confid, lastloginip, lastlogindate, email, userrole, useracl
-				      from dbo.users
-					 where 
+					select users.userid, username, firstname, lastname, password, confid, lastloginip, lastlogindate, email, 
+					       userrole, useracl, usersettings.userprofileimagepath
+				      from dbo.users, dbo.usersettings
+					 where dbo.users.userid = dbo.usersettings.userid 
 				    <cfif not structkeyexists( form, "filterresults" )>
-						userrole = <cfqueryparam value="admin" cfsqltype="cf_sql_varchar" />   
+						and userrole = <cfqueryparam value="admin" cfsqltype="cf_sql_varchar" />   
 				    <cfelse>
 						<cfif structkeyexists( form, "usertype" ) and trim( form.usertype ) neq "">
-						userrole = <cfqueryparam value="#trim( form.usertype )#" cfsqltype="cf_sql_varchar" />
+						and userrole = <cfqueryparam value="#trim( form.usertype )#" cfsqltype="cf_sql_varchar" />
 						</cfif>						
 					</cfif>
 				  order by lastname, firstname asc

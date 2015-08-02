@@ -86,6 +86,7 @@
 															<cfif isuserinrole( "admin" )>
 																<th>Actions</th>
 															</cfif>
+															<th></th>
 															<th>Username </th>
 															<th>First Name </th>
 															<th>Last Name</th>
@@ -103,6 +104,7 @@
 																		<a class="btn btn-sm btn-danger" href="#application.root#admin.users&fuseaction=user.delete&id=#userid#" title="Delete User"><i class="fa fa-trash"></i></a>
 																	</td>
 																</cfif>
+																<td class="client-avatar"><cfif trim( userprofileimagepath ) neq ""><img src="#userprofileimagepath#" alt="profile image"><cfelse><i class="fa fa-user fa-2x"></i></cfif></td>
 																<td><strong>#username#</strong></td>
 																<td>#firstname#</td>
 																<td>#lastname#</td>																										

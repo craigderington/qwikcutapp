@@ -64,7 +64,15 @@
 														<cfqueryparam value="5" cfsqltype="cf_sql_numeric" />,
 														<cfqueryparam value="#sh.shooterregcode#" cfsqltype="cf_sql_varchar" maxlength="35" />
 														); select @@identity as newuserid
-										</cfquery>								
+										</cfquery>
+
+										<!--- create user settings record in table --->
+										<cfquery name="addnewuser">
+											insert into usersettings(userid)
+												values(
+														<cfqueryparam value="#adduser.newuserid#" cfsqltype="cf_sql_integer" />																
+													  );
+										</cfquery>
 								
 										<!--- // now that we have a valid user id, insert the shooter record --->
 										<!--- // then add the shooter --->
@@ -83,7 +91,7 @@
 														<cfqueryparam value="1" cfsqltype="cf_sql_bit" />,
 														<cfqueryparam value="#sh.shootercellphone#" cfsqltype="cf_sql_varchar" maxlength="50" />
 														);
-										</cfquery>
+										</cfquery>									
 
 										<!--- // send shooter invitation // still need to do --->
 										<cfinvoke component="apis.com.admin.notificationservice" method="sendshooterinvite" returnvariable="msgstatus">

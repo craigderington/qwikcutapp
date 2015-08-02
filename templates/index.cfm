@@ -80,7 +80,7 @@
 													</tr>
 												</thead>
 												<tbody>												
-													<cfloop query="useractivity">
+													<cfloop query="useractivity" startrow="1" endrow="15">
 														<tr>
 															<td>#dateformat( activitydate, "mm/dd/yyyy" )# at #timeformat( activitydate, "hh:mm tt" )#</td>
 															<td>#activitytype#</td>
