@@ -174,18 +174,16 @@
 									 where userid = <cfqueryparam value="#loginquery.userid#" cfsqltype="cf_sql_integer" />									   
 						        </cfquery>
 							   
-							    <!---Log this users activity to the login history table 
-								<cfquery datasource="#application.dsn#" name="logUser">
-									   insert into loginhistory(userid, logindate, loginip, username)
-											 values(
-													<cfqueryparam value="#session.userid#" cfsqltype="cf_sql_integer" />, 
-													<cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />, 
-													<cfqueryparam value="#cgi.remote_addr#" cfsqltype="cf_sql_varchar" />, 
-													<cfqueryparam value="#session.username#" cfsqltype="cf_sql_varchar" />												
-													);
-									 									   
-						        </cfquery>
-							    --->						   		   
+							    <!--- // record the activity --->
+								<cfquery name="activitylog">
+									insert into activity(userid, activitydate, activitytype, activitytext)														  													   
+										values(
+												<cfqueryparam value="#loginquery.userid#" cfsqltype="cf_sql_integer" />,
+												<cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />,
+												<cfqueryparam value="Login" cfsqltype="cf_sql_varchar" />,
+												<cfqueryparam value="logged into the system" cfsqltype="cf_sql_varchar" />																
+												);
+								</cfquery>						   		   
 						<cfelse>
 							<cfset REQUEST.badlogin = true />    
 							<cfinclude template="login.cfm">

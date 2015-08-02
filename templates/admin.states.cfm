@@ -18,10 +18,33 @@
 		
 			<cfoutput>
 				<div class="wrapper wrapper-content animated fadeIn">
-					<div class="container">
+					<div class="container">					
 
 						<!--- // check the users role --->
 						<cfif isuserinrole( "admin" )>
+						
+						
+							<!--- system wide alerts --->
+							<cfif structkeyexists( url, "scope" )>
+								<div style="margin-top:12px;">
+									<cfif trim( url.scope ) eq "s1">
+										<div class="alert alert-info alert-dismissable">
+											<button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
+											<i class="fa fa-plus"></i> The new state was successfully added to the database...
+										</div>
+									<cfelseif trim( url.scope ) eq "s2">
+										<div class="alert alert-success alert-dismissable">
+											<button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
+											<i class="fa fa-check-circle-o"></i> The state was successfully updated!
+										</div>
+									<cfelseif trim( url.scope ) eq "s3">
+										<div class="alert alert-danger alert-dismissable">
+											<button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
+											<i class="fa fa-warning"></i> The state was successfully deleted.
+										</div>
+									</cfif>
+								</div>
+							</cfif>
 						
 							<!-- // include the page heading --->
 							<cfinclude template="views/state-admin-page-heading.cfm">

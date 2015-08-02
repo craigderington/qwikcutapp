@@ -73,9 +73,20 @@
 																				   fieldcontacttitle =<cfqueryparam value="#f.fieldcontacttitle#" cfsqltype="cf_sql_varchar" maxlength="50" />,
 																				   fieldcontactnumber = <cfqueryparam value="#f.fieldcontactnumber#" cfsqltype="cf_sql_varchar" maxlength="50" />
 																			 where fieldid = <cfqueryparam value="#f.fieldid#" cfsqltype="cf_sql_integer" /> 
-																		</cfquery>										
+																		</cfquery>
+
+																		<!--- // record the activity --->
+																		<cfquery name="activitylog">
+																			insert into activity(userid, activitydate, activitytype, activitytext)														  													   
+																			 values(
+																					<cfqueryparam value="#session.userid#" cfsqltype="cf_sql_integer" />,
+																					<cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />,
+																					<cfqueryparam value="Delete Record" cfsqltype="cf_sql_varchar" />,
+																					<cfqueryparam value="updated the field #f.fieldname# in the system." cfsqltype="cf_sql_varchar" />																
+																					);
+																		</cfquery>
 																		
-																		<cflocation url="#application.root##url.event#" addtoken="no">				
+																		<cflocation url="#application.root##url.event#&scope=f2" addtoken="no">				
 																	
 														
 																<!--- If the required data is missing - throw the validation error --->

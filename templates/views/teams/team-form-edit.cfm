@@ -39,10 +39,21 @@
 														   teamlevelid = <cfqueryparam value="#t.teamlevelid#" cfsqltype="cf_sql_varchar" maxlength="50" />,
 														   teamorgname = <cfqueryparam value="#t.teamorgname#" cfsqltype="cf_sql_varchar" maxlength="50" />									
 													 where teamid = <cfqueryparam value="#t.teamid#" cfsqltype="cf_sql_integer" />														
-												</cfquery>										
+												</cfquery>
+
+													<!--- // record the activity --->
+													<cfquery name="activitylog">
+														insert into activity(userid, activitydate, activitytype, activitytext)														  													   
+														 values(
+																<cfqueryparam value="#session.userid#" cfsqltype="cf_sql_integer" />,
+																<cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />,
+																<cfqueryparam value="Modify Record" cfsqltype="cf_sql_varchar" />,
+																<cfqueryparam value="updated the team #t.teamname# in the system." cfsqltype="cf_sql_varchar" />																
+																);
+													</cfquery>
 												
 												
-												<cflocation url="#application.root##url.event#" addtoken="no">			
+												<cflocation url="#application.root##url.event#&scope=t2" addtoken="no">			
 														
 											<!--- If the required data is missing - throw the validation error --->
 											<cfelse>

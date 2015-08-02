@@ -1,7 +1,9 @@
 
-
-	
-	
+			<!--- // get the user activity --->
+			<cfinvoke component="apis.com.activity.activityservice" method="getuseractivity" returnvariable="useractivity">
+				<cfinvokeargument name="id" value="#session.userid#">
+			</cfinvoke>
+		
 	
 			
 			
@@ -9,6 +11,9 @@
 			
 			<div class="wrapper wrapper-content animated fadeIn">
 				<div class="container">
+					
+					<cfoutput>
+					
 					
 					<!--- // show message if user attempts to circumvent security settings --->
 					<cfif structkeyexists( url, "accessdenied" )>
@@ -24,8 +29,8 @@
 					<div class="row" style="margin-top:20px;">
 						<div class="ibox">							
 							<div class="jumbotron">
-								<h1>Jumbotron</h1>
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+								<h1>QC+</h1>
+								<p>Game Video & Analytics</p>
 								<p><a role="button" class="btn btn-primary btn-lg">Learn more</a></p>
 							</div>							
 						</div>
@@ -56,24 +61,46 @@
 											<a class="collapse-link">
 												<i class="fa fa-chevron-up"></i>
 											</a>
-											<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-												<i class="fa fa-wrench"></i>
-											</a>
-											<!--
-											<ul class="dropdown-menu dropdown-user">
-												<li><a href="#">Config option 1</a></li>
-												<li><a href="#">Config option 2</a></li>
-											</ul>
+																				
 											<a class="close-link">
 												<i class="fa fa-times"></i>
 											</a>
-											-->
+											
 										</div>
 								</div>
 								<div class="ibox-content">
-									<div class="table-responsive">
-										{{ table-data }}			
-									</div>
+									<cfif useractivity.recordcount gt 0>
+										<div class="table-responsive">
+											<table class="table table-bordered table-hover">
+												<thead>
+													<tr>
+														<th>Date</th>
+														<th>Type</th>
+														<th>Activity</th>
+													</tr>
+												</thead>
+												<tbody>												
+													<cfloop query="useractivity">
+														<tr>
+															<td>#dateformat( activitydate, "mm/dd/yyyy" )# at #timeformat( activitydate, "hh:mm tt" )#</td>
+															<td>#activitytype#</td>
+															<td>#firstname# #lastname# #trim( activitytext )#</td>
+														</tr>
+													</cfloop>												
+												</tbody>
+												<tfoot>
+													<tr>
+														<td colspan="3"><span class="pull-right"><i class="fa fa-th-list"></i> Showing #useractivity.recordcount# record<cfif useractivity.recordcount gt 1>s</cfif>.</span></td>
+													</tr>
+												</tfoot>
+											</table>
+										</div>
+									<cfelse>
+										<div class="alert alert-danger">
+											<p><i class="fa fa-warning"></i> <a class="alert-link" href="">No Records Found!</a></p>
+											<p>There are no user activity records to display in this view...</p>
+										</div>								
+									</cfif>
 								</div>
 							</div>							
 						</div>
@@ -83,7 +110,7 @@
 							
 						
 						
-						
+				</cfoutput>		
 				</div><!-- /.container -->
 			</div><!-- /.wrapper-content -->
 		

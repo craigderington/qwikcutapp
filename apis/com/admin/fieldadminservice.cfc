@@ -12,16 +12,16 @@
 				   s.statename, s.stateabbr
 			  from fields f, states s
 			 where f.stateid = s.stateid			  
-				   <cfif structkeyexists( form, "filterresults" )>
-						<cfif structkeyexists( form, "state" ) and form.state neq "">
-							and s.stateid = <cfqueryparam value="#form.state#" cfsqltype="cf_sql_integer" />
-						</cfif>
+				   <cfif structkeyexists( form, "filterresults" )>						
 						<cfif structkeyexists( form, "fieldname" ) and form.fieldname neq "">
 							and f.fieldname LIKE <cfqueryparam value="#trim( form.fieldname )#%" cfsqltype="cf_sql_varchar" />
 						</cfif>
 						<cfif structkeyexists( form, "fieldzipcode" ) and form.fieldzipcode neq "">
 							and f.fieldzip = <cfqueryparam value="#form.fieldzipcode#" cfsqltype="cf_sql_numeric" />
 						</cfif>
+				   </cfif>
+				   <cfif structkeyexists( session, "stateid" )>						
+						and s.stateid = <cfqueryparam value="#session.stateid#" cfsqltype="cf_sql_integer" />					
 				   </cfif>
 			 order by f.fieldname asc
 		</cfquery>

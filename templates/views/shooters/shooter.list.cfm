@@ -10,7 +10,7 @@
 										<h5><i class="fa fa-search"></i> Filter Your Results</h5>
 									</div>
 									<div class="ibox-content m-b-sm border-bottom">
-										<form name="data-filter" method="post" action="">
+										<form name="data-filter" method="post" action="#application.root##url.event#">
 											<div class="row">
 												<div class="col-sm-2">
 													<div class="form-group">

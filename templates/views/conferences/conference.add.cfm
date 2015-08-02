@@ -46,9 +46,20 @@
 															<cfqueryparam value="#c.conferencetype#" cfsqltype="cf_sql_varchar" maxlength="2" />,
 															<cfqueryparam value="1" cfsqltype="cf_sql_bit" />															
 															);
-												</cfquery>										
+												</cfquery>
+
+												<!--- // record the activity --->
+													<cfquery name="activitylog">
+														insert into activity(userid, activitydate, activitytype, activitytext)														  													   
+														 values(
+																<cfqueryparam value="#session.userid#" cfsqltype="cf_sql_integer" />,
+																<cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />,
+																<cfqueryparam value="Delete Record" cfsqltype="cf_sql_varchar" />,
+																<cfqueryparam value="added the conference #c.conferencename# to the system." cfsqltype="cf_sql_varchar" />																
+																);
+													</cfquery>
 												
-												<cflocation url="#application.root#admin.conferences" addtoken="no">				
+												<cflocation url="#application.root##url.event#&scope=s1" addtoken="no">				
 											
 								
 										<!--- If the required data is missing - throw the validation error --->

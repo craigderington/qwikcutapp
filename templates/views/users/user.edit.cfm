@@ -28,6 +28,7 @@
 											<!--- define our form structure and set form values --->
 											<cfset user = structnew() />											
 											<cfset user.userid = form.userid />
+											<cfset user.username = trim( form.username ) />
 											<cfset user.firstname = trim( form.firstname ) />
 											<cfset user.lastname = trim( form.lastname ) />
 											<cfset user.email = trim( form.email ) />											
@@ -81,10 +82,21 @@
 															, password = <cfqueryparam value="#hash( user.password, "SHA-384", "UTF-8" )#" cfsqltype="cf_sql_clob" maxlength="128" />
 														   </cfif>
 													 where userid = <cfqueryparam value="#user.userid#" cfsqltype="cf_sql_integer" />														
-												</cfquery>										
+												</cfquery>
+
+													<!--- // record the activity --->
+													<cfquery name="activitylog">
+														insert into activity(userid, activitydate, activitytype, activitytext)														  													   
+														 values(
+																<cfqueryparam value="#session.userid#" cfsqltype="cf_sql_integer" />,
+																<cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />,
+																<cfqueryparam value="Modify Record" cfsqltype="cf_sql_varchar" />,
+																<cfqueryparam value="updated the user #user.username# in the system." cfsqltype="cf_sql_varchar" />																
+																);
+													</cfquery>
 													
 												<!--- // redirect back to user list --->
-												<cflocation url="#application.root#admin.users" addtoken="no">						
+												<cflocation url="#application.root##url.event#&scope=u2" addtoken="no">						
 											
 											</cfif>										
 										
@@ -170,6 +182,7 @@
 												<button class="btn btn-primary" type="submit" name="stateUserRecord"><i class="fa fa-save"></i> Save User</button>
 												<a href="#application.root#admin.users" class="btn btn-default"><i class="fa fa-remove"></i> Cancel</a>																		
 												<input type="hidden" name="userid" value="#userdetail.userid#" />
+												<input type="hidden" name="username" value="#userdetail.username#" />
 												<input name="validate_require" type="hidden" value="email|The user's email address is required to add a new record.;firstname|The user's first name is required.;lastname|The user's last name is required.;userrole|Please select a user role from the list." />
 												<input type="hidden" name="validate_email" value="email|The email address you entered is invalid.  Please try again..." />
 											</div>

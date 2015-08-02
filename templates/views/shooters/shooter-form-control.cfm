@@ -95,7 +95,7 @@
 										
 										
 										<!--- // redirect to shooter page --->
-										<cflocation url="#application.root##url.event#" addtoken="no">
+										<cflocation url="#application.root##url.event#&scope=s1" addtoken="no">
 										
 									</cfif>
 

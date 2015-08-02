@@ -33,6 +33,7 @@
 											<!--- define our form structure and set form values --->
 											<cfset user = structnew() />
 											<cfset user.userid = form.userid />
+											<cfset user.username = trim( form.username ) />
 																		
 												<!--- // check our user id against the shooters table and throw error if found --->
 												<cfquery name="chkshooterprofiles">
@@ -49,7 +50,7 @@
 														<button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
 															<h5><error>Sorry, <cfoutput> #chkshooterprofiles.userid#</cfoutput> can not be deleted:</error></h2>
 															<ul>
-																<li class="formerror">Forgeign key constraint on shooters table.</li>
+																<li class="formerror">Forgeign key constraint on SHOOTERS table.  Operartion Aborted!</li>
 															</ul>
 													</div>
 												
@@ -60,9 +61,20 @@
 														delete 
 														  from users													   
 														 where userid = <cfqueryparam value="#user.userid#" cfsqltype="cf_sql_integer" />												
-													</cfquery>										
+													</cfquery>
+
+													<!--- // record the activity --->
+													<cfquery name="activitylog">
+														insert into activity(userid, activitydate, activitytype, activitytext)														  													   
+														 values(
+																<cfqueryparam value="#session.userid#" cfsqltype="cf_sql_integer" />,
+																<cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />,
+																<cfqueryparam value="Delete Record" cfsqltype="cf_sql_varchar" />,
+																<cfqueryparam value="deleted the user #user.username# from the system." cfsqltype="cf_sql_varchar" />																
+																);
+													</cfquery>
 												
-												<cflocation url="#application.root#admin.users" addtoken="no">
+													<cflocation url="#application.root##url.event#&scope=u3" addtoken="no">
 												
 												</cfif>
 								
@@ -98,6 +110,7 @@
                                         <button class="btn btn-danger" type="submit" name="stateSaveRecord"><i class="fa fa-save"></i> Delete User Profile</button>
 										<a href="#application.root#admin.users" class="btn btn-default"><i class="fa fa-remove"></i> Cancel</a>																		
 										<input type="hidden" name="userid" value="#userdetail.userid#" />
+										<input type="hidden" name="username" value="#userdetail.username#" />
 									</div>
 								</div>
                             </form>

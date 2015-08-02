@@ -85,10 +85,21 @@
 																<cfqueryparam value="#user.role#" cfsqltype="cf_sql_varchar" maxlength="50" />,
 																<cfqueryparam value="#user.acl#" cfsqltype="cf_sql_numeric" />
 																);
-													</cfquery>										
+													</cfquery>
+													
+													<!--- // record the activity --->
+													<cfquery name="activitylog">
+														insert into activity(userid, activitydate, activitytype, activitytext)														  													   
+														 values(
+																<cfqueryparam value="#session.userid#" cfsqltype="cf_sql_integer" />,
+																<cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />,
+																<cfqueryparam value="Modify Record" cfsqltype="cf_sql_varchar" />,
+																<cfqueryparam value="added the user #user.username# to the system." cfsqltype="cf_sql_varchar" />																
+																);
+													</cfquery>
 													
 													<!--- // redirect back to user list --->
-													<cflocation url="#application.root#admin.users" addtoken="no">			
+													<cflocation url="#application.root##url.event#&scope=u1" addtoken="no">			
 											
 												</cfif>
 								

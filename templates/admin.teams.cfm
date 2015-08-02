@@ -37,6 +37,29 @@
 						<!--- // check the users role --->
 						<cfif isuserinrole( "admin" )>
 						
+							<!--- system wide alerts --->
+							<cfif structkeyexists( url, "scope" )>
+								<div style="margin-top:12px;">
+									<cfif trim( url.scope ) eq "t1">
+										<div class="alert alert-info alert-dismissable">
+											<button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
+											<i class="fa fa-plus"></i> The new team was successfully added to the database...
+										</div>
+									<cfelseif trim( url.scope ) eq "t2">
+										<div class="alert alert-success alert-dismissable">
+											<button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
+											<i class="fa fa-check-circle-o"></i> The team was successfully updated!
+										</div>
+									<cfelseif trim( url.scope ) eq "t3">
+										<div class="alert alert-danger alert-dismissable">
+											<button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
+											<i class="fa fa-warning"></i> The team was successfully deleted.  All related data was also removed.
+										</div>
+									</cfif>
+								</div>
+							</cfif>
+							
+						
 							<!--- // include the page heading --->
 							<cfinclude template="views/teams-admin-page-heading.cfm">
 							

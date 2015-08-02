@@ -56,7 +56,18 @@
 													</cfquery>										
 												</cfloop>
 												
-												<cflocation url="#application.root##url.event#" addtoken="no">			
+													<!--- // record the activity --->
+													<cfquery name="activitylog">
+														insert into activity(userid, activitydate, activitytype, activitytext)														  													   
+														 values(
+																<cfqueryparam value="#session.userid#" cfsqltype="cf_sql_integer" />,
+																<cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />,
+																<cfqueryparam value="Add Record" cfsqltype="cf_sql_varchar" />,
+																<cfqueryparam value="added #arraylen( teamlevelarr )# teams to the system. Team name #t.teamname#." cfsqltype="cf_sql_varchar" />																
+																);
+													</cfquery>
+												
+												<cflocation url="#application.root##url.event#&scope=t1" addtoken="no">			
 														
 											<!--- If the required data is missing - throw the validation error --->
 											<cfelse>

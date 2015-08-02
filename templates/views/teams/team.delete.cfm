@@ -36,6 +36,7 @@
 												<!--- define our form structure and set form values --->
 												<cfset t = structnew() />
 												<cfset t.teamid = form.teamid />
+												<cfset t.teamname = trim( form.teamname ) />
 																			
 													<!--- // check our user id against the shooters table and throw error if found --->
 													<cfquery name="chkdata">
@@ -64,9 +65,20 @@
 															delete 
 															  from teams												   
 															 where teamid = <cfqueryparam value="#t.teamid#" cfsqltype="cf_sql_integer" />												
-														</cfquery>										
+														</cfquery>
+															
+														<!--- // record the activity --->
+														<cfquery name="activitylog">
+															insert into activity(userid, activitydate, activitytype, activitytext)														  													   
+															 values(
+																	<cfqueryparam value="#session.userid#" cfsqltype="cf_sql_integer" />,
+																	<cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />,
+																	<cfqueryparam value="Delete Record" cfsqltype="cf_sql_varchar" />,
+																	<cfqueryparam value="deleted the team #t.teamname# (#t.teamid#) from the system." cfsqltype="cf_sql_varchar" />																
+																	);
+														</cfquery>
 													
-													<cflocation url="#application.root##url.event#" addtoken="no">
+														<cflocation url="#application.root##url.event#&scope=t3" addtoken="no">
 													
 													</cfif>
 									
@@ -99,6 +111,7 @@
 												<button class="btn btn-danger" type="submit" name="deleteTeamRecord"><i class="fa fa-save"></i> Delete Conference</button>
 												<a href="#application.root##url.event#" class="btn btn-default"><i class="fa fa-remove"></i> Cancel</a>																		
 												<input type="hidden" name="teamid" value="#teamdetail.teamid#" />
+												<input type="hidden" name="teamname" value="#teamdetail.teamname#" />
 											</div>
 										</div>
 									</form>

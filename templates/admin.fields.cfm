@@ -1,7 +1,19 @@
 
 
 			
-
+		
+		<!--- // set data filters to session objects --->
+		<cfif structkeyexists( form, "filterresults" )>
+			<cfif structkeyexists( form, "stateid" ) and form.stateid neq "">
+				<cfset session.stateid = numberformat( form.stateid, "99" ) />
+			</cfif>			
+		</cfif>
+		
+		<!--- // reset the data filter session --->		
+		<cfif structkeyexists( url, "resetfilter" )>
+			<cfset tempf = structdelete( session, "stateid" ) />			
+			<cflocation url="#application.root##url.event#" addtoken="no">
+		</cfif>	
 	
 
 		<!--- admin.fields administration --->
@@ -28,7 +40,30 @@
 					<div class="container">
 					
 						<!--- // check the users role --->
-						<cfif isuserinrole( "admin" )>				
+						<cfif isuserinrole( "admin" )>
+
+							<!--- system wide alerts --->
+							<cfif structkeyexists( url, "scope" )>
+								<div style="margin-top:12px;">
+									<cfif trim( url.scope ) eq "f1">
+										<div class="alert alert-info alert-dismissable">
+											<button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
+											<i class="fa fa-plus"></i> The new field was successfully added to the database...
+										</div>
+									<cfelseif trim( url.scope ) eq "f2">
+										<div class="alert alert-success alert-dismissable">
+											<button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
+											<i class="fa fa-check-circle-o"></i> The field was successfully updated!
+										</div>
+									<cfelseif trim( url.scope ) eq "f3">
+										<div class="alert alert-danger alert-dismissable">
+											<button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
+											<i class="fa fa-warning"></i> The field was successfully deleted.  All related data was also removed.
+										</div>
+									</cfif>
+								</div>
+							</cfif>
+						
 						
 							<!-- // include the page heading --->
 							<cfinclude template="views/field-admin-page-heading.cfm">

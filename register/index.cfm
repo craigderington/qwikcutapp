@@ -374,7 +374,18 @@
 																	   set regcomplete = <cfqueryparam value="1" cfsqltype="cf_sql_bit" />,
 																	       regcompletedate = <cfqueryparam value="#today#" cfsqltype="cf_sql_timestamp" />
 																	 where userid = <cfqueryparam value="#user.userid#" cfsqltype="cf_sql_integer" />
-																</cfquery>												
+																</cfquery>
+
+																<!--- // record the activity --->
+																<cfquery name="activitylog">
+																	insert into activity(userid, activitydate, activitytype, activitytext)														  													   
+																	 values(
+																			<cfqueryparam value="#user.userid#" cfsqltype="cf_sql_integer" />,
+																			<cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />,
+																			<cfqueryparam value="Registration" cfsqltype="cf_sql_varchar" />,
+																			<cfqueryparam value="completed the videographer registration." cfsqltype="cf_sql_varchar" />																
+																			);
+																</cfquery>
 																													
 																<cflocation url="index.cfm?regcomplete=true" addtoken="no">				
 															

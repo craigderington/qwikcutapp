@@ -1,6 +1,6 @@
 
 
-
+						
 
 									
 						
@@ -12,31 +12,20 @@
 											<h5><i class="fa fa-search"></i> Filter Your Results</h5>
 										</div>
 										<div class="ibox-content m-b-sm border-bottom">
-											<form name="data-filter" method="post" action="">
+											<form name="data-filter" method="post" action="#application.root##url.event#">
 												<div class="row">
 													<div class="col-sm-2">
 														<div class="form-group">
 															<label class="control-label" for="state">State</label>
-															<select name="state" id="state" class="form-control" onchange="javascript:this.form.submit();">
+															<select name="stateid" id="stateid" class="form-control" onchange="javascript:this.form.submit();">
 																<option value="" selected>Filter by State</option>
 																	<cfloop query="statelist">														
-																		<option value="#stateid#"<cfif structkeyexists( form, "state" ) and trim( form.state ) neq ""><cfif statelist.stateid eq form.state>selected</cfif></cfif>>#statename#</option>
+																		<option value="#stateid#"<cfif structkeyexists( session, "stateid" )><cfif statelist.stateid eq session.stateid>selected</cfif></cfif>>#statename#</option>
 																	</cfloop>
 															</select>
 														</div>
 													</div>											
-													<!--- // remove conference type from filter
-													<div class="col-sm-2">
-														<div class="form-group">
-															<label class="control-label" for="">Type</label>
-															<select name="conferencetype" id="conferencetype" class="form-control" onchange="javascript:this.form.submit();">
-																<option value="" selected>Filter by Type</option>
-																<option value="HS">High School Football</option>
-																<option value="YF">Youth Football</option>
-															</select>
-														</div>
-													</div>
-													--->													
+																									
 													<div class="col-sm-3">
 														<div class="form-group">
 															<label class="control-label" for="product_name">Field Name</label>
@@ -51,8 +40,10 @@
 													</div>
 													<input name="filterresults" type="hidden" value="true" />													
 													<!---<button type="submit" name="filterresults" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> Filter Results</button>--->
-													<cfif structkeyexists( form, "filterresults" )>
+													<cfif structkeyexists( form, "filterresults" ) and not structkeyexists( session, "stateid" )>
 														<a style="margin-left:3px;margin-top:24px;" href="#application.root##url.event#" class="btn btn-md btn-success"><i class="fa fa-remove"></i> Reset Filters</a>
+													<cfelseif structkeyexists( session, "stateid" )>
+														<a style="margin-left:3px;margin-top:24px;" href="#application.root##url.event#&resetfilter=true" class="btn btn-md btn-primary"><i class="fa fa-remove"></i> Reset Filters</a>
 													</cfif>
 												</div>
 											</form>
@@ -73,7 +64,14 @@
 									<div class="ibox-content">									
 										<div class="table-responsive">
 											
-											<cfif fieldlist.recordcount gt 0>											
+											<cfif fieldlist.recordcount gt 0>
+
+												<!--- // pagination --->
+												<cfparam name="url.startRow" default="1" >
+												<cfparam name="url.rowsPerPage" default="10" >
+												<cfparam name="currentPage" default="1" >
+												<cfparam name="totalPages" default="0" >
+											
 											
 												<table class="table table-striped">
 													<thead>
@@ -89,7 +87,7 @@
 														</tr>
 													</thead>
 													<tbody>
-														<cfoutput query="fieldlist">
+														<cfoutput query="fieldlist" startrow="#url.startrow#" maxrows="#url.rowsperpage#">
 															<tr>
 																<cfif isuserinrole( "admin" )>
 																	<td>
@@ -105,6 +103,42 @@
 															</tr>
 														</cfoutput>																			 
 													</tbody>
+													<!--- // pagination conditionals --->
+													<cfset totalRecords = fieldlist.recordcount />
+													<cfset totalPages = totalRecords / rowsPerPage />
+													<cfset endRow = (startRow + rowsPerPage) - 1 />													
+
+														<!--- If the endrow is greater than the total, set the end row to to total --->
+														<cfif endRow GT totalRecords>
+															<cfset endRow = totalRecords />
+														</cfif>
+
+														<!--- Add an extra page if you have leftovers --->
+														<cfif (totalRecords MOD rowsPerPage) GT 0 >
+															<cfset totalPages = totalPages + 1 />
+														</cfif>
+
+														<!--- Display all of the pages --->
+														<cfif totalPages gte 2>												
+															<cfoutput>
+																<tfoot>
+																	<tr>
+																		<td colspan="8" class="footable-visible">
+																			<ul class="pagination pull-right">
+																				<cfloop from="1" to="#totalPages#" index="i">
+																					<cfset startRow = (( i - 1 ) * rowsPerPage ) + 1 />
+																					<cfif currentPage neq i>
+																						<li class="footable-page active"><a href="#application.root##url.event#&startRow=#startRow#&currentPage=#i#">#i#</a></li>
+																					<cfelse>
+																						<li class="footable-page"><a href="javascript:;">#i#</a></li>
+																					</cfif>													
+																				</cfloop>																																				
+																			</ul>
+																		</td>
+																	</tr>
+																</tfoot>
+															</cfoutput>														
+														</cfif>
 												</table>
 											
 											<cfelse>

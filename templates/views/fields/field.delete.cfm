@@ -30,6 +30,7 @@
 											<!--- define our form structure and set form values --->
 											<cfset f = structnew() />
 											<cfset f.fieldid = form.fieldid />
+											<cfset f.fieldname = trim( form.fieldname ) />
 																		
 												<!--- // check our user id against the shooters table and throw error if found --->
 												<cfquery name="chkdata">
@@ -57,9 +58,20 @@
 														delete 
 														  from fields												   
 														 where fieldid = <cfqueryparam value="#f.fieldid#" cfsqltype="cf_sql_integer" />												
-													</cfquery>										
+													</cfquery>
+
+													<!--- // record the activity --->
+													<cfquery name="activitylog">
+														insert into activity(userid, activitydate, activitytype, activitytext)														  													   
+														 values(
+																<cfqueryparam value="#session.userid#" cfsqltype="cf_sql_integer" />,
+																<cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />,
+																<cfqueryparam value="Delete Record" cfsqltype="cf_sql_varchar" />,
+																<cfqueryparam value="deleted the field #f.fieldname# from the system." cfsqltype="cf_sql_varchar" />																
+																);
+													</cfquery>
 												
-												<cflocation url="#application.root##url.event#" addtoken="no">
+													<cflocation url="#application.root##url.event#&scope=f3" addtoken="no">
 												
 												</cfif>
 								
@@ -89,12 +101,13 @@
                                 <h4><i class="fa fa-warning" style="color:##f00;"></i> Delete Confirmation</h4>
 								<p>This action can not be un-done.  Are you sure you want to delete <i>#fielddetail.fieldname#</i> &nbsp;from the database?</p>                             
 								<br /><br /><br />
-                                <div class="hr-line-dashed" style-="margin-top:25px;"></div>
+                                <div class="hr-line-dashed" style="margin-top:25px;"></div>
                                 <div class="form-group">
                                     <div class="col-lg-offset-2 col-lg-10">
                                         <button class="btn btn-danger" type="submit" name="killFieldRecord"><i class="fa fa-save"></i> Delete Field</button>
 										<a href="#application.root##url.event#" class="btn btn-default"><i class="fa fa-remove"></i> Cancel</a>																		
 										<input type="hidden" name="fieldid" value="#fielddetail.fieldid#" />
+										<input type="hidden" name="fieldname" value="#fielddetail.fieldname#" />
 									</div>
 								</div>
                             </form>

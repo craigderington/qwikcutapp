@@ -26,6 +26,7 @@
 					<div class="wrapper wrapper-content animated fadeIn">
 						<div class="container">
 							
+							<!--- system wide alerts --->
 							<cfif structkeyexists( url, "scope" )>
 								<div style="margin-top:12px;">
 									<cfif trim( url.scope ) eq "s1">

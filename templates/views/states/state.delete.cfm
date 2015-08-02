@@ -29,15 +29,15 @@
 											<!--- define our form structure and set form values --->
 											<cfset state = structnew() />
 											<cfset state.stateid = form.stateid />
+											<cfset state.statename = trim( form.statename ) />
 																		
 												<!--- // check our state id against the conferences table and throw error if found --->
 												<cfquery name="chkstate">
-													select c.confid, s.statename
-													  from conferences c, states s
-													 where c.stateid = s.stateid
+													select s.statename, c.confid
+													  from states s, conferences c
+													 where s.stateid = c.stateid
 													   and s.stateid = <cfqueryparam value="#state.stateid#" cfsqltype="cf_sql_integer" />
-												</cfquery>
-												
+												</cfquery>												
 												
 												<cfif chkstate.recordcount neq 0>											
 												
@@ -45,7 +45,7 @@
 														<button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
 															<h5><error>Sorry, <cfoutput> #chkstate.statename#</cfoutput> can not be deleted:</error></h2>
 															<ul>
-																<li class="formerror">Forgeign key constraint on conferences.</li>
+																<li class="formerror">Forgeign key constraint on CONFERENCES table...</li>
 															</ul>
 													</div>
 												
@@ -56,9 +56,20 @@
 														delete 
 														  from states													   
 														 where stateid = <cfqueryparam value="#state.stateid#" cfsqltype="cf_sql_integer" />														
-													</cfquery>										
+													</cfquery>
+
+													<!--- // record the activity --->
+													<cfquery name="activitylog">
+														insert into activity(userid, activitydate, activitytype, activitytext)														  													   
+														 values(
+																<cfqueryparam value="#session.userid#" cfsqltype="cf_sql_integer" />,
+																<cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />,
+																<cfqueryparam value="Delete Record" cfsqltype="cf_sql_varchar" />,
+																<cfqueryparam value="deleted the state of #state.statename# from the system." cfsqltype="cf_sql_varchar" />																
+																);
+													</cfquery>
 												
-												<cflocation url="#application.root#admin.states" addtoken="no">
+												<cflocation url="#application.root##url.event#&scope=s3" addtoken="no">
 												
 												</cfif>
 								
@@ -94,6 +105,7 @@
                                         <button class="btn btn-danger" type="submit" name="stateSaveRecord"><i class="fa fa-save"></i> Delete State</button>
 										<a href="#application.root#admin.states" class="btn btn-default"><i class="fa fa-remove"></i> Cancel</a>																		
 										<input type="hidden" name="stateid" value="#statedetail.stateid#" />
+										<input type="hidden" name="statename" value="#statedetail.statename#" />
 									</div>
 								</div>
                             </form>

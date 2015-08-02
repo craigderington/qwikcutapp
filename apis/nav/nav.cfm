@@ -11,6 +11,21 @@
 				<cfcase value="user.home">					
 					<cfinclude template="../../templates/index.cfm">					
 				</cfcase>
+				<cfcase value="user.profile">					
+					<cfinclude template="../../templates/user.profile.cfm">				
+				</cfcase>
+				<cfcase value="user.settings">					
+					<cfinclude template="../../templates/user.settings.cfm">			
+				</cfcase>
+				<cfcase value="user.reminders">					
+					<cfinclude template="../../templates/user.reminders.cfm">				
+				</cfcase>
+				<cfcase value="user.activity">					
+					<cfinclude template="../../templates/user.activity.cfm">				
+				</cfcase>
+				<cfcase value="user.image">					
+					<cfinclude template="../../templates/user.image.cfm">				
+				</cfcase>
 				<cfcase value="admin.home">					
 					<cfinclude template="../../templates/admin.home.cfm">				
 				</cfcase>
