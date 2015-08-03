@@ -87,8 +87,19 @@
 														   set useractive = <cfqueryparam value="0" cfsqltype="cf_sql_bit" />
 														 where userid = <cfqueryparam value="#getshooter.userid#" cfsqltype="cf_sql_integer" />														
 													</cfquery>
+													
+													<!--- // record the activity --->
+													<cfquery name="activitylog">
+														insert into activity(userid, activitydate, activitytype, activitytext)														  													   
+															values(
+																	<cfqueryparam value="#session.userid#" cfsqltype="cf_sql_integer" />,
+																	<cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />,
+																	<cfqueryparam value="Delete Record" cfsqltype="cf_sql_varchar" />,
+																	<cfqueryparam value="deleted the shooter #getshooter.shooterid#." cfsqltype="cf_sql_varchar" />																
+																	);
+													</cfquery>
 												
-												<cflocation url="#application.root##url.event#&scope=s3" addtoken="no">
+													<cflocation url="#application.root##url.event#&scope=s3" addtoken="no">
 												
 												</cfif>
 								

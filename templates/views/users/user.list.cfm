@@ -25,25 +25,7 @@
 															</select>
 														</div>
 													</div>
-													<!---
-													<div class="col-sm-2">
-														<div class="form-group">
-															<label class="control-label" for="state">State</label>
-															<select name="state" id="state" class="form-control" onchange="javascript:this.form.submit();">
-																<option value="" selected>Filter by State</option>
-																	<cfloop query="statelist">														
-																		<option value="#stateid#"<cfif structkeyexists( form, "state" ) and trim( form.state ) neq ""><cfif statelist.stateid eq form.state>selected</cfif></cfif>>#statename#</option>
-																	</cfloop>
-															</select>
-														</div>
-													</div>													
-													<div class="col-sm-3">
-														<div class="form-group">
-															<label class="control-label" for="product_name">Zip Code</label>
-															<input type="text" id="fieldzipcode" name="fieldzipcode" placeholder="Search by Zip Code" class="form-control" <cfif structkeyexists( form, "fieldzipcode" )>value="#trim( form.fieldzipcode )#"</cfif> onchange="javascript:this.form.submit();" />
-														</div>
-													</div>
-													--->
+													
 													<input name="filterresults" type="hidden" value="true" />													
 													<!---<button type="submit" name="filterresults" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> Filter Results</button>--->
 													<cfif structkeyexists( form, "filterresults" )>

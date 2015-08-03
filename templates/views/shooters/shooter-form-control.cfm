@@ -101,6 +101,16 @@
 										</cfinvoke>
 										<!--- // end shooter email notification --->
 										
+										<!--- // record the activity --->
+										<cfquery name="activitylog">
+											insert into activity(userid, activitydate, activitytype, activitytext)														  													   
+												values(
+														<cfqueryparam value="#session.userid#" cfsqltype="cf_sql_integer" />,
+														<cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />,
+														<cfqueryparam value="Add Record" cfsqltype="cf_sql_varchar" />,
+														<cfqueryparam value="added the shooter #sh.shooterfirstname# #sh.shooterlastname# to the system." cfsqltype="cf_sql_varchar" />																
+													);
+										</cfquery>										
 										
 										<!--- // redirect to shooter page --->
 										<cflocation url="#application.root##url.event#&scope=s1" addtoken="no">
@@ -123,6 +133,17 @@
 										   shootercellphone = <cfqueryparam value="#sh.shootercellphone#" cfsqltype="cf_sql_varchar" maxlength="50" />
 								     where shooterid = <cfqueryparam value="#sh.shooterid#" cfsqltype="cf_sql_integer" /> 
 								</cfquery>
+								
+								<!--- // record the activity --->
+								<cfquery name="activitylog">
+									insert into activity(userid, activitydate, activitytype, activitytext)														  													   
+										values(
+												<cfqueryparam value="#session.userid#" cfsqltype="cf_sql_integer" />,
+												<cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />,
+												<cfqueryparam value="Modify Record" cfsqltype="cf_sql_varchar" />,
+												<cfqueryparam value="updated the shooter #sh.shooterfirstname# #sh.shooterlastname# (#sh.shooterid#) in the system." cfsqltype="cf_sql_varchar" />																
+											  );
+								</cfquery>	
 								
 								<!--- redirect back to shooter view page --->
 								<cflocation url="#application.root##url.event#&fuseaction=shooter.view&id=#sh.shooterid#&scope=2" addtoken="no">

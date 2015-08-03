@@ -98,7 +98,17 @@
 																</div>
 																<div class="form-group"><label class="col-sm-2 control-label">Number:</label>
 																	<div class="col-sm-10"><input type="text" class="form-control" placeholder="Contact Phone Number" value="#fielddetail.fieldcontactnumber#"></div>
-																</div>																
+																</div>
+																<div class="form-group"><label class="col-sm-2 control-label">Option:</label>
+																		<div class="col-sm-10">
+																			<select class="form-control" name="fieldoptionid" disabled>
+																				<option value="4">No Field Options Selected - Edit Field to Add</option>
+																				<cfloop query="fieldoptions">
+																					<option value="#fieldoptionid#"<cfif fielddetail.fieldoptionid eq fieldoptions.fieldoptionid>selected</cfif>>#fieldoptiondescr#</option>
+																				</cfloop>
+																			</select>
+																		</div>
+																	</div>
 															</fieldset>
 														</div>
 														<div class="col-md-6">

@@ -50,7 +50,18 @@
 																				<cfqueryparam value="#fc.fieldcontactemail#" cfsqltype="cf_sql_varchar" maxlength="80" />,
 																				<cfqueryparam value="#fc.fieldcontactorg#" cfsqltype="cf_sql_varchar" maxlength="50" />
 																				);
-																	</cfquery>										
+																	</cfquery>
+
+																	<!--- // record the activity --->
+																	<cfquery name="activitylog">
+																		insert into activity(userid, activitydate, activitytype, activitytext)														  													   
+																		 values(
+																				<cfqueryparam value="#session.userid#" cfsqltype="cf_sql_integer" />,
+																				<cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />,
+																				<cfqueryparam value="Add Record" cfsqltype="cf_sql_varchar" />,
+																				<cfqueryparam value="added the field contact #f.fieldcontactname# to the system." cfsqltype="cf_sql_varchar" />																
+																				);
+																	</cfquery>
 																	
 																	<cflocation url="#application.root##url.event#&fuseaction=#url.fuseaction#&id=#url.id#&fc.scope=1" addtoken="no">			
 																
@@ -64,7 +75,18 @@
 																			   fieldcontactemail = <cfqueryparam value="#fc.fieldcontactemail#" cfsqltype="cf_sql_varchar" maxlength="80" />,
 																			   fieldcontactorg = <cfqueryparam value="#fc.fieldcontactorg#" cfsqltype="cf_sql_varchar" maxlength="50" />
 																		 where fieldcontactid = <cfqueryparam value="#fc.fcid#" cfsqltype="cf_sql_integer" />																			
-																	</cfquery>										
+																	</cfquery>
+
+																	<!--- // record the activity --->
+																	<cfquery name="activitylog">
+																		insert into activity(userid, activitydate, activitytype, activitytext)														  													   
+																		 values(
+																				<cfqueryparam value="#session.userid#" cfsqltype="cf_sql_integer" />,
+																				<cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />,
+																				<cfqueryparam value="Modify Record" cfsqltype="cf_sql_varchar" />,
+																				<cfqueryparam value="updated the field contact #f.fieldcontactname# in the system." cfsqltype="cf_sql_varchar" />																
+																				);
+																	</cfquery>
 																	
 																	<cflocation url="#application.root##url.event#&fuseaction=#url.fuseaction#&id=#url.id#&fc.scope=2" addtoken="no">			
 																

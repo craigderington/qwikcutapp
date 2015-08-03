@@ -76,8 +76,16 @@
 														<a href="#application.root##url.event#&fuseaction=shooter.view&id=#shooterid#">
 															<div class="col-sm-4">
 																<div class="text-center">
-																	<i class="fa fa-video-camera fa-4x text-primary"></i>
+																	<cfif trim( shooterlist.userprofileimagepath ) neq "">														
+																		<img class="img-circle" src="#shooterlist.userprofileimagepath#" alt="image" width="50">
+																	<cfelse>
+																		<i class="fa fa-video-camera fa-4x text-primary"></i>
+																	</cfif>
+																	
+																	
 																	<div class="m-t-xs font-bold"></div>
+																	
+																	
 																	<br />
 																	<cfif shooterisactive eq 1>
 																		<span class="label label-success"><i class="fa fa-check"></i> Active</span>

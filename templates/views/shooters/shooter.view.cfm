@@ -40,7 +40,14 @@
 									<div class="tab-content">
 										<div id="tab-1" class="tab-pane active">
 											<div class="panel-body">
-												<div class="col-md-6">
+												<div class="col-md-1">
+													<cfif trim( shooter.userprofileimagepath ) neq "">														
+														<img class="img-circle m-t-xs img-responsive" src="#shooter.userprofileimagepath#" alt="image" width="90">
+													<cfelse>
+														<i class="fa fa-video-camera fa-4x text-primary"></i>
+													</cfif>
+												</div>
+												<div class="col-md-4">
 													<div class="form-group">														
 														<div class="col-lg-10">
 															<h3 class="form-control-static">#shooter.shooterfirstname#  #shooter.shooterlastname#</h3>

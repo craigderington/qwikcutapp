@@ -41,6 +41,11 @@
 												<cfset f.fieldcontactname = trim( form.fieldcontactname ) />
 												<cfset f.fieldcontacttitle = trim( form.fieldcontacttitle ) />
 												<cfset f.fieldcontactnumber = trim( form.fieldcontactnumber ) />
+												<cfif isnumeric( form.fieldoptionid )>
+													<cfset f.fieldoptionid = form.fieldoptionid />
+												<cfelse>
+													<cfset f.fieldoptionid = 0>
+												</cfif>
 												
 													<cfquery name="addfield">
 														insert into fields(stateid, fieldname, fieldactive, fieldaddress1, fieldaddress2, fieldcity, fieldzip, fieldcontactname, fieldcontacttitle, fieldcontactnumber)
@@ -54,7 +59,8 @@
 																<cfqueryparam value="#f.fieldzip#" cfsqltype="cf_sql_numeric" />,
 																<cfqueryparam value="#f.fieldcontactname#" cfsqltype="cf_sql_varchar" maxlength="50" />,
 																<cfqueryparam value="#f.fieldcontacttitle#" cfsqltype="cf_sql_varchar" maxlength="50" />,
-																<cfqueryparam value="#f.fieldcontactnumber#" cfsqltype="cf_sql_varchar" maxlength="50" />
+																<cfqueryparam value="#f.fieldcontactnumber#" cfsqltype="cf_sql_varchar" maxlength="50" />,
+																<cfqueryparam value="#f.fieldoptionid#" cfsqltype="cf_sql_integer" />
 																);
 													</cfquery>
 
@@ -64,7 +70,7 @@
 														 values(
 																<cfqueryparam value="#session.userid#" cfsqltype="cf_sql_integer" />,
 																<cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />,
-																<cfqueryparam value="Delete Record" cfsqltype="cf_sql_varchar" />,
+																<cfqueryparam value="Add Record" cfsqltype="cf_sql_varchar" />,
 																<cfqueryparam value="added the field #f.fieldname# in the system." cfsqltype="cf_sql_varchar" />																
 																);
 													</cfquery>
@@ -126,6 +132,17 @@
 												<div class="form-group"><label class="col-sm-2 control-label">Number:</label>
 													<div class="col-sm-10"><input type="text" name="fieldcontactnumber" class="form-control" placeholder="Contact Phone Number" <cfif isdefined( "form.fieldcontactnumber" )>value="#form.fieldcontactnumber#"</cfif> /></div>
 												</div>
+												<div class="form-group"><label class="col-sm-2 control-label">Option:</label>
+													<div class="col-sm-10">
+														<select class="form-control" name="fieldoptionid">
+															<option value="4" selected>Select Field Option</option>
+																<cfloop query="fieldoptions">
+																	<option value="#fieldoptionid#">#fieldoptiondescr#</option>
+																</cfloop>
+														</select>
+													</div>
+												</div>
+												
 												<br />
 												<div class="hr-line-dashed" style="margin-top:25px;"></div>
 												<div class="form-group">

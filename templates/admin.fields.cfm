@@ -20,6 +20,9 @@
 		<cfinvoke component="apis.com.admin.fieldadminservice" method="getfields" returnvariable="fieldlist">
 		</cfinvoke>
 		
+		<cfinvoke component="apis.com.admin.fieldadminservice" method="getfieldoptions" returnvariable="fieldoptions">
+		</cfinvoke>
+		
 		<!--- // data filters --->
 		<cfinvoke component="apis.com.admin.stateadminservice" method="getstates" returnvariable="statelist">
 		</cfinvoke>	

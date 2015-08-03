@@ -50,6 +50,15 @@
 				<cfcase value="admin.shooters">					
 					<cfinclude template="../../templates/admin.shooters.cfm">					
 				</cfcase>
+				<cfcase value="admin.reports">					
+					<cfinclude template="../../templates/admin.reports.cfm">					
+				</cfcase>
+				<cfcase value="admin.settings">					
+					<cfinclude template="../../templates/admin.settings.cfm">					
+				</cfcase>
+				<cfcase value="admin.payroll">					
+					<cfinclude template="../../templates/admin.payroll.cfm">					
+				</cfcase>
 				<cfcase value="user.logout">					
 					<cfinclude template="../../templates/logout.cfm">					
 				</cfcase>

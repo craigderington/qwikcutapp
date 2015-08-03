@@ -8,9 +8,11 @@
 		<cfset var shooterlist = "" />
 			<cfquery name="shooterlist">
 					select sh.shooterid, sh.userid, sh.shooterfirstname, sh.shooterlastname, sh.shooteraddress1, sh.shooteraddress2, sh.shootercity, sh.shooterstateid, 
-					       s.stateabbr, sh.shooterzip, sh.shooteremail, sh.shooterisactive, shootercellphone, shootercellprovider, shooteralertpref
-					  from dbo.shooters sh, dbo.states s
+					       s.stateabbr, sh.shooterzip, sh.shooteremail, sh.shooterisactive, sh.shootercellphone, sh.shootercellprovider, sh.shooteralertpref,
+						   us.userprofileimagepath
+					  from dbo.shooters sh, dbo.states s, dbo.usersettings us
 					 where sh.shooterstateid = s.stateid
+					   and sh.userid = us.userid
 						<cfif structkeyexists( form, "filterresults" )>
 							<cfif structkeyexists( form, "shooterstatus" ) and trim( form.shooterstatus ) neq "">
 								and sh.shooterisactive = <cfqueryparam value="#form.shooterstatus#" cfsqltype="cf_sql_bit" />
@@ -32,9 +34,11 @@
 		<cfset var shooter = "" />
 			<cfquery name="shooter">
 					select sh.shooterid, sh.userid, sh.shooterfirstname, sh.shooterlastname, sh.shooteraddress1, sh.shooteraddress2, sh.shootercity, sh.shooterstateid, 
-					       s.stateabbr, sh.shooterzip, sh.shooteremail, sh.shooterisactive, shootercellphone, shootercellprovider, shooteralertpref
-					  from dbo.shooters sh, dbo.states s
+					       s.stateabbr, sh.shooterzip, sh.shooteremail, sh.shooterisactive, sh.shootercellphone, sh.shootercellprovider, sh.shooteralertpref,
+						   us.userprofileimagepath
+					  from dbo.shooters sh, dbo.states s, dbo.usersettings us
 					 where sh.shooterstateid = s.stateid
+					   and sh.userid = us.userid
 					   and sh.shooterid = <cfqueryparam value="#arguments.id#" cfsqltype="cf_sql_integer" />
 			</cfquery>
 		<cfreturn shooter>

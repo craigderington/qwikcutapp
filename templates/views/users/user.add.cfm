@@ -101,7 +101,7 @@
 														 values(
 																<cfqueryparam value="#session.userid#" cfsqltype="cf_sql_integer" />,
 																<cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />,
-																<cfqueryparam value="Modify Record" cfsqltype="cf_sql_varchar" />,
+																<cfqueryparam value="Add Record" cfsqltype="cf_sql_varchar" />,
 																<cfqueryparam value="added the user #user.username# to the system." cfsqltype="cf_sql_varchar" />																
 																);
 													</cfquery>

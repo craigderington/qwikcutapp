@@ -34,7 +34,7 @@
 														<div class="col-md-6">
 														
 															<!--- // begin form processing --->
-															<cfif isDefined( "form.fieldnames" )>
+															<cfif structkeyexists( form, "fieldnames" ) and structkeyexists( form, "saveFieldRecord" )>
 															
 																<cfset form.validate_require = "fieldid|Sorry, and internal error has occurred.;stateid|The state is required to edit this record.;fieldname|Please enter a name for this field.;fieldaddress1|Please enter the primary address.;fieldcity|Please enter the city for this field.;fieldzip|Please enter the field zip code.;fieldcontactname|Please enter the field contact name.;fieldcontactnumber|Please enter the primary contacts phone number.;fieldcontacttitle|Please enter the field contact title." />
 																
@@ -59,6 +59,7 @@
 																	<cfset f.fieldcontactname = trim( form.fieldcontactname ) />
 																	<cfset f.fieldcontacttitle = trim( form.fieldcontacttitle ) />
 																	<cfset f.fieldcontactnumber = trim( form.fieldcontactnumber ) />
+																	<cfset f.fieldoptionid = form.fieldoptionid />
 																	
 																		<cfquery name="savefielddetails">
 																			update fields
@@ -71,7 +72,8 @@
 																				   fieldzip = <cfqueryparam value="#f.fieldzip#" cfsqltype="cf_sql_numeric" />,
 																				   fieldcontactname = <cfqueryparam value="#f.fieldcontactname#" cfsqltype="cf_sql_varchar" maxlength="50" />,
 																				   fieldcontacttitle =<cfqueryparam value="#f.fieldcontacttitle#" cfsqltype="cf_sql_varchar" maxlength="50" />,
-																				   fieldcontactnumber = <cfqueryparam value="#f.fieldcontactnumber#" cfsqltype="cf_sql_varchar" maxlength="50" />
+																				   fieldcontactnumber = <cfqueryparam value="#f.fieldcontactnumber#" cfsqltype="cf_sql_varchar" maxlength="50" />,
+																				   fieldoptionid = <cfqueryparam value="#f.fieldoptionid#" cfsqltype="cf_sql_integer" />
 																			 where fieldid = <cfqueryparam value="#f.fieldid#" cfsqltype="cf_sql_integer" /> 
 																		</cfquery>
 
@@ -81,7 +83,7 @@
 																			 values(
 																					<cfqueryparam value="#session.userid#" cfsqltype="cf_sql_integer" />,
 																					<cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />,
-																					<cfqueryparam value="Delete Record" cfsqltype="cf_sql_varchar" />,
+																					<cfqueryparam value="Modify Record" cfsqltype="cf_sql_varchar" />,
 																					<cfqueryparam value="updated the field #f.fieldname# in the system." cfsqltype="cf_sql_varchar" />																
 																					);
 																		</cfquery>
@@ -137,7 +139,7 @@
 																	<div class="form-group"><label class="col-sm-2 control-label">State:</label>
 																		<div class="col-sm-10">
 																			<select class="form-control" name="stateid">
-																				<option value=""></option>
+																				<option value="4">Select Field Option</option>
 																				<cfloop query="statelist">
 																					<option value="#statelist.stateid#"<cfif fielddetail.stateid eq statelist.stateid>selected</cfif>>#statelist.statename#</option>
 																				</cfloop>
@@ -163,6 +165,16 @@
 																	</div>
 																	<div class="form-group"><label class="col-sm-2 control-label">Number:</label>
 																		<div class="col-sm-10"><input type="text" name="fieldcontactnumber" class="form-control" placeholder="Contact Phone Number" value="#fielddetail.fieldcontactnumber#"></div>
+																	</div>
+																	<div class="form-group"><label class="col-sm-2 control-label">Option:</label>
+																		<div class="col-sm-10">
+																			<select class="form-control" name="fieldoptionid">
+																				<option value="">Select Field Option</option>
+																				<cfloop query="fieldoptions">
+																					<option value="#fieldoptionid#"<cfif fielddetail.fieldoptionid eq fieldoptions.fieldoptionid>selected</cfif>>#fieldoptiondescr#</option>
+																				</cfloop>
+																			</select>
+																		</div>
 																	</div>
 																	<br />
 																	<div class="hr-line-dashed" style="margin-top:15px;"></div>

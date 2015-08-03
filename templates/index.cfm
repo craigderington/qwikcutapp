@@ -37,36 +37,67 @@
 					</div>
 						
 						
-						<div class="row">
-							
-								<div class="ibox float-e-margins">
-									<div class="ibox-title">
-										<h5><i class="fa fa-dashboard"></i> Your Dashboard</h5>
-									</div>
-									
-									<div class="ibox-content">
-										
-										Your Dashboard Items
-									
+					<div class="row">							
+						<div class="ibox float-e-margins">
+							<div class="ibox-title">
+								<h5><i class="fa fa-dashboard"></i> Your Dashboard</h5>
+							</div>
+							<div class="ibox-content ibox-heading">		
+								
+								<div class="col-md-4">										
+									<div class="ibox-content" style="min-height:130px;">
+										<h5 class="m-b-md">Upcoming Games</h5>
+											<h2 class="text-navy">
+												<i class="fa fa-play fa-rotate-270"></i> Up
+											</h2>
+											<small>Last updated 42 days ago</small>
 									</div>
 								</div>
-							
-						</div>	
-							
-						<div class="row">						
-							<div class="ibox">
-								<div class="ibox-title">
-									<h5><i class="fa fa-database"></i> Your Recent Activity</h5>
-										<div class="ibox-tools">
-											<a class="collapse-link">
-												<i class="fa fa-chevron-up"></i>
-											</a>
-																				
-											<a class="close-link">
-												<i class="fa fa-times"></i>
-											</a>
-											
+								
+								<div class="col-md-4">
+									<div class="ibox">
+										<div class="ibox-content" style="min-height:130px;">
+											<h5>Usage</h5>
+											<h2>50%</h2>
+											<div class="progress progress-mini">
+												<div style="width: 78%;" class="progress-bar"></div>
+											</div>
+
+											<div class="m-t-sm small">Game scheduled for today at 6:32 pm.</div>
 										</div>
+									</div>
+								</div>
+								
+								<div class="col-md-4">
+									<div class="ibox">
+										<div class="ibox-content" style="min-height:130px;">
+											<h5>Income</h5>
+											<h2 class="text-primary"><i class="fa fa-dollar"></i> 54,200</h2>
+											<div class="stat-percent font-bold text-primary">24% 
+												<i class="fa fa-level-up"></i>
+											</div>											
+											<div class="m-t-sm small">Total Income</div>
+										</div>
+									</div>
+								</div>
+									
+													
+									
+						</div>							
+					</div>	
+							
+					<div class="row">						
+						<div class="ibox">
+							<div class="ibox-title">
+								<h5><i class="fa fa-database"></i> Your Recent Activity</h5>
+									<div class="ibox-tools">
+										<a class="collapse-link">
+											<i class="fa fa-chevron-up"></i>
+										</a>																				
+										<a class="close-link">
+											<i class="fa fa-times"></i>
+										</a>											
+									</div>
 								</div>
 								<div class="ibox-content">
 									<cfif useractivity.recordcount gt 0>
@@ -90,7 +121,7 @@
 												</tbody>
 												<tfoot>
 													<tr>
-														<td colspan="3"><span class="pull-right"><i class="fa fa-th-list"></i> Showing #useractivity.recordcount# record<cfif useractivity.recordcount gt 1>s</cfif>.</span></td>
+														<td colspan="3"><span class="pull-right"><i class="fa fa-th-list"></i> <cfif useractivity.recordcount GT 14>Showing 15 most recent records...<cfelse>Showing #useractivity.recordcount# record<cfif useractivity.recordcount gt 1>s</cfif></cfif>.</span></td>
 													</tr>
 												</tfoot>
 											</table>

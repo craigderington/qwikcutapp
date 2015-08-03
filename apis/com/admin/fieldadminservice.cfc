@@ -33,7 +33,7 @@
 		<cfset var fielddetail = "" />
 		<cfquery name="fielddetail">
 			select f.fieldid, f.stateid, f.fieldname, f.fieldaddress1, f.fieldaddress2, f.fieldcity, f.fieldstate, f.fieldzip,
-				   f.fieldcontactnumber, f.fieldcontactname, f.fieldcontacttitle, f.fieldactive, 
+				   f.fieldcontactnumber, f.fieldcontactname, f.fieldcontacttitle, f.fieldactive, f.fieldoptionid,
 				   s.statename, s.stateabbr
 			  from fields f, states s
 			 where f.stateid = s.stateid
@@ -68,6 +68,16 @@
 		<cfreturn fieldcontactdetails>
 	</cffunction>
 	
+	<cffunction name="getfieldoptions" access="public" output="false" returntype="query" hint="I get the list of field options.">
+		<cfset var fieldoptions = "" />
+			<cfquery name="fieldoptions">
+				select fieldoptionid, fieldoptiondescr
+				  from fieldoptions
+				 where fieldoptionid <> <cfqueryparam value="4" cfsqltype="cf_sql_integer" />
+			  order by fieldoptiondescr asc
+			</cfquery>
+		<cfreturn fieldoptions>
+	</cffunction>
 	
 
 </cfcomponent>

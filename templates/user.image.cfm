@@ -96,18 +96,15 @@
 										
 										<div id="tab-1" class="tab-pane active">
 											<div class="panel-body">
-												<div class="col-md-6">
-												
-													<cfif usersettings.userprofileimagepath neq "">
-														<cfimage action="resize" height="50%" source="#expandpath( usersettings.userprofileimagepath )#" name="myimagefile">
-														<cfimage action="writeToBrowser" source="#myimagefile#">
+												<div class="col-md-6">												
+													<cfif trim( usersettings.userprofileimagepath ) neq "">
+														<div>
+															<img class="img-circle" src="#usersettings.userprofileimagepath#" alt="member" width="100">
+														</div>
 													<cfelse>
 														<i class="fa fa-user fa-4x"></i>
 														<span class="help-block">Upload Your Image</span>
-													</cfif>
-														
-													
-												
+													</cfif>											
 												</div>
 												
 												<div class="col-md-6">
