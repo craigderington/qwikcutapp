@@ -366,8 +366,7 @@
 															
 															<!--- define our form structure and set form values --->
 															<cfset user = structnew() />
-															<cfset user.userid = session.userid />
-																								
+															<cfset user.userid = session.userid />																								
 															
 																<cfquery name="updateusersettings">
 																	update users
@@ -386,7 +385,14 @@
 																			<cfqueryparam value="completed the videographer registration." cfsqltype="cf_sql_varchar" />																
 																			);
 																</cfquery>
-																													
+																
+																<!--- // send notification --->
+																<cfinvoke component="apis.com.register.registrationservice" method="sendregistrationcomplete" returnvariable="msgstatus">
+																	<cfinvokeargument name="senderemail" value="info@qwikcut.com">
+																	<cfinvokeargument name="shooteremail" value="#shooter.username#">
+																</cfinvoke>
+																
+																<!--- // redirect to finish --->
 																<cflocation url="index.cfm?regcomplete=true" addtoken="no">				
 															
 												

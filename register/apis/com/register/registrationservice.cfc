@@ -55,4 +55,37 @@
 			</cfquery>
 		<cfreturn shooterdates>
 	</cffunction>
+	
+	<cffunction name="sendregistrationcomplete" access="public" output="false" returntype="string" hint="I send the notification email.">
+		<cfargument name="senderemail" required="yes" type="any">
+		<cfargument name="shooteremail" required="yes" type="any">
+		
+		<cfset arguments.senderemail = "info@qwikcut.com"  />
+		<cfset msgstatus = "" />
+			<cfmail from="#arguments.senderemail#" to="#arguments.shooteremail#" bcc="craig@craigderington.me,todd@qwikcut.com" subject="QwikCut - Videographer Registration - Complete" type="HTML"><cfoutput><div align="center"><a href="http://www.qwikcut.com"><img src="http://qwikcut.cloudapp.net/qwikcutapp/img/qc-logo-600x176.jpg" height="176" width="600"></a></div>
+<div style="padding:7px;">			
+<h3>Thank You, #shootername#</h3>
+			
+<p>We appreciate your prompt response to our registration invitation.  Your QwikCut videographer profile has been successfully completed.</p>
+
+<p>You will be contacted again once games are scheduled and you are ready to begin filming at the game fields.</p>
+
+<p>In the mean time, log in to the website and add a profile image, meet other videographers and update your blockout dates.</p>
+
+<p><a href="http://qwikcut.cloudapp.net/qwikcutapp/index.cfm">Update Profile</a></p>	
+
+<br /><br /><br /><br />
+
+<p><small>This is an automated email sent from a unattended mailbox. Please do not reply to this email directly.  Please direct all questions or comments to info@qwikcut.com</small></p>
+<p><small>Email sent on behalf of QwikCut.com on #dateformat( now(), "mm/dd/yyyy" )# at #timeformat( now(), "hh:mm:ss tt" )#</small></p>
+</div>
+</cfoutput>
+			<cfmailparam name="reply-to" value="info@qwikcut.com">
+			</cfmail>
+			<cfset msgstatus = "Message Sent!" />
+		<cfreturn msgstatus>
+	
+	</cffunction>
+	
+	
 </cfcomponent>
