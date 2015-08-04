@@ -70,7 +70,7 @@
 										<cfquery name="addnewuser">
 											insert into usersettings(userid)
 												values(
-														<cfqueryparam value="#adduser.newuserid#" cfsqltype="cf_sql_integer" />																
+														<cfqueryparam value="#addnewuser.newuserid#" cfsqltype="cf_sql_integer" />																
 													  );
 										</cfquery>
 								
