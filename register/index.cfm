@@ -366,7 +366,9 @@
 															
 															<!--- define our form structure and set form values --->
 															<cfset user = structnew() />
-															<cfset user.userid = session.userid />																								
+															<cfset user.userid = session.userid />
+															<cfset user.email = trim( form.smail ) />
+															<cfset user.name = trim( form.sname ) />
 															
 																<cfquery name="updateusersettings">
 																	update users
@@ -389,7 +391,8 @@
 																<!--- // send notification --->
 																<cfinvoke component="apis.com.register.registrationservice" method="sendregistrationcomplete" returnvariable="msgstatus">
 																	<cfinvokeargument name="senderemail" value="info@qwikcut.com">
-																	<cfinvokeargument name="shooteremail" value="#shooter.username#">
+																	<cfinvokeargument name="shooteremail" value="#user.email#">
+																	<cfinvokeargument name="shootername" value="#user.name#">
 																</cfinvoke>
 																
 																<!--- // redirect to finish --->
@@ -705,6 +708,8 @@
 																				<input id="acceptTerms" name="acceptTerms" type="checkbox" class="required" aria-required="true" value="1">
 																				<label for="acceptTerms"> I agree with the <a href="terms.html" target="_blank">terms and conditions</a>.</label> <br /><br />
 																				<button class="btn btn-primary btn-lg" name="finishregistration" type="submit"><i class="fa fa-arrow-circle-right"></i> Complete Registration</button>																				
+																				<input type="hidden" name="sname" value="#shooter.shooterfirstname#" />
+																				<input type="hidden" name="smail" value="#shooter.username#" />
 																			</form>
 																		</div>
 																	</div>

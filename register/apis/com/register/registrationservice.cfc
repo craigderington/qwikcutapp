@@ -59,6 +59,7 @@
 	<cffunction name="sendregistrationcomplete" access="public" output="false" returntype="string" hint="I send the notification email.">
 		<cfargument name="senderemail" required="yes" type="any">
 		<cfargument name="shooteremail" required="yes" type="any">
+		<cfargument name="shootername" required="yes" type="any">
 		
 		<cfset arguments.senderemail = "info@qwikcut.com"  />
 		<cfset msgstatus = "" />
