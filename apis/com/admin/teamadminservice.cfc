@@ -47,7 +47,7 @@
 		<cfquery name="teamdetail">
 			select t.teamid, t.teamname, t.teamcity, t.teamcolors, t.teammascot, t.teamactive, t.teamrecord, 
 			       t.teamlevel, t.teamorgname, c.confname, c.confid, c.conftype, s.stateabbr, tl.teamlevelname, 
-				   tl.teamlevelcode, tl.teamlevelid
+				   tl.teamlevelcode, tl.teamlevelid, t.homefieldid
 			  from teams t, conferences c, states s, teamlevels tl
 			 where t.confid = c.confid
 			   and c.stateid = s.stateid

@@ -2,8 +2,7 @@
 
 
 
-				<cfinvoke component="apis.com.admin.fieldadminservice" method="getfieldoptions" returnvariable="fieldoptions">
-				</cfinvoke>
+				
 
 
 
@@ -33,40 +32,17 @@
 								
 								<div class="ibox-content">
 									<div class="row">
-										<div class="col-md-4">
-											<h4><i class="fa fa-table"></i> Field Options</h4>
-											<div class="table-responsive">
-												<table class="table table-hover">
-													<thead>
-														<tr class="small">
-															<th>ID</th>
-															<th>Description</th>
-														</tr>
-													</thead>
-													<tbody>
-														<cfoutput query="fieldoptions">
-															<tr class="small">
-																<td>#fieldoptionid#</td>
-																<td>#fieldoptiondescr#</td>															
-															</tr>
-														</cfoutput>
-													</tbody>
-												</table>
-											</div>
-											
-											<cfinclude template="views/field-options-form.cfm">
-											
-											
+										<div class="col-md-4">									
+											<cfinclude template="views/game-seasons-list.cfm">
 										</div>
 										
 										<div class="col-md-4">
-											<h4><i class="fa fa-th-large"></i> Future Setting 2</h4>											
+											<cfinclude template="views/field-options-list.cfm">										
 										</div>
 										
 										<div class="col-md-4">
-											<h4><i class="fa fa-th-list"></i> Future Setting 3</h4>											
-										</div>
-										
+											<cfinclude template="views/pay-rates-list.cfm">										
+										</div>							
 										
 									</div>
 								</div>

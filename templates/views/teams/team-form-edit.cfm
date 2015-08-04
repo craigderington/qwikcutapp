@@ -27,7 +27,7 @@
 											<cfset t.teamorgname = trim( form.teamorgname ) />
 											<cfset t.teammascot = trim( form.teammascot ) />
 											<cfset t.teamcolors = trim( form.teamcolors ) />
-																				
+											<cfset t.homefieldid = form.homefieldid />																				
 														
 												<!---// edit team data operartion --->
 												<cfquery name="editteamdetail">
@@ -37,7 +37,8 @@
 														   teamcolors = <cfqueryparam value="#t.teamcolors#" cfsqltype="cf_sql_varchar" maxlength="50" />,
 														   teammascot = <cfqueryparam value="#t.teammascot#" cfsqltype="cf_sql_varchar" maxlength="50" />,												  
 														   teamlevelid = <cfqueryparam value="#t.teamlevelid#" cfsqltype="cf_sql_varchar" maxlength="50" />,
-														   teamorgname = <cfqueryparam value="#t.teamorgname#" cfsqltype="cf_sql_varchar" maxlength="50" />									
+														   teamorgname = <cfqueryparam value="#t.teamorgname#" cfsqltype="cf_sql_varchar" maxlength="50" />,
+														   homefieldid = <cfqueryparam value="#t.homefieldid#" cfsqltype="cf_sql_integer" />
 													 where teamid = <cfqueryparam value="#t.teamid#" cfsqltype="cf_sql_integer" />														
 												</cfquery>
 
@@ -152,6 +153,23 @@
 													<label class="col-sm-2 control-label">Team Colors</label>
 													<div class="col-sm-10">
 														<input type="text" class="form-control" placeholder="Team Colors (i.e. Red/White)" name="teamcolors" <cfif structkeyexists( form, "teamcolors" )>value="#trim( form.teamcolors )#"<cfelse>value="#trim( teamdetail.teamcolors )#"</cfif> />
+													</div>
+												</div>
+												
+												<div class="hr-line-dashed"></div>
+												
+												<!--- // hack setting the home field due to lack of early planning --->
+												<cfinvoke component="apis.com.admin.fieldadminservice" method="getfields" returnvariable="fieldlist"></cfinvoke>
+												
+												<div class="form-group">
+													<label class="col-sm-2 control-label">Home Field</label>
+													<div class="col-sm-10">
+														<select name="homefieldid" id="homefieldid" class="form-control">
+															<option value="0"<cfif teamdetail.homefieldid eq 0>selected</cfif>>Home Field Not Set</option>
+															<cfloop query="fieldlist">
+																<option value="#fieldlist.fieldid#"<cfif fieldlist.fieldid eq teamdetail.homefieldid>selected</cfif>>#fieldlist.fieldname# - #fieldlist.stateabbr#</option>
+															</cfloop>
+														</select>
 													</div>
 												</div>
 											

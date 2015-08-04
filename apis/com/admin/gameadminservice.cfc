@@ -3,6 +3,16 @@
 	<cffunction name="init" access="public" output="false" returntype="gameadminservice" hint="I return an initialized game admin service object.">
 		<cfreturn this >
 	</cffunction>
+	
+	<cffunction name="getgameseasons" access="public" returntype="query" output="false">
+		<cfset var gameseasons = "" />
+		<cfquery name="gameseasons">
+			select gs.gameseasonid, gs.gameseason, gs.gameseasonstartdate, gs.gameseasonenddate, gs.gameseasonactive
+			  from gameseasons gs
+		  order by gs.gameseasonid desc
+		</cfquery>
+		<cfreturn gameseasons>
+	</cffunction>
 
 	<cffunction name="getgameslist" access="remote" output="false" returntype="query" hint="I get the list of scheduled games.">
 		<cfargument name="conferenceid" type="numeric" required="no" default="1">

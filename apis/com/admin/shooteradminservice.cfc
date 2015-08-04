@@ -81,5 +81,16 @@
 			</cfquery>
 		<cfreturn shooterblockdates>
 	</cffunction>
+	
+	<cffunction name="getshooterpayrates" output="false" returntype="query" access="remote" hint="I get the shooter pay rates.">
+		<cfset var payrateslist = "" />
+		<cfquery name="payrateslist">
+			select pr.payrate, pr.payratenumgames, pt.paytype
+			  from payrates pr, payratetype pt
+			 where payratetypeid = pt.paytypeid
+		  order by pt.paytype desc, pr.payratenumgames desc
+		</cfquery>
+		<cfreturn payrateslist>
+	</cffunction>
 
 </cfcomponent>

@@ -30,8 +30,19 @@
 										<p>#teamdetail.teamcity#, #ucase( teamdetail.stateabbr )#</p>										
 										<p>#teamdetail.teammascot#</p>
 										<p>#teamdetail.teamcolors#</p>
-										<p>&nbsp;</p>
-										<p>&nbsp;</p>
+										
+										<cfif teamdetail.homefieldid neq 0>
+											<cfinvoke component="apis.com.admin.fieldadminservice" method="gethomefield" returnvariable="homefield">
+												<cfinvokeargument name="id" value="#teamdetail.homefieldid#">
+											</cfinvoke>
+										
+										<p>Home Field: <strong>#homefield.fieldname#</strong></p>									
+										<p><button type="button" class="btn btn-sm btn-white" data-html="true" data-container="body" data-toggle="popover" data-placement="popover" data-title="#homefield.fieldname#" data-content="<small>#homefield.fieldaddress1#<br /><cfif homefield.fieldaddress2 neq "">#homefield.fieldaddress2#<br /></cfif>#homefield.fieldcity#, #homefield.stateabbr# #homefield.fieldzip#  <a href='#application.root#admin.fields&fuseaction=field.map&id=#homefield.fieldid#'><i class='fa fa-map-marker'></i> Show Map</a><br /><br />Field Contact:<br />#homefield.fieldcontactname#<br />#homefield.fieldcontacttitle#<br />#homefield.fieldcontactnumber#</small>"><i class="fa fa-map-marker"></i> Show Field Info</button></p>
+										
+										<cfelse>
+										<p><strong>Home Field Not Set</strong></p>
+										<p style="margin-top:3px;"><a class="btn btn-xs btn-default" href="#application.root##url.event#&fuseaction=team.edit&id=#teamdetail.teamid#"><i class="fa fa-share-square"></i> Set Home Field</a></p>
+										</cfif>
 									</div>
 									<div class="col-lg-4">		
 										<div class="widget navy-bg p-lg text-center">

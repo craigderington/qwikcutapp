@@ -79,5 +79,18 @@
 		<cfreturn fieldoptions>
 	</cffunction>
 	
+	<cffunction name="gethomefield" access="public" returntype="query" output="false" hint="I get the team home field name.">
+		<cfargument name="id" type="numeric" required="yes">
+		<cfset var homefield = "" />
+		<cfquery name="homefield">
+			select f.fieldid, f.fieldname, f.fieldaddress1, f.fieldaddress2, f.fieldcity, f.stateid, 
+			       s.stateabbr, f.fieldzip, f.fieldcontactname, f.fieldcontacttitle, f.fieldcontactnumber
+			  from fields f, states s
+			 where f.stateid = s.stateid
+			   and f.fieldid = <cfqueryparam value="#arguments.id#" cfsqltype="cf_sql_integer" />
+		</cfquery>	
+		<cfreturn homefield>
+	</cffunction>
+	
 
 </cfcomponent>
