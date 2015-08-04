@@ -436,8 +436,8 @@
 																<div class="steps clearfix">
 																	<ul role="tablist">
 																		<li role="tab" class="first current" aria-disabled="false" aria-selected="true"><a id="form-t-0" href="##form-h-0" aria-controls="form-p-0"><span class="current-info audible">current step: </span><span class="number">1.</span> Account</a></li>
-																		<li role="tab" class="disabled" aria-disabled="false"><a id="form-t-1" href="index.cfm?step=2" aria-controls="form-p-1"><span class="number">2.</span> Profile</a></li>
-																		<li role="tab" class="disabled" aria-disabled="false"><a id="form-t-2" href="index.cfm?step=3" aria-controls="form-p-2"><span class="number">3.</span> Block Dates</a></li>
+																		<li role="tab" class="disabled" aria-disabled="true"><a id="form-t-1" href="index.cfm?step=2" aria-controls="form-p-1"><span class="number">2.</span> Profile</a></li>
+																		<li role="tab" class="disabled" aria-disabled="true"><a id="form-t-2" href="index.cfm?step=3" aria-controls="form-p-2"><span class="number">3.</span> Block Dates</a></li>
 																		<li role="tab" class="disabled last" aria-disabled="true"><a id="form-t-3" href="" aria-controls="form-p-3"><span class="number">4.</span> Finish</a></li>										
 																	</ul>
 																</div>
@@ -485,7 +485,7 @@
 																		<ul role="tablist">
 																			<li role="tab" class="disabled" ><a id="form-t-0" href="index.cfm?step=1"><span class="current-info audible">current step: </span><span class="number">1.</span> Account</a></li>
 																			<li role="tab" class="disabled current"><a id="form-t-1" href="index.cfm?step=2"><span class="number">2.</span> Profile</a></li>
-																			<li role="tab" class="disabled"><a id="form-t-2" href="index.cfm?step=3"><span class="number">3.</span> Block Dates</a></li>
+																			<li role="tab" class="disabled"><a id="form-t-2" href=""><span class="number">3.</span> Block Dates</a></li>
 																			<li role="tab" class="disabled last"><a id="form-t-3" href=""><span class="number">4.</span> Finish</a></li>										
 																		</ul>
 																	</div>
@@ -573,6 +573,7 @@
 																							</select>
 																						</div>
 																						
+																						<span class="label"><i class="fa fa-exclamation-circle"></i> Your address is required to calculate mileage to and from game fields.</span>
 																						
 																					</div>
 																					<div class="col-lg-4">
