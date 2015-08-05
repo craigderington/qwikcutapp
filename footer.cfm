@@ -31,6 +31,7 @@
 		
 		<!-- date picker -->
 		<script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
+		<script src="js/plugins/clockpicker/clockpicker.js"></script>
 		<!-- Date range picker -->
 		<script src="js/plugins/daterangepicker/daterangepicker.js"></script>
 			<script>
@@ -47,6 +48,7 @@
 					forceParse: false,
 					autoclose: true
 				});
+				$('.clockpicker').clockpicker();
 			});
 		</script>
 		

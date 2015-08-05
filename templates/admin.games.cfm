@@ -1,9 +1,11 @@
 
+				
+				
+				
 
 
 
-
-
+				<!---
 				<cfinvoke component="apis.com.admin.gameadminservice" method="getgameslist" returnvariable="gameslist">
 					<cfinvokeargument name="gameseasonid" value="1">
 				</cfinvoke>
@@ -13,7 +15,7 @@
 			
 				<cfinvoke component="apis.com.admin.teamadminservice" method="getteamlevels" returnvariable="teamlevels">
 				</cfinvoke>
-
+				--->
 
 			<cfoutput>	
 				<div class="wrapper wrapper-content animated fadeIn">
@@ -41,6 +43,8 @@
 										<cfinclude template="views/games/game.view.cfm">									
 									<cfelseif trim( url.fuseaction ) eq "game.map">
 										<cfinclude template="views/games/game.map.cfm">
+									<cfelseif trim( url.fuseaction ) eq "games.mgr">
+										<cfinclude template="views/games/games.manager.cfm">
 									<cfelse>
 										<!-- // no view found, show message -->
 										<div class="alert alert-danger" style="margin-top:10px;">
