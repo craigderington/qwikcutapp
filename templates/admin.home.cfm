@@ -148,7 +148,7 @@
 							
 						<div class="row">
 							
-								<div class="ibox">
+								<div class="ibox border-bottom">
 									<div class="ibox-title">
 										<h5><i class="fa fa-database"></i> Recent System Activity</h5>
 											<div class="ibox-tools">

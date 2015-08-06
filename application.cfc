@@ -150,7 +150,7 @@
 					<cfelse>						
 						<cfquery name="loginquery">
 							select u.userid, u.username, u.password, u.confid, u.firstname, u.lastname,
-								   u.userrole, u.useracl, u.useractive
+								   u.userrole, u.useracl, u.useractive, u.stateid
 							  from dbo.users u
 							 where u.username = <cfqueryparam value="#cflogin.name#" cfsqltype="cf_sql_varchar" />
 							   and u.password = <cfqueryparam value="#hash( cflogin.password, "SHA-384", "UTF-8" )#" cfsqltype="cf_sql_varchar" />
@@ -163,8 +163,9 @@
 								roles="#loginquery.userrole#">
 								
 								<!--- Start a few session vars we will require for our queries --->								
-								<cfset session.userid = #loginquery.userid# />								
-								<cfset session.username = "#loginquery.firstname# #loginquery.lastname#" />							
+								<cfset session.userid = loginquery.userid />								
+								<cfset session.username = "#loginquery.firstname# #loginquery.lastname#" />
+								<cfset session.stateid = loginquery.stateid />
 								
 								<!--- Log this users activity to the database --->
 								<cfquery name="logUser">
