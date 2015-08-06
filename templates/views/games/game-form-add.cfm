@@ -121,7 +121,7 @@
 															<cfqueryparam value="#session.userid#" cfsqltype="cf_sql_integer" />,
 															<cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />,
 															<cfqueryparam value="Add Record" cfsqltype="cf_sql_varchar" />,
-															<cfqueryparam value="added the game schedule for vs." cfsqltype="cf_sql_varchar" />																
+															<cfqueryparam value="added the game schedule for #g.hometeam# vs. #g.awayteam#." cfsqltype="cf_sql_varchar" />																
 															);
 											</cfquery>
 												

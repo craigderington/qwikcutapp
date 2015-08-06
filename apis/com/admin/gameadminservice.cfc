@@ -37,21 +37,7 @@
 			   and gs.gameseasonid = <cfqueryparam value="1" cfsqltype="cf_sql_integer" />
 		</cfquery>
 		<cfreturn gameslist>
-	</cffunction>
-	
-	<cffunction name="getconferences" output="false" returntype="query" access="remote" hint="I get the list of conferences.">
-		<cfargument name="conferencetype" type="any" required="yes">
-		<cfset var conferencelist = "" />
-			<cfquery name="conferencelist">
-					select c.stateid, c.confid, c.confname, c.conftype, c.confactive, 
-					       s.statename, s.stateabbr					       
-					  from dbo.conferences c, dbo.states s
-					 where c.stateid = s.stateid
-					   and c.conftype = <cfqueryparam value="#form.conferencetype#" cfsqltype="cf_sql_varchar" />				   
-				  order by c.stateid, c.confname asc
-			</cfquery>
-		<cfreturn conferencelist>
-	</cffunction>
+	</cffunction>	
 	
 	<cffunction name="gethometeam" access="public" returntype="query" output="false" hint="I get the home team organizations list.">
 		<cfargument name="conferenceid" type="numeric" required="yes">
@@ -148,6 +134,78 @@
 			  group by v.vsid, v.hometeam, v.awayteam, v.gamedate, c.confname 					  
 			</cfquery>
 		<cfreturn gamesearchresults>
-	</cffunction>	
+	</cffunction>
+
+	<cffunction name="getconferences" output="false" returntype="query" access="remote" hint="I get the list of conferences.">
+		<cfargument name="stateid" type="numeric" required="yes" default="#session.stateid#">
+		<cfset var conferences = "" />
+			<cfquery name="conferences">
+			  select c.stateid, c.confid, c.confname, count(t.teamid) as teamscount       
+			    from dbo.conferences c, dbo.states s, teams t
+			   where c.stateid = s.stateid
+			     and t.confid = c.confid        
+			     and c.stateid = <cfqueryparam value="#arguments.stateid#" cfsqltype="cf_sql_integer" />
+			group by c.stateid, c.confid, c.confname
+			order by c.stateid, c.confname asc
+			</cfquery>
+		<cfreturn conferences>
+	</cffunction>
+	
+	<cffunction name="getteams" output="false" returntype="query" access="remote" hint="I get the list of teams for the games manager.">
+		<cfargument name="confid" type="numeric" required="yes" default="#url.confid#">
+		<cfargument name="stateid" type="numeric" required="yes" default="#session.stateid#">
+		<cfset var teams = "" />
+			<cfquery name="teams">
+			    select t.teamid, t.teamname, tl.teamlevelname, t.teammascot, t.teamcity, s.stateabbr, c.confname,
+				   count(g.gameid) as gamescount       
+				   from dbo.teams t, teamlevels tl, conferences c, states s, versus v, games g
+				  where t.confid = c.confid
+					and c.stateid = s.stateid
+                    and t.teamlevelid = tl.teamlevelid					
+					and c.stateid = <cfqueryparam value="#arguments.stateid#" cfsqltype="cf_sql_integer" />
+					and c.confid = <cfqueryparam value="#arguments.confid#" cfsqltype="cf_sql_integer" />
+					and v.vsid = g.vsid
+					and ( 
+						t.teamid = g.hometeamid 
+					     or 
+						t.teamid = g.awayteamid 
+						)
+			   group by t.teamid, t.teamname, tl.teamlevelname, t.teammascot, t.teamcity, s.stateabbr, c.confname
+			   order by t.teamname asc			
+			</cfquery>
+		<cfreturn teams>
+	</cffunction>
+	
+	<cffunction name="getteamgames" output="false" returntype="query" access="remote" hint="I get the team game schedule.">
+		<cfargument name="teamid" type="numeric" required="yes" default="#url.teamid#">
+		<cfargument name="stateid" type="numeric" required="yes" default="#session.stateid#">
+		<cfset var teamgames = "" />
+			<cfquery name="teamgames">
+			    select g.gameid, g.hometeamid, g.awayteamid, g.gamedate, g.gamestart, g.gamestatus, 
+						   t1.teamname as hometeam, 
+						   t2.teamname as awayteam,
+						   f.fieldname, v.fieldid, v.vsid,
+						   c.confname, s.stateabbr, tl.teamlevelname
+					from dbo.games g, dbo.teams t1, dbo.teams t2, dbo.fields f, dbo.versus v, dbo.conferences c, dbo.states s, dbo.teamlevels tl
+					where (g.hometeamid = t1.teamid)
+					and (g.awayteamid = t2.teamid)
+					and g.vsid = v.vsid
+					and f.fieldid = v.fieldid
+					and t1.confid = c.confid
+					and c.stateid = s.stateid
+					and t1.teamlevelid = tl.teamlevelid
+					and (
+							t1.teamid = <cfqueryparam value="#arguments.teamid#" cfsqltype="cf_sql_integer" />
+							
+							or
+							
+							t2.teamid = <cfqueryparam value="#arguments.teamid#" cfsqltype="cf_sql_integer" />
+						)			
+			</cfquery>					
+		<cfreturn teamgames>
+	</cffunction>
+	
+	
+	
 	
 </cfcomponent>

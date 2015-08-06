@@ -12,8 +12,8 @@
 										</div>								
 									
 										<div class="col-md-1">
-											<button type="button" id="loading-example-btn" class="btn btn-white btn-sm">
-												<i class="fa fa-refresh"></i> Refresh
+											<button type="button" id="loading-example-btn" class="btn btn-success btn-sm btn-outline" onclick="location.href='#application.root##url.event#'">
+												<i class="fa fa-refresh"></i> Reset
 											</button>
 										</div>
 											

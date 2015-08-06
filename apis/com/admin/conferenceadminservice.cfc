@@ -5,6 +5,7 @@
 	</cffunction>
 			
 	<cffunction name="getconferences" output="false" returntype="query" access="remote" hint="I get the list of conferences.">
+		<cfargument name="stateid" type="numeric" required="no">
 		<cfset var conferencelist = "" />
 			<cfquery name="conferencelist">
 					select c.stateid, c.confid, c.confname, c.conftype, c.confactive, 
@@ -18,6 +19,9 @@
 								<cfif structkeyexists( form, "conferencetype" ) and trim( form.conferencetype ) neq "">
 									and c.conftype = <cfqueryparam value="#form.conferencetype#" cfsqltype="cf_sql_varchar" />
 								</cfif>
+						   </cfif>
+						   <cfif structkeyexists( arguments, "stateid" )>
+								and c.stateid = <cfqueryparam value="#arguments.stateid#" cfsqltype="cf_sql_integer" />
 						   </cfif>
 				  order by c.stateid, c.confname asc
 			</cfquery>

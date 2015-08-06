@@ -45,6 +45,8 @@
 										<cfinclude template="views/games/game.map.cfm">
 									<cfelseif trim( url.fuseaction ) eq "games.mgr">
 										<cfinclude template="views/games/games.manager.cfm">
+									<cfelseif trim( url.fuseaction ) eq "games.filter">
+										<cfinclude template="views/games/games.filter.cfm">
 									<cfelse>
 										<!-- // no view found, show message -->
 										<div class="alert alert-danger" style="margin-top:10px;">

@@ -20,8 +20,8 @@
 										<h5><i class="fa fa-dashboard"></i> #session.username# | Admin Settings</h5>
 										<span class="pull-right">											
 											<a href="#application.root#admin.reports" class="btn btn-xs btn-info btn-outline"><i class="fa fa-archive"></i> Reports</a>
-											<a href="#application.root#admin.settings" class="btn btn-xs btn-default btn-outline" style="margin-left:5px;"><i class="fa fa-cogs"></i> Admin Settings</a>
-											<a href="#application.root#admin.home" class="btn btn-xs btn-primary btn-outline" style="margin-left:5px;"><i class="fa fa-home"></i> Admin Home</a>
+											<a href="#application.root#admin.payroll" class="btn btn-xs btn-primary btn-outline" style="margin-left:5px;"><i class="fa fa-money"></i> Payroll</a>
+											<a href="#application.root#admin.home" class="btn btn-xs btn-success btn-outline" style="margin-left:5px;"><i class="fa fa-home"></i> Admin Home</a>
 										</span>
 									</cfoutput>	
 								</div>
