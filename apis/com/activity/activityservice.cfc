@@ -20,7 +20,7 @@
 				select top 200 activitytype, activitydate, activitytext, u.firstname, u.lastname
 				  from activity a, users u
 				 where a.userid = u.userid				  
-			  order by a.activityid, a.activitydate desc			
+			  order by a.activityid desc, a.activitydate desc			
 			</cfquery>
 		<cfreturn systemactivity>
 	</cffunction>
