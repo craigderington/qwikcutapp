@@ -1,5 +1,6 @@
 
 
+													
 								
 								
 								
@@ -66,7 +67,7 @@
 															<tbody>
 																<cfoutput query="gamesearchresults">
 																	<tr>
-																		<td class="text-center text-primary"><a href=""><i class="fa fa-play-circle fa-2x"></i></a></td>
+																		<td class="text-center text-primary"><a href="#application.root##url.event#&fuseaction=games.filter&vsid=#vsid#"><i class="fa fa-play-circle fa-2x"></i></a></td>
 																		<td>#trim( awayteam )# <i>vs.</i> <strong>#trim( hometeam )#</strong></td>
 																		<td>#confname#</td>
 																		<td>#dateformat( gamedate, "mm-dd-yyyy" )#</td>

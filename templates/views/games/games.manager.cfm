@@ -36,22 +36,22 @@
 							<p><span class="help-block text-center"><small>Home team shown in bold.</small></span></p>
 						</div>
 						
-						<div class="ibox-content" style="min-height:300px;">
+						<div class="ibox-content" style="min-height:500px;">
 							
 							<div class="col-md-3">							
-								{{ assign shooters }}
+								<cfinclude template="game-shooter-view.cfm">
 							</div>
 							
 							<div class="col-md-3">
-								{{ show field map }}
+								<cfinclude template="game-field-map-view.cfm">
 							</div>
 							
 							<div class="col-md-3">
-								{{ update individual game data }}
+								<cfinclude template="game-status-view.cfm">
 							</div>
 							
 							<div class="col-md-3">
-								{{ send notifications }}
+								<cfinclude template="game-notification-view.cfm">
 							</div>
 							
 						</div>

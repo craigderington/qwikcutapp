@@ -113,7 +113,7 @@
 														<div class="widget style1 navy-bg">
 															<div class="row vertical-align">
 																<div class="col-xs-3">
-																	<i class="fa fa-camera fa-3x"></i>
+																	<i class="fa fa-video-camera fa-3x"></i>
 																</div>
 																<div class="col-xs-9 text-right">
 																	<h2 class="font-bold">#numberformat( admindashboard.shooterstotal, "999" )#</h2>

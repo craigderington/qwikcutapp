@@ -1,5 +1,16 @@
 
 
+					<cfif structkeyexists( session, "vsid" )>
+						<cfset tempr = structdelete( session, "vsid" )>
+					<cfelseif not structkeyexists( session, "vsid" )>
+						<cfif structkeyexists( url, "fuseaction" ) and trim( url.fuseaction ) eq "games.filter">
+							<cfif structkeyexists( url, "vsid" ) and url.vsid neq 0>
+								<cfset session.vsid = numberformat( url.vsid, "99" )>
+								<cflocation url="#application.root##url.event#&fuseaction=games.mgr" addtoken="no">
+							</cfif>
+						</cfif>					
+					</cfif>
+
 
 					
 					
@@ -106,7 +117,7 @@
 											<table class="table table-hover">
 												<thead>
 													<tr>
-														<th>Manage</th>
+														<th class="text-center">Manage</th>
 														<th>Home Team</th>
 														<th>Away Team</th>
 														<th>Field</th>
@@ -117,7 +128,7 @@
 												<tbody>
 													<cfloop query="teamgames">														
 														<tr>
-															<td><a href="#application.root##url.event#&fuseaction=#trim( url.fuseaction )#&vsid=#vsid#"><i class="fa fa-play-circle fa-2x text-primary"></i></a></td>
+															<td class="text-center"><a href="#application.root##url.event#&fuseaction=#trim( url.fuseaction )#&vsid=#vsid#"><i class="fa fa-play-circle fa-2x text-primary"></i></a></td>
 															<td><a style="font-weight:bold;" href="#application.root##url.event#&fuseaction=#trim( url.fuseaction )#&vsid=#vsid#">#hometeam#</a> (#teamlevelname#)</td>
 															<td>#awayteam#</td>
 															<td>#fieldname#</td>

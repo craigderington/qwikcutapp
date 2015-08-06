@@ -78,7 +78,7 @@
 								<cfelseif trim( url.fuseaction ) eq "teams.view">
 									<cfinclude template="views/teams/teams.view.cfm">
 								<cfelseif trim( url.fuseaction ) eq "team.levels">
-									<cfinclude template="views/teams/team.levels.cfm">
+									<cfinclude template="views/teams/team.levels.cfm">								
 								<cfelse>
 									<!-- // no view found, show message -->
 									<div class="alert alert-danger" style="margin-top:10px;">
