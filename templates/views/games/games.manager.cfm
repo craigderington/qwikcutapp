@@ -36,14 +36,14 @@
 							<p><span class="help-block text-center"><small>Home team shown in bold.</small></span></p>
 						</div>
 						
-						<div class="ibox-content" style="min-height:500px;">
+						<div class="ibox-content" style="min-height:650px;">
 							
 							<div class="col-md-3">							
 								<cfinclude template="game-team-list-view.cfm">
 							</div>
 							
 							<div class="col-md-3">
-								<cfinclude template="game-shooter-view.cfm">
+								<cfinclude template="game-notification-view.cfm">
 							</div>
 							
 							<div class="col-md-3">
@@ -51,8 +51,8 @@
 							</div>
 							
 							<div class="col-md-3">
-								<cfinclude template="game-notification-view.cfm">
-							</div>
+								<cfinclude template="game-shooter-view.cfm">
+							</div>						
 							
 						</div>
 					

@@ -11,7 +11,7 @@
 						<div class="ibox-title">
 							<h5><i class="fa fa-video-camera"></i> Manage Shooters</h5>
 							<span class="pull-right">
-								<a href="" class="btn btn-xs btn-default"><i class="fa fa-plus"></i> Assign</a>
+								<a href="" class="btn btn-xs btn-primary"><i class="fa fa-plus"></i> Assign</a>
 							</span>
 						</div>
 						
@@ -28,8 +28,8 @@
                                         </a>
                                         <div class="media-body ">
                                             <small class="pull-right">3d ago</small>
-                                            <strong>Joe Shooter</strong> <span class="label label-success"><small>ASSIGNED</small></span><br>
-                                            <small class="text-muted">7/30/2015 | 5:60 pm</small>
+                                            <strong>Joe Shooter</strong> <span class="label label-primary"><small>ACCEPTED</small></span><br>
+                                            <small class="text-muted">Updated: 8/7/2015 | 12:32 pm</small>
 										</div>
                                     </div>
 								</div>

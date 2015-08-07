@@ -1,12 +1,19 @@
 
 
+
+
+
+						
+
+
 						
 
 									
 						
 						<div class="row">
 							
-								<cfoutput>
+								<cfoutput>							
+								
 									<div class="ibox">
 										<div class="ibox-title">
 											<h5><i class="fa fa-search"></i> Filter Your Results</h5>
@@ -16,7 +23,7 @@
 												<div class="row">
 													<div class="col-sm-2">
 														<div class="form-group">
-															<label class="control-label" for="state">State</label>
+															<label class="control-label" for="stateid">State</label>
 															<select name="stateid" id="stateid" class="form-control" onchange="javascript:this.form.submit();">
 																<option value="" selected>Filter by State</option>
 																	<cfloop query="statelist">														
@@ -28,21 +35,21 @@
 																									
 													<div class="col-sm-3">
 														<div class="form-group">
-															<label class="control-label" for="product_name">Field Name</label>
+															<label class="control-label" for="fieldname">Field Name</label>
 															<input type="text" id="fieldname" name="fieldname" placeholder="Search by Field Name" class="form-control" <cfif structkeyexists( form, "fieldname" )>value="#trim( form.fieldname )#"</cfif> onchange="javascript:this.form.submit();" />
 														</div>
 													</div>
 													<div class="col-sm-3">
 														<div class="form-group">
-															<label class="control-label" for="product_name">Zip Code</label>
+															<label class="control-label" for="fieldzipcode">Zip Code</label>
 															<input type="text" id="fieldzipcode" name="fieldzipcode" placeholder="Search by Zip Code" class="form-control" <cfif structkeyexists( form, "fieldzipcode" )>value="#trim( form.fieldzipcode )#"</cfif> onchange="javascript:this.form.submit();" />
 														</div>
 													</div>
 													<input name="filterresults" type="hidden" value="true" />													
 													<!---<button type="submit" name="filterresults" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> Filter Results</button>--->
-													<cfif structkeyexists( form, "filterresults" ) and not structkeyexists( session, "stateid" )>
+													<cfif structkeyexists( form, "filterresults" ) and not structkeyexists( session, "fieldstateid" )>
 														<a style="margin-left:3px;margin-top:24px;" href="#application.root##url.event#" class="btn btn-md btn-success"><i class="fa fa-remove"></i> Reset Filters</a>
-													<cfelseif structkeyexists( session, "stateid" )>
+													<cfelseif structkeyexists( session, "fieldstateid" )>
 														<a style="margin-left:3px;margin-top:24px;" href="#application.root##url.event#&resetfilter=true" class="btn btn-md btn-primary"><i class="fa fa-remove"></i> Reset Filters</a>
 													</cfif>
 												</div>

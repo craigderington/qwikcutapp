@@ -17,7 +17,11 @@
 							and f.fieldname LIKE <cfqueryparam value="#trim( form.fieldname )#%" cfsqltype="cf_sql_varchar" />
 						</cfif>
 						<cfif structkeyexists( form, "fieldzipcode" ) and form.fieldzipcode neq "">
-							and f.fieldzip = <cfqueryparam value="#form.fieldzipcode#" cfsqltype="cf_sql_numeric" />
+							<cfif isnumeric( form.fieldzipcode )>
+								and f.fieldzip = <cfqueryparam value="#form.fieldzipcode#" cfsqltype="cf_sql_numeric" />
+							<cfelse>
+								and f.fieldzip = <cfqueryparam value="0" cfsqltype="cf_sql_numeric" />
+							</cfif>
 						</cfif>
 				   </cfif>
 				   <cfif structkeyexists( session, "fieldstateid" )>						

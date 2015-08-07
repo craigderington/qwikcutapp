@@ -96,7 +96,7 @@
 			<cfset var games = "" />
 			<cfquery name="games">
 				select gs.gameseason, g.gameid, f.fieldid, f.fieldname, c.conftype, c.confname, g.gamedate, g.gamestart, g.gamestatus, 
-					   g.gameoutcome, g.gamewinner, v.vsid,
+					   g.gameoutcome, g.gamewinner, v.vsid, tl.teamlevelname,
 					   t1.teamname as hometeam, t2.teamname as awayteam,
 					   t1.teammascot as hometeammascot, t2.teammascot as awayteammascot
 				  from games g, versus v, gameseasons gs, conferences c, states s, fields f, teamlevels tl, teams t1, teams t2
@@ -108,7 +108,8 @@
 				   and g.hometeamid = t1.teamid 
 				   and g.awayteamid = t2.teamid
 				   and t1.teamlevelid = tl.teamlevelid
-				   and g.vsid = <cfqueryparam value="#arguments.vsid#" cfsqltype="cf_sql_integer" />					  
+				   and g.vsid = <cfqueryparam value="#arguments.vsid#" cfsqltype="cf_sql_integer" />
+				order by g.gameid asc, tl.teamlevelid asc
 			</cfquery>
 		<cfreturn games>
 	</cffunction>
