@@ -39,15 +39,15 @@
 						<div class="ibox-content" style="min-height:500px;">
 							
 							<div class="col-md-3">							
+								<cfinclude template="game-team-list-view.cfm">
+							</div>
+							
+							<div class="col-md-3">
 								<cfinclude template="game-shooter-view.cfm">
 							</div>
 							
 							<div class="col-md-3">
 								<cfinclude template="game-field-map-view.cfm">
-							</div>
-							
-							<div class="col-md-3">
-								<cfinclude template="game-status-view.cfm">
 							</div>
 							
 							<div class="col-md-3">

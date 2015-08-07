@@ -20,8 +20,8 @@
 							and f.fieldzip = <cfqueryparam value="#form.fieldzipcode#" cfsqltype="cf_sql_numeric" />
 						</cfif>
 				   </cfif>
-				   <cfif structkeyexists( session, "stateid" )>						
-						and s.stateid = <cfqueryparam value="#session.stateid#" cfsqltype="cf_sql_integer" />					
+				   <cfif structkeyexists( session, "fieldstateid" )>						
+						and s.stateid = <cfqueryparam value="#session.fieldstateid#" cfsqltype="cf_sql_integer" />					
 				   </cfif>
 			 order by f.fieldname asc
 		</cfquery>

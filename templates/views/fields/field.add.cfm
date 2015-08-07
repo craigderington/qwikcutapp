@@ -48,7 +48,7 @@
 												</cfif>
 												
 													<cfquery name="addfield">
-														insert into fields(stateid, fieldname, fieldactive, fieldaddress1, fieldaddress2, fieldcity, fieldzip, fieldcontactname, fieldcontacttitle, fieldcontactnumber)
+														insert into fields(stateid, fieldname, fieldactive, fieldaddress1, fieldaddress2, fieldcity, fieldzip, fieldcontactname, fieldcontacttitle, fieldcontactnumber, fieldoptionid)
 														 values(
 																<cfqueryparam value="#f.stateid#" cfsqltype="cf_sql_integer" />,
 																<cfqueryparam value="#f.fieldname#" cfsqltype="cf_sql_varchar" maxlength="50" />,

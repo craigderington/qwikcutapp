@@ -5,13 +5,13 @@
 		<!--- // set data filters to session objects --->
 		<cfif structkeyexists( form, "filterresults" )>
 			<cfif structkeyexists( form, "stateid" ) and form.stateid neq "">
-				<cfset session.stateid = numberformat( form.stateid, "99" ) />
+				<cfset session.fieldstateid = numberformat( form.stateid, "99" ) />
 			</cfif>			
 		</cfif>
 		
 		<!--- // reset the data filter session --->		
 		<cfif structkeyexists( url, "resetfilter" )>
-			<cfset tempf = structdelete( session, "stateid" ) />			
+			<cfset tempf = structdelete( session, "fieldstateid" ) />			
 			<cflocation url="#application.root##url.event#" addtoken="no">
 		</cfif>	
 	
