@@ -10,7 +10,7 @@
 					select count(stateid) as statestotal,
 						 (select count(confid) from dbo.conferences ) as conferencestotal,
 						 (select count(teamid) from dbo.teams) as teamstotal,
-						 (select count(fieldid) from dbo.fields) as fieldstotal,
+						 (select count(fieldid) from dbo.fields where fields.fieldid <> <cfqueryparam value="155" cfsqltype="cf_sql_integer" />) as fieldstotal,
 						 (select count(shooterid) from dbo.shooters) as shooterstotal,
 						 (select count(gameid) from dbo.games) as gamestotal,
 						 (select count(userid) from dbo.users) as userstotal

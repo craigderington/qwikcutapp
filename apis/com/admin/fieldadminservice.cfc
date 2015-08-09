@@ -5,13 +5,15 @@
 	</cffunction>
 
 	<cffunction name="getfields" access="remote" output="false" hint="I get the list of fields.">		
+		<cfargument name="stateid" required="no" type="numeric">
 		<cfset var fieldlist = "" />
 		<cfquery name="fieldlist">
 			select f.fieldid, f.stateid, f.fieldname, f.fieldaddress1, f.fieldaddress2, f.fieldcity, f.fieldstate, f.fieldzip,
 				   f.fieldcontactnumber, f.fieldcontactname, f.fieldcontacttitle, f.fieldactive, 
 				   s.statename, s.stateabbr
 			  from fields f, states s
-			 where f.stateid = s.stateid			  
+			 where f.stateid = s.stateid
+			   and f.fieldid <> <cfqueryparam value="155" cfsqltype="cf_sql_integer" />
 				   <cfif structkeyexists( form, "filterresults" )>						
 						<cfif structkeyexists( form, "fieldname" ) and form.fieldname neq "">
 							and f.fieldname LIKE <cfqueryparam value="#trim( form.fieldname )#%" cfsqltype="cf_sql_varchar" />
@@ -26,6 +28,9 @@
 				   </cfif>
 				   <cfif structkeyexists( session, "fieldstateid" )>						
 						and s.stateid = <cfqueryparam value="#session.fieldstateid#" cfsqltype="cf_sql_integer" />					
+				   </cfif>
+				   <cfif structkeyexists( arguments, "stateid" )>						
+						and s.stateid = <cfqueryparam value="#arguments.stateid#" cfsqltype="cf_sql_integer" />					
 				   </cfif>
 			 order by f.fieldname asc
 		</cfquery>

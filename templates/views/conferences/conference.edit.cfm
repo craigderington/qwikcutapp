@@ -115,7 +115,7 @@
 											</div>
 										</div>
 										<br />
-										<div class="hr-line-dashed" style-="margin-top:25px;"></div>
+										<div class="hr-line-dashed" style="margin-top:25px;"></div>
 										<div class="form-group">
 											<div class="col-lg-offset-2 col-lg-10">
 												<button class="btn btn-primary" type="submit" name="conferenceSaveRecord"><i class="fa fa-save"></i> Save Conference</button>

@@ -53,13 +53,13 @@
 	
 	<cffunction name="getawayteam" access="public" returntype="query" output="false" hint="I get the away team organizations list.">
 		<cfargument name="conferenceid" type="numeric" required="yes">
-		<cfargument name="teamorgname" type="any" required="yes">
+		<cfargument name="teamorgname" type="any" required="yes">		
 			<cfset var awayteam = "" />
 			<cfquery name="awayteam">
 				   select distinct(teamorgname)
 					 from teams
 					where confid = <cfqueryparam value="#arguments.conferenceid#" cfsqltype="cf_sql_integer" />
-					  and teamorgname <> <cfqueryparam value="#arguments.teamorgname#" cfsqltype="cf_sql_varchar" /> 
+					  and teamorgname <> <cfqueryparam value="#arguments.teamorgname#" cfsqltype="cf_sql_varchar" />                      					  
 				 order by teamorgname asc
 			</cfquery>		
 		<cfreturn awayteam>
@@ -206,7 +206,60 @@
 		<cfreturn teamgames>
 	</cffunction>
 	
+	<cffunction name="getteamhomefieldid" access="public" returntype="query" output="false" hint="I get the team home field id.">
+		<cfargument name="hometeam" type="any" required="yes">		
+		<cfset var homefieldid = "" />
+			<cfquery name="homefieldid">
+				select top 1 t.homefieldid
+				  from teams t
+				 where t.teamorgname = <cfqueryparam value="#arguments.hometeam#" cfsqltype="cf_sql_varchar" />
+			</cfquery>	
+		<cfreturn homefieldid>
+	</cffunction>
 	
+	<cffunction name="getgameshooters" access="public" returntype="query" output="false" hint="I get the shooters assignments for each game.">
+		<cfargument name="vsid" type="numeric" required="yes" default="#session.vsid#">		
+		<cfset var gameshooters = "" />
+			<cfquery name="gameshooters">
+				select sa.shooterassignmentid, sa.vsid, sa.gameid, sa.shooterassignstatus, sa.shooterassigndate, sa.shooteracceptdate, sa.shooteracceptedassignment,
+					   sa.shooterassignlastupdated, sh.shooterid, sh.shooterfirstname, sh.shooterlastname, sh.shooteremail, sh.userid, us.userprofileimagepath
+				  from shooterassignments sa, shooters sh, usersettings us
+				 where sa.shooterid = sh.shooterid
+				   and sh.userid = us.userid
+				   and sa.vsid = <cfqueryparam value="#arguments.vsid#" cfsqltype="cf_sql_integer" />
+			</cfquery>	
+		<cfreturn gameshooters>
+	</cffunction>
+	
+	<cffunction name="getshooterfields" access="public" returntype="query" output="false" hint="I get the shooter list for the assigned fields.">
+		<cfargument name="fieldid" type="numeric" required="yes">
+		<cfargument name="assignedids" type="any" required="yes">
+		<cfset var shooterfields = "" />
+			<cfquery name="shooterfields">
+				select sh.shooterid, sh.shooterfirstname, sh.shooterlastname 
+				  from shooterfields sf, shooters sh
+				 where sf.shooterid = sh.shooterid				  
+				   and sf.fieldid = <cfqueryparam value="#arguments.fieldid#" cfsqltype="cf_sql_integer" />
+				   and sh.shooterid not in(<cfqueryparam value="#arguments.assignedids#" cfsqltype="cf_sql_integer" list="yes" />)
+			</cfquery>	
+		<cfreturn shooterfields>
+	</cffunction>
+	
+	<cffunction name="getgamedetail" access="public" returntype="query" output="false" hint="I get the game detail.">
+		<cfargument name="id" type="numeric" required="yes" default="#url.id#">		
+		<cfset var gamedetail = "" />
+			<cfquery name="gamedetail">
+				select g.gameid, g.fieldid, g.confid, g.hometeamid, g.awayteamid, g.gamedate, g.gamestart, g.gameend,
+				       g.gamestatus, g.gameoutcome, g.gamewinner, t1.teamorgname as hometeam, 
+					   t2.teamorgname as awayteam, tl.teamlevelname
+				  from games g, teams t1, teams t2, teamlevels tl
+				 where g.hometeamid = t1.teamid
+				   and g.awayteamid = t2.teamid
+				   and t1.teamlevelid = tl.teamlevelid
+				   and g.gameid = <cfqueryparam value="#arguments.id#" cfsqltype="cf_sql_integer" />
+			</cfquery>	
+		<cfreturn gamedetail>
+	</cffunction>
 	
 	
 </cfcomponent>

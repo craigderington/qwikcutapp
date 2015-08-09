@@ -29,8 +29,8 @@
 						</div>
 						<div class="ibox-content ibox-heading border-bottom">
 							<h3 class="text-center">
-								<p>#versus.awayteam# #games.awayteammascot# <i>vs.</i>  <strong>#versus.hometeam# #games.hometeammascot#</strong></p>								
-								<p><small>#versus.fieldname# in #versus.fieldcity#, #versus.stateabbr#</small></p>								
+								<p>#versus.awayteam# <i>vs.</i>  <strong>#versus.hometeam#</strong></p>								
+								<p><small>#versus.fieldname# Field in #versus.fieldcity#, #versus.stateabbr#</small></p>								
 								<p><small><span class="label label-primary"><i class="fa fa-calendar-o"></i> #dateformat( versus.gamedate, "mm-dd-yyyy" )#</span> <span style="margin-left:10px;" class="label label-success"><i class="fa fa-clock-o"></i> #timeformat( versus.gametime, "hh:mm tt" )#</span></small></p>								
 							</h3>
 							<p><span class="help-block text-center"><small>Home team shown in bold.</small></span></p>
@@ -38,21 +38,52 @@
 						
 						<div class="ibox-content" style="min-height:650px;">
 							
-							<div class="col-md-3">							
-								<cfinclude template="game-team-list-view.cfm">
-							</div>
+							<cfif not structkeyexists( url, "manage" )>
 							
-							<div class="col-md-3">
-								<cfinclude template="game-notification-view.cfm">
-							</div>
+								<div class="col-md-3">							
+									<cfinclude template="game-team-list-view.cfm">
+								</div>
+								
+								<div class="col-md-3">
+									<cfinclude template="game-notification-view.cfm">
+								</div>
+								
+								<div class="col-md-3">
+									<cfinclude template="game-field-map-view.cfm">
+								</div>
+								
+								<div class="col-md-3">
+									<cfinclude template="game-shooter-view.cfm">
+								</div>						
 							
-							<div class="col-md-3">
-								<cfinclude template="game-field-map-view.cfm">
-							</div>
+							<cfelseif structkeyexists( url, "manage" )>
 							
-							<div class="col-md-3">
-								<cfinclude template="game-shooter-view.cfm">
-							</div>						
+								<cfif trim( url.manage ) eq "schedule">
+									<cfinclude template="game-schedule-edit.cfm">
+								<cfelseif trim( url.manage ) eq "shooter">
+									<cfinclude template="game-shooter-assign.cfm">
+								<cfelseif trim( url.manage ) eq "send-notify">
+									{{ send shooter notifications/directions, etc... }}
+								<cfelseif trim( url.manage ) eq "field">
+									<cfinclude template="game-change-field.cfm">
+								<cfelse>
+								
+									<div class="alert alert-info">
+										<h4><i class="fa fa-warning"> <a href="">Error.  Games Manager View Note Found</a> </h4>
+									</div>
+								
+								</cfif>
+								
+								
+								
+							
+							
+							
+							
+							
+							</cfif>
+							
+							
 							
 						</div>
 					

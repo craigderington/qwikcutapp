@@ -19,7 +19,7 @@
 								<div class="ibox-title">
 									<h5><i class="fa fa-mobile"></i> Notifications</h5>
 									<span class="pull-right">
-										<a href="" class="btn btn-xs btn-primary"><i class="fa fa-mobile"></i> Send</a>
+										<a href="#application.root##url.event#&fuseaction=#url.fuseaction#&manage=send-notify" class="btn btn-xs btn-primary"><i class="fa fa-mobile"></i> Send</a>
 									</span>
 								</div>
 								
