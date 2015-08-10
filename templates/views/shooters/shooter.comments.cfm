@@ -31,6 +31,7 @@
 													{{ Rating System }}
 												</div>
 												<div class="col-md-6">
+													<!---
 													<div class="social-feed-box">
 														<div class="pull-right social-action dropdown">
 															<button data-toggle="dropdown" class="dropdown-toggle btn-white">
@@ -91,6 +92,7 @@
 															</div>
 														</div>
 													</div>
+													--->
 												</div>												
 											</div>
 										</div>											

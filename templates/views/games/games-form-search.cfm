@@ -50,6 +50,8 @@
 												<cfinvokeargument name="searchvar" value="#searchvar#">
 											</cfinvoke>
 											
+											<cfif gamesearchresults.recordcount gt 0>
+											
 											<div class="row" style="margin-top:20px;">												
 												<div class="table-responsive">													
 													<h4 class="text-success"><i class="fa fa-th-list"></i> Search Results | #gamesearchresults.recordcount# game<cfif gamesearchresults.recordcount gt 1>s</cfif> found.  Click Go to View Details.</h4>
@@ -84,7 +86,17 @@
 												</div>
 											</div>
 											
+											<cfelse>
 											
+												<div style="padding:20px;">
+													<div class="alert alert-danger alert-dismissable">
+														<button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
+														<p><i class="fa fa-exclamation-circle"></i> <a class="alert-link" href="">Sorry!</a>  Your search for <i>#trim( form.search )#</i> did not match any results in the database.  Search Options are team name, conference name or game date.</p>
+														<p><strong>Please try again...</strong>
+													</div>
+												</div>
+											
+											</cfif>
 											
 										<cfelse>
 											<div style="padding:20px;">

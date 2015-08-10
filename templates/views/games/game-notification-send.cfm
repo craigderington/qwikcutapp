@@ -46,7 +46,7 @@
 													<cfset n.notificationtype = trim( form.notificationtype ) />
 													<cfset n.notificationtext = trim( form.message ) />
 													
-													<cfif structkeyexists( form, "shooters" )>
+													<cfif structkeyexists( form, "shooterid" )>
 														<cfset n.shooterid = form.shooterid />
 													<cfelse>
 														<cfset n.shooterid = 0 />
@@ -126,7 +126,7 @@
 															<label class="control-label" for="shooters">Shooters</label>
 														</div>
 														<div class="col-md-8">
-															<input type="checkox" id="shooterid" name="shooterid" value="#gameshooters.shooterid#" checked>
+															<input type="checkbox" style="padding:4px;" id="shooterid" name="shooterid" value="#gameshooters.shooterid#" checked>
 															#gameshooters.shooterfirstname# #gameshooters.shooterlastname#
 														</div>
 													</div>												

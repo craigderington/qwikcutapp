@@ -42,8 +42,7 @@
 							<div class="ibox-title">
 								<h5><i class="fa fa-dashboard"></i> Your Dashboard</h5>
 							</div>
-							<div class="ibox-content ibox-heading">		
-								
+							<div class="ibox-content ibox-heading" style="min-height:160px;">							
 								<div class="col-md-4">										
 									<div class="ibox-content" style="min-height:130px;">
 										<h5 class="m-b-md">Upcoming Games</h5>
@@ -52,8 +51,7 @@
 											</h2>
 											<small>Last updated 42 days ago</small>
 									</div>
-								</div>
-								
+								</div>								
 								<div class="col-md-4">
 									<div class="ibox">
 										<div class="ibox-content" style="min-height:130px;">
@@ -66,8 +64,7 @@
 											<div class="m-t-sm small">Game scheduled for today at 6:32 pm.</div>
 										</div>
 									</div>
-								</div>
-								
+								</div>								
 								<div class="col-md-4">
 									<div class="ibox">
 										<div class="ibox-content" style="min-height:130px;">
@@ -79,10 +76,8 @@
 											<div class="m-t-sm small">Total Income</div>
 										</div>
 									</div>
-								</div>
-									
-													
-									
+								</div>												
+							</div>		
 						</div>							
 					</div>	
 							

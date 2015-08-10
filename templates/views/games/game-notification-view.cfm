@@ -46,7 +46,10 @@
 													<div>													
 														<small class="pull-right">#notificationstatus#</small>
 														<strong>#trim( notificationtype )#</strong>
-														<div>#trim( notificationtext )#</div>												
+														<cfif shooterfirstname neq "" and shooterlastname neq "">
+														<div>#shooterfirstname# #shooterlastname# </div>
+														</cfif>
+														<div>#trim( notificationtext )#</div>											
 														<small class="text-muted">#dateformat( notificationtimestamp, "mm-dd-yyyy" )# : #timeformat( notificationtimestamp, "hh:mm tt" )#</small>
 													</div>
 												</div>

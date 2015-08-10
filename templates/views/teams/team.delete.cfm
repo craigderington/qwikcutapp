@@ -52,9 +52,9 @@
 													
 														<div class="alert alert-danger alert-dismissable">
 															<button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
-																<h5><i class="fa fa-warning"></i> <error>Sorry, <cfoutput> #chkdata.conferencename#</cfoutput> can not be deleted:</error></h2>
+																<h5><i class="fa fa-warning"></i> <error>Sorry, <cfoutput> #t.teamname#</cfoutput> can not be deleted:</error></h2>
 																<ul>
-																	<li class="formerror">Foreign key constraint on the Teams table.  Operation aborted....</li>
+																	<li class="formerror">Foreign key constraint on the Games table.  Operation aborted....</li>
 																</ul>
 														</div>
 													
@@ -105,11 +105,11 @@
 										<h4><i class="fa fa-warning" style="color:##f00;"></i> Delete Confirmation</h4>
 										<p>This action can not be un-done.  Are you sure you want to delete <i>#teamdetail.teamname#</i> &nbsp;from the database?</p>                             
 										<br /><br /><br />
-										<div class="hr-line-dashed" style-="margin-top:25px;"></div>
+										<div class="hr-line-dashed" style="margin-top:25px;"></div>
 										<div class="form-group">
 											<div class="col-lg-offset-2 col-lg-10">
-												<button class="btn btn-danger" type="submit" name="deleteTeamRecord"><i class="fa fa-save"></i> Delete Conference</button>
-												<a href="#application.root##url.event#" class="btn btn-default"><i class="fa fa-remove"></i> Cancel</a>																		
+												<button class="btn btn-sm btn-danger" type="submit" name="deleteTeamRecord"><i class="fa fa-save"></i> Delete #teamdetail.teamname#</button>
+												<a href="#application.root##url.event#" class="btn btn-sm btn-default"><i class="fa fa-remove"></i> Cancel</a>																		
 												<input type="hidden" name="teamid" value="#teamdetail.teamid#" />
 												<input type="hidden" name="teamname" value="#teamdetail.teamname#" />
 											</div>

@@ -51,7 +51,14 @@
 									</div>
 								</cfif>
 								
-								
+								<div class="well" style="padding:5px;">
+									<h5><i class="fa fa-bullhorn"></i> <strong>Field Contacts</strong></h5>
+									<small>
+										#fielddetail.fieldcontactname# <br />
+										#fielddetail.fieldcontacttitle# <br />
+										#fielddetail.fieldcontactnumber# <a style="margin-left:5px;" href="">More &raquo;&raquo;</a>
+									</small>
+								</div>
 								
 							</div>			
 						

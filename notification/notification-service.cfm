@@ -66,7 +66,7 @@
 													<cfif trim( shooter.shooteralertpref ) eq "email">
 													
 														<!--- // send by email --->
-														<cfinvoke component="apis.com.admin.gamesnotificationservice" method="sendgamenotifications" returnvariable="msgstatus">
+														<cfinvoke component="apis.com.notifications.gamesnotificationservice" method="sendgamenotifications" returnvariable="msgstatus">
 															<cfinvokeargument name="shooteremail" value="#shooter.shooteremail#">
 															<cfinvokeargument name="senderemail" value="info@qwikcut.com">
 															<cfinvokeargument name="sendtype" value="email">

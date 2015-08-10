@@ -29,14 +29,17 @@
 												<cfset s.gamevsid = session.vsid />
 												<cfset s.gameid = games.gameid />
 												<cfset s.assigndate = now() />
-												<cfset s.assignstatus = "Assigned">
-
+												<cfset s.assignstatus = "Assigned" />
+												<cfset s.notificationtype = "Shooter Notification" />
+												<cfset s.notificationstatus = "Queued" />
+												<cfset s.notificationtext = "New game assignment." />
+													
+													<!--- // did not create shooterassignment pkid as auto_increment, workaround --->
 													<cfquery name="getlastassignment">
 														select max(shooterassignmentid) as assignlastid
 														  from shooterassignments
-													</cfquery>
+													</cfquery>													
 													
-													<!--- // did not create shooterassignment pkid as auto_increment, workaround --->
 													<cfif getlastassignment.assignlastid neq "">													
 														<cfset s.shooterassignid = getlastassignment.assignlastid  />
 														<cfset s.shooterassignid = s.shooterassignid + 1 />													
@@ -55,9 +58,24 @@
 																	<cfqueryparam value="#s.assigndate#" cfsqltype="cf_sql_timestamp" />,
 																	<cfqueryparam value="#s.assigndate#" cfsqltype="cf_sql_timestamp" />
 																	);
-													</cfquery>											
+													</cfquery>		
 													
-													<!--- // begin notify shooters --->
+													
+													<cfquery name="creategamenotification">
+														<!--- // add game assignment to the notification service queue --->											
+														insert into notifications(vsid, gameid, notificationtype, notificationtext, notificationtimestamp, notificationstatus, shooterid, notificationqueued, notificationsent)														  													   
+															values(
+																	<cfqueryparam value="#s.gamevsid#" cfsqltype="cf_sql_integer" />,
+																	<cfqueryparam value="#s.gameid#" cfsqltype="cf_sql_integer" />,
+																	<cfqueryparam value="#s.notificationtype#" cfsqltype="cf_sql_varchar" />,
+																	<cfqueryparam value="#s.notificationtext#" cfsqltype="cf_sql_varchar" />,
+																	<cfqueryparam value="#s.assigndate#" cfsqltype="cf_sql_timestamp" />,
+																	<cfqueryparam value="#s.notificationstatus#" cfsqltype="cf_sql_varchar" />,
+																	<cfqueryparam value="#s.shooterid#" cfsqltype="cf_sql_integer" />,
+																	<cfqueryparam value="1" cfsqltype="cf_sql_bit" />,
+																	<cfqueryparam value="0" cfsqltype="cf_sql_bit" />
+																	);
+													</cfquery>
 													
 													<!--- // end notify shooters --->
 

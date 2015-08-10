@@ -10,7 +10,17 @@
 				</cfinvoke>
 
 
-
+				<cfif structkeyexists( url, "id" )>
+					<cfif isnumeric( url.id )>
+						<cfset assignid = url.id />
+						<cfquery name="killassignment">
+							delete 
+							  from shooterassignments
+							 where shooterassignmentid = <cfqueryparam value="#assignid#" cfsqltype="cf_sql_integer" />
+						</cfquery>
+						<cflocation url="#application.root##url.event#&fuseaction=#url.fuseaction#&manage=#url.manage#" addtoken="no">
+					</cfif>				
+				</cfif>
 
 
 				<cfoutput>
@@ -55,7 +65,7 @@
 											<div class="media-body ">
 												<small class="pull-right">#relativeDiff#</small>
 												<strong>#shooterfirstname# #shooterlastname#</strong> <cfif trim( shooterassignstatus ) eq "accepted"><span class="label label-primary"><cfelse><span class="label label-danger"></cfif><small>#ucase( shooterassignstatus )#</small></span><br>
-												<small class="text-muted">Updated: #dateformat( shooterassignlastupdated, "mm-dd-yyyy" )# : #timeformat( shooterassignlastupdated, "hh:mm tt" )#</small>
+												<small class="text-muted">Updated: #dateformat( shooterassignlastupdated, "mm-dd-yyyy" )# : #timeformat( shooterassignlastupdated, "hh:mm tt" )#</small><cfif structkeyexists( url, "manage" )><span class="pull-right"><a href="#application.root##url.event#&fuseaction=#url.fuseaction#&manage=#url.manage#&id=#shooterassignmentid#" onclick="javascript:return confirm('Are you sure you want to delete this shooter assignment?');"><i class="fa fa-trash"></i></a></cfif></span>
 											</div>
 										</div>
 									</cfloop>
