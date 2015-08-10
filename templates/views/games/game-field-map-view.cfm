@@ -40,10 +40,16 @@
 							
 							<div class="ibox-content">
 								
-								<div class="google-map" id="map1"></div>
+								<cfif versus.fieldid neq 155>
+									<div class="google-map" id="map1"></div>
 								
-								<br />
-								<br />
+									<br />
+									<br />
+								<cfelse>
+									<div class="alert alert-info text-center">
+										<small>No map to display...</small>
+									</div>
+								</cfif>
 								
 								
 								

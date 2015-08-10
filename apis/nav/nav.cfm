@@ -65,6 +65,9 @@
 				<cfcase value="user.register">					
 					<cfinclude template="../../templates/register.cfm">					
 				</cfcase>
+				<cfcase value="notification.service">					
+					<cfinclude template="../../templates/notification.service.cfm">					
+				</cfcase>
 				
 				<!--- default case --->
 				<cfdefaultcase>

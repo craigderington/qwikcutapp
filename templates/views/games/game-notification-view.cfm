@@ -2,7 +2,10 @@
 
 
 
-
+						<cfinvoke component="apis.com.admin.gamesnotificationservice" method="getgamenotifications" returnvariable="gamenotifications">
+							<cfinvokeargument name="vsid" value="#session.vsid#">
+						</cfinvoke>
+						
 
 
 
@@ -17,39 +20,38 @@
 						<cfoutput>
 							<div class="row">
 								<div class="ibox-title">
-									<h5><i class="fa fa-mobile"></i> Notifications</h5>
+									<h5><i class="fa fa-mobile"></i> Game Notifications</h5>
 									<span class="pull-right">
-										<a href="#application.root##url.event#&fuseaction=#url.fuseaction#&manage=send-notify" class="btn btn-xs btn-primary"><i class="fa fa-mobile"></i> Send</a>
+										<cfif not structkeyexists( url, "manage" )>
+											<a href="#application.root##url.event#&fuseaction=#url.fuseaction#&manage=send-notify" class="btn btn-xs btn-primary"><i class="fa fa-mobile"></i> Send</a>
+										<cfelse>
+											<a href="#application.root##url.event#&fuseaction=#url.fuseaction#" class="btn btn-xs btn-success"><i class="fa fa-times-circle"></i> Finished Notifications</a>
+										</cfif>
 									</span>
 								</div>
 								
 								<div class="ibox-content ibox-heading text-center border-bottom">
-									<small>3 Notifications Sent</small>
+									<cfif gamenotifications.recordcount gt 0>
+										<small class="text-navy">#gamenotifications.recordcount# game notification<cfif ( gamenotifications.recordcount gt 1 ) or ( gamenotifications.recordcount eq 0 )>s</cfif></small>
+									<cfelse>
+										<small class="text-danger">No notification for this game.</small>
+									</cfif>									
 								</div>
 								
 								<div class="ibox-content">
 									<div class="feed-activity-list">									
-										<div class="feed-element">
-											<div>													
-												<strong>Shooter Notification</strong>
-												<div>Joe Shooter accepted the assignment.</div>												
-												<small class="text-muted">Accepted: 8/7/2015  12:32 pm</small>
-											</div>
-										</div>
-										<div class="feed-element">
-											<div>													
-												<strong>Shooter Notification</strong>
-												<div>Joe Shooter assigned to game.</div>												
-												<small class="text-muted">Notification Sent: 8/1/2015  6:32 pm</small>
-											</div>
-										</div>
-										<div class="feed-element">
-											<div>													
-												<strong>Game Notification</strong>
-												<div>Game Scheduled by Admin.</div>												
-												<small class="text-muted">8/1/2015  8:32 am</small>
-											</div>
-										</div>
+										<cfif gamenotifications.recordcount gt 0>
+											<cfloop query="gamenotifications">
+												<div class="feed-element">
+													<div>													
+														<small class="pull-right">#notificationstatus#</small>
+														<strong>#trim( notificationtype )#</strong>
+														<div>#trim( notificationtext )#</div>												
+														<small class="text-muted">#dateformat( notificationtimestamp, "mm-dd-yyyy" )# : #timeformat( notificationtimestamp, "hh:mm tt" )#</small>
+													</div>
+												</div>
+											</cfloop>
+										</cfif>
 									</div>
 								</div>			
 							

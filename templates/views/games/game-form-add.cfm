@@ -82,8 +82,7 @@
 											<cfloop query="getawayteams">
 												
 												<!--- // due to loop bug in CF, the outer loop has to be referenced by the current row, assign values --->
-												<cfset g.hometeamid = gethometeams["teamid"][gethometeams.currentRow] />
-												<cfset g.homefieldid = gethometeams["homefieldid"][gethometeams.currentRow] />
+												<cfset g.hometeamid = gethometeams["teamid"][gethometeams.currentRow] />												
 												<cfset g.awayteamid = getawayteams["teamid"][getawayteams.currentRow] />
 												
 												<!--- // make sure we have a way to compare all of the team levels so it's level vs level --->
@@ -132,8 +131,24 @@
 															<cfqueryparam value="Add Record" cfsqltype="cf_sql_varchar" />,
 															<cfqueryparam value="added the game schedule for #g.hometeam# vs. #g.awayteam#." cfsqltype="cf_sql_varchar" />																
 															);
+											</cfquery>									
+											
+											
+											<!--- // add game to the notification service queue --->
+											<cfquery name="notificationservicequeue">
+												insert into notifications(vsid, gameid, notificationtype, notificationtext, notificationtimestamp, notificationstatus, shooterid, notificationqueued, notificationsent)														  													   
+													values(
+															<cfqueryparam value="#addversus.newvsid#" cfsqltype="cf_sql_integer" />,
+															<cfqueryparam value="0" cfsqltype="cf_sql_integer" />,
+															<cfqueryparam value="Game Scheduled" cfsqltype="cf_sql_varchar" />,
+															<cfqueryparam value="Game Scheduled by Admin" cfsqltype="cf_sql_varchar" />,
+															<cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />,
+															<cfqueryparam value="Queued" cfsqltype="cf_sql_varchar" />,
+															<cfqueryparam value="0" cfsqltype="cf_sql_integer" />,
+															<cfqueryparam value="1" cfsqltype="cf_sql_bit" />,
+															<cfqueryparam value="0" cfsqltype="cf_sql_bit" />
+															);
 											</cfquery>
-												
 											
 											<!--- // redirect to games detail form --->
 											<cflocation url="#application.root##url.event#&fuseaction=games.mgr" addtoken="no">				

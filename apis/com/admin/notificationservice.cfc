@@ -34,6 +34,6 @@
 			<cfset msgstatus = "Message Sent!" />
 		<cfreturn msgstatus>
 	</cffunction>
-	
+
 	
 </cfcomponent>

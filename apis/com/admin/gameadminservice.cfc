@@ -139,6 +139,7 @@
 
 	<cffunction name="getconferences" output="false" returntype="query" access="remote" hint="I get the list of conferences.">
 		<cfargument name="stateid" type="numeric" required="yes" default="#session.stateid#">
+		<cfargument name="conferencetype" type="any" required="yes" default="YF">
 		<cfset var conferences = "" />
 			<cfquery name="conferences">
 			  select c.stateid, c.confid, c.confname, count(t.teamid) as teamscount       
@@ -146,6 +147,7 @@
 			   where c.stateid = s.stateid
 			     and t.confid = c.confid        
 			     and c.stateid = <cfqueryparam value="#arguments.stateid#" cfsqltype="cf_sql_integer" />
+				 and c.conftype = <cfqueryparam value="#arguments.conferencetype#" cfsqltype="cf_sql_varchar" maxlength="2" />
 			group by c.stateid, c.confid, c.confname
 			order by c.stateid, c.confname asc
 			</cfquery>

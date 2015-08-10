@@ -2,18 +2,18 @@
 
 
 
-				<cfif not structkeyexists( session, "vsid" )>
-					<cflocation url="#application.root##url.event#&gvs=1" addtoken="no">
-				</cfif>
-				
-				
-				<cfinvoke component="apis.com.admin.gameadminservice" method="getversus" returnvariable="versus">
-					<cfinvokeargument name="vsid" value="#session.vsid#">
-				</cfinvoke>
-				
-				<cfinvoke component="apis.com.admin.gameadminservice" method="getgames" returnvariable="games">
-					<cfinvokeargument name="vsid" value="#session.vsid#">
-				</cfinvoke>
+					<cfif not structkeyexists( session, "vsid" )>
+						<cflocation url="#application.root##url.event#&gvs=1" addtoken="no">
+					</cfif>
+					
+					
+					<cfinvoke component="apis.com.admin.gameadminservice" method="getversus" returnvariable="versus">
+						<cfinvokeargument name="vsid" value="#session.vsid#">
+					</cfinvoke>
+					
+					<cfinvoke component="apis.com.admin.gameadminservice" method="getgames" returnvariable="games">
+						<cfinvokeargument name="vsid" value="#session.vsid#">
+					</cfinvoke>
 				
 				
 
@@ -36,7 +36,7 @@
 							<p><span class="help-block text-center"><small>Home team shown in bold.</small></span></p>
 						</div>
 						
-						<div class="ibox-content" style="min-height:650px;">
+						<div class="ibox-content" style="min-height:<cfif games.recordcount lt 7>650<cfelse>900</cfif>px;">
 							
 							<cfif not structkeyexists( url, "manage" )>
 							
@@ -63,7 +63,7 @@
 								<cfelseif trim( url.manage ) eq "shooter">
 									<cfinclude template="game-shooter-assign.cfm">
 								<cfelseif trim( url.manage ) eq "send-notify">
-									{{ send shooter notifications/directions, etc... }}
+									<cfinclude template="game-notification-send.cfm">
 								<cfelseif trim( url.manage ) eq "field">
 									<cfinclude template="game-change-field.cfm">
 								<cfelse>
