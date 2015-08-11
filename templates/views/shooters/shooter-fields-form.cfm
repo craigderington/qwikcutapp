@@ -92,7 +92,7 @@
 														<cfoutput>
 															<form class="form-horizontal" method="post" action="#application.root##url.event#&fuseaction=#url.fuseaction#&id=#url.id#">
 																<cfif not structkeyexists( url, "sfid" )>
-																<cfinvoke component="apis.com.admin.fieldadminservice" method="getfields" returnvariable="fieldlist"></cfinvoke>
+																<cfinvoke component="apis.com.admin.shooteradminservice" method="getfields" returnvariable="fieldlist"></cfinvoke>
 																	<p class="small">Please assign work fields...</p>
 																	<div class="form-group">
 																		<label class="col-lg-2 control-label">Field</label>

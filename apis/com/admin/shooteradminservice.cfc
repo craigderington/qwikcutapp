@@ -71,6 +71,25 @@
 		<cfreturn shooterfielddetails>
 	</cffunction>
 	
+	<cffunction name="getfields" access="remote" output="false" hint="I get the list of fields.">		
+		<cfargument name="stateid" required="no" type="numeric" default="#session.stateid#">
+		<cfset var fieldlist = "" />
+		<cfquery name="fieldlist">
+			select f.fieldid, f.stateid, f.fieldname, f.fieldaddress1, f.fieldaddress2, f.fieldcity, f.fieldstate, f.fieldzip,
+				   f.fieldcontactnumber, f.fieldcontactname, f.fieldcontacttitle, f.fieldactive, 
+				   s.statename, s.stateabbr
+			  from fields f, states s
+			 where not exists( select sf1.shooterid from shooterfields sf1 where f.fieldid = sf1.fieldid )
+			   and f.stateid = s.stateid
+			   and f.fieldid <> <cfqueryparam value="155" cfsqltype="cf_sql_integer" />			   
+				   <cfif structkeyexists( arguments, "stateid" )>						
+						and s.stateid = <cfqueryparam value="#arguments.stateid#" cfsqltype="cf_sql_integer" />					
+				   </cfif>
+			 order by f.fieldname asc
+		</cfquery>
+		<cfreturn fieldlist>
+	</cffunction>
+	
 	<cffunction name="getshooterdates" output="false" returntype="query" access="remote" hint="I get the shooter block out dates.">
 		<cfargument name="id" type="numeric" required="yes" default="#url.id#">
 		<cfset var shooterblockdates = "" />
