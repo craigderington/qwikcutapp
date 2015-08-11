@@ -22,10 +22,12 @@
 								<div class="ibox-title">
 									<h5><i class="fa fa-mobile"></i> Game Notifications</h5>
 									<span class="pull-right">
-										<cfif not structkeyexists( url, "manage" )>
-											<a href="#application.root##url.event#&fuseaction=#url.fuseaction#&manage=send-notify" class="btn btn-xs btn-primary"><i class="fa fa-mobile"></i> Send</a>
-										<cfelse>
-											<a href="#application.root##url.event#&fuseaction=#url.fuseaction#" class="btn btn-xs btn-success"><i class="fa fa-times-circle"></i> Finished Notifications</a>
+										<cfif isuserinrole( "admin" )>
+											<cfif not structkeyexists( url, "manage" )>
+												<a href="#application.root##url.event#&fuseaction=#url.fuseaction#&manage=send-notify" class="btn btn-xs btn-primary"><i class="fa fa-mobile"></i> Send</a>
+											<cfelse>
+												<a href="#application.root##url.event#&fuseaction=#url.fuseaction#" class="btn btn-xs btn-success"><i class="fa fa-times-circle"></i> Finished Notifications</a>
+											</cfif>
 										</cfif>
 									</span>
 								</div>

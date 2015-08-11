@@ -29,9 +29,11 @@
 							
 							<div class="ibox-title">
 								<h5><i class="fa fa-map-marker"></i> Game Field</h5>
-								<span class="pull-right">
-									<a href="#application.root##url.event#&fuseaction=#url.fuseaction#&manage=field" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i> Change</a>
-								</span>
+								<cfif isuserinrole( "admin" )>
+									<span class="pull-right">
+										<a href="#application.root##url.event#&fuseaction=#url.fuseaction#&manage=field" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i> Change</a>
+									</span>
+								</cfif>
 							</div>
 							
 							<div class="ibox-content ibox-heading text-center border-bottom">

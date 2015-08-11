@@ -13,10 +13,12 @@
 								<div class="ibox-title">
 									<h5><i class="fa fa-play-circle"></i> Team Games</h5>
 									<span class="pull-right">
-										<cfif structkeyexists( url, "manage" )>
-											<a href="#application.root##url.event#&fuseaction=#url.fuseaction#" class="btn btn-xs btn-success"><i class="fa fa-times-circle"></i> Finished Rescheduling</a>
-										<cfelse>
-											<a href="#application.root##url.event#&fuseaction=#url.fuseaction#&manage=schedule" class="btn btn-xs btn-primary"><i class="fa fa-refresh"></i> Reschedule</a>
+										<cfif isuserinrole( "admin" )>
+											<cfif structkeyexists( url, "manage" )>
+												<a href="#application.root##url.event#&fuseaction=#url.fuseaction#" class="btn btn-xs btn-success"><i class="fa fa-times-circle"></i> Finished Rescheduling</a>
+											<cfelse>
+												<a href="#application.root##url.event#&fuseaction=#url.fuseaction#&manage=schedule" class="btn btn-xs btn-primary"><i class="fa fa-refresh"></i> Reschedule</a>
+											</cfif>
 										</cfif>
 									</span>
 								</div>

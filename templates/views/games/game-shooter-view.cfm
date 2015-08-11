@@ -10,16 +10,18 @@
 				</cfinvoke>
 
 
-				<cfif structkeyexists( url, "id" )>
-					<cfif isnumeric( url.id )>
-						<cfset assignid = url.id />
-						<cfquery name="killassignment">
-							delete 
-							  from shooterassignments
-							 where shooterassignmentid = <cfqueryparam value="#assignid#" cfsqltype="cf_sql_integer" />
-						</cfquery>
-						<cflocation url="#application.root##url.event#&fuseaction=#url.fuseaction#&manage=#url.manage#" addtoken="no">
-					</cfif>				
+				<cfif isuserinrole( "admin" )>
+					<cfif structkeyexists( url, "id" )>
+						<cfif isnumeric( url.id )>
+							<cfset assignid = url.id />
+							<cfquery name="killassignment">
+								delete 
+								  from shooterassignments
+								 where shooterassignmentid = <cfqueryparam value="#assignid#" cfsqltype="cf_sql_integer" />
+							</cfquery>
+							<cflocation url="#application.root##url.event#&fuseaction=#url.fuseaction#&manage=#url.manage#" addtoken="no">
+						</cfif>				
+					</cfif>
 				</cfif>
 
 
@@ -27,15 +29,16 @@
 					<div class="row">
 						<div class="ibox-title">
 							<h5><i class="fa fa-video-camera"></i> Game Shooters</h5>
-							<cfif structkeyexists( url, "manage" )>
-								<span class="pull-right">
-									<a href="#application.root##url.event#&fuseaction=#url.fuseaction#" class="btn btn-xs btn-success"><i class="fa fa-video-camera"></i> Finished Assignments</a>
-								</span>
-							<cfelse>
-								<span class="pull-right">
-									<a href="#application.root##url.event#&fuseaction=#url.fuseaction#&manage=shooter" class="btn btn-xs btn-primary"><i class="fa fa-plus"></i> Manage</a>
-								</span>
-
+							<cfif isuserinrole( "admin" )>
+								<cfif structkeyexists( url, "manage" )>
+									<span class="pull-right">
+										<a href="#application.root##url.event#&fuseaction=#url.fuseaction#" class="btn btn-xs btn-success"><i class="fa fa-video-camera"></i> Finished Assignments</a>
+									</span>
+								<cfelse>
+									<span class="pull-right">
+										<a href="#application.root##url.event#&fuseaction=#url.fuseaction#&manage=shooter" class="btn btn-xs btn-primary"><i class="fa fa-plus"></i> Manage</a>
+									</span>
+								</cfif>
 							</cfif>
 						</div>
 						

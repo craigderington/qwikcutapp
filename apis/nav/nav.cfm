@@ -65,6 +65,15 @@
 				<cfcase value="user.register">					
 					<cfinclude template="../../templates/register.cfm">					
 				</cfcase>
+				<cfcase value="shooter.accept">					
+					<cfinclude template="../../templates/shooter.accept.cfm">					
+				</cfcase>
+				<cfcase value="shooter.game">					
+					<cfinclude template="../../templates/shooter.game.cfm">					
+				</cfcase>
+				<cfcase value="shooter.games">					
+					<cfinclude template="../../templates/shooter.games.cfm">					
+				</cfcase>
 				<cfcase value="notification.service">					
 					<cfinclude template="../../templates/notification.service.cfm">					
 				</cfcase>
