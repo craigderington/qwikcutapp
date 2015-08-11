@@ -91,7 +91,7 @@
 									<select class="form-control" name="gamefieldid">
 										<option value="" selected>Select Field</option>
 										<cfloop query="fieldlist">
-											<option value="#fieldid#"<cfif versus.fieldid eq fieldlist.fieldid>selected</cfif>>#fieldname# - #fieldcity#, #stateabbr#</option>
+											<option value="#fieldid#"<cfif versus.fieldid eq fieldlist.fieldid>selected</cfif>>#fieldname# Field - #fieldcity#, #stateabbr#</option>
 										</cfloop>
 									</select>
 								</div>

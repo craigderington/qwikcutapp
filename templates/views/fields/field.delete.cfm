@@ -7,7 +7,7 @@
 				<cfoutput>
 					<div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5><i class="fa fa-database"></i> Delete Field | #fielddetail.fieldname#</h5>
+                            <h5><i class="fa fa-database"></i> Delete Field | #fielddetail.fieldname# Field</h5>
 							<div class="ibox-tools">
 								<a href="#application.root##url.event#" class="btn btn-xs btn-white"><i class="fa fa-arrow-circle-left"></i> Return to List</a>
 							</div>

@@ -14,7 +14,7 @@
 									
 								<div class="ibox" style="margin-top:-15px;">								
 									<div class="ibox-title">
-										<h5>Field Details | #fielddetail.fieldname#  <a href="#application.root##url.event#" style="margin-left:20px;margin-top:-2px;" class="btn btn-white btn-xs"><i class="fa fa-arrow-circle-left"></i> Return to Fields</a><cfif isuserinrole( "admin" )><a href="#application.root##url.event#&fuseaction=field.edit&id=#url.id#" style="margin-left:10px;margin-top:-2px;" class="btn btn-default btn-xs"><i class="fa fa-edit"></i> Edit Field</a></cfif></h5>
+										<h5>Field Details | #fielddetail.fieldname# Field <a href="#application.root##url.event#" style="margin-left:20px;margin-top:-2px;" class="btn btn-white btn-xs"><i class="fa fa-arrow-circle-left"></i> Return to Fields</a><cfif isuserinrole( "admin" )><a href="#application.root##url.event#&fuseaction=field.edit&id=#url.id#" style="margin-left:10px;margin-top:-2px;" class="btn btn-default btn-xs"><i class="fa fa-edit"></i> Edit Field</a></cfif></h5>
 									</div>
 										
 									<div class="ibox-content">									

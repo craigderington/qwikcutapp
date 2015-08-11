@@ -100,7 +100,7 @@
 																				<select name="fieldid" id="fieldid" class="form-control">
 																					<option value="">Select Field</option>
 																					<cfloop query="fieldlist">
-																						<option value="#fieldid#">#fieldname# - #fieldcity# - #stateabbr#</option>
+																						<option value="#fieldid#">#fieldname# Field - #fieldcity# - #stateabbr#</option>
 																					</cfloop>
 																				</select>
 																			</div>

@@ -48,7 +48,7 @@
 												<cfloop query="shooterfieldslist">
 													<tr class="gradeX">
 														<td><a href="#application.root##url.event#&fuseaction=#url.fuseaction#&id=#url.id#&sfid=#shooterfieldid#"><i class="fa fa-trash"></i></a></td>
-														<td>#fieldname#</td>
+														<td>#fieldname# Field</td>
 														<td>#fieldcity#, #stateabbr#</td>
 														<td><i class="fa fa-check text-primary"></td>
 													</tr>

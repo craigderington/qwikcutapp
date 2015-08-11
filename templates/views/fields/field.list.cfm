@@ -103,7 +103,7 @@
 																	</td>
 																</cfif>
 																<td>#statename#</td>																
-																<td><strong><a href="#application.root#admin.fields&fuseaction=field.view&id=#fieldid#">#fieldname#</a></strong></td>
+																<td><strong><a href="#application.root#admin.fields&fuseaction=field.view&id=#fieldid#">#fieldname#</a> Field</strong></td>
 																<td><small>#fieldaddress1# <a href="#application.root##url.event#&fuseaction=field.map&id=#fieldid#" style="margin-left:5px;"><i class="fa fa-map-marker"></i></a><cfif fieldaddress2 neq ""><br />#fieldaddress2#</cfif><br />#fieldcity#, #stateabbr# #fieldzip#</small></td>
 																<td><small>#fieldcontactname#<br />#fieldcontacttitle#<br />#fieldcontactnumber#</small></td>
 																<td><a href="##" title="Active"><i class="fa fa-check text-primary"></i></a></td>
