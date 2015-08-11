@@ -71,9 +71,9 @@
 													</tr>
 												</thead>
 												<tbody>
-													<cfloop query="teams" group="teamname">
+													<cfloop query="teams" group="teamorgname">
 														<tr style="background-color:##f2f2f2;">
-															<td class="text-navy" colspan="4"><strong>#teamname# #teammascot#</strong></td>
+															<td class="text-navy" colspan="4"><strong>#teamorgname#</strong></td>
 														</tr>
 														<cfloop>
 															<tr>
@@ -111,7 +111,7 @@
 								</cfinvoke>
 							
 								<cfif teamgames.recordcount gt 0>
-									<h4 style="margin-bottom:10px;"><i class="fa fa-trophy"></i> Team: <span class="text-primary">#teamdetail.teamname# #teamdetail.teammascot#</span>  <span class="pull-right"><a href="#application.root##url.event#&fuseaction=#trim( url.fuseaction )#" class="btn btn-xs btn-primary btn-outline"><i class="fa fa-refresh"></i> Reset Filter</a></span></h4>
+									<h4 style="margin-bottom:10px;"><i class="fa fa-trophy"></i> Team: <span class="text-primary">#teamdetail.teamorgname#</span>  <span class="pull-right"><a href="#application.root##url.event#&fuseaction=#trim( url.fuseaction )#" class="btn btn-xs btn-primary btn-outline"><i class="fa fa-refresh"></i> Reset Filter</a></span></h4>
 																				
 										<div class="table-responsive">
 											<table class="table table-hover">

@@ -182,7 +182,7 @@
 												<cfqueryparam value="#loginquery.userid#" cfsqltype="cf_sql_integer" />,
 												<cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />,
 												<cfqueryparam value="Login" cfsqltype="cf_sql_varchar" />,
-												<cfqueryparam value="logged into the system" cfsqltype="cf_sql_varchar" />																
+												<cfqueryparam value="logged into the system." cfsqltype="cf_sql_varchar" />																
 												);
 								</cfquery>						   		   
 						<cfelse>

@@ -147,7 +147,11 @@
 			   where c.stateid = s.stateid
 			     and t.confid = c.confid        
 			     and c.stateid = <cfqueryparam value="#arguments.stateid#" cfsqltype="cf_sql_integer" />
-				 and c.conftype = <cfqueryparam value="#arguments.conferencetype#" cfsqltype="cf_sql_varchar" maxlength="2" />
+					 <cfif structkeyexists( url, "fuseaction" )>
+						<cfif trim( url.fuseaction ) eq "game.add">
+							and c.conftype = <cfqueryparam value="#arguments.conferencetype#" cfsqltype="cf_sql_varchar" maxlength="2" />
+						</cfif>
+					 </cfif>
 			group by c.stateid, c.confid, c.confname
 			order by c.stateid, c.confname asc
 			</cfquery>
@@ -159,7 +163,7 @@
 		<cfargument name="stateid" type="numeric" required="yes" default="#session.stateid#">
 		<cfset var teams = "" />
 			<cfquery name="teams">
-			    select t.teamid, t.teamname, tl.teamlevelname, t.teammascot, t.teamcity, s.stateabbr, c.confname,
+			    select t.teamid, t.teamname, t.teamorgname, tl.teamlevelid, tl.teamlevelname, t.teammascot, t.teamcity, s.stateabbr, c.confname,
 				   count(g.gameid) as gamescount       
 				   from dbo.teams t, teamlevels tl, conferences c, states s, versus v, games g
 				  where t.confid = c.confid
@@ -173,8 +177,8 @@
 					     or 
 						t.teamid = g.awayteamid 
 						)
-			   group by t.teamid, t.teamname, tl.teamlevelname, t.teammascot, t.teamcity, s.stateabbr, c.confname
-			   order by t.teamname asc			
+			   group by t.teamid, t.teamname, t.teamorgname, tl.teamlevelid, tl.teamlevelname, t.teammascot, t.teamcity, s.stateabbr, c.confname
+			   order by t.teamorgname asc, tl.teamlevelid asc		
 			</cfquery>
 		<cfreturn teams>
 	</cffunction>

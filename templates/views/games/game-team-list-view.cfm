@@ -34,13 +34,13 @@
 										<cfloop query="games">
 											<div class="feed-element">
 												<div>
-													<small class="pull-right text-navy">#timeformat( gamestart, "hh:mm tt" )#</small>
+													<small class="pull-right text-navy">#dateformat( gamedate, "mm-dd-yyyy" )#</small>													
 													<strong>#teamlevelname#</strong>
 													<cfif structkeyexists( url, "manage" )>
 													<div><small class="pull-right"><a href="#application.root##url.event#&fuseaction=#url.fuseaction#&manage=#url.manage#&id=#gameid#" class="btn btn-xs btn-default"><i class="fa fa-circle-o"></i> Edit Game</a></small></div>
 													</cfif>
 													<div><small>#awayteam# vs.</i> #hometeam#</small></div>												
-													<small class="text-muted">#gamestatus#</small>
+													<small class="text-muted">#gamestatus#</small><small class="pull-right">#timeformat( gamestart, "hh:mm tt" )#</small>
 												</div>
 											</div>										
 										</cfloop>

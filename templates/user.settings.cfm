@@ -59,6 +59,8 @@
 												<cfset user.useralertpref = trim( form.useralertpref ) />
 												<cfif structkeyexists( form, "serviceprovider" )>
 													<cfset user.serviceprovider = trim( form.serviceprovider ) />
+												<cfelse>
+													<cfset user.serviceprovider = "" />	
 												</cfif>
 											<cfelse>
 												<cfset user.useralertpref = "" />
@@ -88,6 +90,23 @@
 														   mailserverpassword = <cfqueryparam value="#user.mailserverpassword#" cfsqltype="cf_sql_varchar" maxlength="50" />
 													 where userid = <cfqueryparam value="#user.userid#" cfsqltype="cf_sql_integer" />														
 												</cfquery>
+												
+													<!--- check to see if our user is a shooter --->
+													<cfquery name="chkshooter">
+														select shooterid, userid
+														  from shooters
+														 where userid = <cfqueryparam value="#user.userid#" cfsqltype="cf_sql_integer" />
+													</cfquery>
+													
+													<!--- // ok, we found a valid shooter id, update the shooter profile --->
+													<cfif chkshooter.recordcount gt 0>
+														<cfquery name="saveshooterprofile">
+															update shooters
+															   set shooteralertpref = <cfqueryparam value="#user.useralertpref#" cfsqltype="cf_sql_varchar" maxlength="50" />,
+														           shootercellprovider = <cfqueryparam value="#user.serviceprovider#" cfsqltype="cf_sql_varchar" maxlength="50" />
+															 where shooterid = <cfqueryparam value="#chkshooter.shooterid#" cfsqltype="cf_sql_integer" />
+														</cfquery>											
+													</cfif>
 
 													<!--- // record the activity --->
 													<cfquery name="activitylog">
@@ -144,12 +163,12 @@
 														<div class="col-sm-6">
 															<select name="useralertpref" class="form-control" id="useralertpref">
 																<option value="">Select Alert Preference</option>
-																<option value="txtmsg"<cfif trim( usersettings.useralertpref ) eq "txtmsg">selected</cfif>>Text Message</option>
+																<option value="txt"<cfif trim( usersettings.useralertpref ) eq "txt">selected</cfif>>Text Message</option>
 																<option value="email"<cfif trim( usersettings.useralertpref ) eq "email">selected</cfif>>Email</option>
 															</select>
 														</div>
 													</div>
-													<cfif trim( usersettings.useralertpref ) eq "txtmsg">
+													<cfif trim( usersettings.useralertpref ) eq "txt">
 														<div class="form-group"><label class="col-sm-2 control-label">Service Provider:</label>
 															<div class="col-sm-6">
 																<select name="serviceprovider" id="serviceprovider" class="form-control">

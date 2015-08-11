@@ -239,7 +239,7 @@
 															<cfset sh.shootercellprovider = trim( form.shootercellprovider ) />
 															<cfset sh.shooteralertpref = trim( form.shooteralertpref ) />
 															
-																<!--- // update the shooter details --->
+																<!--- // update the shooter profile --->
 																<cfquery name="saveshooter">
 																	update shooters
 																	   set shooterfirstname = <cfqueryparam value="#sh.shooterfirstname#" cfsqltype="cf_sql_varchar" maxlength="50" />,
@@ -257,12 +257,21 @@
 																</cfquery>
 																
 																<!-- // save user details --->
-																<cfquery name="updateusersettings">
+																<cfquery name="updateuserprofile">
 																	update users
 																	   set stateid = <cfqueryparam value="#sh.shooterstateid#" cfsqltype="cf_sql_integer" />
 																	 where userid = <cfqueryparam value="#sh.userid#" cfsqltype="cf_sql_integer" />
-																</cfquery>												
+																</cfquery>
+
+																<!-- // save user settings --->
+																<cfquery name="updateusersettings">
+																	update usersettings
+																	   set useralertpref = <cfqueryparam value="#sh.shooteralertpref#" cfsqltype="cf_sql_varchar" />,
+																	       usertextmsgaddress = <cfqueryparam value="#sh.shootercellprovider#" cfsqltype="cf_sql_varchar" />
+																	 where userid = <cfqueryparam value="#sh.userid#" cfsqltype="cf_sql_integer" />
+																</cfquery>
 																													
+																<!--- // redirect to next step --->
 																<cflocation url="index.cfm?step=3" addtoken="no">				
 															
 												
