@@ -36,7 +36,7 @@
 							<p><span class="help-block text-center"><small>Home team shown in bold.</small></span></p>
 						</div>
 						
-						<div class="ibox-content" style="min-height:<cfif games.recordcount lt 7>710<cfelse>900</cfif>px;">
+						<div class="ibox-content" style="min-height:<cfif games.recordcount lt 7>800<cfelse>1000</cfif>px;">
 							
 							<cfif not structkeyexists( url, "manage" )>
 							

@@ -43,7 +43,7 @@
 							<cfif gameshooters.recordcount eq 0>
 								<small class="text-danger">No Shooters Assigned</small>
 							<cfelse>
-								<small>#gameshooters.recordcount# Shooter<cfif ( gameshooters.recordcount gt 1 ) or ( gameshooters.recordcount eq 0 )>s</cfif> Assigned</small>
+								<small class="text-primary">#gameshooters.recordcount# Shooter<cfif ( gameshooters.recordcount gt 1 ) or ( gameshooters.recordcount eq 0 )>s</cfif> Assigned</small>
 							</cfif>
 						</div>
 						
