@@ -25,56 +25,67 @@
 								<!--- // file upload validation --->
 								<cfif structkeyexists( form, "fieldnames" ) and structkeyexists( form, "saveUserProfileImage" )>
 									
-									<cfset form.validate_file = "thisfile|jpg,gif,png|The file you upload for your profile image must be either JPEG, GIF, or PNG format." />
+									<cfif structkeyexists( form, "thisfile" ) and form.thisfile neq "">
 									
-									<cfscript>
-										stcDirectories = structnew();										
-										stcDirectories.thisfile = "#expandPath( "./img/users" )#";
-										objValidation = createObject( "component","apis.udfs.validation" ).init();
-										objValidation.setFields( form );
-										objValidation.setDirectories( stcDirectories );
-										objValidation.validate();
-									</cfscript>
+										<cfset form.validate_file = "thisfile|jpg,gif,png|The file you upload for your profile image must be either JPEG, GIF, or PNG format." />
+									
+										<cfscript>
+											stcDirectories = structnew();										
+											stcDirectories.thisfile = "#expandPath( "./img/users" )#";
+											objValidation = createObject( "component","apis.udfs.validation" ).init();
+											objValidation.setFields( form );
+											objValidation.setDirectories( stcDirectories );
+											objValidation.validate();
+										</cfscript>
 
-									<cfif objValidation.getErrorCount() is 0>
-										
-										<cfset myuserid = session.userid />
-										<cfset myimagepath = "./img/users/" />
-										<cfset myimagefile = objValidation.getFiles().thisfile  />
-										
-										<cfquery name="saveuserprofileimage">
-											update usersettings
-											   set userprofileimagepath = <cfqueryparam value="#myimagepath##myimagefile#" cfsqltype="cf_sql_varchar" />
-											 where userid = <cfqueryparam value="#myuserid#" cfsqltype="cf_sql_integer" />
-										</cfquery>
-										
-										<!--- // record the activity --->
-										<cfquery name="activitylog">
-											insert into activity(userid, activitydate, activitytype, activitytext)														  													   
-												values(
-													   <cfqueryparam value="#myuserid#" cfsqltype="cf_sql_integer" />,
-													   <cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />,
-													   <cfqueryparam value="User Profile" cfsqltype="cf_sql_varchar" />,
-													   <cfqueryparam value="uploaded a new user profile image." cfsqltype="cf_sql_varchar" />																
-													  );
-										</cfquery>
-										
-										<cflocation url="#application.root##url.event#&scope=p3" addtoken="no">						
-										
-										
+										<cfif objValidation.getErrorCount() is 0>
+											
+											<cfset myuserid = session.userid />
+											<cfset myimagepath = "./img/users/" />
+											<cfset myimagefile = objValidation.getFiles().thisfile  />
+											
+											<cfquery name="saveuserprofileimage">
+												update usersettings
+												   set userprofileimagepath = <cfqueryparam value="#myimagepath##myimagefile#" cfsqltype="cf_sql_varchar" />
+												 where userid = <cfqueryparam value="#myuserid#" cfsqltype="cf_sql_integer" />
+											</cfquery>
+											
+											<!--- // record the activity --->
+											<cfquery name="activitylog">
+												insert into activity(userid, activitydate, activitytype, activitytext)														  													   
+													values(
+														   <cfqueryparam value="#myuserid#" cfsqltype="cf_sql_integer" />,
+														   <cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />,
+														   <cfqueryparam value="User Profile" cfsqltype="cf_sql_varchar" />,
+														   <cfqueryparam value="uploaded a new user profile image." cfsqltype="cf_sql_varchar" />																
+														  );
+											</cfquery>
+											
+											<cflocation url="#application.root##url.event#&scope=p3" addtoken="no">						
+											
+											
+										<cfelse>
+											<div class="alert alert-danger alert-dismissable">
+												<h5><i class="fa fa-warning"></i> There were errors in your submission:</h5>
+													<ul>
+														<cfloop collection="#variables.objValidation.getMessages()#" item="rr">
+															<li><cfoutput>#variables.objValidation.getMessage(rr)#"</cfoutput></li>
+														</cfloop>
+													</ul>
+											</div>
+										</cfif>
+									
 									<cfelse>
+									
 										<div class="alert alert-danger alert-dismissable">
-											<h5><i class="fa fa-warning"></i> There were errors in your submission:</h5>
-												<ul>
-													<cfloop collection="#variables.objValidation.getMessages()#" item="rr">
-														<li><cfoutput>#variables.objValidation.getMessage(rr)#"</cfoutput></li>
-													</cfloop>
-												</ul>
-										</div>
+											<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+											<h5><i class="fa fa-warning"></i> You did not select a file.  Please try again...</h5>													
+										</div>										
+										
 									</cfif>
 								</cfif>
 
-
+								<!--- // end form processing --->
 							
 								<div class="tabs-container">
 									<ul class="nav nav-tabs">
