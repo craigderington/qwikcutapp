@@ -35,7 +35,7 @@
 						<div>
 							<h1 class="logo-name">QC+</h1>
 						</div>
-						<h3>Welcome to QwikCut App</h3>
+						<h3>Welcome to QwikCut Game Day App</h3>
 						<p>Login required to proceed.</p>
 						
 						
