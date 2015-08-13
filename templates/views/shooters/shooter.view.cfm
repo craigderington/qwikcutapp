@@ -33,7 +33,7 @@
 										<li class=""><a href="#application.root##url.event#&fuseaction=shooter.fields&id=#url.id#"><i class="fa fa-map-marker"></i> Assigned Fields</a></li>
 										<li class=""><a href="#application.root##url.event#&fuseaction=shooter.dates&id=#url.id#"><i class="fa fa-calendar"></i> Availability</a></li>
 										<li class=""><a href="#application.root##url.event#&fuseaction=shooter.games&id=#url.id#"><i class="fa fa-play"></i> Scheduled Games</a></li>										
-										<li class=""><a href="#application.root##url.event#&fuseaction=shooter.comments&#url.id#"><i class="fa fa-comments"></i> Rating &amp; Comments</a></li>																							
+										<li class=""><a href="#application.root##url.event#&fuseaction=shooter.comments&id=#url.id#"><i class="fa fa-comments"></i> Rating &amp; Comments</a></li>																							
 									</ul>			
 											
 																					
