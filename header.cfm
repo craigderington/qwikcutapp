@@ -30,8 +30,9 @@
 					<!--- // shortcut icons // add to homescreen --->
 					<link rel="shortcut icon" href="http://qwikcut.cloudapp.net/qwikcutapp/favicon.ico?v=2" type="image/x-icon" />
 					<link rel="icon" href="http://qwikcut.cloudapp.net/qwikcutapp/favicon.ico?v=2" type="image/x-icon">
-					<link rel="apple-touch-icon" href="http://qwikcut.cloudapp.net/qwikcutapp/img/qwikcut-icon-60x60.png"/>
-					<link rel="icon" sizes="128x128" href="http://qwikcut.cloudapp.net/qwikcutapp/img/QCIcon.png" />
+					<link rel="apple-touch-icon" href="http://qwikcut.cloudapp.net/qwikcutapp/img/QCIcon.png"/>
+					<!--- android add to homescreen // link to manifest --->
+					<link rel="manifest" href="docs/manifest.json" />
 					
 					<!--- // also ensure that non-dynamic pages are not cached by the users browser --->
 					<META HTTP-EQUIV="expires" CONTENT="-1">

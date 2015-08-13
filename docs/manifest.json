@@ -1,0 +1,14 @@
+{
+  "name": "Qwikcut Web Application Manifest",
+  "icons": [    
+    {
+      "src": "http://qwikcut.cloudapp.net/qwikcutapp/img/qcicon.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "density": "3.0"
+    },    
+  ],
+  "start_url": "index.cfm",
+  "display": "standalone",
+  "orientation": "portrait"
+}
