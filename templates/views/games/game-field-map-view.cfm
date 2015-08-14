@@ -37,7 +37,7 @@
 							</div>
 							
 							<div class="ibox-content ibox-heading text-center border-bottom">
-								<small>#versus.fieldname# Field</small>
+								<small>#versus.fieldname# Field  <cfif structkeyexists( session, "shooterid" )>- #fielddetail.fieldaddress1# #fielddetail.fieldcity#, #fielddetail.stateabbr# #fielddetail.fieldzip#</cfif></small>
 							</div>
 							
 							<div class="ibox-content">

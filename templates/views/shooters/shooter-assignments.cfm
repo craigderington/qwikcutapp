@@ -13,7 +13,7 @@
 							<div class="ibox-title">
 								<h5><i class="fa fa-check-circle-o"></i> New Assignments</h5>
 								<span class="pull-right">
-									<a href="" class="btn btn-xs btn-white"><i class="fa fa-briefcase"></i> View Assignment History</a>
+									<a href="#application.root#shooter.games" class="btn btn-xs btn-white"><i class="fa fa-briefcase"></i> View Assignment History</a>
 								</span>
 							</div>
 							<div class="ibox-content">

@@ -28,7 +28,12 @@
 								<cfif structkeyexists( url, "ac" )>
 									<div class="alert alert-info alert-dismissable">
 										<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-										<h5><i class="fa fa-check-square-o"></i> You have accepted the game assignment.  </h5>
+										<h5><i class="fa fa-check-square-o"></i> You have accepted the game assignment.  On Game Day, <a href="#application.root#shooter.games"><strong>Check In</strong></a> to this game 15 minutes prior to game start.</h5>
+									</div>
+								<cfelseif structkeyexists( url, "jsessionid" ) and structkeyexists( url, "cftoken" ) and structkeyexists( session, "shooterid" )>
+									<div class="alert alert-success alert-dismissable">
+										<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+										<h5><i class="fa fa-check-square-o"></i> You have successfully checked in for this game.  Update individual game statuses below for each Team Level.  </h5>
 									</div>
 								</cfif>
 								
@@ -50,24 +55,24 @@
 										</h3>
 										<p><span class="help-block text-center"><small>Home team shown in bold.</small></span></p>
 									</div>									
-									<div class="ibox-content" style="min-height:900px;">
+									<div class="ibox-content" style="min-height:950px;">
 										
-										<div class="col-md-3">							
+										<div class="col-md-6">							
 											<cfinclude template="views/games/game-team-list-view.cfm">
-										</div>
+										</div>								
 								
-										<div class="col-md-3">
-											<cfinclude template="views/games/game-notification-view.cfm">
-										</div>
-								
-										<div class="col-md-3">
+										<div class="col-md-6">
 											<cfinclude template="views/games/game-field-map-view.cfm">
 										</div>
-								
+										
+										<!---
 										<div class="col-md-3">
 											<cfinclude template="views/games/game-shooter-view.cfm">
 										</div>
-										
+										<div class="col-md-3">
+											<cfinclude template="views/games/game-notification-view.cfm">
+										</div>
+										--->
 									</div>
 								</div>						
 							</div>

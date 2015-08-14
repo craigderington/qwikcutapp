@@ -27,13 +27,13 @@
 							
 							<!--- // admin user dashboard --->
 							<cfif isuserinrole( "admin" )>								
-								<cfinclude template="views/users/user-admin-dashboard.cfm">					
+								<cfinclude template="admin.dashboard.cfm">					
 							<!--- // data & analytics user dashboard --->
 							<cfelseif isuserinrole( "data" )>							
-								<cfinclude template="views/users/user-data-dashboard.cfm">							
+								<cfinclude template="data.dashboard.cfm">							
 							<!--- // shooter dashboard - game day app --->
 							<cfelseif isuserinrole( "shooter" )>								
-								<cfinclude template="views/users/user-shooter-dashboard.cfm">							
+								<cfinclude template="shooter.dashboard.cfm">					
 							<!--- // role undefined --->
 							<cfelse>				
 								<div class="alert alert-info">

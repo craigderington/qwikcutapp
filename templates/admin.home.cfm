@@ -178,7 +178,7 @@
 												<table class="table table-striped table-bordered table-hover dataTables-example" >
 													<thead>
 														<tr>
-															<th><i class="fa fa-table"></i></th>
+															<th><div align="center"><i class="fa fa-table"></i></div></th>
 															<th>Activity Type</th>
 															<th>Activity Date</th>
 															<th>Activity</th>																												
@@ -187,7 +187,7 @@
 													<tbody>													
 														<cfoutput query="systemactivity" startrow="#url.startrow#" maxrows="#url.rowsperpage#">
 															<tr class="gradeX">
-																<td><i class="fa fa-table"></i></td>
+																<td align="center"><i class="fa fa-table"></i></td>
 																<td>#dateformat( activitydate, "mm/dd/yyyy" )# at #timeformat( activitydate, "hh:mm tt" )#</td>
 																<td>#trim( activitytype )#</td>
 																<td>#firstname# #lastname# #trim( activitytext )#</td>

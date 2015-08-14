@@ -69,8 +69,8 @@
 															
 																<cfquery name="savegamerecord">
 																	update games
-																	   set gamedate = <cfqueryparam value="#g.gamedate#" cfsqltype="cf_sql_date" />,
-																	       gamestart = <cfqueryparam value="#g.gametime#" cfsqltype="cf_sql_time" />,
+																	   set gamedate = <cfqueryparam value="#g.gamedate# #g.gametime#" cfsqltype="cf_sql_timestamp" />,
+																	       gamestart = <cfqueryparam value="#g.gamedate# #g.gametime#" cfsqltype="cf_sql_timestamp" />,
 																		   gamestatus = <cfqueryparam value="#g.gamestatus#" cfsqltype="cf_sql_varchar" />,
 																		   gameoutcome = <cfqueryparam value="#g.gameoutcome#" cfsqltype="cf_sql_varchar" />
 																		   <cfif trim( g.gameoutcome ) eq "final">

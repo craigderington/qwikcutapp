@@ -48,8 +48,8 @@
 												values(
 													   <cfqueryparam value="#g.hometeam#" cfsqltype="cf_sql_varchar" />,
 													   <cfqueryparam value="#g.awayteam#" cfsqltype="cf_sql_varchar" />,
-													   <cfqueryparam value="#g.gamedate#" cfsqltype="cf_sql_date" />,
-													   <cfqueryparam value="#g.gametime#" cfsqltype="cf_sql_time" />,
+													   <cfqueryparam value="#g.gamedate# #g.gametime#" cfsqltype="cf_sql_timestamp" />,
+													   <cfqueryparam value="#g.gamedate# #g.gametime#" cfsqltype="cf_sql_timestamp" />,
 													   <cfqueryparam value="#g.homefieldid#" cfsqltype="cf_sql_integer" />
 													   ); select @@identity as newvsid
 										</cfquery>
