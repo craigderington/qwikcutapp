@@ -125,7 +125,9 @@
 				 where v.vsid = g.vsid
 				   and g.confid = c.confid
 					   <cfif trim( arguments.searchvartype ) eq "date">
-							and v.gamedate = <cfqueryparam value="#arguments.searchvar#" cfsqltype="cf_sql_date" />
+							and datepart( "m", v.gamedate ) = <cfqueryparam value="#datepart( 'm', arguments.searchvar )#" cfsqltype="cf_sql_varchar" />
+							and datepart( "d", v.gamedate ) = <cfqueryparam value="#datepart( 'd', arguments.searchvar )#" cfsqltype="cf_sql_varchar" />							
+							and datepart( "yyyy", v.gamedate ) = <cfqueryparam value="#datepart( 'yyyy', arguments.searchvar )#" cfsqltype="cf_sql_varchar"/>
 					   <cfelseif trim( arguments.searchvartype ) eq "teams">
 						and 
 							( v.hometeam LIKE <cfqueryparam value="#arguments.searchvar#%" cfsqltype="cf_sql_varchar" /> 
@@ -262,7 +264,7 @@
 	</cffunction>
 	
 	<cffunction name="getgamedetail" access="public" returntype="query" output="false" hint="I get the game detail.">
-		<cfargument name="id" type="numeric" required="yes" default="#url.id#">		
+		<cfargument name="id" type="numeric" required="yes">		
 		<cfset var gamedetail = "" />
 			<cfquery name="gamedetail">
 				select g.gameid, g.fieldid, g.confid, g.hometeamid, g.awayteamid, g.gamedate, g.gamestart, g.gameend,

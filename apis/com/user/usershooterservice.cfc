@@ -39,6 +39,18 @@
 			</cfquery>
 		<cfreturn shootergames>
 	</cffunction>
+
+	<cffunction name="getgamestatus" access="public" returntype="query" output="false" hint="I get the shooter game statuses.">
+		<cfargument name="sgid" type="numeric" required="yes" default="#url.sgid#">
+		<cfset gamestatus = "" />
+			<cfquery name="gamestatus">
+				select gamestatusid, gameid, gamestatus, hometeamscore, awayteamscore, gamequarter, gamelastupdate, gamenotes
+				  from gamestatus
+				 where gameid = <cfqueryparam value="#arguments.sgid#" cfsqltype="cf_sql_integer" />				   				  
+			  order by gamestatusid desc
+			</cfquery>
+		<cfreturn gamestatus>
+	</cffunction>
 	
 	
 	<cffunction name="gamecheckin" access="public" returntype="struct" output="false" hint="I get the shooter games struct.">

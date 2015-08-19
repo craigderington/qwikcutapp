@@ -8,7 +8,7 @@
 		<cfargument name="vsid" required="yes" type="numeric" default="#session.vsid#">
 		<cfset var gamenotifications = "" />
 		<cfquery name="gamenotifications">
-			select n.vsid, n.gameid, n.notificationtype, n.notificationtext, n.notificationtimestamp, n.notificationstatus, 
+			select top 10 n.vsid, n.gameid, n.notificationtype, n.notificationtext, n.notificationtimestamp, n.notificationstatus, 
 			       n.shooterid, n.notificationqueued, n.notificationsent,
 				   s.shooterfirstname, s.shooterlastname
 			  from dbo.notifications n left join shooters s on n.shooterid = s.shooterid

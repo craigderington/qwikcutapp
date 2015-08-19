@@ -62,7 +62,16 @@
 										</div>								
 								
 										<div class="col-md-6">
-											<cfinclude template="views/games/game-field-map-view.cfm">
+											<cfif structkeyexists( session, "checkedinstatus" ) and structkeyexists( session, "shooterid" )>											
+												<cfif structkeyexists( url, "gamestatus" ) and structkeyexists( url, "sgid" )>
+													 <cfinclude template="views/games/game-status-update.cfm">
+												<cfelse>
+													<cfinclude template="views/games/game-field-map-view.cfm">
+												</cfif>
+											<cfelse>
+												<cfinclude template="views/games/game-field-map-view.cfm">
+											</cfif>										
+											
 										</div>
 										
 										<!---

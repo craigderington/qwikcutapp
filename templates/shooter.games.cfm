@@ -32,6 +32,7 @@
 								</cfinvoke>
 								<cfif structkeyexists( strShooterGameManager, "shooterid" ) and structkeyexists( strShooterGameManager, "vsid" )>
 									<cfif structkeyexists( strShooterGameManager, "checkedinstatus" ) eq true >
+										<cfset session.checkedinstatus = true />
 										<cfset session.vsid = strShooterGameManager.vsid />
 										<cfset session.shooterid = strShooterGameManager.shooterid />
 										<cflocation url="#application.root#shooter.game" addtoken="yes">
@@ -59,7 +60,7 @@
 							</cfquery>
 								<cfif resumegameinprogress.recordcount eq 1>
 									<!--- // start game vars --->
-									<cfset checkedinstatus = true />
+									<cfset session.checkedinstatus = true />
 									<cfset session.vsid = resumegameinprogress.vsid />
 									<cfset session.shooterid = resumegameinprogress.shooterid />
 									<cflocation url="#application.root#shooter.game" addtoken="no">
@@ -156,8 +157,8 @@
 												<small class="help-block" style="margin-bottom:25px;">* You must accept assignments to confirm your filming schedule.</small>
 											</div>
 										<cfelse>
-											<div class="alert alert-info">
-												<p class="small"><i class="fa fa-clock-o"></i> You have no recent assignments.</p>
+											<div class="alert alert-warning">
+												<p class="small"><i class="fa fa-clock-o"></i> Sorry, there are no accepted game assignments.</p>
 											</div>
 										</cfif>										
 									</div>
