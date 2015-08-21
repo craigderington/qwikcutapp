@@ -32,7 +32,7 @@
 									<a href="#application.root##url.event#&reports=user" class="btn btn-xs btn-default">Users</a>
 								</div>
 									
-								<div class="ibox-content" <cfif structkeyexists( url, "reports" )><cfif trim( url.reports ) eq "all">style="min-height:1250px;"</cfif><cfelse>style="min-height:500px;"</cfif>>							
+								<div class="ibox-content" <cfif structkeyexists( url, "reports" )><cfif trim( url.reports ) eq "all">style="min-height:1250px;"<cfelse>style="min-height:575px;"</cfif><cfelse>style="min-height:500px;"</cfif>>							
 									<div class="col-lg-3">
 										<div class="file-manager">								
 											<h5>Report Folders</h5>
