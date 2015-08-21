@@ -1,19 +1,12 @@
+<cfoutput>
+<h3><i class="fa fa-briefcase"></i> #reporttemplate.reportname# <span class="pull-right"><a href="#application.root##url.event#&reports=#url.reports#" class="btn btn-xs btn-default btn-outline"><i class="fa fa-arrow-circle-left"></i> Return to #trim( ucase( url.reports ))# Reports</a></span></h3>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 
 
 
-									<div class="row">
 									
-										<div class="ibox-title">
-											<h5><i class="fa fa-users"></i> Search Users</h5>
-										</div>								
-									
-										<div class="col-md-1">
-											<button type="button" id="loading-example-btn" class="btn btn-success btn-sm btn-outline">
-												<i class="fa fa-refresh"></i> Reset
-											</button>
-										</div>
-											
-										<div class="col-md-11">										
+																			
 											<form class="form-horizontal" name="searchgames" method="post" action="index.cfm?event=admin.games">
 												<fieldset>
 													<div class="input-group">
@@ -24,5 +17,5 @@
 													</div>
 												</fieldset>
 											</form>										
-										</div>
-									</div>
+</cfoutput>
+									
