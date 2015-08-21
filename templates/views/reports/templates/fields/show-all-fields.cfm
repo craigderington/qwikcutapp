@@ -1,0 +1,1 @@
+{ "field" : "id", "fieldname" : fieldname, "address" : { "streetaddress" : streetaddress, "city" : city, "state" : state, "zipcode" : zipcode }, "contacts" : { "primarycontact": primarycontact, "primarycontacttitle" : primarycontacttitle, "primarycontactnumber" : primarycontactnumber}, "homefields" : [array]}

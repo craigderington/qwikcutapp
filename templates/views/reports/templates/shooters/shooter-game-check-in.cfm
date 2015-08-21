@@ -1,0 +1,1 @@
+{ "shooter" : "game check-in, "disp" : { "game" : by date, "field" : "fieldid", "game" : id, "check-in-date" : date }}

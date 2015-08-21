@@ -1,0 +1,1 @@
+{ "id" : _id, "activitydate" : activitydate, "userid" : userid, "activitytype" : activitytype, "activity" : activity}

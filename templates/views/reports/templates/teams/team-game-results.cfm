@@ -1,0 +1,1 @@
+{ "teamid" : _teamid, "teamname" : teamname, "teammascot" : teammascot, "teamorgname" : teamorgname }

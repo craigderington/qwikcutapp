@@ -1,0 +1,1 @@
+{ "userid" : _id, "username" : username, "email" : email, "role" : role, "activity" : { "id" : _id, "activitydate", "activitytype" : activitytype, "activity" : activity }}

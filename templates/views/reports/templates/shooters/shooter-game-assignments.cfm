@@ -1,0 +1,1 @@
+{ "shooter" : "game assignments", "disp" : { "game" : by date, "field" : "fieldid", "game" : id, "hometeam" : hometeam, "awayteam" : awayteam }}

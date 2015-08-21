@@ -1,0 +1,1 @@
+{ "shooter" : "post game update", "disp" : { "gameid" : gameid, "gamedate" : by date, "hudl" : true, "completed" : true }}
