@@ -15,7 +15,7 @@
 									<span class="pull-right">
 										<cfif isuserinrole( "admin" )>
 											<cfif structkeyexists( url, "manage" )>
-												<a href="#application.root##url.event#&fuseaction=#url.fuseaction#" class="btn btn-xs btn-success"><i class="fa fa-times-circle"></i> Finished Rescheduling</a>
+												<a href="#application.root##url.event#&fuseaction=#url.fuseaction#&manage=delete.games" class="btn btn-xs btn-danger" style="margin-right:3px;"><i class="fa fa-trash"></i> Delete All Games</a><a href="#application.root##url.event#&fuseaction=#url.fuseaction#" class="btn btn-xs btn-success"><i class="fa fa-check-circle-o"></i> Finished Rescheduling</a>
 											<cfelse>
 												<a href="#application.root##url.event#&fuseaction=#url.fuseaction#&manage=schedule" class="btn btn-xs btn-primary"><i class="fa fa-refresh"></i> Reschedule</a>
 											</cfif>

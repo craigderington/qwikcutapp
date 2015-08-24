@@ -279,5 +279,63 @@
 		<cfreturn gamedetail>
 	</cffunction>
 	
+	<cffunction name="chkDeleteGames" access="public" output="false" returntype="struct" hint="I get the struct value for allowing games to be deleted from the Games Admin.">
+		<cfargument name="id" type="numeric" required="yes" default="#session.vsid#">
+		<cfset var allowDeleteGames = structnew() />
+		
+		<cfquery name="getGamesList">
+			select gameid 
+			  from games
+			 where vsid = <cfqueryparam value="#arguments.id#" cfsqltype="cf_sql_integer" />
+		</cfquery>
+		
+		<cfset gamesList = valuelist( getGamesList.gameid ) />
+		
+		<cfquery name="chkShooterAssignments">
+			select shooterassignstatus
+			  from shooterassignments
+			 where vsid = <cfqueryparam value="#arguments.id#" cfsqltype="cf_sql_integer" />
+		</cfquery>
+		
+			<cfquery name="chkGameStatus">
+				select gamestatusid, gameid
+				  from gamestatus
+				 where gameid IN( <cfqueryparam value="#gamesList#" cfsqltype="cf_sql_integer" list="yes" /> )
+			</cfquery>
+		
+			<cfif chkShooterAssignments.recordcount gt 0>
+				<cfset shooterstatus = structinsert( allowDeleteGames, "shooterassignstatus", chkShooterAssignments.shooterassignstatus ) />
+			<cfelse>
+				<cfset shooterstatus = structinsert( allowDeleteGames, "shooterassignstatus", 0 ) />
+			</cfif>
+		
+			<cfif chkGameStatus.recordcount gt 0>
+				<cfset gamestatus = structinsert( allowDeleteGames, "gamestatus", chkGameStatus.gamestatusid ) />
+			<cfelse>
+				<cfset gamestatus = structinsert( allowDeleteGames, "gamestatus", 0 ) />
+			</cfif>
+		<!---
+		<cfset gamestatus = structinsert( allowDeleteGames, "gamestatus", 0 ) />
+		<cfset shooterstatus = structinsert( allowDeleteGames, "shooterassignstatus", 0 ) />
+		--->
+		<cfreturn allowDeleteGames>	
+		
+	</cffunction>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 </cfcomponent>

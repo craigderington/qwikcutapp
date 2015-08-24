@@ -66,6 +66,8 @@
 									<cfinclude template="game-notification-send.cfm">
 								<cfelseif trim( url.manage ) eq "field">
 									<cfinclude template="game-change-field.cfm">
+								<cfelseif trim( url.manage ) eq "delete.games">
+									<cfinclude template="games-delete-versus.cfm">
 								<cfelse>
 								
 									<div class="alert alert-info">
