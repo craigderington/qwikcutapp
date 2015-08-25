@@ -121,11 +121,31 @@
 																		  where gameid = <cfqueryparam value="#gameid#" cfsqltype="cf_sql_integer" />
 																</cfquery>
 																
+																<!--- // get some game detail for the activity log --->
+																<cfquery name="getgame">
+																	select gameid, gamedate, t1.teamlevelid, tl.teamlevelname
+																	  from games g, teams t1, teamlevels tl
+																	 where g.hometeamid = t1.teamid
+																	   and t1.teamlevelid = tl.teamlevelid
+																	   and g.gameid = <cfqueryparam value="#gameid#" cfsqltype="cf_sql_integer" />
+																</cfquery>
+																
 																<!--- // kill the game record --->
 																<cfquery name="deleteGameRecord">
 																	delete from games
 																		  where gameid = <cfqueryparam value="#gameid#" cfsqltype="cf_sql_integer" />
 																</cfquery>
+																
+																	<!--- // record the activity --->
+																	<cfquery name="activitylog">
+																		insert into activity(userid, activitydate, activitytype, activitytext)														  													   
+																		 values(
+																				<cfqueryparam value="#session.userid#" cfsqltype="cf_sql_integer" />,
+																				<cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />,
+																				<cfqueryparam value="Delete Record" cfsqltype="cf_sql_varchar" />,
+																				<cfqueryparam value="deleted #getgame.teamlevelname# game schedule Game: #gameid# on #dateformat( getgame.gamedate, "mm-dd-yyyy" )#." cfsqltype="cf_sql_varchar" />																
+																				);
+																	</cfquery>
 															
 																<!--- // if the database records were deleted without error, redirect --->
 																<cflocation url="#application.root##url.event#&fuseaction=#url.fuseaction#&scope=game" addtoken="no">
