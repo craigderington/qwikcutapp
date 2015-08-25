@@ -36,6 +36,7 @@
 											<cfset user.email = trim( form.email ) />
 											<cfset user.password = trim( form.pass1 ) />
 											<cfset user.role = trim( form.userrole ) />
+											<cfset user.stateid = session.stateid />
 											
 											<!--- // get user roles + acl value --->
 											<cfswitch expression="#user.role#">
@@ -75,7 +76,7 @@
 												
 													<!--- add the new user record --->
 													<cfquery name="adduser">
-														insert into users(username, firstname, lastname, email, password, userrole, useracl)
+														insert into users(username, firstname, lastname, email, password, userrole, useracl, stateid)
 														 values(
 																<cfqueryparam value="#user.username#" cfsqltype="cf_sql_varchar" maxlength="50" />,
 																<cfqueryparam value="#user.firstname#" cfsqltype="cf_sql_varchar" maxlength="50" />,
@@ -83,7 +84,8 @@
 																<cfqueryparam value="#user.email#" cfsqltype="cf_sql_varchar" maxlength="50" />,
 																<cfqueryparam value="#hash( user.password, "SHA-384", "UTF-8" )#" cfsqltype="cf_sql_clob" maxlength="128" />,
 																<cfqueryparam value="#user.role#" cfsqltype="cf_sql_varchar" maxlength="50" />,
-																<cfqueryparam value="#user.acl#" cfsqltype="cf_sql_numeric" />
+																<cfqueryparam value="#user.acl#" cfsqltype="cf_sql_numeric" />,
+																<cfqueryparam value="#user.stateid#" cfsqltype="cf_sql_integer" />
 																); select @@identity as newuserid
 													</cfquery>
 													
@@ -164,7 +166,7 @@
 									</div>
                                 </div>
 								<div class="form-group">
-									<label class="col-md-2 control-label">Email</label>
+									<label class="col-md-2 control-label">Confirm Password</label>
                                     <div class="col-md-4">
 										<input type="password" placeholder="Confirm Password" class="form-control" maxlength="50" name="pass2" />
 											<span class="help-block m-b-none">Please confirm the user password.</span>

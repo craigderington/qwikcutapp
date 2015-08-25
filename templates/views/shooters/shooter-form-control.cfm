@@ -219,7 +219,7 @@
 								<select name="shooterstateid" id="shooterstateid" class="form-control">
 									<option value="" selected>Select State</option>
 									<cfloop query="statelist">
-										<option value="#stateid#"<cfif structkeyexists( form, "shooterstateid" )><cfif numberformat( form.shooterstateid ) eq statelist.stateid>selected</cfif><cfelse><cfif shooter.shooterstateid eq statelist.stateid>selected</cfif></cfif>>#statename#</option>
+										<option value="#stateid#"<cfif structkeyexists( form, "shooterstateid" )><cfif numberformat( form.shooterstateid ) eq statelist.stateid>selected</cfif><cfelse><cfif shooter.shooterstateid eq statelist.stateid>selected</cfif></cfif><cfif session.stateid eq statelist.stateid>selected</cfif>>#statename#</option>
 									</cfloop>
 								</select>
 							</div>

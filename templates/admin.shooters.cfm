@@ -4,7 +4,9 @@
 				<cfinvoke component="apis.com.admin.stateadminservice" method="getstates" returnvariable="statelist"></cfinvoke>
 
 				<cfif not structkeyexists( url, "id" )>
-					<cfinvoke component="apis.com.admin.shooteradminservice" method="getshooters" returnvariable="shooterlist"></cfinvoke>
+					<cfinvoke component="apis.com.admin.shooteradminservice" method="getshooters" returnvariable="shooterlist">
+						<cfinvokeargument name="stateid" value="#session.stateid#">
+					</cfinvoke>
 					<cfinvoke component="apis.com.admin.fieldadminservice" method="getfields" returnvariable="fieldlist"></cfinvoke>				
 				<cfelseif structkeyexists( url, "id" )>	
 					<cfinvoke component="apis.com.admin.shooteradminservice" method="getshooter" returnvariable="shooter">			

@@ -5,7 +5,8 @@
 	</cffunction>
 
 	<cffunction name="getteams" access="remote" output="false" hint="I get the list of teams.">
-		<cfargument name="conferenceid" type="numeric" required="no" default="1">
+		<cfargument name="stateid" type="numeric" required="no">
+		<cfargument name="conferenceid" type="numeric" required="no" default="0">
 		<cfset var teamlist = "" />
 		<cfquery name="teamlist">
 			select t.teamid, t.teamname, t.teamcity, t.teamcolors, t.teammascot, t.teamactive, t.teamrecord, 
@@ -35,6 +36,9 @@
 					</cfif>
 					<cfif structkeyexists( session, "teamlevelid" )>
 						and tl.teamlevelid = <cfqueryparam value="#session.teamlevelid#" cfsqltype="cf_sql_integer" />
+					</cfif>
+					<cfif structkeyexists( arguments, "stateid" )>
+						and s.stateid = <cfqueryparam value="#arguments.stateid#" cfsqltype="cf_sql_integer" />
 					</cfif>
 			 order by c.confid, t.teamname, tl.teamlevelid asc
 		</cfquery>

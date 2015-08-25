@@ -5,10 +5,21 @@
 				<cflocation url="#application.root#user.home&accessdenied=1" addtoken="yes">
 			</cfif>
 			
-			
-			<cfinvoke component="apis.com.admin.admindashboardservice" method="getadmindashboard" returnvariable="admindashboard"></cfinvoke>
+			<cfif structkeyexists( url, "swapstate" ) and trim( url.swapstate ) eq "true">
+				<cfif structkeyexists( url, "id" ) and isnumeric( url.id )>
+					<cfset temp_sid = structupdate( session, "stateid", url.id ) />			
+					<cflocation url="#application.root##url.event#" addtoken="yes">
+				</cfif>
+			</cfif>
+			<cfinvoke component="apis.com.admin.stateadminservice" method="getmystate" returnvariable="mystate">
+			<cfinvoke component="apis.com.admin.stateadminservice" method="getstates" returnvariable="statelist">
+			<cfinvoke component="apis.com.admin.admindashboardservice" method="getadmindashboard" returnvariable="admindashboard">
+				<cfinvokeargument name="stateid" value="#session.stateid#">
+			</cfinvoke>
 			<cfinvoke component="apis.com.activity.activityservice" method="getsystemactivity" returnvariable="systemactivity"></cfinvoke>
 			
+			
+		
 		
 			<div class="wrapper wrapper-content animated fadeIn">
 				<div class="container">				
@@ -16,136 +27,148 @@
 					<!-- // include the page heading --->
 					<cfinclude template="views/admin-page-heading.cfm">
 						
-						
-						<div class="row">							
-								<div class="ibox float-e-margins">
-									<div class="ibox-title">
-										<h5><i class="fa fa-dashboard"></i> Admin Dashboard</h5>
-										<span class="pull-right">
+						<cfoutput>
+							<div class="row">							
+									<div class="ibox float-e-margins">
+										<div class="ibox-title">
+											<h5><i class="fa fa-dashboard"></i> Admin Dashboard  |
+											<cfif isuserinrole( "admin" )>
+												<span class="text-navy" style="margin-right:5px;margin-left:5px;">Your State: </span>
+												<div class="btn-group" style="margin-left: 5px;">													
+													<button data-toggle="dropdown" class="btn btn-default btn-outline btn-xs dropdown-toggle" aria-expanded="false">#mystate# <span class="caret"></span></button>
+														<ul class="dropdown-menu">
+															<cfloop query="statelist">
+																<li><a href="#application.root##url.event#&swapstate=true&id=#stateid#"><cfif ( session.stateid eq statelist.stateid )><i class="fa fa-circle text-danger"></i></cfif> #statename#</a></li>
+															</cfloop>
+														</ul>
+												</div>
+											</cfif>											
+											</h5>
+											<span class="pull-right">												
+												<a href="#application.root#admin.reports" class="btn btn-xs btn-info btn-outline"><i class="fa fa-archive"></i> Reports</a>
+												<a href="#application.root#admin.settings" class="btn btn-xs btn-default btn-outline" style="margin-left:5px;"><i class="fa fa-cogs"></i> Admin Settings</a>
+												<a href="#application.root#admin.payroll" class="btn btn-xs btn-primary btn-outline" style="margin-left:5px;"><i class="fa fa-money"></i> Payroll</a>
+											</span>
+										</div>
+										
+										<div class="ibox-content ibox-heading">
 											<cfoutput>
-											<a href="#application.root#admin.reports" class="btn btn-xs btn-info btn-outline"><i class="fa fa-archive"></i> Reports</a>
-											<a href="#application.root#admin.settings" class="btn btn-xs btn-default btn-outline" style="margin-left:5px;"><i class="fa fa-cogs"></i> Admin Settings</a>
-											<a href="#application.root#admin.payroll" class="btn btn-xs btn-primary btn-outline" style="margin-left:5px;"><i class="fa fa-money"></i> Payroll</a>
+												<div class="row">												
+													<div class="col-lg-3">
+														<a href="#application.root#admin.states">
+															<div class="widget style1 blue-bg">
+																<div class="row vertical-align">
+																	<div class="col-xs-3">
+																		<i class="fa fa-building-o fa-3x"></i>
+																	</div>
+																	<div class="col-xs-9 text-right">
+																		<h2 class="font-bold">#numberformat( admindashboard.totalstates, "999" )#</h2>
+																		 <small>States</small>
+																	</div>
+																</div>
+															</div>
+														</a>
+													</div>
+													<div class="col-lg-3">
+														<a href="#application.root#admin.conferences">
+															<div class="widget style1 navy-bg">
+																<div class="row vertical-align">
+																	<div class="col-xs-3">
+																		<i class="fa fa-shield fa-3x"></i>
+																	</div>
+																	<div class="col-xs-9 text-right">
+																		<h2 class="font-bold">#numberformat( admindashboard.totalconferences, "999" )#</h2>
+																		 <small>Conferences</small>
+																	</div>
+																</div>
+															</div>
+														</a>
+													</div>
+													<div class="col-lg-3">
+														<a href="#application.root#admin.teams">
+															<div class="widget style1 navy-bg">
+																<div class="row vertical-align">
+																	<div class="col-xs-3">
+																		<i class="fa fa-trophy fa-3x"></i>
+																	</div>
+																	<div class="col-xs-9 text-right">
+																		<h2 class="font-bold">#numberformat( admindashboard.totalteams, "999" )#</h2>
+																		 <small>Teams</small>
+																	</div>
+																</div>
+															</div>
+														</a>
+													</div>
+													<div class="col-lg-3">
+														<a href="#application.root#admin.fields">
+															<div class="widget style1 blue-bg">
+																<div class="row vertical-align">
+																	<div class="col-xs-3">
+																		<i class="fa fa-stop fa-3x"></i>
+																	</div>
+																	<div class="col-xs-9 text-right">
+																		<h2 class="font-bold">#numberformat( admindashboard.totalfields, "999" )#</h2>
+																		 <small>Fields</small>
+																	</div>
+																</div>
+															</div>
+														</a>
+													</div>
+													<div class="col-lg-3">
+														<a  href="#application.root#admin.games">
+															<div class="widget style1 blue-bg">
+																<div class="row vertical-align">
+																	<div class="col-xs-3">
+																		<i class="fa fa-play fa-3x"></i>
+																	</div>
+																	<div class="col-xs-9 text-right">
+																		<h2 class="font-bold">#numberformat( admindashboard.totalgames, "999" )#</h2>
+																		 <small>Games</small>
+																	</div>
+																</div>
+															</div>
+														</a>
+													</div>
+													<div class="col-lg-3">
+														<a href="#application.root#admin.shooters">
+															<div class="widget style1 navy-bg">
+																<div class="row vertical-align">
+																	<div class="col-xs-3">
+																		<i class="fa fa-video-camera fa-3x"></i>
+																	</div>
+																	<div class="col-xs-9 text-right">
+																		<h2 class="font-bold">#numberformat( admindashboard.totalshooters, "999" )#</h2>
+																		 <small>Shooters</small>
+																	</div>
+																</div>
+															</div>
+														</a>
+													</div>
+													<div class="col-lg-3">
+														<a href="#application.root#admin.users">
+															<div class="widget style1 blue-bg">
+																<div class="row vertical-align">
+																	<div class="col-xs-3">
+																		<i class="fa fa-users fa-3x"></i>
+																	</div>
+																	<div class="col-xs-9 text-right">
+																		<h2 class="font-bold">#numberformat( admindashboard.totalusers )#</h2>
+																		 <small>Users</small>
+																	</div>
+																</div>
+															</div>
+														</a>
+													</div>
+													
+													<!---<cfdump var="#admindashboard#" label="Admin Dashboard">--->
+												</div>
 											</cfoutput>
-										</span>
+										
+										</div>
 									</div>
-									
-									<div class="ibox-content ibox-heading">
-										<cfoutput>
-											<div class="row">
-												<div class="col-lg-3">
-													<a href="#application.root#admin.states">
-														<div class="widget style1 blue-bg">
-															<div class="row vertical-align">
-																<div class="col-xs-3">
-																	<i class="fa fa-building-o fa-3x"></i>
-																</div>
-																<div class="col-xs-9 text-right">
-																	<h2 class="font-bold">#numberformat( admindashboard.statestotal, "999" )#</h2>
-																	 <small>States</small>
-																</div>
-															</div>
-														</div>
-													</a>
-												</div>
-												<div class="col-lg-3">
-													<a href="#application.root#admin.conferences">
-														<div class="widget style1 navy-bg">
-															<div class="row vertical-align">
-																<div class="col-xs-3">
-																	<i class="fa fa-shield fa-3x"></i>
-																</div>
-																<div class="col-xs-9 text-right">
-																	<h2 class="font-bold">#numberformat( admindashboard.conferencestotal, "999" )#</h2>
-																	 <small>Conferences</small>
-																</div>
-															</div>
-														</div>
-													</a>
-												</div>
-												<div class="col-lg-3">
-													<a href="#application.root#admin.teams">
-														<div class="widget style1 navy-bg">
-															<div class="row vertical-align">
-																<div class="col-xs-3">
-																	<i class="fa fa-trophy fa-3x"></i>
-																</div>
-																<div class="col-xs-9 text-right">
-																	<h2 class="font-bold">#numberformat( admindashboard.teamstotal, "999" )#</h2>
-																	 <small>Teams</small>
-																</div>
-															</div>
-														</div>
-													</a>
-												</div>
-												<div class="col-lg-3">
-													<a href="#application.root#admin.fields">
-														<div class="widget style1 blue-bg">
-															<div class="row vertical-align">
-																<div class="col-xs-3">
-																	<i class="fa fa-stop fa-3x"></i>
-																</div>
-																<div class="col-xs-9 text-right">
-																	<h2 class="font-bold">#numberformat( admindashboard.fieldstotal, "999" )#</h2>
-																	 <small>Fields</small>
-																</div>
-															</div>
-														</div>
-													</a>
-												</div>
-												<div class="col-lg-3">
-													<a  href="#application.root#admin.games">
-														<div class="widget style1 blue-bg">
-															<div class="row vertical-align">
-																<div class="col-xs-3">
-																	<i class="fa fa-play fa-3x"></i>
-																</div>
-																<div class="col-xs-9 text-right">
-																	<h2 class="font-bold">#numberformat( admindashboard.gamestotal, "999" )#</h2>
-																	 <small>Games</small>
-																</div>
-															</div>
-														</div>
-													</a>
-												</div>
-												<div class="col-lg-3">
-													<a href="#application.root#admin.shooters">
-														<div class="widget style1 navy-bg">
-															<div class="row vertical-align">
-																<div class="col-xs-3">
-																	<i class="fa fa-video-camera fa-3x"></i>
-																</div>
-																<div class="col-xs-9 text-right">
-																	<h2 class="font-bold">#numberformat( admindashboard.shooterstotal, "999" )#</h2>
-																	 <small>Shooters</small>
-																</div>
-															</div>
-														</div>
-													</a>
-												</div>
-												<div class="col-lg-3">
-													<a href="#application.root#admin.users">
-														<div class="widget style1 blue-bg">
-															<div class="row vertical-align">
-																<div class="col-xs-3">
-																	<i class="fa fa-users fa-3x"></i>
-																</div>
-																<div class="col-xs-9 text-right">
-																	<h2 class="font-bold">#numberformat( admindashboard.userstotal )#</h2>
-																	 <small>Users</small>
-																</div>
-															</div>
-														</div>
-													</a>
-												</div>												
-											</div>
-										</cfoutput>
-									
-									</div>
-								</div>
-							
-						</div>	
-							
+								
+							</div>	
+						</cfoutput>	
 						<div class="row">
 							
 								<div class="ibox border-bottom">

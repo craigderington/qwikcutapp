@@ -18,13 +18,20 @@
 			</cfif>
 		
 		
-			<!--- // get our data components --->
-			<cfinvoke component="apis.com.admin.teamadminservice" method="getteams" returnvariable="teamlist">
-			</cfinvoke>
-			
-			
+			<!--- // get our data components --->			
 			<cfinvoke component="apis.com.admin.conferenceadminservice" method="getconferences" returnvariable="conferencelist">
+				<cfinvokeargument name="stateid" value="#session.stateid#">
 			</cfinvoke>
+			
+			<cfif conferencelist.recordcount gt 0>
+				<cfinvoke component="apis.com.admin.teamadminservice" method="getteams" returnvariable="teamlist">
+					<cfinvokeargument name="conferenceid" value="#conferencelist.confid#">
+					<cfinvokeargument name="stateid" value="#session.stateid#">
+				</cfinvoke>
+			<cfelse>
+				<cflocation url="#application.root#admin.conferences" addtoken="yes">
+			</cfif>
+			
 			
 			<cfinvoke component="apis.com.admin.teamadminservice" method="getteamlevels" returnvariable="teamlevels">
 			</cfinvoke>		

@@ -5,6 +5,7 @@
 	</cffunction>
 			
 	<cffunction name="getusers" output="false" returntype="query" access="remote" hint="I get the list of users">
+		<cfargument name="stateid" type="numeric" required="yes" default="#session.stateid#">
 		<cfset var userlist = "" />
 			<cfquery name="userlist">
 					select users.userid, username, firstname, lastname, password, confid, lastloginip, lastlogindate, email, 
@@ -17,6 +18,9 @@
 						<cfif structkeyexists( form, "usertype" ) and trim( form.usertype ) neq "">
 						and userrole = <cfqueryparam value="#trim( form.usertype )#" cfsqltype="cf_sql_varchar" />
 						</cfif>						
+					</cfif>
+					<cfif structkeyexists( arguments, "stateid" )>
+						and stateid = <cfqueryparam value="#arguments.stateid#" cfsqltype="cf_sql_integer" />
 					</cfif>
 				  order by lastname, firstname asc
 			</cfquery>

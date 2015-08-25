@@ -92,7 +92,7 @@
 										<select class="form-control m-b" name="stateid">
 											<option value="">Select a State</option>
 											<cfloop query="statelist">
-												<option value="#stateid#">#statename#</option>
+												<option value="#stateid#"<cfif statelist.stateid eq session.stateid>selected</cfif>>#statename#</option>
 											</cfloop>
 										</select>
 									</div>

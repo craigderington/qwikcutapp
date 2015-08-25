@@ -18,7 +18,7 @@
 														<select name="stateid" id="stateid" class="form-control" onchange="javascript:this.form.submit();">
 															<option value="" selected>Filter by State</option>
 															<cfloop query="statelist">
-																<option value="#stateid#"<cfif structkeyexists( form, "stateid" )><cfif numberformat( form.stateid, "99" ) eq numberformat( statelist.stateid, "99" )>selected</cfif></cfif>>#statename#</option>
+																<option value="#stateid#"<cfif structkeyexists( form, "stateid" )><cfif numberformat( form.stateid, "99" ) eq numberformat( statelist.stateid, "99" )>selected</cfif></cfif><cfif statelist.stateid eq session.stateid>selected</cfif>>#statename#</option>
 															</cfloop>
 														</select>
 													</div>

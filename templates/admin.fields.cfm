@@ -18,6 +18,7 @@
 
 		<!--- admin.fields administration --->
 		<cfinvoke component="apis.com.admin.fieldadminservice" method="getfields" returnvariable="fieldlist">
+			<cfinvokeargument name="stateid" value="#session.stateid#">
 		</cfinvoke>
 		
 		<cfinvoke component="apis.com.admin.fieldadminservice" method="getfieldoptions" returnvariable="fieldoptions">

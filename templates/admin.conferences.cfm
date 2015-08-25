@@ -3,7 +3,9 @@
 	
 
 		<!--- admin.conferences - administration --->
-		<cfinvoke component="apis.com.admin.conferenceadminservice" method="getconferences" returnvariable="conferencelist"></cfinvoke>
+		<cfinvoke component="apis.com.admin.conferenceadminservice" method="getconferences" returnvariable="conferencelist">
+			<cfinvokeargument name="stateid" value="#session.stateid#">
+		</cfinvoke>
 		<cfinvoke component="apis.com.admin.stateadminservice" method="getstates" returnvariable="statelist"></cfinvoke>	
 		<cfif structkeyexists( url, "fuseaction" )>				
 			<cfif structkeyexists( url, "id" )>
