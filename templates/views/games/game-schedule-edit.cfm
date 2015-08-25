@@ -109,12 +109,60 @@
 														</cfif>										
 														
 													</cfif>
+													
+													<cfif structkeyexists( form, "deleteGameRecord" ) and structkeyexists( form, "game_id" )>													
+														
+														<cfset gameid = form.game_id />														
+														
+															<cftry>
+																<!--- // remove any statuses for the selected game --->
+																<cfquery name="deleteGameStatus">
+																	delete from gamestatus
+																		  where gameid = <cfqueryparam value="#gameid#" cfsqltype="cf_sql_integer" />
+																</cfquery>
+																
+																<!--- // kill the game record --->
+																<cfquery name="deleteGameRecord">
+																	delete from games
+																		  where gameid = <cfqueryparam value="#gameid#" cfsqltype="cf_sql_integer" />
+																</cfquery>
+															
+																<!--- // if the database records were deleted without error, redirect --->
+																<cflocation url="#application.root##url.event#&fuseaction=#url.fuseaction#&scope=game" addtoken="no">
+																
+																
+																<cfcatch type="database"> 
+																	<div class="alert alert-danger">
+																		<h5>You've Thrown a <b>Database Error</b></h5> 																	
+																			<!--- and the diagnostic message from the railo server ---> 
+																			<p>#cfcatch.message#</p> 
+																			<p>Caught an exception, type = #cfcatch.type# </p> 
+																			<p>The contents of the tag stack are:</p> 
+																			<cfloop from="1" to="#arraylen( cfcatch.tagcontext )#" index="i"> 
+																				<cfset sCurrent = #cfcatch.tagcontext[i]#> 
+																				<br>#i# #sCurrent["ID"]#  
+																					(#sCurrent["LINE"]#,#sCurrent["COLUMN"]#)  
+																					#sCurrent["TEMPLATE"]# 
+																			</cfloop> 
+																	</div>	
+																</cfcatch>														
+															
+															</cftry>
+													
+													</cfif>
+													
+													
+													
+													
+													
+													
+													
 													<!--- // end form processing --->
 										
 										
 										
 										
-										
+										<cfif not structkeyexists( url, "delete.game" )>
 										
 										
 											<form class="form-horizontal" name="savegame" method="post" action="">
@@ -173,15 +221,32 @@
 													</div>											
 													<div class="hr-line-dashed" style="margin-top:15px;"></div>
 														<div class="form-group">
-															<div class="col-md-offset-4 col-md-6">
+															<div class="col-md-offset-4 col-md-8">
 																<button class="btn btn-primary btn-sm" type="submit" name="saveGameRecord"><i class="fa fa-save"></i> Save Game Details</button>
-																<a href="#application.root##url.event#&fuseaction=#url.fuseaction#&manage=#url.manage#" class="btn btn-sm btn-default"><i class="fa fa-times-circle"></i> Cancel</a>																		
+																<a href="#application.root##url.event#&fuseaction=#url.fuseaction#&manage=#url.manage#&id=#url.id#&delete.game=true" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete This Game</a>																		
 																<input type="hidden" name="gameid" value="#gamedetail.gameid#" />
 															</div>
 														</div>
 													</div>
 												</fieldset>										
 											</form>
+											
+										<cfelseif structkeyexists( url, "delete.game" )>
+										
+											<form name="delete-division-game" method="post" class="form-horizontal" action="">
+												<div class="alert alert-warning">
+													<h4><strong>Delete Game?</strong></h4>
+													<p style="margin-bottom: 15px;">This action can not be un-done once deleted.  Are you sure you want to delete Game ID: #gamedetail.gameid#?</p>													
+													<div class="form-group">
+														<button style="margin-left:15px;" class="btn btn-danger btn-sm" type="submit" name="deleteGameRecord"><i class="fa fa-trash"></i> Delete Game</button>
+															<a href="#application.root##url.event#&fuseaction=#url.fuseaction#&manage=#url.manage#&id=#url.id#" class="btn btn-sm btn-default"><i class="fa fa-arrow-circle-left"></i> Cancel Delete</a>																		
+															<input type="hidden" name="game_id" value="#gamedetail.gameid#" />
+													</div>
+												</div>
+											</form>
+
+										</cfif>
+											
 										</cfoutput>
 									<cfelse>
 										<div class="alert alert-danger">

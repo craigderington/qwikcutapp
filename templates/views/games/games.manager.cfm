@@ -18,7 +18,19 @@
 				
 
 				<cfoutput>
-				
+					
+					<cfif structkeyexists( url, "scope" ) and trim( url.scope ) eq "game">
+						<div class="row" style="margin-top:5px;margin-bottom:-15px;">
+							<div class="alert alert-info alert-dismissable">
+								<button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
+								<h4><i class="fa fa-check-circle-o"></i> Game Deleted.</h4>
+								<p>The selected game schedule was deleted from this match up.  Games can be rescheduled individually in the Games Manager.</p>
+							</div>
+						</div>
+					</cfif>
+					
+					
+					
 					<div class="row">
 						<div class="ibox-title">
 							<h5>#session.username# | Games Scheduling Manager</h5>
