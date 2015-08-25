@@ -150,7 +150,7 @@
 			     and t.confid = c.confid        
 			     and c.stateid = <cfqueryparam value="#arguments.stateid#" cfsqltype="cf_sql_integer" />
 					 <cfif structkeyexists( url, "fuseaction" )>
-						<cfif trim( url.fuseaction ) eq "game.add">
+						<cfif ( trim( url.fuseaction ) eq "game.add" ) or ( trim( url.fuseaction ) eq "game.custom" )>
 							and c.conftype = <cfqueryparam value="#arguments.conferencetype#" cfsqltype="cf_sql_varchar" maxlength="2" />
 						</cfif>
 					 </cfif>

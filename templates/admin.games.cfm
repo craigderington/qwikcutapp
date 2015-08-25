@@ -39,6 +39,8 @@
 										<cfinclude template="views/games/game.delete.cfm">
 									<cfelseif trim( url.fuseaction ) eq "game.add">
 										<cfinclude template="views/games/game.add.cfm">
+									<cfelseif trim( url.fuseaction ) eq "game.custom">
+										<cfinclude template="views/games/game.custom.cfm">
 									<cfelseif trim( url.fuseaction ) eq "game.view">
 										<cfinclude template="views/games/game.view.cfm">									
 									<cfelseif trim( url.fuseaction ) eq "game.map">
