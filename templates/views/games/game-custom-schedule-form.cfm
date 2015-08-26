@@ -187,7 +187,7 @@
 								<label class="col-sm-4 control-label" for="conferencetype">Conference Type</label>								
 								<div class="col-sm-8">
 									<select name="conferencetype" class="form-control m-b" onchange="javascript:this.form.submit();">
-										<option value="none">Select Conference Type</option>
+										<option value="">Select Conference Type</option>
 										<option value="YF"<cfif structkeyexists( form, "conferencetype" ) and trim( form.conferencetype ) eq "YF">selected</cfif>>Youth Football</option>
 										<option value="HS"<cfif structkeyexists( form, "conferencetype" ) and trim( form.conferencetype ) eq "HS">selected</cfif>>High School Football</option>
 									</select>
@@ -288,7 +288,7 @@
 											<input type="text" class="form-control m-b" name="gamedate" placeholder="Select Game Date" <cfif structkeyexists( form, "gamedate" )>value="#dateformat( form.gamedate, "mm/dd/yyyy" )#"</cfif> />													
 										</div>
 									</div>
-									<div class="form-group" id="data_2">
+									<div class="form-group">
 										<label class="col-sm-4 control-label" for="gametime">Game Time</label>
 										<div class="col-sm-7 input-group clockpicker" data-autoclose="true">															
 											<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>

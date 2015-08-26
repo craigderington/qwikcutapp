@@ -131,7 +131,7 @@
 															<td class="text-center"><a href="#application.root##url.event#&fuseaction=#trim( url.fuseaction )#&vsid=#vsid#"><i class="fa fa-play-circle fa-2x text-primary"></i></a></td>
 															<td><a style="font-weight:bold;" href="#application.root##url.event#&fuseaction=#trim( url.fuseaction )#&vsid=#vsid#">#hometeam#</a> (#teamlevelname#)</td>
 															<td>#awayteam#</td>
-															<td>#fieldname#</td>
+															<td>#fieldname# Field</td>
 															<td>#dateformat( gamedate, "mm-dd-yyyy" )#</td>
 															<td>#gamestatus#</td>															
 														</tr>
