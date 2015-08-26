@@ -323,6 +323,23 @@
 	</cffunction>
 	
 	
+	<cffunction name="getcustomgames" access="public" returntype="query" output="false" hint="I get the custom game list.">				
+		<cfset var customgames = "" />
+			<cfquery name="customgames">
+				select top 15 g.gameid, g.vsid, g.fieldid, g.confid, g.hometeamid, g.awayteamid, g.gamedate, g.gamestart, g.gameend,
+				       g.gamestatus, g.gameoutcome, g.gamewinner, t1.teamorgname as hometeam, 
+					   t2.teamorgname as awayteam, tl.teamlevelname
+				  from games g, teams t1, teams t2, teamlevels tl
+				 where g.hometeamid = t1.teamid
+				   and g.awayteamid = t2.teamid
+				   and t1.teamlevelid = tl.teamlevelid
+				   and g.customgame = <cfqueryparam value="1" cfsqltype="cf_sql_bit" />
+				   and g.gamestatus <> <cfqueryparam value="FINAL" cfsqltype="cf_sql_varchar" />
+			</cfquery>	
+		<cfreturn customgames>
+	</cffunction>
+	
+	
 	
 	
 	

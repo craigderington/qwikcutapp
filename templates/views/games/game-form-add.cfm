@@ -287,7 +287,7 @@
 														</div>
 														<div class="input-group clockpicker" data-autoclose="true">															
 															<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
-															<input type="text" class="form-control" name="gametime" placeholder="Select Game Time" <cfif structkeyexists( form, "gametime" )>value="#dateformat( form.gametime, "mm/dd/yyyy" )#"</cfif>  />
+															<input type="text" class="form-control" name="gametime" placeholder="Select Game Time" <cfif structkeyexists( form, "gametime" )>value="#timeformat( form.gametime, "hh:mm:ss" )#"</cfif>  />
 														</div>
 													</div>								
 												</div>												
