@@ -80,6 +80,20 @@
 				
 				
 				
+				<cfif structkeyexists( session, "userid" ) and structkeyexists( url, "gameid" ) and structkeyexists( url, "do" )>
+					<cfif not structkeyexists( session, "checkedinstatus" )>
+						<cfif isnumeric( url.gameid ) and trim( url.do ) eq "game">
+							<cfset session.vsid = url.gameid />
+							<cflocation url="#application.root#shooter.game" addtoken="yes">
+						</cfif>
+					<cfelse>
+						<div class="row">
+							<div class="alert alert-danger">
+								<h5>You can not be checked in for a game event and also view other game history.  Close out previous games first.</h5>
+							</div>
+						</div>
+					</cfif>
+				</cfif>
 				
 				
 				
@@ -143,8 +157,8 @@
 																		</cfif>
 																	<cfelseif trim( shooterassignstatus ) eq "checked in" and shooteracceptedassignment eq 1>
 																		<a href="#application.root##url.event#&fuseaction=resume-game&saID=#shooterassignmentid#" onclick="javascript:return confirm('You are already checked in to this game.  Resume Game?');" class="btn btn-sm btn-primary">Resume <i class="fa fa-play-circle"></i></a>
-																	<cfelseif trim( shooterassignstatus ) eq "game complete" and shooteracceptedassignment eq 1>
-																		<i class="fa fa-circle-o" title="Game already completed."></i>
+																	<cfelseif trim( shooterassignstatus ) eq "completed" and shooteracceptedassignment eq 1>
+																		<a href="#application.root##url.event#&do=game&gameid=#vsid#"><i class="fa fa-circle-o" title="Game Completed.  Click to access game history..."></i></a>
 																	<cfelse>
 																		<i class="fa fa-circle" title="You have not accepted the assignment."></i>
 																	</cfif>

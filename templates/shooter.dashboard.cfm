@@ -1,6 +1,11 @@
 
 
-
+					<cfif structkeyexists( session, "userid" ) and structkeyexists( url, "gameid" ) and structkeyexists( url, "do" )>
+						<cfif isnumeric( url.gameid ) and trim( url.do ) eq "game">
+							<cfset session.vsid = url.gameid />
+							<cflocation url="#application.root#shooter.game" addtoken="yes">
+						</cfif>
+					</cfif>
 
 				
 				

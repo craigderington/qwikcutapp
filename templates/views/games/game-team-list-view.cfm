@@ -1,11 +1,75 @@
 
+						
+						
+						
+						<cfif structkeyexists( session, "checkedinstatus" ) and structkeyexists( url, "gamecheckout" )>
+							<cfif trim( url.gamecheckout ) eq "true">
+								<cfset gc = structnew() />
+								<cfset gc.vsid = session.vsid />
+								<cfset gc.gamestatus = "Completed" />
+								<cfset today = now() />
+									
+									<cfquery name="closeversus">
+										update versus
+										   set gamestatus = <cfqueryparam value="#gc.gamestatus#" cfsqltype="cf_sql_varchar" />
+										 where vsid = <cfqueryparam value="#gc.vsid#" cfsqltype="cf_sql_integer" />
+									</cfquery>
+									
+									<cfquery name="closegames">
+										update games
+										   set gamestatus = <cfqueryparam value="#gc.gamestatus#" cfsqltype="cf_sql_varchar" />
+										 where vsid = <cfqueryparam value="#gc.vsid#" cfsqltype="cf_sql_integer" />
+									</cfquery>
+									
+									<cfquery name="updateassignmentstatus">
+										update shooterassignments
+										   set shooterassignstatus = <cfqueryparam value="Completed" cfsqltype="cf_sql_varchar" />,
+										       shooterassignlastupdated = <cfqueryparam value="#today#" cfsqltype="cf_sql_timestamp" />
+										 where vsid = <cfqueryparam value="#gc.vsid#" cfsqltype="cf_sql_integer" />
+									</cfquery>
+									
+											<!--- // record the activity --->
+											<cfquery name="activitylog">
+												insert into activity(userid, activitydate, activitytype, activitytext)														  													   
+													values(
+															<cfqueryparam value="#session.userid#" cfsqltype="cf_sql_integer" />,
+															<cfqueryparam value="#today#" cfsqltype="cf_sql_timestamp" />,
+															<cfqueryparam value="Modify Record" cfsqltype="cf_sql_varchar" />,
+															<cfqueryparam value="closed out all games and checked out Game ID: #gc.vsid#." cfsqltype="cf_sql_varchar" />																
+															);
+											</cfquery>									
+											
+											
+											<!--- // add game to the notification service queue --->
+											<cfquery name="notificationservicequeue">
+												insert into notifications(vsid, gameid, notificationtype, notificationtext, notificationtimestamp, notificationstatus, shooterid, notificationqueued, notificationsent)														  													   
+													values(
+															<cfqueryparam value="#gc.vsid#" cfsqltype="cf_sql_integer" />,
+															<cfqueryparam value="0" cfsqltype="cf_sql_integer" />,
+															<cfqueryparam value="Game Completed" cfsqltype="cf_sql_varchar" />,
+															<cfqueryparam value="Game Completed by Shooter" cfsqltype="cf_sql_varchar" />,
+															<cfqueryparam value="#today#" cfsqltype="cf_sql_timestamp" />,
+															<cfqueryparam value="Queued" cfsqltype="cf_sql_varchar" />,
+															<cfqueryparam value="0" cfsqltype="cf_sql_integer" />,
+															<cfqueryparam value="1" cfsqltype="cf_sql_bit" />,
+															<cfqueryparam value="0" cfsqltype="cf_sql_bit" />
+															);
+											</cfquery>
+									
+									<cfset temp_r = structdelete( session, "vsid" ) />
+									<cfset temp_c = structdelete( session, "checkedinstatus" ) />
+									<cflocation url="#application.root#shooter.games" addtoken="no">
+							</cfif>					
+						</cfif>
 
 
 
+						
+						
 
 
 
-
+						<cfinvoke component="apis.com.user.usershooterservice" method="getGameCheckout" returnvariable="gamecheckout">
 
 
 						<cfoutput>
@@ -25,7 +89,12 @@
 													<a href="#application.root##url.event#&fuseaction=#url.fuseaction#" class="btn btn-xs btn-success"><i class="fa fa-times-circle"></i> Close Game Status</a>
 												<cfelse>																		
 													<a href="#application.root##url.event#&fuseaction=#url.fuseaction#&gamestatus=update" class="btn btn-xs btn-primary"><i class="fa fa-refresh"></i> Record Game Status</a>
-												</cfif>										
+												</cfif>
+												
+												<cfif gamecheckout.totalgamestatus gte games.recordcount>
+													<a href="#application.root##url.event#&fuseaction=#url.fuseaction#&gamecheckout=true" class="btn btn-xs btn-danger btn-outline" onclick="return confirm('This will close out all games for this event.  Do you wish to continue?');"><i class="fa fa-flag"></i> All Games Completed</a>
+												</cfif>
+												
 											</cfif>
 										</cfif>
 										

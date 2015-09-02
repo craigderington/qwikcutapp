@@ -36,7 +36,7 @@
 							<h5>#session.username# | Games Scheduling Manager</h5>
 							<span class="pull-right">
 								<a href="#application.root##url.event#" class="btn btn-xs btn-success btn-outline"><i class="fa fa-play-circle"></i> Finished</a>
-								<a style="margin-right:5px;" href="#application.root##url.event#&fuseaction=game.add" class="btn btn-xs btn-primary btn-outline"><i class="fa fa-plus-circle"></i> Create Game Schedule</a>
+								<a style="margin-right:5px;" href="#application.root##url.event#&fuseaction=game.schedule" class="btn btn-xs btn-primary btn-outline"><i class="fa fa-plus-circle"></i> Create Game Schedule</a>
 							</span>
 						</div>
 						<div class="ibox-content ibox-heading border-bottom">

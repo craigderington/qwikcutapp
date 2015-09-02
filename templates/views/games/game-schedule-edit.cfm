@@ -57,6 +57,7 @@
 															
 															<!--- define our form structure and set form values --->
 															<cfset g = structnew() />
+															<cfset g.vsid = session.vsid />
 															<cfset g.gameid = form.gameid />
 															<cfset g.gamedate = form.gamedate />
 															<cfset g.gametime = form.gametime />
@@ -79,6 +80,15 @@
 																		   </cfif>
 																	 where gameid = <cfqueryparam value="#g.gameid#" cfsqltype="cf_sql_integer" />														
 																</cfquery>
+																
+																<cfif trim( g.gamestatus ) eq "scheduled">
+																	<cfquery name="savemasterversus">
+																		update versus
+																		   set gamedate = <cfqueryparam value="#g.gamedate# #g.gametime#" cfsqltype="cf_sql_timestamp" />,
+																			   gametime = <cfqueryparam value="#g.gamedate# #g.gametime#" cfsqltype="cf_sql_timestamp" />
+																		 where vsid = <cfqueryparam value="#g.vsid#" cfsqltype="cf_sql_integer" />
+																	</cfquery>
+																</cfif>
 
 																	<!--- // record the activity --->
 																	<cfquery name="activitylog">
