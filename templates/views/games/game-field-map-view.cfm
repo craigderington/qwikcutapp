@@ -44,15 +44,17 @@
 								
 								<cfif versus.fieldid neq 155>
 									<div class="google-map" id="map1"></div>
-								
-									<br />
-									<br />
+									
+									<cfif fielddetail.fieldaddress1 neq "">
+										<br />
+										<a href="http://maps.google.com/maps?saddr=&daddr=#urlencodedformat(fielddetail.fieldaddress1)#+#fielddetail.fieldcity#+#fielddetail.stateabbr#+#fielddetail.fieldzip#" target="_blank"><i class="fa fa-map-marker"></i> Get Directions</a>
+									</cfif>
 								<cfelse>
 									<div class="alert alert-info text-center">
 										<small>No map to display...</small>
 									</div>
 								</cfif>
-								
+								<br /><br />
 								<div class="well" style="padding:5px;">
 									<h5><i class="fa fa-bullhorn"></i> <strong>Field Contacts</strong></h5>
 									<small>

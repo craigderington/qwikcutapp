@@ -24,7 +24,7 @@
 									<a href="#application.root##url.event#&fuseaction=game.custom" class="btn btn-lg btn-danger btn-outline m-b">
 										<i class="fa fa-play-circle"></i> Non-Conference Games (All Divisions)
 									</a>
-									<a href="#application.root##url.event#&fuseaction=game.custom" class="btn btn-lg btn-default btn-outline m-b">
+									<a href="#application.root##url.event#&fuseaction=game.custom.nc" class="btn btn-lg btn-default btn-outline m-b">
 										<i class="fa fa-play-circle"></i> Non-Conference Game (Custom Matchup)
 									</a>
 								</div>

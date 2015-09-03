@@ -51,6 +51,8 @@
 										<cfinclude template="views/games/games.manager.cfm">
 									<cfelseif trim( url.fuseaction ) eq "games.filter">
 										<cfinclude template="views/games/games.filter.cfm">
+									<cfelseif trim( url.fuseaction ) eq "game.custom.nc">
+										<cfinclude template="views/games/game.custom.nc.cfm">
 									<cfelseif trim( url.fuseaction ) eq "game.start">
 										<cfinclude template="views/games/game.custom.cfm">
 									<cfelse>

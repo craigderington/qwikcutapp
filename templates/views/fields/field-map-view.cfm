@@ -10,30 +10,33 @@
 					
 					
 					<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBy6kNfIxQ6yP_Q0wbyqdH-v93-gfh0miU"></script>
-						
-					<div class="ibox">
-						<div class="ibox-title">
-							<h5>
-								<cfoutput>
-									<i class="fa fa-map-marker"></i> <span style="margin-left:5px;"><small>#fielddetail.fieldaddress1# #fielddetail.fieldaddress2# #fielddetail.fieldcity# #fielddetail.fieldstate# #fielddetail.fieldzip#</small></span>
-								</cfoutput>
-							</h5>						
-							<div class="ibox-tools">							
-								<a class="dropdown-toggle" data-toggle="dropdown" href="##">
-									<i class="fa fa-wrench"></i>
-								</a>							
-								<ul class="dropdown-menu dropdown-user">
-									<li><a href="">Get Directions</a></li>
-									<li><a href="">View in Google Maps</a></li>
-								</ul>							
-								
-							</div>
-						</div>
-						<div class="ibox-content">																
-							<div class="google-map" id="map1"></div>
-						</div>
-					</div>					
 					
+					<cfoutput>	
+						<div class="ibox">
+							<div class="ibox-title">
+								<h5>							
+									<i class="fa fa-map-marker"></i> <span style="margin-left:5px;"><small>#fielddetail.fieldaddress1# #fielddetail.fieldaddress2# #fielddetail.fieldcity# #fielddetail.fieldstate# #fielddetail.fieldzip#</small></span>
+								</h5>						
+								<div class="ibox-tools">							
+									<a class="dropdown-toggle" data-toggle="dropdown" href="##">
+										<i class="fa fa-wrench"></i>
+									</a>							
+									<ul class="dropdown-menu dropdown-user">
+										<li><a href="http://maps.google.com/maps?saddr=&daddr=#urlencodedformat(fielddetail.fieldaddress1)#+#fielddetail.fieldcity#+#fielddetail.stateabbr#+#fielddetail.fieldzip#" target="_blank">Get Directions</a></li>
+										<li><a href="http://maps.google.com/maps?saddr=#urlencodedformat(fielddetail.fieldaddress1)#+#fielddetail.fieldcity#+#fielddetail.stateabbr#+#fielddetail.fieldzip#" target="_blank">View in Google Maps</a></li>
+									</ul>							
+									
+								</div>
+							</div>
+							<div class="ibox-content">																
+								<div class="google-map" id="map1"></div>
+								<cfif fielddetail.fieldaddress1 neq "">
+									<br />
+									<a href="http://maps.google.com/maps?saddr=&daddr=#urlencodedformat(fielddetail.fieldaddress1)#+#fielddetail.fieldcity#+#fielddetail.stateabbr#+#fielddetail.fieldzip#" target="_blank"><i class="fa fa-map-marker"></i> Get Directions</a>
+								</cfif>				
+							</div>
+						</div>					
+					</cfoutput>
 					
 					
 					<!--- // google maps api --->												

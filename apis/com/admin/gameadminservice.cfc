@@ -41,11 +41,13 @@
 	
 	<cffunction name="gethometeam" access="public" returntype="query" output="false" hint="I get the home team organizations list.">
 		<cfargument name="conferenceid" type="numeric" required="yes">
+		<cfargument name="teamlevelid" type="numeric" required="no">
 			<cfset var hometeam = "" />
 			<cfquery name="hometeam">
 				   select distinct(teamorgname)
 					 from teams
 					where confid = <cfqueryparam value="#arguments.conferenceid#" cfsqltype="cf_sql_integer" />
+					  and teamlevelid = <cfqueryparam value="#arguments.teamlevelid#" cfsqltype="cf_sql_integer" />
 				 order by teamorgname asc
 			</cfquery>		
 		<cfreturn hometeam>
@@ -158,6 +160,38 @@
 			order by c.stateid, c.confname asc
 			</cfquery>
 		<cfreturn conferences>
+	</cffunction>
+	
+	<cffunction name="getnonconferences" output="false" returntype="query" access="remote" hint="I get the list of conferences.">
+		<cfargument name="stateid" type="numeric" required="yes" default="#session.stateid#">
+		<cfargument name="conferencetype" type="any" required="yes">
+		<cfargument name="conferenceid" type="numeric" required="yes">
+		<cfset var nonconferences = "" />
+			<cfquery name="nonconferences">
+			  select c.stateid, c.confid, c.confname  
+			    from dbo.conferences c, dbo.states s
+			   where c.stateid = s.stateid			            
+			     and c.stateid = <cfqueryparam value="#arguments.stateid#" cfsqltype="cf_sql_integer" />
+				 and c.conftype = <cfqueryparam value="#arguments.conferencetype#" cfsqltype="cf_sql_varchar" maxlength="2" />
+				 and c.confid <> <cfqueryparam value="#arguments.conferenceid#" cfsqltype="cf_sql_integer" />			
+			order by c.stateid, c.confname asc
+			</cfquery>
+		<cfreturn nonconferences>
+	</cffunction>
+	
+	<cffunction name="getnonconferenceawayteam" output="false" returntype="query" access="remote" hint="I get the non-conference away team list.">
+		<cfargument name="stateid" type="numeric" required="yes" default="#session.stateid#">		
+		<cfargument name="conferenceid" type="numeric" required="yes">
+		<cfset var nonconferenceawayteam = "" />
+			<cfquery name="nonconferenceawayteam">
+			  select distinct(t.teamorgname)
+					 from teams t, conferences c
+					where t.confid = c.confid
+					  and c.confid = <cfqueryparam value="#arguments.conferenceid#" cfsqltype="cf_sql_integer" />
+					  and c.stateid = <cfqueryparam value="#arguments.stateid#" cfsqltype="cf_sql_varchar" />                      					  
+				 order by t.teamorgname asc
+			</cfquery>
+		<cfreturn nonconferenceawayteam>
 	</cffunction>
 	
 	<cffunction name="getteams" output="false" returntype="query" access="remote" hint="I get the list of teams for the games manager.">
