@@ -47,7 +47,11 @@
 				   select distinct(teamorgname)
 					 from teams
 					where confid = <cfqueryparam value="#arguments.conferenceid#" cfsqltype="cf_sql_integer" />
-					  and teamlevelid = <cfqueryparam value="#arguments.teamlevelid#" cfsqltype="cf_sql_integer" />
+						<cfif structkeyexists( url, "fuseaction" )>
+							<cfif trim( url.fuseaction ) contains "game.custom">
+								and teamlevelid = <cfqueryparam value="#arguments.teamlevelid#" cfsqltype="cf_sql_integer" />
+							</cfif>
+						</cfif>
 				 order by teamorgname asc
 			</cfquery>		
 		<cfreturn hometeam>
