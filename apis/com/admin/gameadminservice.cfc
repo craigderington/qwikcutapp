@@ -48,7 +48,7 @@
 					 from teams
 					where confid = <cfqueryparam value="#arguments.conferenceid#" cfsqltype="cf_sql_integer" />
 						<cfif structkeyexists( url, "fuseaction" )>
-							<cfif trim( url.fuseaction ) contains "game.custom">
+							<cfif trim( url.fuseaction ) contains "game.custom.nc">
 								and teamlevelid = <cfqueryparam value="#arguments.teamlevelid#" cfsqltype="cf_sql_integer" />
 							</cfif>
 						</cfif>
