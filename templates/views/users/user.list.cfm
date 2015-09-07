@@ -18,6 +18,7 @@
 																<option value="" selected>Filter by Type</option>
 																<cfif isuserinrole( "admin" )>
 																<option value="admin"<cfif structkeyexists( form, "usertype" )><cfif trim( form.usertype ) eq "admin">selected</cfif></cfif>>Admin</option>
+																<option value="confadmin"<cfif structkeyexists( form, "usertype" )><cfif trim( form.usertype ) eq "confadmin">selected</cfif></cfif>>Conference Admin</option>
 																</cfif>
 																<option value="shooter"<cfif structkeyexists( form, "usertype" )><cfif trim( form.usertype ) eq "shooter">selected</cfif></cfif>>Shooter</option>
 																<option value="data"<cfif structkeyexists( form, "usertype" )><cfif trim( form.usertype ) eq "data">selected</cfif></cfif>>Data & Analytics</option>
@@ -79,6 +80,27 @@
 													</thead>
 													<tbody>
 														<cfoutput query="userlist">
+															<cfset cleanuserrole = trim( userlist.userrole )  />
+																
+																<!--- // print out the role, make it look nicer --->
+																<cfswitch expression="#cleanuserrole#">
+																	<cfcase value="admin">
+																		<cfset cleanuserrole = "Admin" />
+																	</cfcase>
+																	<cfcase value="confadmin">
+																		<cfset cleanuserrole = "Conference Admin">
+																	</cfcase>
+																	<cfcase value="data">
+																		<cfset cleanuserrole = "Data &amp; Analytics">
+																	</cfcase>
+																	<cfcase value="shooter">
+																		<cfset cleanuserrole = "Shooter">
+																	</cfcase>
+																	<cfdefaultcase>
+																		<cfset cleanuserrole = "Not Set">
+																	</cfdefaultcase>															
+																</cfswitch>
+														
 															<tr>
 																<cfif isuserinrole( "admin" )>
 																	<td>
@@ -91,7 +113,7 @@
 																<td>#firstname#</td>
 																<td>#lastname#</td>																										
 																<td>#email#</td>
-																<td>#userrole#</th>
+																<td>#cleanuserrole#</th>
 																<td><i class="fa fa-check text-primary"></i> <small>#dateformat( lastlogindate, "mm/dd/yyyy" )#</small></td>
 															</tr>
 														</cfoutput>																			 

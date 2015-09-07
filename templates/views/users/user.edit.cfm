@@ -16,7 +16,7 @@
                      <div class="ibox-content">
                             
 						<!--- // begin form processing --->
-									<cfif isDefined( "form.fieldnames" )>
+									<cfif structkeyexists( form, "fieldnames" ) and structkeyexists( form, "saveUserRecord" )>
 										<cfscript>
 											objValidation = createobject( "component","apis.udfs.validation" ).init();
 											objValidation.setFields( form );
@@ -150,6 +150,7 @@
 											<div class="col-md-4">				
 												<select class="form-control" multiple="true" name="userrole">
 													<option value="admin"<cfif trim( userdetail.userrole ) eq "admin">selected</cfif>>Admin</option>
+													<option value="confadmin"<cfif trim( userdetail.userrole ) eq "confadmin">selected</cfif>>Conference Admin</option>
 													<option value="shooter"<cfif trim( userdetail.userrole ) eq "shooter">selected</cfif>>Shooter</option>
 													<option value="data"<cfif trim( userdetail.userrole ) eq "data">selected</cfif>>Data & Analytics</option>
 													<option value="future-use"<cfif trim( userdetail.userrole ) eq "future-use">selected</cfif>>Future Use</option>
@@ -179,7 +180,7 @@
 										<div class="hr-line-dashed" style-="margin-top:15px;"></div>
 										<div class="form-group">
 											<div class="col-lg-offset-2 col-lg-10">
-												<button class="btn btn-primary" type="submit" name="stateUserRecord"><i class="fa fa-save"></i> Save User</button>
+												<button class="btn btn-primary" type="submit" name="saveUserRecord"><i class="fa fa-save"></i> Save User</button>
 												<a href="#application.root#admin.users" class="btn btn-default"><i class="fa fa-remove"></i> Cancel</a>																		
 												<input type="hidden" name="userid" value="#userdetail.userid#" />
 												<input type="hidden" name="username" value="#userdetail.username#" />
