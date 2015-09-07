@@ -38,5 +38,16 @@
 				</cfquery>
 		<cfreturn conference>
 	</cffunction>
+	
+	<cffunction name="getconferencedetail" output="false" returntype="query" access="remote" hint="I get the conference detail for the selected.">
+		<cfargument name="id" type="numeric" required="yes">
+			<cfset var conferencedetail = "" />
+				<cfquery name="conferencedetail">
+					 select c.confid, c.confname       
+					   from dbo.conferences c
+					  where c.confid = <cfqueryparam value="#arguments.id#" cfsqltype="cf_sql_integer" /> 
+				</cfquery>
+		<cfreturn conferencedetail>
+	</cffunction>
 			
 </cfcomponent>
