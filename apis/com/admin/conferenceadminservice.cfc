@@ -43,7 +43,7 @@
 		<cfargument name="id" type="numeric" required="yes">
 			<cfset var conferencedetail = "" />
 				<cfquery name="conferencedetail">
-					 select c.confid, c.confname       
+					 select c.confid, c.confname, c.conftype, c.stateid, c.confactive       
 					   from dbo.conferences c
 					  where c.confid = <cfqueryparam value="#arguments.id#" cfsqltype="cf_sql_integer" /> 
 				</cfquery>
