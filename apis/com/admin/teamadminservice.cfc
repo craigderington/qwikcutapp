@@ -40,6 +40,7 @@
 					<cfif structkeyexists( arguments, "stateid" )>
 						and s.stateid = <cfqueryparam value="#arguments.stateid#" cfsqltype="cf_sql_integer" />
 					</cfif>
+					
 			 order by c.confid, t.teamname, tl.teamlevelid asc
 		</cfquery>
 		<cfreturn teamlist>
@@ -96,6 +97,36 @@
 		  order by tl.teamlevelid asc
 		</cfquery>
 		<cfreturn teamlevels>
+	</cffunction>
+	
+	<cffunction name="getconferenceteams" access="remote" output="false" hint="I get the list of teams for conference admins.">
+		<cfargument name="stateid" type="numeric" required="no">
+		<cfargument name="conferenceid" type="numeric" required="yes" default="0">
+		<cfset var teamlist = "" />
+		<cfquery name="conferenceteamlist">
+			select distinct(t.teamorgname), count(t.teamid) as totalteams       
+			 from teams t, conferences c
+			where t.confid = c.confid             
+			  and t.confid = <cfqueryparam value="#arguments.conferenceid#" cfsqltype="cf_sql_integer" />
+			group by t.teamorgname
+			order by t.teamorgname asc
+		</cfquery>
+		<cfreturn conferenceteamlist>
+	</cffunction>
+	
+	<cffunction name="getteamsbyname" access="remote" output="false" hint="I get the teams by team level.">
+		<cfargument name="teamname" type="any" required="yes">		
+		<cfargument name="conferenceid" type="numeric" required="yes" default="0">
+		<cfset var teamslist = "" />
+		<cfquery name="teamslist">
+			select t.teamid, t.teamname, t.teammascot, t.teamlevelid, tl.teamlevelname
+			  from teams t, teamlevels tl
+			  where t.teamlevelid = tl.teamlevelid
+			    and t.confid = <cfqueryparam value="#arguments.conferenceid#" cfsqltype="cf_sql_integer" />
+				and t.teamorgname like <cfqueryparam value="#trim( arguments.teamname )#%" cfsqltype="cf_sql_varchar" />
+			order by t.teamlevelid, t.teamname
+		</cfquery>
+		<cfreturn teamslist>
 	</cffunction>
 	
 

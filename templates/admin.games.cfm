@@ -22,7 +22,7 @@
 					<div class="container">
 					
 							<!--- // check the users role --->
-							<cfif isuserinrole( "admin" )>	
+							<cfif isuserinrole( "admin" ) or isuserinrole( "confadmin" )>	
 								
 								<!-- // include the page heading --->
 								<cfinclude template="views/games-admin-page-heading.cfm">

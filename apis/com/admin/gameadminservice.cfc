@@ -121,6 +121,7 @@
 	</cffunction>
 	
 	<cffunction name="searchgames" access="remote" output="false" hint="I get the games.">
+		<cfargument name="conferencid" type="numeric" required="no">
 		<cfargument name="searchvartype" type="any" required="yes">
 		<cfargument name="searchvar" type="any" required="yes">
 			<cfset var gamesearchresults = "" />
@@ -139,6 +140,9 @@
 							( v.hometeam LIKE <cfqueryparam value="#arguments.searchvar#%" cfsqltype="cf_sql_varchar" /> 
 						     OR v.awayteam LIKE <cfqueryparam value="#arguments.searchvar#%" cfsqltype="cf_sql_varchar" />
 							 )
+						</cfif>
+						<cfif isuserinrole( "confadmin" )>
+							and c.confid = <cfqueryparam value="#arguments.conferenceid#" cfsqltype="cf_sql_integer" />
 						</cfif>
 			  group by v.vsid, v.hometeam, v.awayteam, v.gamedate, c.confname 					  
 			</cfquery>
@@ -225,6 +229,7 @@
 	
 	<cffunction name="getteamgames" output="false" returntype="query" access="remote" hint="I get the team game schedule.">
 		<cfargument name="teamid" type="numeric" required="yes" default="#url.teamid#">
+		<cfargument name="conferenceid" type="numeric" required="no">
 		<cfargument name="stateid" type="numeric" required="yes" default="#session.stateid#">
 		<cfset var teamgames = "" />
 			<cfquery name="teamgames">
@@ -247,7 +252,11 @@
 							or
 							
 							t2.teamid = <cfqueryparam value="#arguments.teamid#" cfsqltype="cf_sql_integer" />
-						)			
+						)
+					<cfif isuserinrole( "confadmin" )>
+					    and t1.confid = <cfqueryparam value="#arguments.conferenceid#" cfsqltype="cf_sql_integer" />
+					</cfif>
+				order by g.gameid, g.gamedate asc
 			</cfquery>					
 		<cfreturn teamgames>
 	</cffunction>

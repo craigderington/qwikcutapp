@@ -27,7 +27,10 @@
 							
 							<!--- // admin user dashboard --->
 							<cfif isuserinrole( "admin" )>								
-								<cfinclude template="admin.dashboard.cfm">					
+								<cfinclude template="admin.dashboard.cfm">
+							<!--- // conference admin --->
+							<cfelseif isuserinrole( "confadmin" )>								
+								<cfinclude template="admin.conference.dashboard.cfm">
 							<!--- // data & analytics user dashboard --->
 							<cfelseif isuserinrole( "data" )>							
 								<cfinclude template="data.dashboard.cfm">							

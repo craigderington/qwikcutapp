@@ -29,7 +29,7 @@
 					<div class="row">
 						<div class="ibox-title">
 							<h5><i class="fa fa-video-camera"></i> Game Shooters</h5>
-							<cfif isuserinrole( "admin" )>
+							<cfif isuserinrole( "admin" ) or isuserinrole( "confadmin" )>
 								<cfif structkeyexists( url, "manage" )>
 									<span class="pull-right">
 										<a href="#application.root##url.event#&fuseaction=#url.fuseaction#" class="btn btn-xs btn-success"><i class="fa fa-video-camera"></i> Finished Assignments</a>

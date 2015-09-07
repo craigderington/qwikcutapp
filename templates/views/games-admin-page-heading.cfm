@@ -12,9 +12,11 @@
 								<li>
 									<a href="#application.root#user.home">Home</a>
 								</li>
+								<cfif isuserinrole( "admin" )>
 								<li>
 									<a href="#application.root#admin.home">Administration</a>
 								</li>
+								</cfif>
 								<li class="active">
 									<strong>Games</strong>
 								</li>
