@@ -2,7 +2,8 @@
 
 			<!--- Scope the URL variable --->
 			<cfparam name="user.role" default="shooter">
-
+			
+			
 			<cfoutput>
 					
 				<div class="ibox float-e-margins">
@@ -42,6 +43,13 @@
 												<cfset user.confirmpassword = "" />												
 											</cfif>
 											
+											<!--- // form conf admin --->
+											<cfif trim( user.role ) eq "confadmin">											
+												<cfif structkeyexists( form, "conferenceid" )>
+													<cfset user.conferenceid = form.conferenceid />
+												</cfif>
+											</cfif>
+											
 											<!--- // get user roles + acl value --->
 											<cfswitch expression="#user.role#">
 												<cfcase value="admin">
@@ -78,9 +86,12 @@
 														   email = <cfqueryparam value="#user.email#" cfsqltype="cf_sql_varchar" maxlength="50" />,													   
 														   userrole = <cfqueryparam value="#user.role#" cfsqltype="cf_sql_varchar" maxlength="50" />,
 														   useracl = <cfqueryparam value="#user.acl#" cfsqltype="cf_sql_numeric" />
-														   <cfif trim( user.password ) neq "">
+														<cfif trim( user.password ) neq "">
 															, password = <cfqueryparam value="#hash( user.password, "SHA-384", "UTF-8" )#" cfsqltype="cf_sql_clob" maxlength="128" />
-														   </cfif>
+														</cfif>
+														<cfif structkeyexists( form, "conferenceid" )>
+														   , confid = <cfqueryparam value="#user.conferenceid#" cfsqltype="cf_sql_integer" />
+														</cfif>
 													 where userid = <cfqueryparam value="#user.userid#" cfsqltype="cf_sql_integer" />														
 												</cfquery>
 
@@ -158,6 +169,21 @@
 												<span class="help-block m-b-none">Please select the system role of the user.</span>
 											</div>
 										</div>
+										
+										<!--- // add to accomodate conference admins --->
+										<cfif trim( userdetail.userrole ) eq "confadmin">
+											<div class="form-group">
+												<label class="col-md-2 control-label">Assigned Conference</label>
+												<div class="col-md-4">				
+													<select class="form-control" name="conferenceid">
+														<option value="">Select Conference</option>
+														<cfloop query="conferencelist">
+															<option value="#confid#"<cfif userdetail.confid eq conferencelist.confid>selected</cfif>>#confname#</option>
+														</cfloop>
+													</select>
+												</div>
+											</div>										
+										</cfif>
 										
 										<hr class="hr-line-dashed">
 										

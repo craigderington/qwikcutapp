@@ -44,7 +44,7 @@
 													<cfset user.acl = 9 />
 												</cfcase>
 												<cfcase value="confadmin">
-													<cfset acl = 7 />
+													<cfset user.acl = 7 />
 												</cfcase>
 												<cfcase value="shooter">
 													<cfset user.acl = 5 />

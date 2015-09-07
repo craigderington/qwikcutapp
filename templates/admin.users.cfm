@@ -16,6 +16,11 @@
 					<cfinvoke component="apis.com.admin.useradminservice" method="getuserdetail" returnvariable="userdetail">
 						<cfinvokeargument name="userid" value="#url.id#">
 					</cfinvoke>
+					<cfif trim( userdetail.userrole ) eq "confadmin">
+						<cfinvoke component="apis.com.admin.conferenceadminservice" method="getconferences" returnvariable="conferencelist">
+							<cfinvokeargument name="stateid" value="#session.stateid#">
+						</cfinvoke>
+					</cfif>
 				</cfif>
 			</cfif>
 		</cfif>

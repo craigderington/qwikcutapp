@@ -13,7 +13,11 @@
 				      from dbo.users, dbo.usersettings
 					 where dbo.users.userid = dbo.usersettings.userid 
 				    <cfif not structkeyexists( form, "filterresults" )>
-						and userrole = <cfqueryparam value="admin" cfsqltype="cf_sql_varchar" />   
+						and ( 
+							  userrole = <cfqueryparam value="admin" cfsqltype="cf_sql_varchar" />
+							or 
+							  userrole = <cfqueryparam value="confadmin" cfsqltype="cf_sql_varchar" />
+							)
 				    <cfelse>
 						<cfif structkeyexists( form, "usertype" ) and trim( form.usertype ) neq "">
 						and userrole = <cfqueryparam value="#trim( form.usertype )#" cfsqltype="cf_sql_varchar" />
@@ -31,7 +35,7 @@
 		<cfargument name="id" type="numeric" required="yes" default="#url.id#">
 			<cfset var userdetail = "" />
 				<cfquery name="userdetail">
-					select userid, username, firstname, lastname, password, confid, lastloginip, lastlogindate, email, userrole, useracl
+					select userid, confid, username, firstname, lastname, password, confid, lastloginip, lastlogindate, email, userrole, useracl
 					  from dbo.users
 					 where userid = <cfqueryparam value="#arguments.id#" cfsqltype="cf_sql_integer" /> 
 				</cfquery>

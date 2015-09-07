@@ -113,7 +113,7 @@
 																<td>#firstname#</td>
 																<td>#lastname#</td>																										
 																<td>#email#</td>
-																<td>#cleanuserrole#</th>
+																<td>#cleanuserrole# <cfif trim( userrole ) eq "confadmin" and userlist.confid eq 0><span class="label label-danger">Conference Not Set</span></cfif></th>
 																<td><i class="fa fa-check text-primary"></i> <small>#dateformat( lastlogindate, "mm/dd/yyyy" )#</small></td>
 															</tr>
 														</cfoutput>																			 
