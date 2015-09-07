@@ -28,17 +28,15 @@
 		<cfreturn conferencelist>
 	</cffunction>
 			
-	<cffunction name="getconferencedetail" output="false" returntype="query" access="remote" hint="I get the conference detail.">
-		<cfargument name="id" type="numeric" required="yes" default="#url.id#">
-			<cfset var conferencedetail = "" />
-				<cfquery name="conferencedetail">
-					 select c.stateid, c.confid, c.confname, c.conftype, c.confactive, 
-							s.statename, s.stateabbr            
-					   from dbo.conferences c, dbo.states s
-					  where c.stateid = s.stateid
-					    and c.confid = <cfqueryparam value="#arguments.id#" cfsqltype="cf_sql_integer" /> 
+	<cffunction name="getadminconferencename" output="false" returntype="query" access="remote" hint="I get the conference name for the conference admin.">
+		<cfargument name="id" type="numeric" required="yes">
+			<cfset var conference = "" />
+				<cfquery name="conference">
+					 select c.confname         
+					   from dbo.conferences c
+					  where c.confid = <cfqueryparam value="#arguments.id#" cfsqltype="cf_sql_integer" /> 
 				</cfquery>
-		<cfreturn conferencedetail>
-	</cffunction>			
+		<cfreturn conference>
+	</cffunction>
 			
 </cfcomponent>

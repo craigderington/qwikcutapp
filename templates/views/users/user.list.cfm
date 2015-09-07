@@ -113,7 +113,24 @@
 																<td>#firstname#</td>
 																<td>#lastname#</td>																										
 																<td>#email#</td>
-																<td>#cleanuserrole# <cfif trim( userrole ) eq "confadmin" and userlist.confid eq 0><span class="label label-danger">Conference Not Set</span></cfif></th>
+																<td><cfif trim( userrole ) eq "confadmin">
+																		<cfif userlist.confid eq 0>
+																			<span class="label label-danger">Conference Not Set</span>
+																		<cfelse>
+																			<cfinvoke component="apis.com.admin.conferenceadminservice" method="getadminconferencename" returnvariable="conference">
+																				<cfinvokeargument name="id" value="#userlist.confid#">
+																			</cfinvoke>
+																			<span class="label">#conference.confname# Admin</span>
+																		</cfif>
+																	<cfelseif trim( userrole ) eq "admin">
+																		<span class="label label-info">#cleanuserrole#</span>
+																	<cfelseif trim( userrole ) eq "data">
+																		<span class="label label-warning">#cleanuserrole#</span>
+																	<cfelseif trim( userrole ) eq "shooter">
+																		<span class="label label-success">#cleanuserrole#</span>
+																	<cfelse>
+																		<span class="label label-danger">Unknown</span>
+																	</cfif></th>
 																<td><i class="fa fa-check text-primary"></i> <small>#dateformat( lastlogindate, "mm/dd/yyyy" )#</small></td>
 															</tr>
 														</cfoutput>																			 
