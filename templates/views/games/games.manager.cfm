@@ -40,7 +40,9 @@
 									<a style="margin-right:5px;" href="#application.root##url.event#&fuseaction=game.schedule" class="btn btn-xs btn-primary btn-outline"><i class="fa fa-plus-circle"></i> Create Game Schedule</a>
 								<cfelse>
 									<a href="#application.root#user.home" class="btn btn-xs btn-success btn-outline"><i class="fa fa-play-circle"></i> Finished</a>
-									<a style="margin-right:5px;" href="#application.root#team.games" class="btn btn-xs btn-primary btn-outline"><i class="fa fa-arrow-circle-left"></i> Return to Team Games</a>
+									<cfif structkeyexists( session, "teamname" )>
+										<a style="margin-right:5px;" href="#application.root#team.games" class="btn btn-xs btn-primary btn-outline"><i class="fa fa-arrow-circle-left"></i> Return to Team Games</a>
+									</cfif>
 								</cfif>
 							</span>
 						</div>
