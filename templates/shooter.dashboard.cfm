@@ -24,7 +24,7 @@
 										<a href="#application.root#user.settings" class="btn btn-xs btn-default btn-outline" style="margin-left:5px;"><i class="fa fa-cog"></i> My Settings</a>
 									</span>								
 								</div>							
-								<div class="ibox-content" style="min-height:300px;">									
+								<div class="ibox-content" style="min-height:600px;">									
 									<div class="col-md-6">
 										<cfinclude template="views/shooters/shooter-assignments.cfm">
 									</div>									
