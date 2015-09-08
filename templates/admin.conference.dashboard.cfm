@@ -87,41 +87,41 @@
 														</cfinvoke>
 											
 														<cfif gamesearchresults.recordcount gt 0>
-												
-															<div class="row" style="margin-top:20px;">												
-																<div class="table-responsive">													
-																	<h4 class="text-success"><i class="fa fa-th-list"></i> Search Results | #gamesearchresults.recordcount# game<cfif gamesearchresults.recordcount gt 1>s</cfif> found.  Click Go to View Details.</h4>
-														
-																	<table class="table table-bordered table-hover table-striped">
-																		<thead>
-																			<tr>
-																				<th class="text-center">Go</th>
-																				<th>Teams</th>
-																				<th>Conference</th>
-																				<th>Date</th>
-																				<th>Game Count</th>
-																			</tr>
-																		</thead>
-																		<tbody>
-																			<cfoutput query="gamesearchresults">
+															<div class="col-md-12">
+																<div class="row" style="margin-top:20px;">												
+																	<div class="table-responsive">													
+																		<h4 class="text-success"><i class="fa fa-th-list"></i> Search Results | #gamesearchresults.recordcount# game<cfif gamesearchresults.recordcount gt 1>s</cfif> found.  Click Go to View Details.</h4>
+															
+																		<table class="table table-bordered table-hover table-striped">
+																			<thead>
 																				<tr>
-																					<td class="text-center text-primary"><a href="#application.root##url.event#&fuseaction=games.filter&vsid=#vsid#"><i class="fa fa-play-circle fa-2x"></i></a></td>
-																					<td>#trim( awayteam )# <i>vs.</i> <strong>#trim( hometeam )#</strong></td>
-																					<td>#confname#</td>
-																					<td>#dateformat( gamedate, "mm-dd-yyyy" )#</td>
-																					<td><span class="label label-warning">#totalgames#</span></td>
+																					<th class="text-center">Go</th>
+																					<th>Teams</th>
+																					<th>Conference</th>
+																					<th>Date</th>
+																					<th>Game Count</th>
 																				</tr>
-																			</cfoutput>													
-																		</tbody>
-																		<tfoot>
-																			<tr>
-																				<td colspan="5"><span class="help-block"><i class="fa fa-exclamation-circle"></i><small> Home teams shown in bold.</small></span></td>
-																			</tr>
-																		</tfoot>
-																	</table>
+																			</thead>
+																			<tbody>
+																				<cfoutput query="gamesearchresults">
+																					<tr>
+																						<td class="text-center text-primary"><a href="#application.root##url.event#&fuseaction=games.filter&vsid=#vsid#"><i class="fa fa-play-circle fa-2x"></i></a></td>
+																						<td>#trim( awayteam )# <i>vs.</i> <strong>#trim( hometeam )#</strong></td>
+																						<td>#confname#</td>
+																						<td>#dateformat( gamedate, "mm-dd-yyyy" )#</td>
+																						<td><span class="label label-warning">#totalgames#</span></td>
+																					</tr>
+																				</cfoutput>													
+																			</tbody>
+																			<tfoot>
+																				<tr>
+																					<td colspan="5"><span class="help-block"><i class="fa fa-exclamation-circle"></i><small> Home teams shown in bold.</small></span></td>
+																				</tr>
+																			</tfoot>
+																		</table>
+																	</div>
 																</div>
 															</div>
-												
 														<cfelse>												
 															<br />
 															<div style="padding:20px;" style="margin-top:25px;">
