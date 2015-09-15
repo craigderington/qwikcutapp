@@ -1,13 +1,32 @@
 
 
+
+
 		
 		
 		
+		<cfset today = now() />	
+		
+		<cfif structkeyexists( session, "cart_id" )>
+			<cfinvoke component="apis.com.store.storeservice" method="getcart" returnvariable="cartItemList">
+				<cfinvokeargument name="cartid" value="#session.cart_id#">
+			</cfinvoke>
+		<cfelse>
+			<cflocation url="index.cfm?error=1" addtoken="yes">
+		</cfif>
 		
 		
+		<cfif structkeyexists( url, "fuseaction" ) and structkeyexists( url, "rcid" )>	
+			<cfset cartitemid = url.rcid />			
+			<cfif trim( url.fuseaction ) eq "removeItem" and isnumeric( url.rcid )>
+				<cfquery name="killstorecartitem">
+					delete from cart_items
+					 where cart_item_id = <cfqueryparam value="#cartitemid#" cfsqltype="cf_sql_integer" />
+				</cfquery>
+				<cflocation url="cart.cfm" addtoken="no">
+			</cfif>
+		</cfif>
 		
-		
-		<cfset today = now() />
 
 
 		<!doctype html>
@@ -68,6 +87,17 @@
 											<li class="active">
 												<a aria-expanded="false" role="button" href="index.cfm"> Game Video Store</a>
 											</li>
+										</ul>
+										<ul class="nav navbar-nav pull-right">
+											<li>
+												<cfif structkeyexists( session, "cart_id" )>
+													<cfinvoke component="apis.com.store.storeservice" method="getcartcount" returnvariable="cartcount">
+														<cfinvokeargument name="cartid" value="#session.cart_id#">
+													</cfinvoke>													
+													<a href="cart.cfm"><i class="fa fa-shopping-cart"></i> My Cart &nbsp; <span style="margin-left;5px;" class="label label-primary"> #cartcount.totalitems#</span></a>
+												</cfif>
+											</li>
+											
 										</ul>												
 									</div>
 								</nav>
@@ -77,49 +107,76 @@
 								<div class="container">
 									<div class="row" style="margin-top:20px;">
 										<div class="col-md-12">
-											<cfif structkeyexists( url, "error" )>
-												<cfif url.error eq 1>
-													<div class="alert alert-danger alert-dismissable">
-														<button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
-														<h5><i class="fa fa-warning"></i> Store Error!</h5>
-														<p>No valid cart session ID...</p>
-													</div>
-												<cfelseif url.error eq 12>
-													<div class="alert alert-danger alert-dismissable">
-														<button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
-														<h5><i class="fa fa-warning"></i> Store Error!</h5>
-														<p>No valid order session ID...</p>
-													</div>												
-												</cfif>											
-											</cfif>
-											
-											
-											
 											<div class="ibox">
 												<div class="ibox-title">
-													<h5><i class="fa fa-shopping-cart"></i> QwikCut | Game Video Store</h5>
+													<h5><i class="fa fa-shopping-cart"></i> QwikCut | Game Video Store | Your Game Video Cart </h5>
 													<span class="pull-right">
-														<a href="search.cfm" style="margin-right:5px;" class="btn btn-xs btn-default btn-outline"><i class="fa fa-play-circle"></i> Search Games</a>
-														<a href="search.cfm" style="margin-right:5px;" class="btn btn-xs btn-success btn-outline"><i class="fa fa-search"></i> Search Teams</a>
+														<a href="index.cfm" style="margin-right:5px;" class="btn btn-xs btn-success btn-outline"><i class="fa fa-home"></i> Store Home</a>
+														<a href="search.cfm" style="margin-right:5px;" class="btn btn-xs btn-default btn-outline"><i class="fa fa-play-circle"></i> Search Games</a>														
 														<a href="cart.cfm" class="btn btn-xs btn-primary btn-outline"><i class="fa fa-video-camera"></i> Video Cart</a>
 													</span>
 												</div>
 												<div class="ibox-content ibox-heading border-bottom text-center text-navy">
-													<h3><strong>Game Video &amp; Analytics</strong></h3>
-													<p>Find Your Game Clip!</p>
+													<h3><strong>Your Game Video Cart</strong></h3>
+													<cfif cartItemList.recordcount gt 0>
+													<p>To continue, click Checkout or Continue Shopping</p>
+													</cfif>
 												</div>
-												<div class="ibox-content" style="min-height:600px;">
+												<div class="ibox-content">				
+													<cfparam name="carttotal" default="0">
 													
-														<div class="col-md-4 animated fadeInRight">
-															<cfinclude template="search-home.cfm">								
+													<cfif cartItemList.recordcount gt 0>
+													
+														<div class="table-responsive">
+															<table class="table table-hover" >
+																<thead>
+																	<tr>
+																		<th>Item</th>
+																		<th>Description</th>
+																		<th>Quantity</th>
+																		<th>Price</th>
+																		<th>Total</th>
+																		<th>Actions</th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<cfloop query="cartItemList">
+																		<tr class="m-b">
+																			<td><strong>#cart_item#</strong></td>
+																			<td>#cart_item_descr#</td>
+																			<td>#cart_item_qty#</td>
+																			<td>#dollarformat( cart_item_price )#</td>
+																			<td>#dollarformat( cart_item_total )#</td>
+																			<td><a href="cart.cfm?fuseaction=removeItem&rcid=#cart_item_id#" onclick="return confirm('Are you sure you want to remove the selected cart item from your shopping cart?');" class="btn btn-sm btn-default btn-outline"><i class="fa fa-times-circle"></i></a></td>
+																		</tr>
+																		<cfset carttotal = carttotal + cart_item_total />
+																	</cfloop>
+																</tbody>
+																<tfoot>																
+																	<tr>
+																		<td colspan="3"><small>#cartcount.totalitems# item<cfif cartcount.totalitems gt 1>s</cfif> in your cart.</small></td>
+																		<td><span class="pull-right"><strong>Cart Total:</strong></span></td>
+																		<td class="text-navy"><strong>#dollarformat( carttotal )#</strong></td>
+																		<td>&nbsp</td>
+																	</tr>																
+																</tfoot>
+															</table>
+															<br />
+															<span class="pull-right"><a style="margin-right:5px;" href="games.cfm" class="btn btn-md btn-success"><i class="fa fa-shopping-cart"></i> Continue Shopping?</a> <a href="checkout.cfm" class="btn btn-md btn-primary"><i class="fa fa-check-circle-o"></i> Check Out</a></span>
 														</div>
-														<div class="col-md-4 animated fadeInRight">
-															<cfinclude template="games-recent.cfm">
+													
+													<cfelse>
+													
+														<div class="alert alert-danger alert-dismissable">
+															<button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
+															<h5><i class="fa fa-warning"></i> Store Error!</h5>
+															<p>Your cart is empty...</p>
 														</div>
-														<div class="col-md-4 animated fadeInRight">
-															<cfinclude template="latest-uploads.cfm">
-														</div>
-													</div>
+													
+													</cfif>
+													
+													
+													
 													
 												</div>
 											</div>

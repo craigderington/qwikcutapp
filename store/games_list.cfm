@@ -5,29 +5,27 @@
 			
 		
 		
+			<cfset myref = cgi.http_referer />
+		
+			<cfif structkeyexists( url, "fuseaction" )>
+				<cfif structkeyexists( url, "vsid" )>
+					<cfset vsid = url.vsid />
+					<cfset session.vsid = url.vsid />
+					<cflocation url="games.cfm" addtoken="no">
+				</cfif>
+			</cfif>
 		
 		
 		
-		
-		
-		
-			<cfif structkeyexists( url, "cid" ) and structkeyexists( url, "fuseaction" )>
-				<cfif isnumeric( url.cid ) and trim( url.fuseaction ) eq "getteams">
-					<cfinvoke component="apis.com.store.storegameservice" method="getteams" returnvariable="teamlist">
-						<cfinvokeargument name="conferenceid" value="#url.cid#">
+			<cfif structkeyexists( url, "team_id" )>
+				<cfif isnumeric( url.team_id )>
+					<cfset teamid = url.team_id />
+					<cfinvoke component="apis.com.store.storegameservice" method="getteambyid" returnvariable="teaminfo">
+						<cfinvokeargument name="teamid" value="#teamid#">
 					</cfinvoke>
-					<cfinvoke component="apis.com.store.storegameservice" method="getconference" returnvariable="conferencename">
-						<cfinvokeargument name="conferenceid" value="#url.cid#">
+					<cfinvoke component="apis.com.store.storegameservice" method="getgamesbyteam" returnvariable="teamgames">
+						<cfinvokeargument name="teamid" value="#teamid#">
 					</cfinvoke>
-					
-					<cfif structkeyexists( url, "team_org_name" )>
-						<cfset teamorgname = trim( url.team_org_name ) />
-						<cfinvoke component="apis.com.store.storegameservice" method="getteamsbyname" returnvariable="teams">
-							<cfinvokeargument name="teamorgname" value="#teamorgname#">
-						</cfinvoke>
-					</cfif>
-					
-					
 					
 				<cfelse>
 					<div class="row">
@@ -38,7 +36,7 @@
 					</div>
 				</cfif>
 			<cfelse>
-				<div class="row">
+				<div class="row" style="margin-top:40px;">
 					<div class="alert alert-danger">
 						<h5>System Error!</h5>
 						<p>Sorry, the search query structure is malformed and the operation can not be completed... </p>
@@ -137,81 +135,64 @@
 										<div class="col-md-12">
 											<div class="ibox">
 												<div class="ibox-title">
-													<h5><i class="fa fa-shopping-cart"></i> QwikCut | Game Video Store  <a href="index.cfm" style="margin-left: 5px;" class="btn btn-xs btn-white"><i class="fa fa-refresh"></i> Reset</a></h5>
+													<h5><i class="fa fa-shopping-cart"></i> QwikCut | Game Video Store  <a href="#myref#" style="margin-left: 5px;" class="btn btn-xs btn-white"><i class="fa fa-refresh"></i> Reset</a></h5>
 													<span class="pull-right">
 														<a href="index.cfm" style="margin-right:5px;" class="btn btn-xs btn-success btn-outline"><i class="fa fa-home"></i> Store Home</a>
 														<a href="search.cfm" style="margin-right:5px;" class="btn btn-xs btn-default btn-outline"><i class="fa fa-play-circle"></i> Search Games</a>														
 														<a href="cart.cfm" class="btn btn-xs btn-primary btn-outline"><i class="fa fa-video-camera"></i> Video Cart</a>
 													</span>
 												</div>
-												<div class="ibox-content ibox-heading border-bottom text-center text-navy">
-													
-													<cfif structkeyexists( url, "team_org_name" )>
-														<h3><strong>#teams.teamorgname# Search Results</strong></h3>
-														<p>Select a team's division to view individual games.</p>
-													<cfelse>
-														<h3><strong>#conferencename.confname# Team Search Results</strong></h3>
-														<p>Select a team organization to view individual divisions.</p>
-													</cfif>
+												<div class="ibox-content ibox-heading border-bottom text-center text-navy">										
+													<h3><strong>#trim( teaminfo.teamorgname )# Games List</strong></h3>
+													<p>Select an individual game to add game to your video cart.</p>													
 												</div>
 												<div class="ibox-content">										
 													<div class="table-responsive">
 														
-														<cfif structkeyexists( url, "team_org_name" )>
-														
+														<cfif teamgames.recordcount gt 0>
+															
+															<div class="alert alert-success alert-dismissable">
+																<button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
+																<p><a class="alert-link" href="games.cfm?add_to_cart=true&option=pro">QwikCut Pro Option</a><span class="pull-right"><a href="games.cfm?add_to_cart=true&option=pro" class="btn btn-sm btn-success"><i class="fa fa-shopping-cart"></i> Add to Cart</a></span></p>
+																<p>Get access to every game, every week for all teams in the selected conference and division.</p>
+															</div>
+															
 															<table class="table table-striped table-hover" >
 																<thead>
 																	<tr>
-																		<th>Select</th>
-																		<th>Team Name</th>																	
+																		<th>Game ID</th>
+																		<th>Game Date</th>																	
 																		<th>Division</th>
-																		<th>Status</th>
+																		<th>Teams</th>
+																		<th>Field</th>
+																		<th>Actions</th>
 																	</tr>
 																</thead>
 																<tbody>
-																	<cfloop query="teams">
+																	<cfloop query="teamgames">
 																		<tr>
-																			<td><a href="games_list.cfm?team_id=#teamid#"><i class="fa fa-trophy fa-2x text-navy"></a></td>
-																			<td><a href="games_list.cfm?team_id=#teamid#"><strong>#teamorgname#</strong></a></td>																		
-																			<td class="center"><span class="label label-success">#teamlevelname#</td>
-																			<td class="center"><i class="fa fa-check-circle-o text-primary fa-2x"></i></td>
+																			<td><a href="#cgi.script_name#?fuseaction=getgames&vsid=#vsid#">#gameid#</a></td>
+																			<td>#dateformat( gamedate, "mm-dd-yyyy" )#</td>																		
+																			<td><span class="label label-success">#teamlevelname#</td>
+																			<td>#awayteam# <i>vs.</i> #hometeam#</td>
+																			<td>#fieldname# Field</td>
+																			<td></td>
 																		</tr>
 																	</cfloop>
 																</tbody>
 																<tfoot>
 																	<tr>
-																		<td colspan="4"><small>Showing #teams.recordcount# team divisions for #teams.teamname#.</small><span class="pull-right"><a href="index.cfm" class="btn btn-xs btn-white"><i class="fa fa-refresh"></i> Reset</a></span></td>
+																		<td colspan="6"><small>Showing #teamgames.recordcount# game<cfif teamgames.recordcount gt 1>s</cfif> for #teaminfo.teamorgname# - #teaminfo.teamlevelname#</small><span class="pull-right"><a href="#myref#" class="btn btn-xs btn-white"><i class="fa fa-refresh"></i> Reset</a></span></td>
 																	</tr>
 																</tfoot>
 															</table>
 														
 														<cfelse>
 														
-															<table class="table table-striped table-hover" >
-																<thead>
-																	<tr>
-																		<th>Select</th>
-																		<th>Team Name</th>																	
-																		<th>Team Count</th>
-																		<th>Status</th>
-																	</tr>
-																</thead>
-																<tbody>
-																	<cfloop query="teamlist">
-																		<tr>
-																			<td><a href="team_results.cfm?cid=#url.cid#&fuseaction=getteams&team_org_name=#trim( teamorgname )#"><i class="fa fa-trophy fa-2x text-navy"></a></td>
-																			<td><a href="team_results.cfm?cid=#url.cid#&fuseaction=getteams&team_org_name=#trim( teamorgname )#"><strong>#teamorgname#</strong></a></td>																		
-																			<td class="center">#totalteams#</td>
-																			<td class="center"><i class="fa fa-check-circle-o text-primary fa-2x"></i></td>
-																		</tr>
-																	</cfloop>
-																</tbody>
-																<tfoot>
-																	<tr>
-																		<td colspan="4"><small>Showing #teamlist.recordcount# team organizations.</small><span class="pull-right"><a href="index.cfm" class="btn btn-xs btn-white"><i class="fa fa-refresh"></i> Reset</a></span></td>
-																	</tr>
-																</tfoot>
-															</table>
+															<div class="alert alert-danger">
+																<h5>Sorry, No Games Found!</h5>
+																<p>The selected team and division does not have any scheduled games to display. Please <a href="javascript:history.back(-1);">click here</a> to return to the previous page.</p>
+															</div>
 														
 														</cfif>
 														
@@ -259,38 +240,12 @@
 		<!-- custom and plugin javascript -->
 		<script src="../js/inspinia.js"></script>		
 		
-		<!-- date picker -->
-		<script src="../js/plugins/datapicker/bootstrap-datepicker.js"></script>
-		<!-- Date range picker -->
-		<script src="../js/plugins/daterangepicker/daterangepicker.js"></script>
-			<script>
-			$(document).ready(function(){
-				$('#data_1 .input-group.date').datepicker({
-					todayBtn: "linked",
-					keyboardNavigation: false,
-					forceParse: false,
-					calendarWeeks: true,
-					autoclose: true
-				});
-				$('#data_5 .input-daterange').datepicker({
-					keyboardNavigation: false,
-					forceParse: false,
-					autoclose: true
-				});
-			});
-		</script>
+		
 		
 		
 		
 
-		<!-- Flot 
-		<script src="js/plugins/flot/jquery.flot.js"></script>
-		<script src="js/plugins/flot/jquery.flot.tooltip.min.js"></script>
-		<script src="js/plugins/flot/jquery.flot.resize.js"></script>		
-		<script src="js/plugins/chartJs/Chart.min.js"></script>		
-		<script src="js/plugins/peity/jquery.peity.min.js"></script>		
-		<script src="js/demo/peity-demo.js"></script>
-		-->
+		
 	</body>
 </html>
 

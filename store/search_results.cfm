@@ -4,6 +4,20 @@
 		
 		
 		
+		
+		<cfif structkeyexists( session, "vsid" )>
+			<cfset temp_sr = structdelete( session, "vsid" ) />		
+		<cfelseif structkeyexists( url, "fuseaction" ) and url.fuseaction eq "get_teams">
+			<cfif structkeyexists( url, "vsid" ) and url.vsid neq 0>
+				<cfset session.vsid = url.vsid />
+				<cflocation url="games.cfm" addtoken="no">		
+			</cfif>
+		</cfif>
+		
+		
+		
+		
+		
 					
 		
 		
@@ -82,8 +96,8 @@
 													<h5><i class="fa fa-shopping-cart"></i> QwikCut | Game Video Store</h5>
 													<span class="pull-right">
 														<a href="index.cfm" style="margin-right:5px;" class="btn btn-xs btn-success btn-outline"><i class="fa fa-home"></i> Store Home</a>
-														<a href="" style="margin-right:5px;" class="btn btn-xs btn-default btn-outline"><i class="fa fa-play-circle"></i> Search Games</a>														
-														<a href="" class="btn btn-xs btn-primary btn-outline"><i class="fa fa-video-camera"></i> Video Cart</a>
+														<a href="search.cfm" style="margin-right:5px;" class="btn btn-xs btn-default btn-outline"><i class="fa fa-play-circle"></i> Search Games</a>														
+														<a href="cart.cfm" class="btn btn-xs btn-primary btn-outline"><i class="fa fa-video-camera"></i> Video Cart</a>
 													</span>
 												</div>
 												<div class="ibox-content ibox-heading border-bottom text-center text-navy">
@@ -130,7 +144,7 @@
 																							<tbody>
 																								<cfoutput query="gamesearchresults">
 																									<tr>
-																										<td class="text-center text-primary"><a href=""><i class="fa fa-play-circle fa-2x"></i></a></td>
+																										<td class="text-center text-primary"><a href="search_results.cfm?fuseaction=get_teams&vsid=#vsid#"><i class="fa fa-play-circle fa-2x"></i></a></td>
 																										<td>#trim( awayteam )# <i>vs.</i> <strong>#trim( hometeam )#</strong></td>
 																										<td>#confname#</td>
 																										<td>#dateformat( gamedate, "mm-dd-yyyy" )#</td>

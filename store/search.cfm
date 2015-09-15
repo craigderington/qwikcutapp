@@ -1,6 +1,16 @@
 
 
 		
+			
+			
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		
@@ -77,50 +87,31 @@
 								<div class="container">
 									<div class="row" style="margin-top:20px;">
 										<div class="col-md-12">
-											<cfif structkeyexists( url, "error" )>
-												<cfif url.error eq 1>
-													<div class="alert alert-danger alert-dismissable">
-														<button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
-														<h5><i class="fa fa-warning"></i> Store Error!</h5>
-														<p>No valid cart session ID...</p>
-													</div>
-												<cfelseif url.error eq 12>
-													<div class="alert alert-danger alert-dismissable">
-														<button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
-														<h5><i class="fa fa-warning"></i> Store Error!</h5>
-														<p>No valid order session ID...</p>
-													</div>												
-												</cfif>											
-											</cfif>
-											
-											
-											
 											<div class="ibox">
 												<div class="ibox-title">
-													<h5><i class="fa fa-shopping-cart"></i> QwikCut | Game Video Store</h5>
+													<h5><i class="fa fa-shopping-cart"></i> QwikCut | Game Video Store  | Search Teams or Games</h5>
 													<span class="pull-right">
-														<a href="search.cfm" style="margin-right:5px;" class="btn btn-xs btn-default btn-outline"><i class="fa fa-play-circle"></i> Search Games</a>
-														<a href="search.cfm" style="margin-right:5px;" class="btn btn-xs btn-success btn-outline"><i class="fa fa-search"></i> Search Teams</a>
+														<a href="index.cfm" style="margin-right:5px;" class="btn btn-xs btn-success btn-outline"><i class="fa fa-home"></i> Store Home</a>																												
 														<a href="cart.cfm" class="btn btn-xs btn-primary btn-outline"><i class="fa fa-video-camera"></i> Video Cart</a>
 													</span>
 												</div>
 												<div class="ibox-content ibox-heading border-bottom text-center text-navy">
-													<h3><strong>Game Video &amp; Analytics</strong></h3>
-													<p>Find Your Game Clip!</p>
+													<h3><strong>Search Form</strong></h3>
+													<p>Search by team name or game date.</p>
 												</div>
-												<div class="ibox-content" style="min-height:600px;">
-													
-														<div class="col-md-4 animated fadeInRight">
-															<cfinclude template="search-home.cfm">								
-														</div>
-														<div class="col-md-4 animated fadeInRight">
-															<cfinclude template="games-recent.cfm">
-														</div>
-														<div class="col-md-4 animated fadeInRight">
-															<cfinclude template="latest-uploads.cfm">
-														</div>
-													</div>
-													
+												<div class="ibox-content">													
+													<div class="row">
+														<form class="form-horizontal m-b" name="searchgames" method="post" action="search_results.cfm?fuseaction=search">
+															<fieldset>
+																<div class="input-group">
+																	<input type="text" placeholder="Search for Games by Team or Game Dates" name="search" class="input-sm form-control" onblur="javascript:this.form.submit();" <cfif structkeyexists( form, "search" )>value="#trim( form.search )#"</cfif>> 
+																		<span class="input-group-btn">
+																			<button type="submit" name="dosearch" class="btn btn-sm btn-primary"> Go!</button> 
+																		</span>
+																</div>
+															</fieldset>
+														</form>	
+													</div>													
 												</div>
 											</div>
 										</div>
