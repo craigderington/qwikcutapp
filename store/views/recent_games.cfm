@@ -10,7 +10,7 @@
 								<cfset sdate = createdatetime(year(now()), month(now()), 01, 06, 00, 00 ) />
 								<cfset edate = now() />
 
-								<cfinvoke component="apis.com.store.storedashboardservice" method="getrecentgames" returnvariable="recentgames">
+								<cfinvoke component="apis.com.store.storeservice" method="getrecentgames" returnvariable="recentgames">
 									<cfinvokeargument name="sdate" value="#sdate#">
 									<cfinvokeargument name="edate" value="#edate#">
 								</cfinvoke>
@@ -37,9 +37,10 @@
 														<a href="index.cfm?fuseaction=getgames&vsid=#vsid#&startpage=recent" class="pull-left">
 															<img alt="image" class="img-circle" src="img/qwikcut_logo_reel.jpg">
 														</a>
-														<div class="media-body ">															
+														<div class="media-body ">
+															<small class="pull-right">#teamlevelname#</small>
 															<strong>#awayteam# <i>vs.</i> #hometeam# @ #fieldname# field.</strong>  <br>
-															<small class="text-muted">#dateformat( gamedate, "mm-dd-yyyy" )# | #timeformat( gamestart, "hh:mm tt" )#</small><small class="pull-right label label-success">#teamlevelname#</small>
+															<small class="text-muted">#dateformat( gamedate, "mm-dd-yyyy" )# | #timeformat( gamestart, "hh:mm tt" )#</small>
 														</div>
 													</div>
 												</cfloop>

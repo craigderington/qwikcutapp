@@ -11,11 +11,12 @@
 					<cflocation url="#application.root##url.event#" addtoken="yes">
 				</cfif>
 			</cfif>
-			<cfinvoke component="apis.com.admin.stateadminservice" method="getmystate" returnvariable="mystate">
-			<cfinvoke component="apis.com.admin.stateadminservice" method="getstates" returnvariable="statelist">
+			<cfinvoke component="apis.com.admin.stateadminservice" method="getmystate" returnvariable="mystate"></cfinvoke>
+			<cfinvoke component="apis.com.admin.stateadminservice" method="getstates" returnvariable="statelist"></cfinvoke>
 			<cfinvoke component="apis.com.admin.admindashboardservice" method="getadmindashboard" returnvariable="admindashboard">
 				<cfinvokeargument name="stateid" value="#session.stateid#">
 			</cfinvoke>
+			<cfinvoke component="apis.com.admin.storeadminservice" method="getstoredashboard" returnvariable="storedashboard"></cfinvoke>
 			<cfinvoke component="apis.com.activity.activityservice" method="getsystemactivity" returnvariable="systemactivity"></cfinvoke>
 			
 			
@@ -154,6 +155,21 @@
 																	<div class="col-xs-9 text-right">
 																		<h2 class="font-bold">#numberformat( admindashboard.totalusers )#</h2>
 																		 <small>Users</small>
+																	</div>
+																</div>
+															</div>
+														</a>
+													</div>
+													<div class="col-lg-3">
+														<a href="#application.root#admin.store">
+															<div class="widget style1 blue-bg">
+																<div class="row vertical-align">
+																	<div class="col-xs-3">
+																		<i class="fa fa-shopping-cart fa-3x"></i>
+																	</div>
+																	<div class="col-xs-9 text-right">
+																		<h2 class="font-bold">#numberformat( storedashboard.totalorders )#</h2>
+																		 <small>Store</small>
 																	</div>
 																</div>
 															</div>

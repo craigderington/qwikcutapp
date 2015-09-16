@@ -1,6 +1,20 @@
 
 
 		
+		<cfif structkeyexists( session, "vsid" )>
+			<cfset temp_r = structdelete( session, "vsid" ) />
+		<cfelse>
+			<cfif structkeyexists( url, "fuseaction" ) and structkeyexists( url, "vsid" ) and structkeyexists( url, "startpage" )>
+				<cfset vsid = url.vsid />
+					<cfif isnumeric( url.vsid ) and trim( url.fuseaction ) eq "getgames" and trim( url.startpage ) eq "recent">
+						<cfset session.vsid = url.vsid />
+						<cflocation url="games.cfm" addtoken="no">
+					<cfelse>
+						<cfset errormsg = "Can not start game.  Game attributes are in the incorrect format" />
+					</cfif>
+			</cfif>
+		</cfif>
+		
 		
 		
 		
