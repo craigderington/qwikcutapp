@@ -1,0 +1,6 @@
+
+
+
+
+
+			{{ view order details }}

@@ -122,7 +122,7 @@
 													<h3><strong>Game Video &amp; Analytics</strong></h3>
 													<p>Find Your Game Clip!</p>
 												</div>
-												<div class="ibox-content" style="min-height:600px;">
+												<div class="ibox-content" style="min-height:650px;">
 													
 														<div class="col-md-4 animated fadeInRight">
 															<cfinclude template="search-home.cfm">								

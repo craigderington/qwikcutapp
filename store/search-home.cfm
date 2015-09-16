@@ -86,8 +86,12 @@
 												<br />
 												<div class="well">
 													<h4><i class="fa fa-info-circle"></i> Search Options</h4>
-													<p>Filter by State and view all conferences and teams</p>
-													<p>Or search by Team Name.  Example: Lake Mary Rams.  Search by Game Date. Example: 9/15/2015</p>
+													<ul>
+														<li> Filter by State (above)</li>
+														<li> Search by Team Name</li>
+														<li> Search by Game Date</li>
+														<li> Browse by Recent, Most Popular</li>
+													</ul>
 												</div>
 
 											</cfif>

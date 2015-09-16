@@ -169,7 +169,7 @@
 																	</div>
 																	<div class="col-xs-9 text-right">
 																		<h2 class="font-bold">#numberformat( storedashboard.totalorders )#</h2>
-																		 <small>Store</small>
+																		 <small>Orders</small>
 																	</div>
 																</div>
 															</div>
