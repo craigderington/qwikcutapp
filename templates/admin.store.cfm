@@ -24,7 +24,7 @@
 								
 								<cfif not structkeyexists( url, "fuseaction" )>	
 								
-									<div class="ibox-content ibox-heading text-center">
+									<div class="ibox-content ibox-heading text-center border-bottom">
 										<I>QWIKCUT STORE ORDER ADMIN</I>
 									</div>
 									

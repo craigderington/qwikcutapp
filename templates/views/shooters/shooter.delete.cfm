@@ -47,7 +47,7 @@
 														<button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
 															<h5><error>Sorry, <cfoutput> #chkshooter.shooterfirstname# #chkshooter.shooterlastname#</cfoutput> can not be deleted from this system:</error></h2>
 															<ul>
-																<li class="formerror">Forgeign key constraint on GAMES. The selected shooter has games on record.</li>
+																<li class="formerror">Foreign key constraint on GAMES. The selected shooter has games on record.</li>
 															</ul>
 													</div>
 												
@@ -79,6 +79,13 @@
 														delete 
 														  from shooterfields												   
 														 where shooterid = <cfqueryparam value="#getshooter.shooterid#" cfsqltype="cf_sql_integer" />														
+													</cfquery>
+													
+													<!--- // clean up the shooter activity table, if not, will throw FK constraint database error --->
+													<cfquery name="inactivateshooteruser">
+														delete 
+														  from activity														   
+														 where userid = <cfqueryparam value="#getshooter.userid#" cfsqltype="cf_sql_integer" />														
 													</cfquery>
 													
 													<!--- // clean up the shooter assigned fields table --->

@@ -89,11 +89,13 @@
 																	<p><i class="fa fa-play-circle-o"></i> Games Completed</p>
 																	<p><i class="fa fa-times-circle"></i> Missed Games</p>
 																	<p><i class="fa fa-calendar"></i> Availability</p>
+																	<p><i class="fa fa-envelope"></i> Shooter Invitation</p>
 																</div>
 																<div class="col-sm-7">
 																	<p>0</p>
 																	<p>0</p>
-																	<p>August 2015 - September 2015 <br /><small>(no blockout dates)</small></p>
+																	<p>No blockout dates</p>
+																	<p><a href="#application.root##url.event#&fuseaction=shooter.invite&id=#shooter.shooterid#">[ Resend Invite ]</a>
 																</div>
 															</div>
 														</div>

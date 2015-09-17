@@ -46,6 +46,11 @@
 											<button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
 											<i class="fa fa-warning"></i> Operation Success.  The shooter was successfully deleted.  All related data was also removed.
 										</div>
+									<cfelseif trim( url.scope ) eq "s4">
+										<div class="alert alert-warning alert-dismissable">
+											<button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
+											<i class="fa fa-check-square"></i> Success.  The shooter registration invitation was successfully re-sent.
+										</div>
 									</cfif>
 								</div>
 							</cfif>
@@ -77,6 +82,8 @@
 										<cfinclude template="views/shooters/shooter.dates.cfm">
 									<cfelseif trim( url.fuseaction ) eq "shooter.comments">
 										<cfinclude template="views/shooters/shooter.comments.cfm">
+									<cfelseif trim( url.fuseaction ) eq "shooter.invite">
+										<cfinclude template="views/shooters/shooter.invite.cfm">
 									<cfelse>
 										<!-- // no view found, show message --->
 										<div class="alert alert-danger" style="margin-top:10px;">
