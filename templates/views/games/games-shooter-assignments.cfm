@@ -87,7 +87,7 @@
 																	<tbody>
 																		<cfoutput query="gameresults">																			
 																			<tr>
-																				<td class="text-center text-primary"><cfif gameresults.totalshooters eq 0><a data-toggle="modal" class="btn btn-xs btn-primary" href="javascipt:void(0);" onclick="window.open('templates/views/games/game-info.cfm?id=#vsid#','','toolbar=no,width=500, height=500');"><i class="fa fa-video-camera"></i></a><cfelse><i class="fa fa-video-camera text-navy"></i></cfif></td>
+																				<td class="text-center text-primary"><cfif gameresults.totalshooters eq 0><a data-toggle="modal" class="btn btn-xs btn-primary" href="##" onclick="window.open('templates/views/games/game-info.cfm?id=#vsid#','','toolbar=no,width=500, height=500');"><i class="fa fa-video-camera"></i></a><cfelse><i class="fa fa-video-camera text-navy"></i></cfif></td>
 																				<td>#trim( awayteam )# <i>vs.</i> <strong>#trim( hometeam )#</strong></td>																				
 																				<td>#fieldname# field</td>
 																				<td>#dateformat( gamedate, "mm-dd-yyyy" )# @ #timeformat( gamedate, "hh:mm tt")#</td>
