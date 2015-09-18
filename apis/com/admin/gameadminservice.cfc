@@ -386,20 +386,38 @@
 		<cfreturn customgames>
 	</cffunction>
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	<cffunction name="searchconferencegames" access="public" returntype="query" output="false" hint="I get the new workflow shooter assignments list by conference and date.">
+		<cfargument name="confid" type="numeric" required="yes">
+		<cfargument name="gamedate" type="date" required="yes">
+		<cfargument name="edate" type="date" required="yes">
+		<cfset var gameresults = "" />
+		<cfquery name="gameresults">
+			  select distinct(v.vsid), v.gamedate, v.fieldid, v.gamestatus, f.fieldname, v.hometeam, v.awayteam,
+				    (select count(sa.shooterid) from shooterassignments sa where sa.vsid = v.vsid) as totalshooters
+				from versus v, games g, fields f
+			   where v.vsid = g.vsid
+				 and v.fieldid = f.fieldid
+				 and ( v.gamedate between <cfqueryparam value="#arguments.gamedate#" cfsqltype="cf_sql_timestamp" /> 
+				       and <cfqueryparam value="#arguments.edate#" cfsqltype="cf_sql_timestamp" />
+					 )
+				 and g.confid = <cfqueryparam value="#arguments.confid#" cfsqltype="cf_sql_integer" />
+		</cfquery>
+		<cfreturn gameresults>
+	</cffunction>
+
+	<cffunction name="getgameinfo" access="public" returntype="query" output="false" hint="I get the new workflow shooter assignments list by conference and date.">
+		<cfargument name="id" type="numeric" required="yes" default="#url.id#">		
+		<cfset var gameinfo = "" />
+		<cfquery name="gameinfo">
+			  select distinct(v.vsid), v.gamedate, v.fieldid, v.gamestatus, f.fieldname, v.hometeam, v.awayteam, c.confname,
+				    (select count(sa.shooterid) from shooterassignments sa where sa.vsid = v.vsid) as totalshooters
+				from versus v, games g, fields f, conferences c
+			   where v.vsid = g.vsid
+			     and g.confid = c.confid
+				 and v.fieldid = f.fieldid
+				 and v.vsid = <cfqueryparam value="#arguments.id#" cfsqltype="cf_sql_integer" />
+		</cfquery>
+		<cfreturn gameinfo>
+	</cffunction>
 	
 </cfcomponent>

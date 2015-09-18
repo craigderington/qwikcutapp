@@ -6,13 +6,15 @@
 			
 	<cffunction name="getshooters" output="false" returntype="query" access="remote" hint="I get the list of shooters.">
 		<cfargument name="stateid" type="numeric" required="no">
+		<cfargument name="isactive" type="boolean" required="no">
 		<cfset var shooterlist = "" />
 			<cfquery name="shooterlist">
 					select sh.shooterid, sh.userid, sh.shooterfirstname, sh.shooterlastname, sh.shooteraddress1, sh.shooteraddress2, sh.shootercity, sh.shooterstateid, 
 					       s.stateabbr, sh.shooterzip, sh.shooteremail, sh.shooterisactive, sh.shootercellphone, sh.shootercellprovider, sh.shooteralertpref,
-						   us.userprofileimagepath
-					  from dbo.shooters sh, dbo.states s, dbo.usersettings us
+						   us.userprofileimagepath, u.regcompletedate, u.regcomplete, u.useractive
+					  from dbo.shooters sh, dbo.states s, dbo.users u, dbo.usersettings us
 					 where sh.shooterstateid = s.stateid
+					   and sh.userid = u.userid
 					   and sh.userid = us.userid
 						<cfif structkeyexists( form, "filterresults" )>
 							<cfif structkeyexists( form, "shooterstatus" ) and trim( form.shooterstatus ) neq "">
@@ -27,6 +29,9 @@
 						</cfif>
 						<cfif structkeyexists( arguments, "stateid" )>
 							and s.stateid = <cfqueryparam value="#arguments.stateid#" cfsqltype="cf_sql_integer" />
+						</cfif>
+						<cfif structkeyexists( arguments, "isactive" )>
+							and u.useractive = <cfqueryparam value="1" cfsqltype="cf_sql_bit" />
 						</cfif>
 				  order by sh.shooterlastname asc
 			</cfquery>
