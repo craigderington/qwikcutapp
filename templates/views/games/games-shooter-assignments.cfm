@@ -91,7 +91,7 @@
 																				<td>#trim( awayteam )# <i>vs.</i> <strong>#trim( hometeam )#</strong></td>																				
 																				<td>#fieldname# field</td>
 																				<td>#dateformat( gamedate, "mm-dd-yyyy" )# @ #timeformat( gamedate, "hh:mm tt")#</td>
-																				<td><span class="label label-primary">#totalshooters#</span></td>
+																				<td><span class="label <cfif gameresults.totalshooters eq 0>label-danger<cfelse>label-primary</cfif>">#totalshooters#</span></td>
 																			</tr>																			
 																		</cfoutput>													
 																	</tbody>
