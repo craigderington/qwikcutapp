@@ -214,6 +214,7 @@
 													<cfif isdefined( "form.fieldnames" ) and structkeyexists( form, "savestep2" )>
 													
 														<cfset form.validate_require = "shooterfirstname|Please enter the shooters first name.;shooterlastname|Please enter the shooters last name.;shooteremail|Please enter the shooters email address.;shooterstateid|Please select the shooters state.;shooteradd1|Please enter your address.;shootercity|Please enter your city.;shooterzip|Please enter your zip code.;shootercellphone|Please enter your cell phone number.;shootercellprovider|Please select your cell provider.;shooteralertpref|Please select your alert type preference." />
+														<cfset form.validate_numeric = "shooterzip|The zip code must contains only numeric values." />
 														
 														<cfscript>
 															objValidation = createobject( "component","apis.udfs.validation" ).init();
