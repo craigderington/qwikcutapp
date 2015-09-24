@@ -56,14 +56,22 @@
 												<!--- // this is a game notification // alert the shooters --->
 												<!--- // get the shooter details --->
 												
+												<cfparam name="shooteralertpreference" default="email">
+												
 												<cfinvoke component="apis.com.notifications.shooteradminservice" method="getshooter" returnvariable="shooter">			
 													<cfinvokeargument name="id" value="#shooterid#">
 												</cfinvoke>					
 												
+												<!--- // default alert preferences --->
+												<cfif shooter.shooteralertpref eq "">
+													<cfset shooteralertpreference = "email" />
+												<cfelse>
+													<cfset shooteralertpreference = trim( shooter.shooteralertpref ) />
+												</cfif>
 												
 												<cfif shooter.shooterisactive>
 												
-													<cfif trim( shooter.shooteralertpref ) eq "email">
+													<cfif trim( shooteralertpreference ) eq "email">
 													
 														<!--- // send by email --->
 														<cfinvoke component="apis.com.notifications.gamesnotificationservice" method="sendgamenotifications" returnvariable="msgstatus">
