@@ -34,6 +34,7 @@
 										<ul class="nav nav-tabs">
 											<li class=""><a href="#application.root##url.event#"><i class="fa fa-search"></i> Search</a></li>
 											<li class="active"><a href="#application.root##url.event#&fuseaction=games.filter"><i class="fa fa-th-list"></i> Games By Conference</a></li>
+											<li class=""><a href="#application.root##url.event#&fuseaction=games.shooters"><i class="fa fa-video-camera"></i> Shooter Game Assignments</li>
 										</ul>
 										
 											<div class="tab-content">

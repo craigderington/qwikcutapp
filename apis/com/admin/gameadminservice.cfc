@@ -300,9 +300,11 @@
 				   and sh.shooterid not in(<cfqueryparam value="#arguments.assignedids#" cfsqltype="cf_sql_integer" list="yes" />)
 				--->
 				select sh.shooterid, sh.shooterfirstname, sh.shooterlastname 
-				  from shooters sh
-				 where sh.shooterisactive = <cfqueryparam value="1" cfsqltype="cf_sql_bit" />
+				  from shooters sh, users u
+				 where sh.userid = u.userid
+				   and sh.shooterisactive = <cfqueryparam value="1" cfsqltype="cf_sql_bit" />
 				   and sh.shooterid not in(<cfqueryparam value="#arguments.assignedids#" cfsqltype="cf_sql_integer" list="yes" />)
+				   and u.useractive = <cfqueryparam value="1" cfsqltype="cf_sql_bit" />
 				order by sh.shooterlastname, sh.shooterfirstname asc
 				
 				

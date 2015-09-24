@@ -13,9 +13,9 @@
 										</div>								
 									
 										<div class="col-md-1">
-											<button type="button" id="loading-example-btn" class="btn btn-success btn-sm btn-outline" onclick="location.href='#application.root##url.event#'">
+											<a type="button" id="loading-example-btn" class="btn btn-success btn-sm btn-outline" href="#application.root##url.event#">
 												<i class="fa fa-refresh"></i> Reset
-											</button>
+											</a>
 										</div>
 											
 										<div class="col-md-11">										

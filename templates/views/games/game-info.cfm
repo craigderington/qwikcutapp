@@ -48,6 +48,8 @@
 
 				<body>
 				<cfoutput>
+					
+					
 					<nav class="navbar navbar-inverse" role="navigation">
 						<div class="navbar-header">							
 							<a href="" class="navbar-brand"><small><i class="fa fa-video-camera"></i> QwikCut | Assign Shooter | Game ID: #url.id#<small></a>
