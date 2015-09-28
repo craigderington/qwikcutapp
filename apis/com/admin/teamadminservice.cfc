@@ -129,5 +129,20 @@
 		<cfreturn teamslist>
 	</cffunction>
 	
+	<cffunction name="getteamrecord" access="remote" output="false" hint="I get the team W/L record by game season">
+		<cfargument name="id" type="any" required="yes">		
+		<cfargument name="gameseasonid" type="numeric" required="yes">
+		<cfset var teamrecord = "" />
+			<cfquery name="teamrecord">			
+				select teamid, sum(wins) as wins,
+					   sum(losses) as losses
+				  from teamrecords
+				 where teamid = <cfqueryparam value="#arguments.id#" cfsqltype="cf_sql_integer" />
+				   and gameseasonid = <cfqueryparam value="#arguments.gameseasonid#" cfsqltype="cf_sql_integer" />
+			  group by teamid
+			</cfquery>
+		<cfreturn teamrecord>
+	</cffunction>
+	
 
 </cfcomponent>

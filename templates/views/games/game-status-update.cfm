@@ -167,22 +167,25 @@
 
 
 
-
-
-
+								<cfinvoke component="apis.com.user.usershooterservice" method="getgamestatus" returnvariable="gamestatus">
+									<cfinvokeargument name="sgid" value="#url.sgid#">								
+								</cfinvoke>
+								
+								<cfif gamestatus.recordcount gt 0>
+									<cfset chkgamestatus = valuelist( gamestatus.gamestatus ) />
+									<cfset chkgamestatus = listfindnocase( chkgamestatus, 'FINAL', "," ) />
+								<cfelse>
+									<cfset chkgamestatus = 0 />
+								</cfif>
 
 
 								<form class="form-horizontal" name="save-game-status" method="post" action="">
 									<fieldset>
-										<div class="col-md-4">
-											<div class="form-group">
-												<label class="control-label" for="gameevent">
-													End of Quarter
-												</label>												
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="form-group">
+										<div class="form-group">
+											<label class="col-md-4 control-label" for="gameevent">
+												End of Quarter
+											</label>									
+											<div class="col-md-6">											
 												<select name="gameevent" class="form-control">
 													<option value="">Select Game Event</option>
 													<option value="1Q">First Quarter (1Q)</option>
@@ -193,56 +196,55 @@
 												</select>
 											</div>
 										</div>
-										<div class="col-md-4">
-											<div class="form-group">
-												<label class="control-label" for="awayteam">
-													#gamedetail.awayteam#
-												</label>												
+										<div class="form-group">											
+											<label class="col-md-4 control-label" for="awayteam">
+												#gamedetail.awayteam#
+											</label>								
+											<div class="col-md-6">
+												<div class="form-group">
+													<input type="text" class="form-control" name="awayteam_score" placeholder="Away Team Score"/>
+												</div>
 											</div>
 										</div>
-										<div class="col-md-6">
-											<div class="form-group">
-												<input type="text" class="form-control" name="awayteam_score" placeholder="Away Team Score"/>
+										<div class="form-group">											
+											<label class="col-md-4 control-label" for="awayteam">
+												#gamedetail.hometeam#
+											</label>										
+											<div class="col-md-6">
+												<div class="form-group">
+													<input type="text" class="form-control" name="hometeam_score" placeholder="Home Team Score" />
+												</div>
 											</div>
 										</div>
-										<div class="col-md-4">
-											<div class="form-group">
-												<label class="control-label" for="awayteam">
-													#gamedetail.hometeam#
-												</label>												
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="form-group">
-												<input type="text" class="form-control" name="hometeam_score" placeholder="Home Team Score" />
-											</div>
-										</div>
-										<div class="col-md-4">
-											<div class="form-group">
-												<label class="control-label" for="awayteam">
-													Notes
-												</label>												
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="form-group">
-												<textarea name="gamenotes" class="form-control" rows="4"></textarea>
+										<div class="form-group">											
+											<label class="col-md-4 control-label" for="awayteam">
+												Notes
+											</label>								
+											<div class="col-md-6">
+												<div class="form-group">
+													<textarea name="gamenotes" class="form-control" rows="4"></textarea>
+												</div>
 											</div>
 										</div>
 										<div class="hr-line-dashed" style-="margin-top:25px;"></div>
-										<div class="form-group">
-											<div class="col-md-offset-4 col-md-6">
-												<button class="btn btn-sm btn-primary" name="save-game-status" id="save-game-status"><i class="fa fa-times-circle"></i> Save Game Status</button>
-												<a href="#application.root##url.event#&fuseaction=#url.fuseaction#&gamestatus=#url.gamestatus#" class="btn btn-sm btn-default"><i class="fa fa-remove"></i> Cancel</a>
+										<cfif chkgamestatus eq 0>
+											<div class="form-group">
+												<div class="col-md-offset-4 col-md-6">
+													<button class="btn btn-sm btn-primary" name="save-game-status" id="save-game-status"><i class="fa fa-times-circle"></i> Save Game Status</button>
+													<a href="#application.root##url.event#&fuseaction=#url.fuseaction#&gamestatus=#url.gamestatus#" class="btn btn-sm btn-default"><i class="fa fa-remove"></i> Cancel</a>
+												</div>
 											</div>
-										</div>
+										<cfelse>
+											<div class="alert alert-warning">
+												<h5>Status is FINAL.</h5>
+												<p>The current game status has already been marked FINAL and can not be changed.</p>
+											</div>
+										</cfif>
 									</fieldset>
 								</form>
 
 
-								<cfinvoke component="apis.com.user.usershooterservice" method="getgamestatus" returnvariable="gamestatus">
-									<cfinvokeargument name="sgid" value="#url.sgid#">								
-								</cfinvoke>
+								
 									
 								
 								<cfif gamestatus.recordcount gt 0>
@@ -255,15 +257,6 @@
 										</ul>
 									</div>
 								</cfif>
-
-
-
-
-
-
-
-
-
 
 
 							</div>

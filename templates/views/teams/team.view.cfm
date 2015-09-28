@@ -6,6 +6,15 @@
 				<cfinvokeargument name="id" value="#url.id#">
 			</cfinvoke>
 			
+			<cfquery name="gameseason">
+				select gameseasonid, gameseason from gameseasons where gameseasonactive = <cfqueryparam value="1" cfsqltype="cf_sql_bit" />
+			</cfquery>
+			
+			<cfinvoke component="apis.com.admin.teamadminservice" method="getteamrecord" returnvariable="teamrecord">
+				<cfinvokeargument name="id" value="#url.id#">
+				<cfinvokeargument name="gameseasonid" value="#gameseason.gameseasonid#">
+			</cfinvoke>
+			
 			
 
 
@@ -48,8 +57,12 @@
 										<div class="widget navy-bg p-lg text-center">
 											<div class="m-b-md">
 												<i class="fa fa-trophy fa-4x"></i>
-												<h1 class="m-xs">#teamdetail.teamrecord#</h1>												
-												<h3 class="font-bold">Team Record</h3>
+												<cfif teamrecord.recordcount eq 1>
+													<h1 class="m-xs">#teamrecord.wins# - #teamrecord.losses#</h1>
+												<cfelse>
+													<h2 class="m-xs m-b">No Game Statuses Recorded</h2>
+												</cfif>
+													<h3 style="margin-top:10px;" class="font-bold">#gameseason.gameseason# Team Record</h3>
 											</div>
 										</div>									
 									</div>						
