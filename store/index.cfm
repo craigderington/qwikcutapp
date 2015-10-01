@@ -119,7 +119,7 @@
 													</span>
 												</div>
 												<div class="ibox-content ibox-heading border-bottom text-center text-navy">
-													<h3><strong>Game Video &amp; Analytics</strong></h3>
+													<h3><strong>Purchase Game Videos</strong></h3>
 													<p>Find Your Game Clip!</p>
 												</div>
 												<div class="ibox-content" style="min-height:650px;">
