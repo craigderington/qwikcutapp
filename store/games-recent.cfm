@@ -8,13 +8,9 @@
 								<cfparam name="edate" default="">
 								
 								<cfset today = now() />
-								<cfset sdate = createdatetime(year(now()), month(now()), 01, 06, 00, 00 ) />
+								<cfset sdate = dateadd( "m", -1, today ) />								
+								<cfset edate = dateadd( "d", -5, today ) />
 								
-								<cfif datepart( "d", today ) lte 5>
-									<cfset edate = dateadd( "d", 5, today ) />
-								<cfelse>
-									<cfset edate = now() />
-								</cfif>
 
 								<cfinvoke component="apis.com.store.storedashboardservice" method="getrecentgames" returnvariable="recentgames">
 									<cfinvokeargument name="sdate" value="#sdate#">
