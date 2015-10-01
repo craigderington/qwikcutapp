@@ -3,12 +3,18 @@
 
 								
 								
-								
+								<cfparam name="today" default="">
 								<cfparam name="sdate" default="">
 								<cfparam name="edate" default="">
 								
+								<cfset today = now() />
 								<cfset sdate = createdatetime(year(now()), month(now()), 01, 06, 00, 00 ) />
-								<cfset edate = now() />
+								
+								<cfif datepart( "d", today ) lte 5>
+									<cfset edate = dateadd( "d", 5, today ) />
+								<cfelse>
+									<cfset edate = now() />
+								</cfif>
 
 								<cfinvoke component="apis.com.store.storedashboardservice" method="getrecentgames" returnvariable="recentgames">
 									<cfinvokeargument name="sdate" value="#sdate#">
@@ -22,7 +28,7 @@
 								<cfoutput>
 									<div class="ibox">
 										<div class="ibox-title">
-											<h5><i class="fa fa-clock-o"></i> Recent Games</h5>
+											<h5><i class="fa fa-clock-o"></i> Recent Games</h5>											
 										</div>
 										<div class="ibox-content">
 											<cfif isdefined( "errormsg" )>

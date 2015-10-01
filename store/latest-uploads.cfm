@@ -3,12 +3,14 @@
 
 								
 								
-								
+								<cfparam name="today" default="">
 								<cfparam name="sdate" default="">
 								<cfparam name="edate" default="">
 								
-								<cfset sdate = createdatetime(year(now()), month(now()), 01, 06, 00, 00 ) />
-								<cfset edate = now() />
+								<cfset today = now() />
+								<cfset sdate = createdatetime(2015, 07, 01, 06, 00, 00) />							
+								<cfset edate = dateadd( "d", -10, today ) />
+								
 
 								<cfinvoke component="apis.com.store.storedashboardservice" method="getlatestuploads" returnvariable="latestuploads">
 									<cfinvokeargument name="sdate" value="#sdate#">
