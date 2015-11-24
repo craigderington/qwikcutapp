@@ -128,8 +128,10 @@
 																<cfset c.zipcode = trim( form.zipcode ) />
 																<cfset c.phone = trim( form.phone ) />
 																<cfset c.email = trim( form.email ) />
-																<cfset c.division = trim( form.division ) />
-																<cfset c.conference = trim( form.conference ) />
+																<cfif structkeyexists( session, "vsid" )>
+																	<cfset c.division = trim( form.division ) />
+																	<cfset c.conference = trim( form.conference ) />
+																</cfif>
 																<cfset c.hudlid = trim( form.hudluser ) />
 															
 																
