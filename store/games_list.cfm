@@ -176,7 +176,7 @@
 																			<td><span class="label label-success">#teamlevelname#</td>
 																			<td>#awayteam# <i>vs.</i> #hometeam#</td>
 																			<td>#fieldname# Field</td>
-																			<td><a href="" class="btn btn-sm btn-primary"><i class="fa fa-shopping-cart"></i> Buy Season Pass</a></td>
+																			<td><a href="season_pass.cfm?team_id=#teamid#&option=season_pass" class="btn btn-sm btn-primary"><i class="fa fa-shopping-cart"></i> Buy Season Pass</a></td>
 																		</tr>
 																	</cfloop>
 																</tbody>
