@@ -2,7 +2,7 @@
 				
 				
 				
-				
+				<cfset today = now() />
 				
 				
 
