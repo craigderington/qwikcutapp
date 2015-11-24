@@ -305,18 +305,20 @@
 																		</div>
 																	</div>
 																	<div class="hr-line-dashed"></div>
-																	<div class="form-group">
-																		<label class="col-md-2 control-label">Conference</label>
-																		<div class="col-md-8">
-																			<input type="text" class="form-control" name="conference" value="#trim( gameinfo.confname )#" />																		
+																	<cfif structkeyexists( session, "vsid" )>
+																		<div class="form-group">
+																			<label class="col-md-2 control-label">Conference</label>
+																			<div class="col-md-8">
+																				<input type="text" class="form-control" name="conference" value="#trim( gameinfo.confname )#" />																		
+																			</div>
 																		</div>
-																	</div>
-																	<div class="form-group">
-																		<label class="col-md-2 control-label">Division</label>
-																		<div class="col-md-8">
-																			<input type="text" class="form-control" name="division" value="#trim( gameinfo.teamlevelname )#" />																		
+																		<div class="form-group">
+																			<label class="col-md-2 control-label">Division</label>
+																			<div class="col-md-8">
+																				<input type="text" class="form-control" name="division" value="#trim( gameinfo.teamlevelname )#" />																		
+																			</div>
 																		</div>
-																	</div>																	
+																	</cfif>
 																</fieldset>																
 															</div>
 
