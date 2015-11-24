@@ -166,6 +166,7 @@
 																		<th>Team Name</th>																	
 																		<th>Division</th>
 																		<th>Status</th>
+																		<th>Actions</th>
 																	</tr>
 																</thead>
 																<tbody>
@@ -175,6 +176,7 @@
 																			<td><a href="games_list.cfm?team_id=#teamid#"><strong>#teamorgname#</strong></a></td>																		
 																			<td class="center"><span class="label label-success">#teamlevelname#</td>
 																			<td class="center"><i class="fa fa-check-circle-o text-primary fa-2x"></i></td>
+																			<td><a href="season_pass.cfm?team_id=#teamid#&option=season_pass" class="btn btn-sm btn-primary"><i class="fa fa-shopping-cart"></i> Buy Season Pass</a></td>
 																		</tr>
 																	</cfloop>
 																</tbody>
