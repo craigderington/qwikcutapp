@@ -337,8 +337,8 @@
 													
 													<div class="alert alert-info alert-dismissable">
 														<button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
-														<p><i class="fa fa-trophy"></i> QwikCut Season Pass</p>
-														<p>To purchase a Season Pass, select the team and team level by clicking the team name link in the table below...</p>
+														<p><i class="fa fa-trophy"></i> <strong>QwikCut Season Pass</strong></p>
+														<p>To purchase a <strong>Season Pass</strong>, select the team and team level by clicking the team name link in the table below...</p>
 													</div>
 													
 													
