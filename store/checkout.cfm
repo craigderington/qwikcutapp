@@ -134,7 +134,7 @@
 															
 																
 																	<cfquery name="createcustomer">
-																		insert into customers(customer_date, first_name, last_name, street_address, city, state, zip_code, phone_number, customer_active, customer_email, conference, division, hudl_id)
+																		insert into customers(customer_date, first_name, last_name, street_address, city, state, zip_code, phone_number, customer_active, customer_email, <cfif structkeyexists( session, "vsid" )>conference, division,</cfif> hudl_id)
 																		 values(
 																				<cfqueryparam value="#c.order_date#" cfsqltype="cf_sql_timestamp" />,
 																				<cfqueryparam value="#c.firstname#" cfsqltype="cf_sql_varchar" maxlength="50" />,
@@ -146,8 +146,10 @@
 																				<cfqueryparam value="#c.phone#" cfsqltype="cf_sql_varchar" maxlength="50" />,
 																				<cfqueryparam value="1" cfsqltype="cf_sql_bit" />,	
 																				<cfqueryparam value="#c.email#" cfsqltype="cf_sql_varchar" maxlength="50" />,
-																				<cfqueryparam value="#c.conference#" cfsqltype="cf_sql_varchar" maxlength="50" />,
-																				<cfqueryparam value="#c.division#" cfsqltype="cf_sql_varchar" maxlength="50" />,
+																				<cfif structkeyexists( session, "vsid" )>
+																					<cfqueryparam value="#c.conference#" cfsqltype="cf_sql_varchar" maxlength="50" />,
+																					<cfqueryparam value="#c.division#" cfsqltype="cf_sql_varchar" maxlength="50" />,
+																				</cfif>
 																				<cfqueryparam value="#c.hudlid#" cfsqltype="cf_sql_varchar" maxlength="50" />													
 																				); select @@identity as newcustomerid
 																	</cfquery>
