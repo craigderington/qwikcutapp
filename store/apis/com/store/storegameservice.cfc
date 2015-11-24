@@ -82,7 +82,8 @@
 				select gs.gameseason, g.gameid, f.fieldid, f.fieldname, c.conftype, c.confname, g.gamedate, g.gamestart, g.gamestatus, 
 					   g.gameoutcome, g.gamewinner, v.vsid, tl.teamlevelname,
 					   t1.teamorgname as hometeam, t2.teamorgname as awayteam,
-					   t1.teammascot as hometeammascot, t2.teammascot as awayteammascot
+					   t1.teammascot as hometeammascot, t2.teammascot as awayteammascot,
+					   t1.teamid as hometeamid, t2.teamid as awayteamid
 				  from games g, versus v, gameseasons gs, conferences c, states s, fields f, teamlevels tl, teams t1, teams t2
 				 where g.vsid = v.vsid
 				   and g.gameseasonid = gs.gameseasonid

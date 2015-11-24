@@ -335,6 +335,12 @@
 														<p>Get access to every game, every week for all teams in the selected conference and division.</p>
 													</div>
 													
+													<div class="alert alert-primary alert-dismissable">
+														<button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
+														<p><i class="fa fa-trophy"></i> QwikCut Season Pass</p>
+														<p>To purchase a Season Pass, select the team and team level by clicking the team name link in the table below...</p>
+													</div>
+													
 													
 													
 													
@@ -356,9 +362,9 @@
 																		<td>#gameid#</td>
 																		<td>#dateformat( gamedate, "mm-dd-yyyy" )#</td>
 																		<td><span class="label label-primary">#teamlevelname#</span></td>
-																		<td>#awayteam# <i>vs.</i> <strong>#hometeam#</strong></td>
+																		<td><a href="season_pass.cfm?option=season_pass&team_id=#awayteamid#">#awayteam#</a> <i>vs.</i> <a href="season_pass.cfm?option=season_pass&team_id=#hometeamid#"><strong>#hometeam#</strong></a></td>
 																		<td>#fieldname# Field</td>
-																		<td><a href="games.cfm?add_to_cart=true&game_id=#gameid#" class="btn btn-sm btn-primary btn-outline"><i class="fa fa-shopping-cart"></i> Add to Cart</a></td>																	
+																		<td><a href="games.cfm?add_to_cart=true&game_id=#gameid#" class="btn btn-sm btn-primary btn-outline"><i class="fa fa-shopping-cart"></i> Purchase Game</a></td>																	
 																	</tr>
 																</cfloop>
 															</tbody>
