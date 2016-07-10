@@ -32,7 +32,7 @@
 											<cfset state.statename = trim( form.statename ) />
 																		
 												<!--- // check our state id against the conferences table and throw error if found --->
-												<cfquery name="chkstate">
+												<cfquery name="chkconf">
 													select c.confid
 													  from conferences c
 													 where c.stateid = <cfqueryparam value="#state.stateid#" cfsqltype="cf_sql_integer" />
@@ -44,19 +44,8 @@
 													 where users.stateid = <cfqueryparam value="#state.stateid#" cfsqltype="cf_sql_integer" />
 												</cfquery>
 												
-												<cfif chkstate.recordcount GT 0 and chkuser.recordcount GT 0>											
+												<cfif chkconf.recordcount eq 0 and chkuser.recordcount eq 0>
 												
-													<div class="alert alert-danger alert-dismissable">
-														<button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
-															<h5><error>Sorry, <cfoutput> #state.statename#</cfoutput> can not be deleted:</error></h2>
-															<ul>
-																<li class="formerror">The database threw a referential integrity error. </li> 
-																<li class="formerror">The state ID of the state selected to be deleted exists in tables:  conferences and users  </li>
-															</ul>
-													</div>												
-												
-												<cfelse>
-													
 													<!--- // no conferences or related data found, allow the delete record operation --->
 													<cfquery name="deletestate">
 														delete 
@@ -77,6 +66,17 @@
 												
 													<cflocation url="#application.root##url.event#&scope=s3" addtoken="no">
 												
+												<cfelse>																				
+												
+													<div class="alert alert-danger alert-dismissable">
+														<button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
+															<h5><error>Sorry, <cfoutput> #state.statename#</cfoutput> can not be deleted:</error></h2>
+															<ul>
+																<li class="formerror">The database threw a referential integrity error. </li> 
+																<li class="formerror">The state ID of the state selected to be deleted exists in tables:  conferences and users  </li>
+															</ul>
+													</div>												
+													
 												</cfif>
 								
 										<!--- If the required data is missing - throw the validation error --->
