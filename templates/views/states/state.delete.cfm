@@ -37,15 +37,31 @@
 													  from states s, conferences c
 													 where s.stateid = c.stateid
 													   and s.stateid = <cfqueryparam value="#state.stateid#" cfsqltype="cf_sql_integer" />
-												</cfquery>												
+												</cfquery>
+
+												<cfquery name="chkUser">
+												    select users.userid 
+													  from users
+													 where users.stateid = <cfqueryparam value="#state.stateid#" cfsqltype="cf_sql_integer" />
+												</cfquery>
 												
 												<cfif chkstate.recordcount neq 0>											
 												
 													<div class="alert alert-danger alert-dismissable">
 														<button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
-															<h5><error>Sorry, <cfoutput> #chkstate.statename#</cfoutput> can not be deleted:</error></h2>
+															<h5><error>Sorry, <cfoutput> #state.statename#</cfoutput> can not be deleted:</error></h2>
 															<ul>
-																<li class="formerror">Forgeign key constraint on CONFERENCES table...</li>
+																<li class="formerror">Database: Forgeign Key constraint on CONFERENCES table...</li>
+															</ul>
+													</div>
+													
+												<cfelseif chkUser.recordcount neq 0>
+												
+													<div class="alert alert-danger alert-dismissable">
+														<button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
+															<h5><error>Sorry, <cfoutput> #state.statename#</cfoutput> can not be deleted:</error></h2>
+															<ul>
+																<li class="formerror">Database: Forgeign Key constraint on USERS table...</li>
 															</ul>
 													</div>
 												
