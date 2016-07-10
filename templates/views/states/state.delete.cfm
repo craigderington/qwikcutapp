@@ -33,37 +33,27 @@
 																		
 												<!--- // check our state id against the conferences table and throw error if found --->
 												<cfquery name="chkstate">
-													select s.statename, c.confid
-													  from states s, conferences c
-													 where s.stateid = c.stateid
-													   and s.stateid = <cfqueryparam value="#state.stateid#" cfsqltype="cf_sql_integer" />
+													select c.confid
+													  from conferences c
+													 where c.stateid = <cfqueryparam value="#state.stateid#" cfsqltype="cf_sql_integer" />
 												</cfquery>
 
-												<cfquery name="chkUser">
+												<cfquery name="chkuser">
 												    select users.userid 
 													  from users
 													 where users.stateid = <cfqueryparam value="#state.stateid#" cfsqltype="cf_sql_integer" />
 												</cfquery>
 												
-												<cfif chkstate.recordcount neq 0>											
+												<cfif chkstate.recordcount GT 0 and chkuser.recordcount GT 0>											
 												
 													<div class="alert alert-danger alert-dismissable">
 														<button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
 															<h5><error>Sorry, <cfoutput> #state.statename#</cfoutput> can not be deleted:</error></h2>
 															<ul>
-																<li class="formerror">Database: Forgeign Key constraint on CONFERENCES table...</li>
+																<li class="formerror">The database threw a referential integrity error. </li> 
+																<li class="formerror">The state ID of the state selected to be deleted exists in tables:  conferences and users  </li>
 															</ul>
-													</div>
-													
-												<cfelseif chkUser.recordcount neq 0>
-												
-													<div class="alert alert-danger alert-dismissable">
-														<button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
-															<h5><error>Sorry, <cfoutput> #state.statename#</cfoutput> can not be deleted:</error></h2>
-															<ul>
-																<li class="formerror">Database: Forgeign Key constraint on USERS table...</li>
-															</ul>
-													</div>
+													</div>												
 												
 												<cfelse>
 													
@@ -85,7 +75,7 @@
 																);
 													</cfquery>
 												
-												<cflocation url="#application.root##url.event#&scope=s3" addtoken="no">
+													<cflocation url="#application.root##url.event#&scope=s3" addtoken="no">
 												
 												</cfif>
 								
