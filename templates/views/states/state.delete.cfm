@@ -47,24 +47,40 @@
 												<cfif chkconf.recordcount eq 0 and chkuser.recordcount eq 0>
 												
 													<!--- // no conferences or related data found, allow the delete record operation --->
-													<cfquery name="deletestate">
-														delete 
-														  from states													   
-														 where stateid = <cfqueryparam value="#state.stateid#" cfsqltype="cf_sql_integer" />														
-													</cfquery>
-
-													<!--- // record the activity --->
-													<cfquery name="activitylog">
-														insert into activity(userid, activitydate, activitytype, activitytext)														  													   
-														 values(
-																<cfqueryparam value="#session.userid#" cfsqltype="cf_sql_integer" />,
-																<cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />,
-																<cfqueryparam value="Delete Record" cfsqltype="cf_sql_varchar" />,
-																<cfqueryparam value="deleted the state of #state.statename# from the system." cfsqltype="cf_sql_varchar" />																
-																);
-													</cfquery>
-												
-													<cflocation url="#application.root##url.event#&scope=s3" addtoken="no">
+													<cftry>														
+														<cfquery name="deletestate">
+															delete 
+															  from states													   
+															 where stateid = <cfqueryparam value="#state.stateid#" cfsqltype="cf_sql_integer" />														
+														</cfquery>
+	
+														<!--- // record the activity --->
+														<cfquery name="activitylog">
+															insert into activity(userid, activitydate, activitytype, activitytext)														  													   
+																values(
+																		<cfqueryparam value="#session.userid#" cfsqltype="cf_sql_integer" />,
+																		<cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />,
+																		<cfqueryparam value="Delete Record" cfsqltype="cf_sql_varchar" />,
+																		<cfqueryparam value="deleted the state of #state.statename# from the system." cfsqltype="cf_sql_varchar" />																
+																		);
+															</cfquery>
+														
+															<cflocation url="#application.root##url.event#&scope=s3" addtoken="no">
+															
+															<!-- handle the database error more gracefully -->
+															<cfcatch type = "Database"> 
+																<!--- The message to display. ---> 
+																<h3>You've Thrown a Database <b>Error</b></h3> 
+																<cfoutput> 
+																	<!--- The diagnostic message from ColdFusion. ---> 
+																	<p>#cfcatch.message#</p> 
+																	<p>Caught an exception, type = #CFCATCH.TYPE#</p> 
+																	<p>The contents of the tag stack are:</p> 
+																	<cfdump var="#cfcatch.tagcontext#"> 
+																</cfoutput> 
+															</cfcatch> 
+														
+													</cftry>
 												
 												<cfelse>																				
 												
