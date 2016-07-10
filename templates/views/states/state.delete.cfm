@@ -76,7 +76,7 @@
 																	<p>#cfcatch.message#</p> 
 																	<p>Caught an exception, type = #CFCATCH.TYPE#</p> 
 																	<p>The contents of the tag stack are:</p> 
-																	<cfdump var="#cfcatch.tagcontext#"> 
+																	<cfdump var="#cfcatch.tagcontext#">
 																</cfoutput> 
 															</cfcatch> 
 														

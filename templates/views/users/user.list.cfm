@@ -131,7 +131,12 @@
 																	<cfelse>
 																		<span class="label label-danger">Unknown</span>
 																	</cfif></th>
-																<td><i class="fa fa-check text-primary"></i> <small>#dateformat( lastlogindate, "mm/dd/yyyy" )#</small></td>
+																<td>
+																<cfif useractive eq 1>
+																    <i class="fa fa-check text-primary"></i>
+																<cfelse>
+																	<span class="label label-danger">Inactive</span>
+																</cfif><small>#dateformat( lastlogindate, "mm/dd/yyyy" )#</small></td>
 															</tr>
 														</cfoutput>																			 
 													</tbody>

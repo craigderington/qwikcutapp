@@ -9,7 +9,7 @@
 		<cfset var userlist = "" />
 			<cfquery name="userlist">
 					select users.userid, username, firstname, lastname, password, confid, lastloginip, lastlogindate, email, 
-					       userrole, useracl, usersettings.userprofileimagepath
+					       userrole, useracl, useractive, usersettings.userprofileimagepath
 				      from dbo.users, dbo.usersettings
 					 where dbo.users.userid = dbo.usersettings.userid 
 				    <cfif not structkeyexists( form, "filterresults" )>
@@ -26,6 +26,7 @@
 					<cfif structkeyexists( arguments, "stateid" )>
 						and stateid = <cfqueryparam value="#arguments.stateid#" cfsqltype="cf_sql_integer" />
 					</cfif>
+					    and users.useractive = <cfqueryparam value="1" cfsqltype="cf_sql_bit" />
 				  order by lastname, firstname asc
 			</cfquery>
 		<cfreturn userlist>
