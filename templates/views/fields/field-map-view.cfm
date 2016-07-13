@@ -8,10 +8,9 @@
 					<cfinclude template="../../../apis/udfs/geocoder.cfm">
 					
 					
-					
-					<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtwSehPdkMQ1n2KUWJzlLQlqLuvX1zjCw"></script>
-					
-					<cfoutput>	
+					<cfoutput>
+						<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=#application.googlemapsbrowserkey#"></script>
+											
 						<div class="ibox">
 							<div class="ibox-title">
 								<h5>							

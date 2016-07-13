@@ -15,7 +15,7 @@
 			<!--- // get the correct address from the field detail page --->
 			<cfset formattedaddress = "#fielddetail.fieldaddress1#,+#fielddetail.fieldcity#,+#fielddetail.stateabbr#,+#fielddetail.fieldzip#"  />		
 			
-			<cfset apikey = "AIzaSyAtwSehPdkMQ1n2KUWJzlLQlqLuvX1zjCw" />
+			<cfset apiKey = #application.googlemapsserverkey# />
 			<cfset postURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" & formattedaddress & "&key=" & apiKey />		
 			
 			<!--- call the server --->
@@ -46,9 +46,10 @@
 
 				<cfelse>
 			
-					<cfset myResponseObj = deserializejson( result.filecontent ) />								
+					<cfset myResponseObj = deserializejson( result.filecontent ) />
 					<cfset thisLat = #myResponseObj.results[1].geometry.location.lat# />
-					<cfset thisLong = #myResponseObj.results[1].geometry.location.lng# />							
+					<cfset thisLong = #myResponseObj.results[1].geometry.location.lng# />					
+					<!---<cfdump var="#myResponseObj#" label="Google Map API Response">--->
 			
 				</cfif>			
 			

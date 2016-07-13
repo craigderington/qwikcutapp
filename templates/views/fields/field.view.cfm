@@ -7,7 +7,6 @@
 					<cfinclude template="../../../apis/udfs/geocoder.cfm">
 
 
-
 									
 						<cfoutput>
 							<div class="row">							
@@ -37,7 +36,7 @@
 												--->												
 											</ul>
 											
-											<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBy6kNfIxQ6yP_Q0wbyqdH-v93-gfh0miU"></script>
+											<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=#application.googlemapsbrowserkey#"></script>
 																					
 											<div class="tab-content">
 												<div id="tab-1" class="tab-pane active">
@@ -125,7 +124,7 @@
 												</div>
 													
 													
-													<!--- // google maps api --->												
+													<!--- // google maps api --->											
 													
 													<script type="text/javascript">
 														// When the window has finished loading google map
