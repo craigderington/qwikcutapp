@@ -79,10 +79,7 @@
 											
 												<table class="table table-striped">
 													<thead>
-														<tr>
-															<cfif isuserinrole( "admin" )>
-																<th>Actions</th>
-															</cfif>
+														<tr>															
 															<th>State</th>														
 															<th>Region ID</th>
 															<th>Region Name</th>
@@ -91,8 +88,7 @@
 													</thead>
 													<tbody>
 														<cfoutput query="regionlist" startrow="#url.startrow#" maxrows="#url.rowsperpage#">
-															<tr>
-																
+															<tr>																
 																<td>#statename#</td>																
 																<td>#regionid#</td>
 																<td>#region_name#</td>
