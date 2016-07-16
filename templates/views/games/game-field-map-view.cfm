@@ -11,12 +11,13 @@
 					<!--- // get the google map geocoder api --->
 					<cfinclude template="../../../apis/udfs/geocoder.cfm">					
 					
-					<!--- call google map api --->
-					<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBy6kNfIxQ6yP_Q0wbyqdH-v93-gfh0miU"></script>
 					
-
-
+					
+					
 					<cfoutput>
+						<!--- call google map api --->
+						<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=#application.googlemapsbrowserkey#"></script>
+					
 						<div class="row">
 							<cfif structkeyexists( url, "scope" )>
 								<cfif url.scope eq "gf1">
