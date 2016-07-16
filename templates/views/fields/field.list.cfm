@@ -64,7 +64,7 @@
 											<h5><i class="fa fa-database"></i> The database found #fieldlist.recordcount# game field<cfif ( fieldlist.recordcount eq 0 ) or ( fieldlist.recordcount gt 1 )>s</cfif>.</h5>										
 											<cfif isuserinrole( "admin" )>
 												<span class="pull-right">
-													<a href="#application.root##url.event#&fuseaction=field.regions" style="margin-right:5px;" class="btn btn-xs btn-danger"><i class="fa fa-"></i> Manage Regions</a>
+													<a href="#application.root##url.event#&fuseaction=field.regions" style="margin-right:5px;" class="btn btn-xs btn-danger"><i class="fa fa-gear"></i> Manage Regions</a>
 													<a href="#application.root##url.event#&fuseaction=field.add" class="btn btn-xs btn-primary"><i class="fa fa-plus"></i> Add Field</a>
 												</span>
 											</cfif>

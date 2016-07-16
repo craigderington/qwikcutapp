@@ -58,9 +58,9 @@
 								<div class="ibox" style="margin-top:-15px;">								
 									<cfoutput>
 										<div class="ibox-title">
-											<h5><i class="fa fa-database"></i> The database found </h5>										
+											<h5><i class="fa fa-database"></i> The database found #regionlist.recordcount# regions.</h5>										
 												<span class="pull-right">													
-													<a href="#application.root##url.event#" class="btn btn-xs btn-primary"><i class="fa fa-arrow-circle-left"></i> Return to List</a>
+													<a href="#application.root##url.event#" class="btn btn-xs btn-primary"><i class="fa fa-arrow-circle-left"></i> Return to Field Admin</a>
 												</span>											
 										</div>
 									</cfoutput>						
