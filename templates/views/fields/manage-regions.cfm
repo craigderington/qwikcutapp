@@ -3,14 +3,23 @@
 
 
 
-						
 
 
 						
 
-									
-						
-						<div class="row">
+
+
+
+
+			
+						<cfinvoke component="apis.com.admin.fieldadminservice" method="getregions" returnvariable="regionlist">
+							<cfinvokeargument name="stateid" value="#session.stateid#">
+						</cfinvoke>
+
+
+
+
+							<div class="row">
 							
 								<cfoutput>							
 								
@@ -19,7 +28,7 @@
 											<h5><i class="fa fa-search"></i> Filter Your Results</h5>
 										</div>
 										<div class="ibox-content m-b-sm border-bottom">
-											<form name="data-filter" method="post" action="#application.root##url.event#">
+											<form name="data-filter" method="post" action="#application.root##url.event#&fuseaction=#trim( url.fuseaction )#">
 												<div class="row">
 													<div class="col-sm-2">
 														<div class="form-group">
@@ -31,20 +40,8 @@
 																	</cfloop>
 															</select>
 														</div>
-													</div>											
-																									
-													<div class="col-sm-3">
-														<div class="form-group">
-															<label class="control-label" for="fieldname">Field Name</label>
-															<input type="text" id="fieldname" name="fieldname" placeholder="Search by Field Name" class="form-control" <cfif structkeyexists( form, "fieldname" )>value="#trim( form.fieldname )#"</cfif> onchange="javascript:this.form.submit();" />
-														</div>
-													</div>
-													<div class="col-sm-3">
-														<div class="form-group">
-															<label class="control-label" for="fieldzipcode">Zip Code</label>
-															<input type="text" id="fieldzipcode" name="fieldzipcode" placeholder="Search by Zip Code" class="form-control" <cfif structkeyexists( form, "fieldzipcode" )>value="#trim( form.fieldzipcode )#"</cfif> onchange="javascript:this.form.submit();" />
-														</div>
-													</div>
+													</div>					
+													
 													<input name="filterresults" type="hidden" value="true" />													
 													<!---<button type="submit" name="filterresults" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> Filter Results</button>--->
 													<cfif structkeyexists( form, "filterresults" ) and not structkeyexists( session, "fieldstateid" )>
@@ -61,20 +58,17 @@
 								<div class="ibox" style="margin-top:-15px;">								
 									<cfoutput>
 										<div class="ibox-title">
-											<h5><i class="fa fa-database"></i> The database found #fieldlist.recordcount# game field<cfif ( fieldlist.recordcount eq 0 ) or ( fieldlist.recordcount gt 1 )>s</cfif>.</h5>										
-											<cfif isuserinrole( "admin" )>
-												<span class="pull-right">
-													<a href="#application.root##url.event#&fuseaction=field.regions" style="margin-right:5px;" class="btn btn-xs btn-danger"><i class="fa fa-"></i> Manage Regions</a>
-													<a href="#application.root##url.event#&fuseaction=field.add" class="btn btn-xs btn-primary"><i class="fa fa-plus"></i> Add Field</a>
-												</span>
-											</cfif>
+											<h5><i class="fa fa-database"></i> The database found </h5>										
+												<span class="pull-right">													
+													<a href="#application.root##url.event#" class="btn btn-xs btn-primary"><i class="fa fa-arrow-circle-left"></i> Return to List</a>
+												</span>											
 										</div>
 									</cfoutput>						
 									
 									<div class="ibox-content">									
 										<div class="table-responsive">
 											
-											<cfif fieldlist.recordcount gt 0>
+											<cfif regionlist.recordcount gt 0>
 
 												<!--- // pagination --->
 												<cfparam name="url.startRow" default="1" >
@@ -90,31 +84,24 @@
 																<th>Actions</th>
 															</cfif>
 															<th>State</th>														
-															<th>Field Name</th>
-															<th>Address</th>
-															<th>Field Contact</th>
+															<th>Region ID</th>
+															<th>Region Name</th>
 															<th>Status</th>
 														</tr>
 													</thead>
 													<tbody>
-														<cfoutput query="fieldlist" startrow="#url.startrow#" maxrows="#url.rowsperpage#">
+														<cfoutput query="regionlist" startrow="#url.startrow#" maxrows="#url.rowsperpage#">
 															<tr>
-																<cfif isuserinrole( "admin" )>
-																	<td>
-																		<a class="btn btn-sm btn-primary" href="#application.root#admin.fields&fuseaction=field.edit&id=#fieldid#" title="Edit Field Details"><i class="fa fa-edit"></i></a>
-																		<a class="btn btn-sm btn-danger" href="#application.root#admin.fields&fuseaction=field.delete&id=#fieldid#" title="Delete Field Details"><i class="fa fa-trash"></i></a>
-																	</td>
-																</cfif>
+																
 																<td>#statename#</td>																
-																<td><strong><a href="#application.root#admin.fields&fuseaction=field.view&id=#fieldid#">#fieldname#</a> Field</strong></td>
-																<td><small>#fieldaddress1# <a href="#application.root##url.event#&fuseaction=field.map&id=#fieldid#" style="margin-left:5px;"><i class="fa fa-map-marker"></i></a><cfif fieldaddress2 neq ""><br />#fieldaddress2#</cfif><br />#fieldcity#, #stateabbr# #fieldzip#</small></td>
-																<td><small>#fieldcontactname#<br />#fieldcontacttitle#<br />#fieldcontactnumber#</small></td>
+																<td>#regionid#</td>
+																<td>#region_name#</td>
 																<td><a href="##" title="Active"><i class="fa fa-check text-primary"></i></a></td>
 															</tr>
 														</cfoutput>																			 
 													</tbody>
 													<!--- // pagination conditionals --->
-													<cfset totalRecords = fieldlist.recordcount />
+													<cfset totalRecords = regionlist.recordcount />
 													<cfset totalPages = totalRecords / rowsPerPage />
 													<cfset endRow = (startRow + rowsPerPage) - 1 />													
 

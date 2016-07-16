@@ -92,6 +92,8 @@
 									<cfinclude template="views/fields/field.games.cfm">
 								<cfelseif trim( url.fuseaction ) eq "field.map">
 									<cfinclude template="views/fields/field.map.cfm">
+								<cfelseif trim( url.fuseaction ) eq "field.regions">
+									<cfinclude template="views/fields/manage-regions.cfm">
 								<cfelse>
 									<!-- // no view found, show message -->
 									<div class="alert alert-danger" style="margin-top:10px;">
