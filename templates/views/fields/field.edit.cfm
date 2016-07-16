@@ -26,7 +26,7 @@
 												<li class=""><a href="#application.root##url.event#&fuseaction=field.map&id=#url.id#"><i class="fa fa-map-marker"></i> Field Map</a></li>
 											</ul>
 											
-											<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBy6kNfIxQ6yP_Q0wbyqdH-v93-gfh0miU"></script>
+											<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=#application.googlemapsbrowserkey#"></script>
 																					
 											<div class="tab-content">
 												<div id="tab-1" class="tab-pane active">
