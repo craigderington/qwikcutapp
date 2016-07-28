@@ -1,5 +1,5 @@
 <cfcomponent displayname="teamadminservice">
-	
+
 	<cffunction name="init" access="public" output="false" returntype="teamadminservice" hint="I return an initialized team admin service object.">
 		<cfreturn this >
 	</cffunction>
@@ -9,7 +9,7 @@
 		<cfargument name="conferenceid" type="numeric" required="no" default="0">
 		<cfset var teamlist = "" />
 		<cfquery name="teamlist">
-			select t.teamid, t.teamname, t.teamcity, t.teamcolors, t.teammascot, t.teamactive, t.teamrecord, 
+			select t.teamid, t.teamname, t.teamcity, t.teamcolors, t.teammascot, t.teamactive, t.teamrecord,
 			       t.teamlevel, t.teamorgname, c.conftype, c.confname, s.stateabbr, tl.teamlevelname, tl.teamlevelcode
 			  from teams t, conferences c, states s, teamlevels tl
 			 where t.confid = c.confid
@@ -18,10 +18,10 @@
 				    <cfif structkeyexists( form, "filterresults" )>
 						<!---
 						<cfif structkeyexists( form, "conferenceid" ) and form.conferenceid neq "">
-							and t.confid = <cfqueryparam value="#form.conferenceid#" cfsqltype="cf_sql_integer" />												
+							and t.confid = <cfqueryparam value="#form.conferenceid#" cfsqltype="cf_sql_integer" />
 						</cfif>
 						<cfif structkeyexists( form, "teamlevelid" ) and form.teamlevelid neq "">
-							and tl.teamlevelid = <cfqueryparam value="#form.teamlevelid#" cfsqltype="cf_sql_integer" />						
+							and tl.teamlevelid = <cfqueryparam value="#form.teamlevelid#" cfsqltype="cf_sql_integer" />
 						</cfif>
 						--->
 						<cfif structkeyexists( form, "teamname" ) and form.teamname neq "">
@@ -29,9 +29,9 @@
 						</cfif>
 						<cfif structkeyexists( form, "teamcity" ) and form.teamcity neq "">
 							and t.teamcity LIKE <cfqueryparam value="%#trim( form.teamcity )#%" cfsqltype="cf_sql_varchar" />
-						</cfif>			
+						</cfif>
 				    </cfif>
-					<cfif structkeyexists( session, "conferenceid" )>					
+					<cfif structkeyexists( session, "conferenceid" )>
 						and t.confid = <cfqueryparam value="#session.conferenceid#" cfsqltype="cf_sql_integer" />
 					</cfif>
 					<cfif structkeyexists( session, "teamlevelid" )>
@@ -40,18 +40,18 @@
 					<cfif structkeyexists( arguments, "stateid" )>
 						and s.stateid = <cfqueryparam value="#arguments.stateid#" cfsqltype="cf_sql_integer" />
 					</cfif>
-					
+
 			 order by c.confid, t.teamname, tl.teamlevelid asc
 		</cfquery>
 		<cfreturn teamlist>
 	</cffunction>
-	
+
 	<cffunction name="getteamdetail" access="remote" output="false" hint="I get the team details.">
 		<cfargument name="id" type="numeric" required="yes" default="#url.id#">
 		<cfset var teamdetail = "" />
 		<cfquery name="teamdetail">
-			select t.teamid, t.teamname, t.teamcity, t.teamcolors, t.teammascot, t.teamactive, t.teamrecord, 
-			       t.teamlevel, t.teamorgname, c.confname, c.confid, c.conftype, s.stateabbr, tl.teamlevelname, 
+			select t.teamid, t.teamname, t.teamcity, t.teamcolors, t.teammascot, t.teamactive, t.teamrecord,
+			       t.teamlevel, t.teamorgname, c.confname, c.confid, c.conftype, s.stateabbr, tl.teamlevelname,
 				   tl.teamlevelcode, tl.teamlevelid, t.homefieldid
 			  from teams t, conferences c, states s, teamlevels tl
 			 where t.confid = c.confid
@@ -60,62 +60,71 @@
 			   and t.teamid = <cfqueryparam value="#arguments.id#" cfsqltype="cf_sql_integer" />
 		</cfquery>
 		<cfreturn teamdetail>
-	</cffunction>	
-	
+	</cffunction>
+
 	<cffunction name="getteamlevels" access="remote" output="false" hint="I get the team levels.">
 		<cfargument name="teamlevel" type="any" required="no">
+		<cfargument name="conferenceid" type="numeric" required="yes" default="1">
 		<cfset var teamlevels = "" />
 		<cfquery name="teamlevels">
-			select tl.teamlevelid, tl.teamlevelname, tl.teamlevelcode, tl.teamlevelconftype
+			select tl.confid, tl.teamlevelid, tl.teamlevelname, tl.teamlevelcode, tl.teamlevelconftype
 			  from teamlevels tl
+				<cfif structkeyexists( arguments, "conferenceid" )>
+					where tl.confid = <cfqueryparam value="#arguments.conferenceid#" cfsqltype="cf_sql_integer" />
+				</cfif>
 			  <cfif structkeyexists( form, "teamlevel" )>
-				where tl.teamlevelconftype = <cfqueryparam value="#trim( arguments.teamlevel )#" cfsqltype="cf_sql_varchar" />
+				and tl.teamlevelconftype = <cfqueryparam value="#trim( arguments.teamlevel )#" cfsqltype="cf_sql_varchar" />
 			  </cfif>
 		  order by tl.teamlevelconftype desc, tl.teamlevelid asc
 		</cfquery>
 		<cfreturn teamlevels>
 	</cffunction>
-	
+
 	<cffunction name="getteamlevel" access="remote" output="false" hint="I get the team level details.">
 		<cfargument name="id" type="any" required="no" default="#url.id#">
+		<cfargument name="conferenceid" type="numeric" required="yes" default="1">
 		<cfset var teamlevel = "" />
 		<cfquery name="teamlevel">
-			select tl.teamlevelid, tl.teamlevelname, tl.teamlevelcode, tl.teamlevelconftype
-			  from teamlevels tl
-			 where tl.teamlevelid = <cfqueryparam value="#trim( arguments.id )#" cfsqltype="cf_sql_integer" />			  
+			select tl.teamlevelid, c2.confname, tl.teamlevelname, tl.teamlevelcode, tl.teamlevelconftype
+			  from teamlevels tl, conferences c
+				where tl.confid = c.confid
+			 and tl.teamlevelid = <cfqueryparam value="#trim( arguments.id )#" cfsqltype="cf_sql_integer" />
 		</cfquery>
 		<cfreturn teamlevel>
 	</cffunction>
-	
+
 	<cffunction name="getteamlevelsforconference" access="remote" output="false" hint="I get the team levels for the conference type.">
 		<cfargument name="teamlevelconftype" type="any" required="yes" default="#trim( form.teamlevelconftype )#">
+	  <cfargument name="conferenceid" type="numeric" required="yes" default="1">
 		<cfset var teamlevels = "" />
 		<cfquery name="teamlevels">
-			select tl.teamlevelid, tl.teamlevelname, tl.teamlevelcode, tl.teamlevelconftype
-			  from teamlevels tl
-			 where tl.teamlevelconftype = <cfqueryparam value="#arguments.teamlevelconftype#" cfsqltype="cf_sql_varchar" />
+			select tl.teamlevelid, c.confname, tl.teamlevelname, tl.teamlevelcode, tl.teamlevelconftype, tl.confid
+			  from teamlevels tl, conferences c
+			 where tl.confid = c.confid
+			   and tl.condid = <cfqueryparam value="#arguments.conferenceid#" cfsqltype="cf_sql_integer" />
+			   and tl.teamlevelconftype = <cfqueryparam value="#arguments.teamlevelconftype#" cfsqltype="cf_sql_varchar" />
 		  order by tl.teamlevelid asc
 		</cfquery>
 		<cfreturn teamlevels>
 	</cffunction>
-	
+
 	<cffunction name="getconferenceteams" access="remote" output="false" hint="I get the list of teams for conference admins.">
 		<cfargument name="stateid" type="numeric" required="no">
 		<cfargument name="conferenceid" type="numeric" required="yes" default="0">
 		<cfset var teamlist = "" />
 		<cfquery name="conferenceteamlist">
-			select distinct(t.teamorgname), count(t.teamid) as totalteams       
+			select distinct(t.teamorgname), count(t.teamid) as totalteams
 			 from teams t, conferences c
-			where t.confid = c.confid             
+			where t.confid = c.confid
 			  and t.confid = <cfqueryparam value="#arguments.conferenceid#" cfsqltype="cf_sql_integer" />
 			group by t.teamorgname
 			order by t.teamorgname asc
 		</cfquery>
 		<cfreturn conferenceteamlist>
 	</cffunction>
-	
+
 	<cffunction name="getteamsbyname" access="remote" output="false" hint="I get the teams by team level.">
-		<cfargument name="teamname" type="any" required="yes">		
+		<cfargument name="teamname" type="any" required="yes">
 		<cfargument name="conferenceid" type="numeric" required="yes" default="0">
 		<cfset var teamslist = "" />
 		<cfquery name="teamslist">
@@ -128,12 +137,12 @@
 		</cfquery>
 		<cfreturn teamslist>
 	</cffunction>
-	
+
 	<cffunction name="getteamrecord" access="remote" output="false" hint="I get the team W/L record by game season">
-		<cfargument name="id" type="any" required="yes">		
+		<cfargument name="id" type="any" required="yes">
 		<cfargument name="gameseasonid" type="numeric" required="yes">
 		<cfset var teamrecord = "" />
-			<cfquery name="teamrecord">			
+			<cfquery name="teamrecord">
 				select teamid, sum(wins) as wins,
 					   sum(losses) as losses
 				  from teamrecords
@@ -143,6 +152,6 @@
 			</cfquery>
 		<cfreturn teamrecord>
 	</cffunction>
-	
+
 
 </cfcomponent>
