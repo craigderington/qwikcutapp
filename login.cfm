@@ -1,3 +1,5 @@
+<!--- maintenance call --->
+<cflocation url = "maintenance.html" >
 <!DOCTYPE html>
 	<html>
 		<head>
@@ -9,17 +11,17 @@
 			<link href="css/animate.css" rel="stylesheet">
 			<link href="css/style.css" rel="stylesheet">
 		</head>
-		
+
 		<cfoutput>
 			<body class="gray-bg">
-				
+
 				<!--- // system messages --->
 				<cfif isdefined( "REQUEST.badlogin" )>
 					<div class="alert alert-danger alert-dismissable fade in">
 						<button type="button" class="close" data-dismiss="alert">&times;</button>
 							<h4 class="alert-heading"><i class="fa fa-warning"></i> Login Failed!</h4>
 								<p>Sorry, your login credentials have failed.  Either your username OR password was entered incorrectly.  Please try again...</p>
-					</div>						
+					</div>
 				<cfelseif isdefined( "url.logout" ) and url.logout eq 1>
 					<div class="alert alert-success alert-dismissable fade in">
 						<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -27,9 +29,9 @@
 							<p>Your logout request was processed successfully.  To continue, please login again or close this window.</p>
 					</div>
 				</cfif>
-				
-				
-				
+
+
+
 				<div class="middle-box text-center loginscreen animated fadeInDown">
 					<div>
 						<div>
@@ -37,11 +39,11 @@
 						</div>
 						<h3>Welcome to QwikCut Game Day App</h3>
 						<p>Login required to proceed.</p>
-						
-						
-						
-						
-						
+
+
+
+
+
 						<form class="m-t" role="form" action="#application.root#user.home" method="post">
 							<div class="form-group">
 								<div class="input-group">
@@ -62,28 +64,28 @@
 							<p class="text-muted text-center"><small>Don't have an account?</small></p>
 							<a class="btn btn-sm btn-white btn-block" href="#application.root#user.register">Create an account</a>
 						</form>
-						
-						<p class="m-t">							
-							<small>&copy; Qwikcut.com  #year( now() )#.  All Rights Reserved. 
+
+						<p class="m-t">
+							<small>&copy; Qwikcut.com  #year( now() )#.  All Rights Reserved.
 								<br />Game Film Video and Analytics.
-							</small>							
+							</small>
 						</p>
-						
+
 						<!---
 						<p>
-						
+
 							<cfquery name="testusers">
 								select *
 								from dbo.users
 							</cfquery>
-							
+
 							<cfdump var="#testusers#" label="User List">
-						
+
 						</p>
 						--->
-						
-						
-						
+
+
+
 					</div>
 				</div>
 

@@ -1,7 +1,7 @@
 
 
 		<!--- maintenance call --->
-		<<cflocation url = "maintenance.html" >
+		<cflocation url = "maintenance.html" >
 
 		<!--- // include the header --->
 		<cfinclude template="header.cfm">
