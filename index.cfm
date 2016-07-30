@@ -1,23 +1,24 @@
 
 
+		<!--- maintenance call --->
+		<<cflocation url = "maintenance.html" >
 
-				
 		<!--- // include the header --->
-		<cfinclude template="header.cfm">	
-				
+		<cfinclude template="header.cfm">
+
 		<!--- // scope the URL variable --->
-		<cfparam name="event" default="page.index">		
-		
+		<cfparam name="event" default="page.index">
+
 		<!--- // components that we'll use on every page --->
 		<cfinvoke component="apis.udfs.genAlpha" method="genRandomAlphaString" returnvariable="randout">
-		
+
 		<!--- // include the system templating engine --->
-		<cfinclude template="apis/nav/nav.cfm">		
-		
-		<!--- // include the footer --->			
-		<cfinclude template="footer.cfm">	
-		
-		
+		<cfinclude template="apis/nav/nav.cfm">
+
+		<!--- // include the footer --->
+		<cfinclude template="footer.cfm">
+
+
 		<!---
 		<h1>Page.Index</h1>
 		--->
