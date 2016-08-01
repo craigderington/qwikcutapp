@@ -67,8 +67,9 @@
 		<cfargument name="conferenceid" type="numeric" required="yes" default="1">
 		<cfset var teamlevels = "" />
 		<cfquery name="teamlevels">
-			select tl.confid, tl.teamlevelid, tl.teamlevelname, tl.teamlevelcode, tl.teamlevelconftype
-			  from teamlevels tl
+			select tl.confid, tl.teamlevelid, tl.teamlevelname, tl.teamlevelcode, tl.teamlevelconftype,
+						 c.confname
+			  from teamlevels tl inner join conferences c on tl.confid = c.confid
 				<cfif structkeyexists( arguments, "conferenceid" )>
 					where tl.confid = <cfqueryparam value="#arguments.conferenceid#" cfsqltype="cf_sql_integer" />
 				</cfif>
@@ -86,8 +87,8 @@
 		<cfset var teamlevel = "" />
 		<cfquery name="teamlevel">
 			select tl.teamlevelid, c2.confname, tl.teamlevelname, tl.teamlevelcode, tl.teamlevelconftype
-			  from teamlevels tl, conferences c
-				where tl.confid = c.confid
+			  from teamlevels tl, conferences c2
+				where tl.confid = c2.confid
 			 and tl.teamlevelid = <cfqueryparam value="#trim( arguments.id )#" cfsqltype="cf_sql_integer" />
 		</cfquery>
 		<cfreturn teamlevel>
@@ -101,7 +102,7 @@
 			select tl.teamlevelid, c.confname, tl.teamlevelname, tl.teamlevelcode, tl.teamlevelconftype, tl.confid
 			  from teamlevels tl, conferences c
 			 where tl.confid = c.confid
-			   and tl.condid = <cfqueryparam value="#arguments.conferenceid#" cfsqltype="cf_sql_integer" />
+			   and tl.confid = <cfqueryparam value="#arguments.conferenceid#" cfsqltype="cf_sql_integer" />
 			   and tl.teamlevelconftype = <cfqueryparam value="#arguments.teamlevelconftype#" cfsqltype="cf_sql_varchar" />
 		  order by tl.teamlevelid asc
 		</cfquery>
