@@ -85,7 +85,7 @@
 											<select name="conferenceid" id="conferenceid" class="form-control" onchange="javascript:this.form.submit();">
 												<option value="" selected>Filter by Conference</option>
 												<cfloop query="conferencelist">
-													<option value="#confid#"<cfif structkeyexists( form, "conferenceid" )><cfif form.conferenceid eq conferencelist.confid>selected</cfif><cfelseif structkeyexists( session, "conferenceid" )><cfif session.conferenceid eq conferencelist.confid>selected</cfif></cfif>>#confname#</option>
+													<option value="#confid#"<cfif structkeyexists( form, "conferenceid" )><cfif form.conferenceid eq conferencelist.confid>selected</cfif><cfelseif structkeyexists( session, "conferenceid" )><cfif session.conferenceid eq conferencelist.confid>selected</cfif></cfif><cfelseif not (structkeyexists( form, "conferenceid" ) and not structkeyexists( session, "conferenceid" )) and conferencelist.confid eq 1>selected</cfif>>#confname#</option>
 												</cfloop>
 											</select>
 										</div>

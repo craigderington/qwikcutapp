@@ -24,7 +24,7 @@
 													<div class="ibox-content">								
 														
 														<!--- // begin form processing --->
-														<cfif isDefined( "form.fieldnames" )>
+														<cfif isdefined( "form.fieldnames" ) and isdefined("form.add-new-team-level")>
 														
 															<cfset form.validate_require = "tlid|Ops, internal form error...;teamlevelname|Please enter a team level name.;teamlevelcode|Please enter a team level code (i.e. JV for Junior Varsity).;teamlevelconftype|Please select the conference type." />																
 														
@@ -41,6 +41,7 @@
 																<cfset tl.teamlevelname = trim( form.teamlevelname ) />
 																<cfset tl.teamlevelconftype = trim( form.teamlevelconftype ) />
 																<cfset tl.teamlevelcode = trim( form.teamlevelcode ) />
+																<cfset tl.confid = form.confid />
 																
 																<cfif tl.tlid eq 0>
 																
@@ -49,7 +50,8 @@
 																		 values(
 																				<cfqueryparam value="#tl.teamlevelname#" cfsqltype="cf_sql_varchar" />,																				
 																				<cfqueryparam value="#tl.teamlevelconftype#" cfsqltype="cf_sql_varchar" maxlength="2" />,
-																				<cfqueryparam value="#tl.teamlevelcode#" cfsqltype="cf_sql_varchar" maxlength="50" />																				
+																				<cfqueryparam value="#tl.teamlevelcode#" cfsqltype="cf_sql_varchar" maxlength="50" />,
+																				<cfqueryparam value="#tl.confid#" cfsqltype="cf_sql_integer" />
 																				);
 																	</cfquery>										
 																	
@@ -125,11 +127,13 @@
 																		<cfif not structkeyexists( url, "id" )>
 																			<button class="btn btn-sm btn-white" type="submit"><i class="fa fa-save"></i> Add Team Level</button>
 																			<input type="hidden" name="tlid" value="0" />
+																			<input type="hidden" name="confid" value="<cfif structkeyexists( session, "conferenceid" )>#session.conferenceid#<cfelse>1</cfif>">
 																		<cfelse>
 																			<button class="btn btn-sm btn-white" type="submit"><i class="fa fa-save"></i> Save Team Level</button>
 																			<input type="hidden" name="tlid" value="#url.id#" />
 																			<a href="#application.root##url.event#&fuseaction=#url.fuseaction#" class="btn btn-sm btn-default"><i class="fa fa-remove"></i> Cancel</a>
-																		</cfif>									
+																		</cfif>
+																		<input type="hidden" name="add-new-team-level" value="True">
 																	</div>
 																</div>
 															</form>
