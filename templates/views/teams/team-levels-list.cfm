@@ -7,6 +7,7 @@
 							<cfset session.conferenceid = #form.conferenceid# />
 						<cfelse>
 							<cfset session.conferenceid = 1 />
+						</cfif>
 					</cfif>
 
 
