@@ -5,8 +5,6 @@
 					<cfif structkeyexists( form, "conferenceid" )>
 						<cfif isnumeric( "form.conferenceid" )>
 							<cfset session.conferenceid = #form.conferenceid# />
-						<cfelse>
-							<cfset session.conferenceid = 1 />
 						</cfif>
 					</cfif>
 
