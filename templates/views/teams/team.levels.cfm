@@ -5,6 +5,11 @@
 
 
 					<cfinvoke component="apis.com.admin.teamadminservice" method="getteamlevels" returnvariable="teamlevels">						
+						<cfif structkeyexists( session, "conferenceid" )>
+							<cfinvokeargument name="conferenceid" value="#session.conferenceid#">
+						<cfelse>
+							<cfinvokeargument name="conferenceid" value="1">
+						</cfif>
 					</cfinvoke>
 					
 					

@@ -14,7 +14,7 @@
 
 					<div class="ibox">
 						<div class="ibox-title">
-							<h5><i class="fa fa-database"></i> <cfoutput>The database found #teamlevels.recordcount# team level<cfif ( teamlevels.recordcount gt 0 ) or ( teamlevels.recordcount eq 0 )>s...</cfif></cfoutput></h5>
+							<h5><i class="fa fa-database"></i> <cfoutput>The database found #teamlevels.recordcount# team level<cfif ( teamlevels.recordcount gt 0 ) or ( teamlevels.recordcount eq 0 )>s</cfif></cfoutput> for the selected conference.</h5>
 						</div>
 						<div class="ibox-content">
 
@@ -75,11 +75,11 @@
 								</cfif>
 							</cfif>
 
-
+							<cfoutput>
 							<!--- data filter for conference list to filter --->
 							<form name="data-filter" method="post" action="#application.root##url.event#&fuseaction=team.levels">
 								<fieldset>
-									<div class="col-sm-3">
+									<div class="col-sm-6">
 										<div class="form-group">
 											<label class="control-label" for="conferenceid">Conference</label>
 											<select name="conferenceid" id="conferenceid" class="form-control" onchange="javascript:this.form.submit();">
@@ -100,6 +100,7 @@
 									</cfif>
 								</fieldset>
 							</form>
+							</cfoutput>
 
 
 
