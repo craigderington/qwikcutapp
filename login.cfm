@@ -1,5 +1,3 @@
-<!--- maintenance call --->
-<cflocation url = "maintenance.html" >
 <!DOCTYPE html>
 	<html>
 		<head>
