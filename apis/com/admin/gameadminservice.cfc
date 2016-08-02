@@ -73,11 +73,13 @@
 	
 	<cffunction name="getteamlevels" access="remote" output="false" hint="I get the team levels for the conference type.">
 		<cfargument name="conferencetype" type="any" required="yes" default="#trim( form.conferencetype )#">
+		<cfargument name="conferenceid" type="numeric" required="yes" default="1">
 			<cfset var teamlevels = "" />
 			<cfquery name="teamlevels">
 				select tl.teamlevelid, tl.teamlevelname, tl.teamlevelcode, tl.teamlevelconftype
 				  from teamlevels tl
 				 where tl.teamlevelconftype = <cfqueryparam value="#arguments.conferencetype#" cfsqltype="cf_sql_varchar" />
+				   and tl.confid = <cfqueryparam value="#arguments.conferenceid#" cfsqltype="cf_sql_integer" />
 			  order by tl.teamlevelid asc
 			</cfquery>
 		<cfreturn teamlevels>
