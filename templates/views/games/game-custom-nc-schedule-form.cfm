@@ -215,7 +215,7 @@
 							<cfif structkeyexists( form, "conferenceA" )>
 								<cfinvoke component="apis.com.admin.gameadminservice" method="getteamlevels" returnvariable="teamlevels">
 									<cfinvokeargument name="conferencetype" value="#trim( form.conferencetype )#">
-									<cfinvokeargument name="conferenceid" value="#form.conferenceid#">
+									<cfinvokeargument name="conferenceid" value="#form.conferenceA#">
 								</cfinvoke>
 								<div class="form-group">
 									<label class="col-sm-4 control-label" for="divisionid">Division</label>
