@@ -11,7 +11,7 @@
 							<cfset form.validate_require = "conferenceid|The conference is required to create this game.;divisionid|Please select a team level.;fieldid|Please select a team level.;hometeam|Please select the home team.;awayteam|Please select the away team.;gamedate|Please select a game date.;gametime|Please select the game time." />
 							<cfset form.validate_dateus = "gamedate|Sorry, the game date selected is in the incorrect date/time format.  Please try again." />
 							<cfset form.validate_numeric = "conferenceid|The conference ID must be a number.;divisionid|The Team Division must be a number.;fieldid|The selected field must be a number." />
-							
+
 							<cfscript>
 								objValidation = createobject( "component","apis.udfs.validation" ).init();
 								objValidation.setFields( form );
@@ -19,7 +19,7 @@
 							</cfscript>
 
 							<cfif objValidation.getErrorCount() is 0>
-									
+
 								<cfset g = structnew() />
 								<cfset g.conferenceid = form.conferenceid />
 								<cfset g.divisionid = form.divisionid />
@@ -28,7 +28,7 @@
 								<cfset g.awayteam = trim( form.awayteam ) />
 								<cfset g.gamedate = form.gamedate />
 								<cfset g.gametime = form.gametime />
-						
+
 								<!--- // use the division and home and away teams to get the necessary ID's --->
 								<cfquery name="gethometeamid">
 									select t1.teamid
@@ -37,7 +37,7 @@
 									   and t1.teamlevelid = <cfqueryparam value="#g.divisionid#" cfsqltype="cf_sql_integer" />
 									   and t1.teamorgname = <cfqueryparam value="#trim( g.hometeam )#" cfsqltype="cf_sql_varchar" />
 								</cfquery>
-								
+
 								<cfquery name="getawayteamid">
 									select t2.teamid
 									  from teams t2
@@ -45,28 +45,28 @@
 									   and t2.teamlevelid = <cfqueryparam value="#g.divisionid#" cfsqltype="cf_sql_integer" />
 									   and t2.teamorgname = <cfqueryparam value="#trim( g.awayteam )#" cfsqltype="cf_sql_varchar" />
 								</cfquery>
-								
-								
+
+
 								<cfif gethometeamid.recordcount eq 1
 								    and getawayteamid.recordcount eq 1 >
-									
+
 									<cfquery name="checkforexistinggames">
 										select gameid, gamedate
 										  from games
 										 where (
-													( hometeamid = <cfqueryparam value="#gethometeamid.teamid#" cfsqltype="cf_sql_integer" /> 
-													  and gamedate = <cfqueryparam value="#g.gamedate#" cfsqltype="cf_sql_date" />
-													) 
-										          or 
-													( awayteamid = <cfqueryparam value="#getawayteamid.teamid#" cfsqltype="cf_sql_integer" /> 
+													( hometeamid = <cfqueryparam value="#gethometeamid.teamid#" cfsqltype="cf_sql_integer" />
 													  and gamedate = <cfqueryparam value="#g.gamedate#" cfsqltype="cf_sql_date" />
 													)
-												)										   
+										          or
+													( awayteamid = <cfqueryparam value="#getawayteamid.teamid#" cfsqltype="cf_sql_integer" />
+													  and gamedate = <cfqueryparam value="#g.gamedate#" cfsqltype="cf_sql_date" />
+													)
+												)
 									</cfquery>
-									
-									
+
+
 									<cfif checkforexistinggames.recordcount eq 0>
-									
+
 										<!--- // add versus + game --->
 										<cfquery name="addversus">
 											insert into versus(hometeam, awayteam, gamedate, gametime, fieldid, gamestatus)
@@ -79,13 +79,13 @@
 														<cfqueryparam value="Scheduled" cfsqltype="cf_sql_varchar" />
 													   ); select @@IDENTITY as newvsid
 										</cfquery>
-										
+
 										<cfquery name="getgameseason">
 											select gameseasonid
 											  from gameseasons
 											 where gameseasonactive = <cfqueryparam value="1" cfsqltype="cf_sql_bit" />
 										</cfquery>
-										
+
 										<cfquery name="addgame">
 											insert into games(confid, fieldid, hometeamid, awayteamid, gamedate, gamestart, gamestatus, gameseasonid, vsid, customgame)
 												values(
@@ -101,22 +101,22 @@
 														<cfqueryparam value="1" cfsqltype="cf_sql_bit" />
 													   )
 										</cfquery>
-										
+
 											<!--- // record the activity --->
 											<cfquery name="activitylog">
-												insert into activity(userid, activitydate, activitytype, activitytext)														  													   
+												insert into activity(userid, activitydate, activitytype, activitytext)
 													values(
 															<cfqueryparam value="#session.userid#" cfsqltype="cf_sql_integer" />,
 															<cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />,
 															<cfqueryparam value="Add Record" cfsqltype="cf_sql_varchar" />,
-															<cfqueryparam value="added the custom game schedule for #g.hometeam# vs. #g.awayteam#." cfsqltype="cf_sql_varchar" />																
+															<cfqueryparam value="added the custom game schedule for #g.hometeam# vs. #g.awayteam#." cfsqltype="cf_sql_varchar" />
 															);
-											</cfquery>									
-											
-											
+											</cfquery>
+
+
 											<!--- // add game to the notification service queue --->
 											<cfquery name="notificationservicequeue">
-												insert into notifications(vsid, gameid, notificationtype, notificationtext, notificationtimestamp, notificationstatus, shooterid, notificationqueued, notificationsent)														  													   
+												insert into notifications(vsid, gameid, notificationtype, notificationtext, notificationtimestamp, notificationstatus, shooterid, notificationqueued, notificationsent)
 													values(
 															<cfqueryparam value="#addversus.newvsid#" cfsqltype="cf_sql_integer" />,
 															<cfqueryparam value="0" cfsqltype="cf_sql_integer" />,
@@ -129,16 +129,16 @@
 															<cfqueryparam value="0" cfsqltype="cf_sql_bit" />
 															);
 											</cfquery>
-										
+
 										<div class="alert alert-success">
 											<button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
 											<h5><i class="fa fa-check-circle-o"></i> GAME SCHEDULED!</h5>
 											<p>Your custom matchup was successfully created.  Use the list to select your custom game to view game details.</p>
 										</div>
-										
-										
-									
-									<cfelse>										
+
+
+
+									<cfelse>
 										<cfoutput>
 											<div class="alert alert-info">
 												<h5><i class="fa fa-warning"></i> ERROR!</h5>
@@ -146,20 +146,20 @@
 											</div>
 										</cfoutput>
 									</cfif>
-									
-								
+
+
 								<cfelse>
-								
+
 									<div class="alert alert-danger">
 										<h5><i class="fa fa-warning"></i> ERROR!</h5>
 										<p>There was a problem fetching the teams for the selected Division.</p>
 									</div>
-								
+
 								</cfif>
-						
-						
+
+
 							<cfelse>
-							
+
 								<div class="alert alert-danger alert-dismissable">
 									<button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
 										<h5><error>There were <cfoutput>#objValidation.getErrorCount()#</cfoutput> errors in your submission:</error></h5>
@@ -169,22 +169,22 @@
 												</cfloop>
 											</ul>
 								</div>
-							
-							</cfif>		
-						
-						
+
+							</cfif>
+
+
 						</cfif>
 
 
 
-		
-		
-		
-						
-						
+
+
+
+
+
 						<form name="create-custom-game-schedule" method="post" action="">
-							<div class="form-group">								
-								<label class="col-sm-4 control-label" for="conferencetype">Conference Type</label>								
+							<div class="form-group">
+								<label class="col-sm-4 control-label" for="conferencetype">Conference Type</label>
 								<div class="col-sm-8">
 									<select name="conferencetype" class="form-control m-b" onchange="javascript:this.form.submit();">
 										<option value="">Select Conference Type</option>
@@ -193,15 +193,16 @@
 									</select>
 								</div>
 							</div>
-							
+
 							<cfif structkeyexists( form, "conferencetype" )>
-								<cfinvoke component="apis.com.admin.gameadminservice" method="getconferences" returnvariable="conferencelist">												
+								<cfinvoke component="apis.com.admin.gameadminservice" method="getconferences" returnvariable="conferencelist">
 									<cfinvokeargument name="conferencetype" value="#trim( form.conferencetype )#">
 								</cfinvoke>
-								<div class="form-group">								
-									<label class="col-sm-4 control-label" for="conferenceid">Conference</label>								
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="conferenceid">Conference</label>
 									<div class="col-sm-8">
 										<select name="conferenceid" class="form-control m-b" onchange="javascript:this.form.submit();">
+											<option value="0">Select Conference</option>
 											<cfoutput query="conferencelist">
 												<option value="#confid#"<cfif structkeyexists( form, "conferenceid" )><cfif form.conferenceid eq conferencelist.confid>selected</cfif></cfif>>#trim( confname )#</option>
 											</cfoutput>
@@ -211,12 +212,12 @@
 							</cfif>
 
 							<cfif structkeyexists( form, "conferenceid" )>
-								<cfinvoke component="apis.com.admin.gameadminservice" method="getteamlevels" returnvariable="teamlevels">												
+								<cfinvoke component="apis.com.admin.gameadminservice" method="getteamlevels" returnvariable="teamlevels">
 									<cfinvokeargument name="conferencetype" value="#trim( form.conferencetype )#">
 									<cfinvokeargument name="conferenceid" value="#form.conferenceid#">
 								</cfinvoke>
-								<div class="form-group">								
-									<label class="col-sm-4 control-label" for="divisionid">Division</label>								
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="divisionid">Division</label>
 									<div class="col-sm-8">
 										<select name="divisionid" class="form-control m-b" onchange="javascript:this.form.submit();">
 											<option value="">Select Division</option>
@@ -225,15 +226,15 @@
 											</cfoutput>
 										</select>
 									</div>
-								</div>							
+								</div>
 							</cfif>
-							
+
 							<cfif structkeyexists( form, "divisionid" )>
 								<cfinvoke component="apis.com.admin.gameadminservice" method="gethometeam" returnvariable="hometeam">
 									<cfinvokeargument name="conferenceid" value="#form.conferenceid#">
-								</cfinvoke>	
-								<div class="form-group">							
-									<label class="col-sm-4 control-label" for="hometeam">Home Team</label>								
+								</cfinvoke>
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="hometeam">Home Team</label>
 									<div class="col-sm-8">
 										<select name="hometeam" class="form-control m-b" onchange="javascript:this.form.submit();">
 											<option value="">Select Home Team</option>
@@ -244,31 +245,31 @@
 									</div>
 								</div>
 							</cfif>
-							
+
 							<cfif structkeyexists( form, "hometeam" )>
 								<cfinvoke component="apis.com.admin.gameadminservice" method="getawayteam" returnvariable="awayteam">
 									<cfinvokeargument name="conferenceid" value="#form.conferenceid#">
-									<cfinvokeargument name="teamorgname" value="#trim( form.hometeam )#">													
+									<cfinvokeargument name="teamorgname" value="#trim( form.hometeam )#">
 								</cfinvoke>
-								<div class="form-group">								
-									<label class="col-sm-4 control-label" for="awayteam">Away Team</label>								
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="awayteam">Away Team</label>
 									<div class="col-sm-8">
 										<select name="awayteam" class="form-control m-b" onchange="javascript:this.form.submit();">
 											<option value="">Select Away Team</option>
 											<cfoutput query="awayteam">
 												<option value="#trim( teamorgname )#"<cfif structkeyexists( form, "awayteam" )><cfif trim( form.awayteam ) eq trim( awayteam.teamorgname )>selected</cfif></cfif>>#trim( teamorgname )#</option>
-											</cfoutput>										
+											</cfoutput>
 										</select>
 									</div>
 								</div>
 							</cfif>
-							
+
 							<cfif structkeyexists( form, "awayteam" )>
 								<cfinvoke component="apis.com.admin.fieldadminservice" method="getfields" returnvariable="fieldlist">
-									<cfinvokeargument name="stateid" value="#session.stateid#">																					
+									<cfinvokeargument name="stateid" value="#session.stateid#">
 								</cfinvoke>
-								<div class="form-group">								
-									<label class="col-sm-4 control-label" for="fieldid">Game Field</label>								
+								<div class="form-group">
+									<label class="col-sm-4 control-label" for="fieldid">Game Field</label>
 									<div class="col-sm-8">
 										<select name="fieldid" class="form-control m-b" onchange="javascript:this.form.submit();">
 											<option value="">Select Game Field</option>
@@ -279,36 +280,36 @@
 									</div>
 								</div>
 							</cfif>
-							
+
 							<cfif structkeyexists( form, "fieldid" )>
 								<cfoutput>
 									<div class="form-group" id="data_1">
 										<label class="col-sm-4 control-label" for="gamedate">Game Date</label>
 										<div class="col-sm-7 input-group date">
 											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-											<input type="text" class="form-control m-b" name="gamedate" placeholder="Select Game Date" <cfif structkeyexists( form, "gamedate" )>value="#dateformat( form.gamedate, "mm/dd/yyyy" )#"</cfif> />													
+											<input type="text" class="form-control m-b" name="gamedate" placeholder="Select Game Date" <cfif structkeyexists( form, "gamedate" )>value="#dateformat( form.gamedate, "mm/dd/yyyy" )#"</cfif> />
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-sm-4 control-label" for="gametime">Game Time</label>
-										<div class="col-sm-7 input-group clockpicker" data-autoclose="true">															
+										<div class="col-sm-7 input-group clockpicker" data-autoclose="true">
 											<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
 											<input type="text" class="form-control m-b" name="gametime" placeholder="Select Game Time" <cfif structkeyexists( form, "gametime" )>value="#timeformat( form.gametime, "hh:mm:ss" )#"</cfif>  />
 										</div>
 									</div>
 								</cfoutput>
-								
+
 								<div class="hr-line-dashed"></div>
-							
+
 								<div class="form-group">
 									<div class="col-sm-offset-4 col-sm-8">
 										<button type="submit" name="createCustomGame" class="btn btn-md btn-primary">Schedule Game</button>
 										<a href="" class="btn btn-md btn-success"><i class="fa fa-refresh"></i> Reset</a>
-									</div>							
+									</div>
 								</div>
-						
-						
+
+
 							</cfif>
-						
-						
+
+
 						</form>
