@@ -9,7 +9,7 @@
 		<cfargument name="shootername" type="any" required="yes">
 		<cfargument name="senderemail" type="any" required="no">
 		
-		<cfset arguments.senderemail = "info@qwikcut.com"  />
+		<cfset arguments.senderemail = "systems@qwikcut.com"  />
 		<cfset msgstatus = "" />
 			<cfmail from="#arguments.senderemail#" to="#arguments.shooteremail#" bcc="craig@craigderington.me,todd@qwikcut.com" subject="QwikCut - Videographer Registration - Action Required" type="HTML"><cfoutput><div align="center"><a href="http://www.qwikcut.com"><img src="http://qwikcut.cloudapp.net/qwikcutapp/img/qc-logo-600x176.jpg" height="176" width="600"></a></div>
 <div style="padding:7px;">			
