@@ -90,23 +90,7 @@
 														
 														<cfoutput>
 															<form class="form-horizontal" method="post" action="#application.root##url.event#&fuseaction=#url.fuseaction#&id=#url.id#">
-																<cfif not structkeyexists( url, "srid" )>
-																<cfinvoke component="apis.com.admin.fieldadminservice" method="getregions" returnvariable="regionlist">
-																	<cfinvokeargument name="stateid" value="#session.stateid#">
-																</cfinvoke>
-																	<p class="small">Please assign work regions</p>
-																	<div class="form-group">
-																		<label class="col-lg-2 control-label">Regions</label>
-																			<div class="col-lg-10">
-																				<select name="fieldid" id="regionid" class="form-control">
-																					<option value="">Select Region</option>
-																					<cfloop query="regionist">
-																						<option value="#regionid#">#region_name#</option>
-																					</cfloop>
-																				</select>
-																			</div>
-																	</div>
-																<cfelse>
+																<cfif structkeyexists( url, "srid" )>															
 																	<p class="small">Please confirm deletion...</p>
 																	<div class="form-group">
 																		<label class="col-lg-2 control-label">Name</label>
@@ -114,6 +98,24 @@
 																				<p class="form-control-static">#shooterregiondetails.region_name#</p>							
 																			</div>
 																	</div>
+																	
+																<cfelse>
+																	
+																	<cfinvoke component="apis.com.admin.fieldadminservice" method="getregions" returnvariable="regionlist">
+																		<cfinvokeargument name="stateid" value="#session.stateid#">
+																	</cfinvoke>
+																		<p class="small">Please assign work regions</p>
+																		<div class="form-group">
+																			<label class="col-lg-2 control-label">Region</label>
+																				<div class="col-lg-10">
+																					<select name="fieldid" id="regionid" class="form-control">
+																						<option value="">Select Region</option>
+																						<cfloop query="regionist">
+																							<option value="#regionid#">#region_name#</option>
+																						</cfloop>
+																					</select>
+																				</div>
+																		</div>
 																</cfif>
 																
 																
@@ -121,14 +123,14 @@
 																<div class="form-group">
 																	<div class="col-lg-offset-2 col-lg-10">
 																		<input type="hidden" name="shooterid" value="#url.id#" />
-																		<cfif not structkeyexists( url, "sfid" )>
-																			<button class="btn btn-md btn-primary" type="submit"><i class="fa fa-save"></i> Assign Region</button>
-																			<input type="hidden" name="srid" value="0" />
-																		<cfelse>
+																		<cfif structkeyexists( url, "srid" )>
 																			<input type="hidden" name="srid" value="#url.srid#" />
 																			<input type="hidden" name="regionid" value="#shooterregiondetails.regionid#" />
 																			<button class="btn btn-md btn-danger" type="submit"><i class="fa fa-save"></i> Delete Assignment</button>
 																			<a href="#application.root##url.event#&fuseaction=#url.fuseaction#&id=#url.id#" class="btn btn-md btn-default"><i class="fa fa-remove"></i> Cancel</a>
+																		<cfelse>
+																			<button class="btn btn-md btn-primary" type="submit"><i class="fa fa-save"></i> Assign Region</button>
+																			<input type="hidden" name="srid" value="0" />																		
 																		</cfif>										
 																	</div>
 																</div>
