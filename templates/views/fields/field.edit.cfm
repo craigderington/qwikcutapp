@@ -36,7 +36,7 @@
 															<!--- // begin form processing --->
 															<cfif structkeyexists( form, "fieldnames" ) and structkeyexists( form, "saveFieldRecord" )>
 															
-																<cfset form.validate_require = "fieldid|Sorry, and internal error has occurred.;stateid|The state is required to edit this record.;fieldname|Please enter a name for this field.;fieldaddress1|Please enter the primary address.;fieldcity|Please enter the city for this field.;fieldzip|Please enter the field zip code.;fieldcontactname|Please enter the field contact name.;fieldcontactnumber|Please enter the primary contacts phone number.;fieldcontacttitle|Please enter the field contact title." />
+																<cfset form.validate_require = "fieldid|Sorry, and internal error has occurred.;stateid|The state is required to edit this record.;regionid|The region is required to save this record.;fieldname|Please enter a name for this field.;fieldaddress1|Please enter the primary address.;fieldcity|Please enter the city for this field.;fieldzip|Please enter the field zip code.;fieldcontactname|Please enter the field contact name.;fieldcontactnumber|Please enter the primary contacts phone number.;fieldcontacttitle|Please enter the field contact title." />
 																
 																<cfscript>
 																	objValidation = createobject( "component","apis.udfs.validation" ).init();
@@ -50,6 +50,7 @@
 																	<cfset f = structnew() />
 																	<cfset f.fieldid = form.fieldid />
 																	<cfset f.stateid = form.stateid />
+																	<cfset f.regionid = form.regionid />
 																	<cfset f.fieldname = trim( form.fieldname ) />
 																	<cfset f.fieldactive = form.fieldactive  />
 																	<cfset f.fieldaddress1 = trim( form.fieldaddress1 ) />
@@ -73,7 +74,8 @@
 																				   fieldcontactname = <cfqueryparam value="#f.fieldcontactname#" cfsqltype="cf_sql_varchar" maxlength="50" />,
 																				   fieldcontacttitle =<cfqueryparam value="#f.fieldcontacttitle#" cfsqltype="cf_sql_varchar" maxlength="50" />,
 																				   fieldcontactnumber = <cfqueryparam value="#f.fieldcontactnumber#" cfsqltype="cf_sql_varchar" maxlength="50" />,
-																				   fieldoptionid = <cfqueryparam value="#f.fieldoptionid#" cfsqltype="cf_sql_integer" />
+																				   fieldoptionid = <cfqueryparam value="#f.fieldoptionid#" cfsqltype="cf_sql_integer" />,
+																				   regionid = <cfqueryparam value="#f.regionid#" cfsqltype="cf_sql_integer" />
 																			 where fieldid = <cfqueryparam value="#f.fieldid#" cfsqltype="cf_sql_integer" /> 
 																		</cfquery>
 
@@ -113,6 +115,16 @@
 																<fieldset class="form-horizontal">
 																	<div class="form-group"><label class="col-sm-2 control-label">Field ID:</label>
 																		<div class="col-sm-10"><input type="text" class="form-control" placeholder="Field ID" value="#fielddetail.fieldid#" readonly></div>
+																	</div>
+																	<div class="form-group"><label class="col-sm-2 control-label">Region:</label>
+																		<div class="col-sm-10">
+																			<select class="form-control" name="regionid">
+																				<option value="">Select Region</option>
+																					<cfloop query="regionlist">															
+																						<option value="#regionid#"<cfif isdefined( "form.regionid" )><cfif form.regionid = regionlist.regionid>selected</cfif></cfif>>#region_name#</option>
+																					</cfloop>
+																			</select>
+																		</div>
 																	</div>
 																	<div class="form-group"><label class="col-sm-2 control-label">Field:</label>
 																		<div class="col-sm-10"><input type="text" name="fieldname" class="form-control" placeholder="Field Name" value="#fielddetail.fieldname#"></div>

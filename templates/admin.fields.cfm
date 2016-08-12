@@ -24,6 +24,10 @@
 		<cfinvoke component="apis.com.admin.fieldadminservice" method="getfieldoptions" returnvariable="fieldoptions">
 		</cfinvoke>
 		
+		<cfinvoke component="apis.com.admin.fieldadminservice" method="getregions" returnvariable="regionlist">
+			<cfinvokeargument name="stateid" value="#session.stateid#">
+		</cfinvoke>
+		
 		<!--- // data filters --->
 		<cfinvoke component="apis.com.admin.stateadminservice" method="getstates" returnvariable="statelist">
 		</cfinvoke>	

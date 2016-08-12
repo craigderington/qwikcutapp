@@ -114,5 +114,17 @@
 		<cfreturn regionlist>	
 	</cffunction>
 	
+	<cffunction name="getregion" access="public" returntype="query" output="false" hint="I get the region detail.">
+		<cfargument name="regionid" type="numeric" required="yes">
+		<cfset var regiondetail = "" />
+		<cfquery name="regionlist">
+			select s.stateid, s.statename, r.regionid, r.region_name
+			  from regions r, states s
+			 where r.stateid = s.stateid
+			   and r.regionid = <cfqueryparam value="#arguments.regionid#" cfsqltype="cf_sql_integer" />
+		</cfquery>
+		<cfreturn regiondetail>	
+	</cffunction>
+	
 
 </cfcomponent>
