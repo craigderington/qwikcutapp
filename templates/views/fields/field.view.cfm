@@ -116,7 +116,7 @@
 														<div class="col-md-6">
 															<div class="ibox ">
 																<div class="ibox-title">
-																	<h5><i class="fa fa-map-marker"></i> <span style="margin-left:10px;"><small>#fielddetail.fieldaddress1# #fielddetail.fieldaddress2# #fielddetail.fieldcity# #fielddetail.fieldstate# #fielddetail.fieldzip#</small></span></h5>
+																	<h5><i class="fa fa-map-marker"></i> <span style="margin-left:10px;"><small>#fielddetail.fieldaddress1# #fielddetail.fieldaddress2# #fielddetail.fieldcity# #fielddetail.stateabbr# #fielddetail.fieldzip#</small></span></h5>
 																</div>																
 																<div class="ibox-content">																
 																	<div class="google-map" id="map1"></div>
