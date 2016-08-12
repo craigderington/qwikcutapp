@@ -46,6 +46,9 @@
 																<div class="form-group"><label class="col-sm-2 control-label">Field ID:</label>
 																	<div class="col-sm-10"><input type="text" class="form-control" placeholder="Field ID" value="#fielddetail.fieldid#" readonly></div>
 																</div>
+																<div class="form-group"><label class="col-sm-2 control-label">Region:</label>
+																	<div class="col-sm-10"><input type="text" class="form-control" placeholder="Region ID" value="#fielddetail.region_name#" readonly></div>
+																</div>
 																<div class="form-group"><label class="col-sm-2 control-label">Field:</label>
 																	<div class="col-sm-10"><input type="text" class="form-control" placeholder="Field Name" value="#fielddetail.fieldname#"></div>
 																</div>																
