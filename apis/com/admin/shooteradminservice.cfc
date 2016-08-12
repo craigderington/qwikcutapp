@@ -121,5 +121,31 @@
 		</cfquery>
 		<cfreturn payrateslist>
 	</cffunction>
+	
+	<cffunction name="getshooterregions" output="false" returntype="query" access="remote" hint="I get the shooter assigned regions.">
+		<cfargument name="id" type="numeric" required="yes" default="#url.id#">
+		<cfset var shooterregionslist = "" />
+			<cfquery name="shooterregionslist">
+				 select sr.shooterregionid, sr.shooterid, sr.regionid, 
+						r.region_name, r.regionid, r.stateid, s.stateabbr, s.statename
+				   from dbo.shooterregions sr, dbo.regions r, states s
+				  where sr.regionid = r.regionid
+                    and r.stateid = s.stateid				  
+					and sr.shooterid = <cfqueryparam value="#arguments.id#" cfsqltype="cf_sql_integer" />
+			</cfquery>
+		<cfreturn shooterregionslist>
+	</cffunction>
+	
+	<cffunction name="getshooterregiondetails" output="false" returntype="query" access="remote" hint="I get the shooter assigned region id.">
+		<cfargument name="srid" type="numeric" required="yes" default="#url.srid#">
+		<cfset var shooterregiondetails = "" />
+			<cfquery name="shooterregiondetails">
+				 select sr.shooterregionid, sr.shooterid, sr.regionid, r.region_name
+				   from dbo.shooterregions sr, regions r
+				  where sr.regionid = r.regionid
+					and sr.shooterregionid = <cfqueryparam value="#arguments.srid#" cfsqltype="cf_sql_integer" />
+			</cfquery>
+		<cfreturn shooterregiondetails>
+	</cffunction>
 
 </cfcomponent>

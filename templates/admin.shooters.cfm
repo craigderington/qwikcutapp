@@ -74,6 +74,8 @@
 										<cfinclude template="views/shooters/shooter.add.cfm">
 									<cfelseif trim( url.fuseaction ) eq "shooter.view">
 										<cfinclude template="views/shooters/shooter.view.cfm">
+									<cfelseif trim( url.fuseaction ) eq "shooter.regions">
+										<cfinclude template="views/shooters/shooter.regions.cfm">
 									<cfelseif trim( url.fuseaction ) eq "shooter.fields">
 										<cfinclude template="views/shooters/shooter.fields.cfm">
 									<cfelseif trim( url.fuseaction ) eq "shooter.games">
