@@ -104,6 +104,9 @@
 																	
 																	<cfinvoke component="apis.com.admin.fieldadminservice" method="getregions" returnvariable="regionlist">
 																		<cfinvokeargument name="stateid" value="#session.stateid#">
+																		<cfif shooterregionslist.recordcount gt 0>
+																			<cfinvokeargument name="region_list" value="#valuelist(shooterregionslist.regionid)#">
+																		</cfif>
 																	</cfinvoke>
 																		<p class="small">Please assign work regions</p>
 																		<div class="form-group">

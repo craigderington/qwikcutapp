@@ -104,12 +104,16 @@
 	
 	<cffunction name="getregions" access="public" returntype="query" output="false" hint="I get the list of regions for regional field management.">
 		<cfargument name="stateid" type="numeric" required="yes">
+		<cfargument name="region_list" type="any" required="no">
 		<cfset var regionlist = "" />
 		<cfquery name="regionlist">
 			select s.stateid, s.statename, r.regionid, r.region_name
 			  from regions r, states s
 			 where r.stateid = s.stateid
 			   and s.stateid = <cfqueryparam value="#arguments.stateid#" cfsqltype="cf_sql_integer" />
+			       <cfif structkeyexists( arguments, "region_list" )>
+				   and regionid not in(<cfqueryparam value="#arguments.region_list#" cfsqltype="cf_sql_integer", list="yes">)
+				   </cfif>
 		   order by s.statename, r.region_name asc
 		</cfquery>
 		<cfreturn regionlist>	
