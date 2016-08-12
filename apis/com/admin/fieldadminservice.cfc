@@ -44,10 +44,10 @@
 			select f.fieldid, f.stateid, f.fieldname, f.fieldaddress1, f.fieldaddress2, f.fieldcity, f.fieldstate, f.fieldzip,
 				   f.fieldcontactnumber, f.fieldcontactname, f.fieldcontacttitle, f.fieldactive, f.fieldoptionid,
 				   s.statename, s.stateabbr, r.regionid, r.region_name
-			  from fields f, states s, regions r
-			 where f.stateid = s.stateid
-			   and f.regionid = r.regionid
-			   and f.fieldid = <cfqueryparam value="#arguments.id#" cfsqltype="cf_sql_integer" />
+			  from fields f 
+			       inner join states s on f.stateid = s.stateid
+			       left join regions r on f.regionid = r.regionid
+			 where f.fieldid = <cfqueryparam value="#arguments.id#" cfsqltype="cf_sql_integer" />
 		</cfquery>
 		<cfreturn fielddetail>
 	</cffunction>
