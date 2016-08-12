@@ -110,7 +110,7 @@
 																				<div class="col-lg-10">
 																					<select name="fieldid" id="regionid" class="form-control">
 																						<option value="">Select Region</option>
-																						<cfloop query="regionist">
+																						<cfloop query="regionlist">
 																							<option value="#regionid#">#region_name#</option>
 																						</cfloop>
 																					</select>
