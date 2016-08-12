@@ -38,6 +38,7 @@
 															<cfif objValidation.getErrorCount() is 0>							
 																
 																<cfset sr = structnew() />
+																<cfset sr.srid = form.srid />
 																<cfset sr.regionid = form.regionid />																
 																<cfset sr.shooterid = form.shooterid />
 																
