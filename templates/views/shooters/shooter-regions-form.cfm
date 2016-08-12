@@ -27,7 +27,7 @@
 														<!--- // begin form processing --->
 														<cfif isDefined( "form.fieldnames" )>
 														
-															<cfset form.validate_require = "srid|Ops, form error...;fieldid|Sorry, there was a problem with the form submission.;shooterid|There was a problem with the form." />																
+															<cfset form.validate_require = "srid|Ops, form error...;regionid|Sorry, there was a problem with the form submission.  Please select a region to add for the selected shooter.;shooterid|There was a problem with the form." />																
 														
 															<cfscript>
 																objValidation = createobject( "component","apis.udfs.validation" ).init();
