@@ -121,7 +121,7 @@
 																			<select class="form-control" name="regionid">
 																				<option value="">Select Region</option>
 																					<cfloop query="regionlist">															
-																						<option value="#regionid#"<cfif isdefined( "form.regionid" )><cfif form.regionid = regionlist.regionid>selected</cfif></cfif>>#region_name#</option>
+																						<option value="#regionid#"<cfif isdefined( "form.regionid" )><cfif form.regionid = regionlist.regionid>selected</cfif><cfelse><cfif fielddetail.regionid eq regionlist.regionid>selected</cfif></cfif>>#region_name#</option>
 																					</cfloop>
 																			</select>
 																		</div>
