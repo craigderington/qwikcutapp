@@ -51,7 +51,18 @@
 																				<cfqueryparam value="#sr.regionid#" cfsqltype="cf_sql_integer" />,																				
 																				<cfqueryparam value="#sr.shooterid#" cfsqltype="cf_sql_integer" />																				
 																				);
-																	</cfquery>										
+																	</cfquery>
+
+																	<!--- // record the activity --->
+																	<cfquery name="activitylog">
+																		insert into activity(userid, activitydate, activitytype, activitytext)														  													   
+																			values(
+																					<cfqueryparam value="#session.userid#" cfsqltype="cf_sql_integer" />,
+																					<cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />,
+																					<cfqueryparam value="Modify Record" cfsqltype="cf_sql_varchar" />,
+																					<cfqueryparam value="assigned shooter ID: #sr.shooterid# to region ID: #sr.regionid#." cfsqltype="cf_sql_varchar" />																
+																				);
+																	</cfquery>
 																	
 																	<cflocation url="#application.root##url.event#&fuseaction=#url.fuseaction#&id=#url.id#&scope=1" addtoken="no">			
 																
@@ -61,7 +72,18 @@
 																		delete 
 																		  from shooterregions																		   
 																		 where shooterregionid = <cfqueryparam value="#sr.srid#" cfsqltype="cf_sql_integer" />																			
-																	</cfquery>										
+																	</cfquery>
+
+																	<!--- // record the activity --->
+																	<cfquery name="activitylog">
+																		insert into activity(userid, activitydate, activitytype, activitytext)														  													   
+																			values(
+																					<cfqueryparam value="#session.userid#" cfsqltype="cf_sql_integer" />,
+																					<cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />,
+																					<cfqueryparam value="Delete Record" cfsqltype="cf_sql_varchar" />,
+																					<cfqueryparam value="deleted the region assignment for region ID: #sr.regionid# for shooter ID: #sr.shooterid#." cfsqltype="cf_sql_varchar" />																
+																				);
+																	</cfquery>
 																	
 																	<cflocation url="#application.root##url.event#&fuseaction=#url.fuseaction#&id=#url.id#&scope=2" addtoken="no">			
 																
