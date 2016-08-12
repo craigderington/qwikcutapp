@@ -62,7 +62,7 @@
 																<cfqueryparam value="#f.fieldcontacttitle#" cfsqltype="cf_sql_varchar" maxlength="50" />,
 																<cfqueryparam value="#f.fieldcontactnumber#" cfsqltype="cf_sql_varchar" maxlength="50" />,
 																<cfqueryparam value="#f.fieldoptionid#" cfsqltype="cf_sql_integer" />,
-																<cfqueryparam value=="#f.regionid#" cfsqltype="cf_sql_integer" />
+																<cfqueryparam value="#f.regionid#" cfsqltype="cf_sql_integer" />
 																);
 													</cfquery>
 
