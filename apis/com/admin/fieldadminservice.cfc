@@ -112,7 +112,7 @@
 			 where r.stateid = s.stateid
 			   and s.stateid = <cfqueryparam value="#arguments.stateid#" cfsqltype="cf_sql_integer" />
 			       <cfif structkeyexists( arguments, "region_list" )>
-				   and regionid not in(<cfqueryparam value="#arguments.region_list#" cfsqltype="cf_sql_integer", list="yes">)
+				   and regionid not in(<cfqueryparam value="#arguments.region_list#" cfsqltype="cf_sql_integer" list="yes">)
 				   </cfif>
 		   order by s.statename, r.region_name asc
 		</cfquery>
