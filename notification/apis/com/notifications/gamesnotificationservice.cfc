@@ -54,7 +54,7 @@
 
 <p>&nbsp;</p>
 
-<p><a href="http://qwikcut.cloudapp.net/qwikcutapp/index.cfm" style="-moz-box-shadow:inset 0px 1px 0px 0px ##9acc85;-webkit-box-shadow:inset 0px 1px 0px 0px ##9acc85;box-shadow:inset 0px 1px 0px 0px ##9acc85;background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, ##74ad5a), color-stop(1, ##68a54b));background:-moz-linear-gradient(top, ##74ad5a 5%, ##68a54b 100%);background:-webkit-linear-gradient(top, ##74ad5a 5%, ##68a54b 100%);background:-o-linear-gradient(top, ##74ad5a 5%, ##68a54b 100%);background:-ms-linear-gradient(top, ##74ad5a 5%, ##68a54b 100%);background:linear-gradient(to bottom, ##74ad5a 5%, ##68a54b 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='##74ad5a', endColorstr='##68a54b',GradientType=0);background-color:##74ad5a;-moz-border-radius:11px;-webkit-border-radius:11px;border-radius:11px;border:3px solid ##3b6e22;display:inline-block;cursor:pointer;color:##ffffff;font-family:Verdana;font-size:18px;font-weight:bold;padding:10px 21px;text-decoration:none;text-shadow:0px 1px 0px ##92b879;"> Login Now &raquo;</a></p>	
+<p><a href="http://qwikcut.cloudapp.net/index.cfm" style="-moz-box-shadow:inset 0px 1px 0px 0px ##9acc85;-webkit-box-shadow:inset 0px 1px 0px 0px ##9acc85;box-shadow:inset 0px 1px 0px 0px ##9acc85;background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, ##74ad5a), color-stop(1, ##68a54b));background:-moz-linear-gradient(top, ##74ad5a 5%, ##68a54b 100%);background:-webkit-linear-gradient(top, ##74ad5a 5%, ##68a54b 100%);background:-o-linear-gradient(top, ##74ad5a 5%, ##68a54b 100%);background:-ms-linear-gradient(top, ##74ad5a 5%, ##68a54b 100%);background:linear-gradient(to bottom, ##74ad5a 5%, ##68a54b 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='##74ad5a', endColorstr='##68a54b',GradientType=0);background-color:##74ad5a;-moz-border-radius:11px;-webkit-border-radius:11px;border-radius:11px;border:3px solid ##3b6e22;display:inline-block;cursor:pointer;color:##ffffff;font-family:Verdana;font-size:18px;font-weight:bold;padding:10px 21px;text-decoration:none;text-shadow:0px 1px 0px ##92b879;"> Login Now &raquo;</a></p>	
 
 <br /><br /><br /><br />
 
@@ -72,7 +72,7 @@
 			
 				<!--- // send text message.  limit messages to 100 characters to avoid splitting --->
 				<cfmail from="#arguments.senderemail#" to="#arguments.shooteremail#" subject="#arguments.notificationtype#">You have a new notification.  Please login to Qwikcut App for more information.
-					<cfmailparam name="reply-to" value="info@qwikcut.com">
+					<cfmailparam name="reply-to" value="systems@qwikcut.com">
 				</cfmail>
 		
 		

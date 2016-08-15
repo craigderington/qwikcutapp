@@ -61,9 +61,9 @@
 		<cfargument name="shooteremail" required="yes" type="any">
 		<cfargument name="shootername" required="yes" type="any">
 		
-		<cfset arguments.senderemail = "info@qwikcut.com"  />
+		<cfset arguments.senderemail = "systems@qwikcut.com"  />
 		<cfset msgstatus = "" />
-			<cfmail from="#arguments.senderemail#" to="#arguments.shooteremail#" bcc="craig@craigderington.me,todd@qwikcut.com" subject="QwikCut - Videographer Registration - Complete" type="HTML"><cfoutput><div align="center"><a href="http://www.qwikcut.com"><img src="http://qwikcut.cloudapp.net/qwikcutapp/img/qc-logo-600x176.jpg" height="176" width="600"></a></div>
+			<cfmail from="#arguments.senderemail#" to="#arguments.shooteremail#" cc="todd@qwikcut.com" subject="QwikCut - Videographer Registration - Complete" type="HTML"><cfoutput><div align="center"><a href="http://www.qwikcut.com"><img src="http://qwikcut.cloudapp.net/qwikcutapp/img/qc-logo-600x176.jpg" height="176" width="600"></a></div>
 <div style="padding:7px;">			
 <h3>Thank You, #shootername#</h3>
 			
@@ -73,7 +73,7 @@
 
 <p>In the mean time, log in to the website and add a profile image, meet other videographers and update your blockout dates.</p>
 
-<p><a href="http://qwikcut.cloudapp.net/qwikcutapp/index.cfm">Update Profile</a></p>	
+<p><a href="http://qwikcut.cloudapp.net/index.cfm">Update Profile</a></p>	
 
 <br /><br /><br /><br />
 
@@ -81,7 +81,7 @@
 <p><small>Email sent on behalf of QwikCut.com on #dateformat( now(), "mm/dd/yyyy" )# at #timeformat( now(), "hh:mm:ss tt" )#</small></p>
 </div>
 </cfoutput>
-			<cfmailparam name="reply-to" value="info@qwikcut.com">
+			<cfmailparam name="reply-to" value="systems@qwikcut.com">
 			</cfmail>
 			<cfset msgstatus = "Message Sent!" />
 		<cfreturn msgstatus>
