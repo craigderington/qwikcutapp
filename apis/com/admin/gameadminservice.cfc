@@ -90,7 +90,7 @@
 			<cfset var versus = "" />
 			<cfquery name="versus">
 				select v.vsid, v.hometeam, v.awayteam, v.gamedate, v.gametime, v.fieldid, f.fieldname, 
-					   f.fieldaddress1, f.fieldaddress2, f.fieldcity, f.stateid, s.stateabbr
+					   f.fieldaddress1, f.fieldaddress2, f.fieldcity, f.stateid, f.regionid, s.stateabbr
 				  from versus v, fields f, states s
 				 where v.fieldid = f.fieldid
 				   and f.stateid = s.stateid
@@ -289,27 +289,20 @@
 	</cffunction>
 	
 	<cffunction name="getshooterfields" access="public" returntype="query" output="false" hint="I get the shooter list for the assigned fields.">
-		<cfargument name="fieldid" type="numeric" required="yes">
+		<cfargument name="regionid" type="numeric" required="yes">
 		<cfargument name="assignedids" type="any" required="yes">
 		<cfset var shooterfields = "" />
 			<cfquery name="shooterfields">
-				<!--- // todd not able to assign shooters to fields, show all shooter (for now)
-				select sh.shooterid, sh.shooterfirstname, sh.shooterlastname 
-				  from shooterfields sf, shooters sh
-				 where sf.shooterid = sh.shooterid				  
-				   and sf.fieldid = <cfqueryparam value="#arguments.fieldid#" cfsqltype="cf_sql_integer" />
-				   and sh.shooterisactive = <cfqueryparam value="1" cfsqltype="cf_sql_bit" />
-				   and sh.shooterid not in(<cfqueryparam value="#arguments.assignedids#" cfsqltype="cf_sql_integer" list="yes" />)
-				--->
-				select sh.shooterid, sh.shooterfirstname, sh.shooterlastname 
-				  from shooters sh, users u
+				select sh.shooterid, sh.shooterfirstname, sh.shooterlastname
+				  from shooters sh, users u, shooterregions sr, regions r
 				 where sh.userid = u.userid
+				   and sh.shooterid = sr.shooterid
+                   and sr.regionid = r.regionid
 				   and sh.shooterisactive = <cfqueryparam value="1" cfsqltype="cf_sql_bit" />
 				   and sh.shooterid not in(<cfqueryparam value="#arguments.assignedids#" cfsqltype="cf_sql_integer" list="yes" />)
+                   and r.regionid = <cfqueryparam value="#arguments.regionid#" cfsqltype="cf_sql_integer" />
 				   and u.useractive = <cfqueryparam value="1" cfsqltype="cf_sql_bit" />
-				order by sh.shooterlastname, sh.shooterfirstname asc
-				
-				
+				order by sh.shooterlastname, sh.shooterfirstname asc		
 			</cfquery>	
 		<cfreturn shooterfields>
 	</cffunction>

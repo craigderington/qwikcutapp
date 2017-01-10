@@ -112,7 +112,7 @@
 									<!--- // end form processing --->
 									
 									<cfinvoke component="apis.com.admin.gameadminservice" method="getshooterfields" returnvariable="shooterfields">
-										<cfinvokeargument name="fieldid" value="#versus.fieldid#">
+										<cfinvokeargument name="regionid" value="#versus.regionid#">
 										<cfif gameshooters.recordcount gt 0>
 											<cfinvokeargument name="assignedids" value="#valuelist( gameshooters.shooterid )#">
 										<cfelse>
