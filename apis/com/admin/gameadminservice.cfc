@@ -406,7 +406,7 @@
 		<cfargument name="id" type="numeric" required="yes" default="#url.id#">		
 		<cfset var gameinfo = "" />
 		<cfquery name="gameinfo">
-			  select distinct(v.vsid), v.gamedate, v.fieldid, v.gamestatus, f.fieldname, v.hometeam, v.awayteam, c.confname,
+			  select distinct(v.vsid), v.gamedate, v.fieldid, v.gamestatus, f.fieldname, f.regionid, v.hometeam, v.awayteam, c.confname,
 				    (select count(sa.shooterid) from shooterassignments sa where sa.vsid = v.vsid) as totalshooters
 				from versus v, games g, fields f, conferences c
 			   where v.vsid = g.vsid

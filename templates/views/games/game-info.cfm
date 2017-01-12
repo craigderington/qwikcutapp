@@ -180,7 +180,8 @@
 												<cfinvokeargument name="isactive" value="1" />
 											</cfinvoke>
 											
-											<cfinvoke component="apis.com.admin.shooteradminservice" method="getshooters" returnvariable="shooterlist">
+											<cfinvoke component="apis.com.admin.shooteradminservice" method="getregionshooters" returnvariable="shooterregionlist">
+												<cfinvokeargument name="regionid" value="#gameinfo.regionid#">
 											</cfinvoke>
 									
 											<cfif gameinfo.recordcount gt 0>
@@ -208,7 +209,7 @@
 																<div class="form-group">
 																	<select name="shooterid" class="form-control">
 																		<option value="" selected>Select Shooter</option>
-																		<cfloop query="shooterlist">
+																		<cfloop query="shooterregionlist">
 																			<option value="#shooterid#">#shooterfirstname# #shooterlastname#</option>
 																		</cfloop>
 																	</select>

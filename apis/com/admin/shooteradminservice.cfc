@@ -147,5 +147,24 @@
 			</cfquery>
 		<cfreturn shooterregiondetails>
 	</cffunction>
+	
+	<cffunction name="getregionshooters" output="false" returntype="query" access="remote" hint="I get the list of shooters.">		
+		<cfargument name="regionid" type="numeric" required="yes">
+		<cfset var shooterregionlist = "" />
+			<cfquery name="shooterregionlist">
+					select sh.shooterid, sh.userid, sh.shooterfirstname, sh.shooterlastname, sh.shooteraddress1, sh.shooteraddress2, sh.shootercity, sh.shooterstateid, 
+					       sh.shooterzip, sh.shooteremail, sh.shooterisactive, sh.shootercellphone, sh.shootercellprovider, sh.shooteralertpref,
+						   u.useractive
+					  from dbo.shooters sh, dbo.shooterregions sr, dbo.regions r, dbo.users u
+					 where sh.shooterid = sr.shooterid
+					   and sh.userid = u.userid
+					   and sr.regionid = r.regionid
+					   and sh.shooterisactive = <cfqueryparam value="1" cfsqltype="cf_sql_bit" />					
+					   and u.useractive = <cfqueryparam value="1" cfsqltype="cf_sql_bit" />
+					   and r.regionid = <cfqueryparam value="#arguments.regionid#" cfsqltype="cf_sql_integer" />
+				  order by sh.shooterlastname asc				
+			</cfquery>
+		<cfreturn shooterregionlist>
+	</cffunction>
 
 </cfcomponent>
