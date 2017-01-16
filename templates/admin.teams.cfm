@@ -91,6 +91,10 @@
 									<cfinclude template="views/teams/teams.view.cfm">
 								<cfelseif trim( url.fuseaction ) eq "team.levels">
 									<cfinclude template="views/teams/team.levels.cfm">
+								<cfelseif trim( url.fuseaction ) eq "team.roster">
+									<cfinclude template="views/teams/team.roster.cfm">
+								<cfelseif trim( url.fuseaction ) eq "team.contacts">
+									<cfinclude template="views/teams/team.contacts.cfm">
 								<cfelse>
 									<!-- // no view found, show message -->
 									<div class="alert alert-danger" style="margin-top:10px;">

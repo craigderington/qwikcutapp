@@ -153,6 +153,53 @@
 			</cfquery>
 		<cfreturn teamrecord>
 	</cffunction>
+	
+	<cffunction name="getteamcontacts" access="remote" output="false" hint="I get the team contacts">
+		<cfargument name="id" type="any" required="yes">		
+		<cfset var teamcontacts = "" />
+			<cfquery name="teamcontacts">
+				select contactid, contactname, contactnumber, contactemail, contactactive, contactactivedate,
+				       contactprovider, coachlastname
+				  from teamcontacts
+				 where teamid = <cfqueryparam value="#arguments.id#" cfsqltype="cf_sql_integer" />
+			  order by contactname asc
+			</cfquery>
+		<cfreturn teamcontacts>
+	</cffunction>
+	
+	<cffunction name="getteamcontactdetails" access="remote" output="false" hint="I get the team contact details">
+		<cfargument name="tcid" type="any" required="yes">		
+		<cfset var teamcontactdetails = "" />
+			<cfquery name="teamcontactdetails">
+				select contactid, teamid, contactname, contactnumber, contactemail, contactactive, contactactivedate,
+				       contactprovider, coachlastname
+				  from teamcontacts
+				 where contactid = <cfqueryparam value="#arguments.tcid#" cfsqltype="cf_sql_integer" />
+			</cfquery>
+		<cfreturn teamcontactdetails>
+	</cffunction>
+	
+	<cffunction name="getteamroster" access="remote" output="false" hint="I get the team roster by player name.">
+		<cfargument name="id" type="any" required="yes">		
+		<cfset var teamroster = "" />
+			<cfquery name="teamroster">
+				select rosterid, teamid, playername, playernumber, playerposition, playerstatus
+				  from teamrosters
+				 where teamid = <cfqueryparam value="#arguments.id#" cfsqltype="cf_sql_integer" />
+			</cfquery>
+		<cfreturn teamroster>
+	</cffunction>
+	
+	<cffunction name="getplayerdetails" access="remote" output="false" hint="I get the player details from the team roster.">
+		<cfargument name="trid" type="any" required="yes">		
+		<cfset var playerdetails = "" />
+			<cfquery name="playerdetails">
+				select rosterid, teamid, playername, playernumber, playerstatus, playerposition
+				  from teamrosters
+				 where rosterid = <cfqueryparam value="#arguments.trid#" cfsqltype="cf_sql_integer" />
+			</cfquery>
+		<cfreturn playerdetails>
+	</cffunction>
 
 
 </cfcomponent>

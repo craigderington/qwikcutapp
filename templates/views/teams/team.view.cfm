@@ -32,9 +32,9 @@
 						<div class="ibox-content">					
 							<div class="panel-body">
 								<div class="col-lg-12">
-									<div class="col-lg-8">							
+									<div class="col-lg-7">							
 										<p><span class="btn btn-xs btn-success"><i class="fa fa-play"></i><cfif trim( teamdetail.conftype ) eq "YF"> YOUTH FOOTBALL<cfelse>HIGH SCHOOL FOOTBALL</cfif></span>  <span style="margin-left:5px;margin-right:5px;" class="btn btn-xs btn-primary"><i class="fa fa-fast-forward"></i> #ucase( teamdetail.teamlevelname )#</span>  <cfif isuserinrole( "admin" )><a style="margin-left:5px;" href="#application.root##url.event#&fuseaction=team.edit&id=#teamdetail.teamid#" class="btn btn-xs btn-primary btn-outline"><i class="fa fa-edit"></i> Edit Team</a></cfif></p>
-										<h1><strong>#teamdetail.teamname#</strong> <cfif teamdetail.teamactive eq 1><i class="fa fa-check-circle-o text-primary" style="margin-left:5px;"></i></cfif></h1>
+										<h1><strong>#teamdetail.teamname# <cfif teamdetail.teammascot is not "">#teamdetail.teammascot#</cfif></strong> <cfif teamdetail.teamactive eq 1><i class="fa fa-check-circle-o text-primary" style="margin-left:5px;"></i></cfif></h1>
 										<h3>#ucase( teamdetail.confname )#</h3>
 										<p>#teamdetail.teamcity#, #ucase( teamdetail.stateabbr )#</p>										
 										<p>#teamdetail.teammascot#</p>
@@ -53,7 +53,7 @@
 										<p style="margin-top:3px;"><a class="btn btn-xs btn-default" href="#application.root##url.event#&fuseaction=team.edit&id=#teamdetail.teamid#"><i class="fa fa-share-square"></i> Set Home Field</a></p>
 										</cfif>
 									</div>
-									<div class="col-lg-4">		
+									<div class="col-lg-5">		
 										<div class="widget navy-bg p-lg text-center">
 											<div class="m-b-md">
 												<i class="fa fa-trophy fa-4x"></i>
@@ -63,8 +63,14 @@
 													<h2 class="m-xs m-b">No Game Statuses Recorded</h2>
 												</cfif>
 													<h3 style="margin-top:10px;" class="font-bold">#gameseason.gameseason# Team Record</h3>
+											</div>											
+										</div>
+										<cfif isuserinrole( "admin" )>
+											<div>
+												<a href="#application.root##url.event#&fuseaction=team.roster&id=#teamdetail.teamid#" class="btn btn-sm btn-success"><i class="fa fa-users"></i> Manage Team Roster</a>
+												<a style="margin-left:1px;" href="#application.root##url.event#&fuseaction=team.contacts&id=#teamdetail.teamid#" class="btn btn-sm btn-default"><i class="fa fa-envelope"></i> Manage Team Contacts</a>
 											</div>
-										</div>									
+										</cfif>
 									</div>						
 								</div>
 							</div>

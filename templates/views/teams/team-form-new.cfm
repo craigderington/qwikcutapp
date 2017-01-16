@@ -69,8 +69,8 @@
 												
 												<cflocation url="#application.root##url.event#&scope=t1" addtoken="no">			
 														
-											<!--- If the required data is missing - throw the validation error --->
-											<cfelse>
+										<!--- If the required data is missing - throw the validation error --->
+										<cfelse>
 											
 												<div class="alert alert-danger alert-dismissable">
 													<button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
@@ -82,10 +82,10 @@
 														</ul>
 												</div>				
 												
-											</cfif>										
+										</cfif>										
 											
-										</cfif>
-										<!--- // end form processing --->
+							</cfif>
+							<!--- // end form processing --->
 													
 												
 											
