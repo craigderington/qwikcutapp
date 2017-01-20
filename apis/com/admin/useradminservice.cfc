@@ -25,7 +25,8 @@
 		<cfargument name="id" type="numeric" required="yes" default="#url.id#">
 			<cfset var userdetail = "" />
 				<cfquery name="userdetail">
-					select userid, confid, username, firstname, lastname, password, confid, lastloginip, lastlogindate, email, userrole, useracl
+					select userid, confid, username, firstname, lastname, password, confid, lastloginip, 
+					       lastlogindate, email, userrole, useracl, teamname
 					  from dbo.users
 					 where userid = <cfqueryparam value="#arguments.id#" cfsqltype="cf_sql_integer" /> 
 				</cfquery>

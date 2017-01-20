@@ -6,7 +6,7 @@
 				<cfoutput>
 					<div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5><i class="fa fa-database"></i> Add New User</h5>                        						
+                            <h5><i class="fa fa-database"></i> <cfif structkeyexists( url, "userType" )><span class="text-danger">Add New Stats App User</span><cfelse>Add New User</cfif></h5>                        						
 							<div class="ibox-tools">
 								<a href="#application.root##url.event#" class="btn btn-xs btn-white"><i class="fa fa-arrow-circle-left"></i> Return to List</a>
 							</div>
@@ -37,6 +37,11 @@
 											<cfset user.password = trim( form.pass1 ) />
 											<cfset user.role = trim( form.userrole ) />
 											<cfset user.stateid = session.stateid />
+											<cfif structkeyexists( form, "teamname" )>
+												<cfset user.teamname = trim( form.teamname ) />
+											<cfelse>
+												<cfset user.teamname = "None" />
+											</cfif>
 											
 											<!--- // get user roles + acl value --->
 											<cfswitch expression="#user.role#">
@@ -82,7 +87,7 @@
 												
 													<!--- add the new user record --->
 													<cfquery name="adduser">
-														insert into users(username, firstname, lastname, email, password, userrole, useracl, stateid)
+														insert into users(username, firstname, lastname, email, password, userrole, useracl, stateid, teamname)
 														 values(
 																<cfqueryparam value="#user.username#" cfsqltype="cf_sql_varchar" maxlength="50" />,
 																<cfqueryparam value="#user.firstname#" cfsqltype="cf_sql_varchar" maxlength="50" />,
@@ -91,7 +96,8 @@
 																<cfqueryparam value="#hash( user.password, "SHA-384", "UTF-8" )#" cfsqltype="cf_sql_clob" maxlength="128" />,
 																<cfqueryparam value="#user.role#" cfsqltype="cf_sql_varchar" maxlength="50" />,
 																<cfqueryparam value="#user.acl#" cfsqltype="cf_sql_numeric" />,
-																<cfqueryparam value="#user.stateid#" cfsqltype="cf_sql_integer" />
+																<cfqueryparam value="#user.stateid#" cfsqltype="cf_sql_integer" />,
+																<cfqueryparam value="#user.teamname#" cfsqltype="cf_sql_varchar" />
 																); select @@identity as newuserid
 													</cfquery>
 													
@@ -141,29 +147,40 @@
 							
 							
 							
-							<form class="form-horizontal" method="post" action="#application.root##url.event#&fuseaction=#url.fuseaction#">
+							<form class="form-horizontal" method="post" action="#application.root##url.event#&fuseaction=#url.fuseaction#<cfif structkeyexists( url, "usertype" )>&userType=#trim( url.usertype )#</cfif>">
                                 <p></p>
                                 <div class="form-group">
 									<label class="col-md-2 control-label">First Name</label>
                                     <div class="col-md-4">
-										<input type="text" placeholder="First Name" class="form-control" name="firstname" /> 
+										<input type="text" placeholder="First Name" class="form-control" name="firstname" <cfif structkeyexists( form, "firstname" )>value="#trim( form.firstname )#"</cfif> /> 
 											<span class="help-block m-b-none">Please enter the first name of the user.</span>
                                     </div>
                                 </div>
                                 <div class="form-group">
 									<label class="col-md-2 control-label">Last Name</label>
                                     <div class="col-md-4">
-										<input type="text" placeholder="Last Name" class="form-control" maxlength="50" name="lastname" />
+										<input type="text" placeholder="Last Name" class="form-control" maxlength="50" name="lastname" <cfif structkeyexists( form, "lastname" )>value="#trim( form.lastname )#"</cfif>/>
 											<span class="help-block m-b-none">Please enter the last name of the user.</span>
 									</div>
                                 </div>
 								<div class="form-group">
 									<label class="col-md-2 control-label">Email</label>
                                     <div class="col-md-4">
-										<input type="text" placeholder="Email Address" class="form-control" maxlength="50" name="email" />
+										<input type="text" placeholder="Email Address" class="form-control" maxlength="50" name="email" <cfif structkeyexists( form, "email" )>value="#trim( form.email )#"</cfif>/>
 											<span class="help-block m-b-none">Please enter the email address of the user.</span>
 									</div>
                                 </div>
+								<cfif structkeyexists( url, "userType" )>
+									<cfif url.usertype eq "statsapi">
+										<div class="form-group">
+											<label class="col-md-2 control-label">Team Name</label>
+											<div class="col-md-4">
+												<input type="text" placeholder="Enter Team Name" class="form-control" maxlength="50" name="teamname" <cfif structkeyexists( form, "teamname" )>value="#trim( form.teamname )#"</cfif>/>
+													<span class="help-block m-b-none text-danger">Please enter the team name for this Stats App User.  Example:  Oviedo Lions</span>
+											</div>
+										</div>
+									</cfif>
+								</cfif>
 								<div class="form-group">
 									<label class="col-md-2 control-label">Password</label>
                                     <div class="col-md-4">
@@ -182,19 +199,22 @@
 									<label class="col-md-2 control-label">User Role</label>
                                     <div class="col-md-4">				
 										<select class="form-control" multiple="true" name="userrole">
-											<option value="admin">Admin</option>
-											<option value="confadmin">Conference Admin</option>
-											<option value="data">Data & Analytics</option>
-											<option value="statsapi"<cfif structkeyexists( url, "userType" )><cfif url.usertype eq "statsapi">selected</cfif></cfif>>Stats App User</b></option>
+											<cfif structkeyexists( url, "userType" )>
+												<option value="statsapi" selected>Stats App User</option>
+											<cfelse>
+												<option value="admin">Admin</option>
+												<option value="confadmin">Conference Admin</option>
+												<option value="data">Data & Analytics</option>
+											</cfif>												
 										</select>
-										<span class="help-block m-b-none">Please select the system role of the user.</span>
+										<span class="help-block m-b-none text-success">Please select the system role of the user.</span>
                                     </div>
                                 </div>							
 								<br />
                                 <div class="hr-line-dashed" style-="margin-top:15px;"></div>
                                 <div class="form-group">
                                     <div class="col-lg-offset-2 col-lg-10">
-                                        <button class="btn btn-primary" type="submit" name="saveUserRecord"><i class="fa fa-save"></i> Save User</button>
+                                        <button class="btn <cfif structkeyexists( url, "userType" )>btn-danger<cfelse>btn-primary</cfif>" type="submit" name="saveUserRecord"><i class="fa fa-save"></i> Save User</button>
 										<a href="#application.root#admin.users" class="btn btn-default"><i class="fa fa-remove"></i> Cancel</a>																		
 									</div>
                                 </div>

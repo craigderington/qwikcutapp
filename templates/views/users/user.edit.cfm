@@ -8,7 +8,7 @@
 					
 				<div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5><i class="fa fa-database"></i> Edit User | #userdetail.firstname# #userdetail.lastname#</h5>
+                        <h5 class="<cfif userdetail.useracl eq 3>text-danger<cfelse>text-success</cfif>"><i class="fa fa-database"></i> Edit User | #userdetail.firstname# #userdetail.lastname# <cfif userdetail.useracl eq 3>| Stats App User:  #userdetail.teamname#</cfif></h5>
 						<div class="ibox-tools">
 								<a href="#application.root##url.event#" class="btn btn-xs btn-white"><i class="fa fa-arrow-circle-left"></i> Return to List</a>
 							</div>
@@ -34,6 +34,11 @@
 											<cfset user.lastname = trim( form.lastname ) />
 											<cfset user.email = trim( form.email ) />											
 											<cfset user.role = trim( form.userrole ) />
+											<cfif structkeyexists( form, "teamname" )>
+												<cfset user.teamname = trim( form.teamname ) />
+											<cfelse>
+												<cfset user.teamname = "None" />
+											</cfif>
 											
 											<cfif trim( form.pass1 ) neq "">
 												<cfset user.password = trim( form.pass1 ) />
@@ -61,6 +66,9 @@
 												<cfcase value="data">
 													<cfset user.acl = 4 />
 												</cfcase>
+												<cfcase value="statsapi">
+													<cfset user.acl = 3 />
+												</cfcase>
 												<cfdefaultcase>
 													<cfset user.acl = 1 />
 												</cfdefaultcase>
@@ -85,7 +93,8 @@
 														   lastname = <cfqueryparam value="#user.lastname#" cfsqltype="cf_sql_varchar" maxlength="50" />,
 														   email = <cfqueryparam value="#user.email#" cfsqltype="cf_sql_varchar" maxlength="50" />,													   
 														   userrole = <cfqueryparam value="#user.role#" cfsqltype="cf_sql_varchar" maxlength="50" />,
-														   useracl = <cfqueryparam value="#user.acl#" cfsqltype="cf_sql_numeric" />
+														   useracl = <cfqueryparam value="#user.acl#" cfsqltype="cf_sql_numeric" />,
+														   teamname = <cfqueryparam value="#user.teamname#" cfsqltype="cf_sql_varchar" />
 														<cfif trim( user.password ) neq "">
 															, password = <cfqueryparam value="#hash( user.password, "SHA-384", "UTF-8" )#" cfsqltype="cf_sql_clob" maxlength="128" />
 														</cfif>
@@ -155,16 +164,28 @@
 													<span class="help-block m-b-none">Please enter the email address of the user.</span>
 											</div>
 										</div>
-										
+										<cfif userdetail.useracl eq 3>											
+											<div class="form-group">
+												<label class="col-md-2 control-label">Team Name</label>
+												<div class="col-md-4">
+													<input type="text" placeholder="Enter Team Name" class="form-control" maxlength="50" name="teamname" value="#trim( userdetail.teamname )#" />
+														<span class="help-block m-b-none text-danger">Please enter the team name for this Stats App User.  Example:  Oviedo Lions</span>
+												</div>
+											</div>											
+										</cfif>
 										<div class="form-group">
 											<label class="col-md-2 control-label">User Role</label>
 											<div class="col-md-4">				
 												<select class="form-control" multiple="true" name="userrole">
-													<option value="admin"<cfif trim( userdetail.userrole ) eq "admin">selected</cfif>>Admin</option>
-													<option value="confadmin"<cfif trim( userdetail.userrole ) eq "confadmin">selected</cfif>>Conference Admin</option>
-													<option value="shooter"<cfif trim( userdetail.userrole ) eq "shooter">selected</cfif>>Shooter</option>
-													<option value="data"<cfif trim( userdetail.userrole ) eq "data">selected</cfif>>Data & Analytics</option>
-													<option value="future-use"<cfif trim( userdetail.userrole ) eq "future-use">selected</cfif>>Future Use</option>
+													<cfif userdetail.useracl eq 3>
+														<option value="statsapi" selected>Stats App User</option>
+													<cfelse>
+														<option value="admin"<cfif trim( userdetail.userrole ) eq "admin">selected</cfif>>Admin</option>
+														<option value="confadmin"<cfif trim( userdetail.userrole ) eq "confadmin">selected</cfif>>Conference Admin</option>
+														<option value="shooter"<cfif trim( userdetail.userrole ) eq "shooter">selected</cfif>>Shooter</option>
+														<option value="data"<cfif trim( userdetail.userrole ) eq "data">selected</cfif>>Data & Analytics</option>
+														<option value="future-use"<cfif trim( userdetail.userrole ) eq "future-use">selected</cfif>>Future Use</option>
+													</cfif>
 												</select>
 												<span class="help-block m-b-none">Please select the system role of the user.</span>
 											</div>
@@ -206,7 +227,7 @@
 										<div class="hr-line-dashed" style-="margin-top:15px;"></div>
 										<div class="form-group">
 											<div class="col-lg-offset-2 col-lg-10">
-												<button class="btn btn-primary" type="submit" name="saveUserRecord"><i class="fa fa-save"></i> Save User</button>
+												<button class="btn <cfif userdetail.useracl eq 3>btn-danger<cfelse>btn-primary</cfif>" type="submit" name="saveUserRecord"><i class="fa fa-save"></i> Save User</button>
 												<a href="#application.root#admin.users" class="btn btn-default"><i class="fa fa-remove"></i> Cancel</a>																		
 												<input type="hidden" name="userid" value="#userdetail.userid#" />
 												<input type="hidden" name="username" value="#userdetail.username#" />
