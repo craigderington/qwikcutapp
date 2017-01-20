@@ -6,27 +6,16 @@
 			
 	<cffunction name="getusers" output="false" returntype="query" access="remote" hint="I get the list of users">
 		<cfargument name="stateid" type="numeric" required="yes" default="#session.stateid#">
+		<cfargument name="userrole" type="string" required="yes" default="admin">
 		<cfset var userlist = "" />
 			<cfquery name="userlist">
 					select users.userid, username, firstname, lastname, password, confid, lastloginip, lastlogindate, email, 
 					       userrole, useracl, useractive, usersettings.userprofileimagepath
 				      from dbo.users, dbo.usersettings
-					 where dbo.users.userid = dbo.usersettings.userid 
-				    <cfif not structkeyexists( form, "filterresults" )>
-						and ( 
-							  userrole = <cfqueryparam value="admin" cfsqltype="cf_sql_varchar" />
-							or 
-							  userrole = <cfqueryparam value="confadmin" cfsqltype="cf_sql_varchar" />
-							)
-				    <cfelse>
-						<cfif structkeyexists( form, "usertype" ) and trim( form.usertype ) neq "">
-						and userrole = <cfqueryparam value="#trim( form.usertype )#" cfsqltype="cf_sql_varchar" />
-						</cfif>						
-					</cfif>
-					<cfif structkeyexists( arguments, "stateid" )>
-						and stateid = <cfqueryparam value="#arguments.stateid#" cfsqltype="cf_sql_integer" />
-					</cfif>
-					    and users.useractive = <cfqueryparam value="1" cfsqltype="cf_sql_bit" />
+					 where dbo.users.userid = dbo.usersettings.userid						
+					   and userrole = <cfqueryparam value="#arguments.userrole#" cfsqltype="cf_sql_varchar" />						
+					   and stateid = <cfqueryparam value="#arguments.stateid#" cfsqltype="cf_sql_integer" />						
+					   and users.useractive = <cfqueryparam value="1" cfsqltype="cf_sql_bit" />
 				  order by lastname, firstname asc
 			</cfquery>
 		<cfreturn userlist>

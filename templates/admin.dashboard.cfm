@@ -1,16 +1,16 @@
 								
 								<!--- show for admin user role (for now) --->						
-								<div class="row" style="margin-top:15px;">
+								<div class="row" style="margin-top:25px;">
 									<div class="ibox">							
 										<div class="jumbotron" style="margin-bottom:10px;">
 											<h1>QC+</h1>
-											<p>Game Video & Analytics</p>
-											<p><a role="button" class="btn btn-primary btn-lg">Learn more</a></p>
+											<p>Game Video, Statistics & Analytics</p>
+											<p><a role="button" href="index.cfm" class="btn btn-primary btn-lg">Learn More</a></p>
 										</div>							
 									</div>
 								</div>
 								
-								
+								<!---
 								<div class="row">							
 									<div class="ibox float-e-margins">
 										<div class="ibox-title">
@@ -54,3 +54,4 @@
 										</div>		
 									</div>							
 								</div>
+								--->

@@ -4,6 +4,11 @@
 
 		<!--- admin.states- administration --->
 		<cfinvoke component="apis.com.admin.useradminservice" method="getusers" returnvariable="userlist">
+			<cfif structkeyexists( session, "userrole" )>
+				<cfinvokeargument name="userrole" value="#session.userrole#">
+			<cfelse>
+				<cfinvokeargument name="userrole" value="admin">
+			</cfif>
 		</cfinvoke>
 		
 		<cfinvoke component="apis.com.admin.stateadminservice" method="getstates" returnvariable="statelist">

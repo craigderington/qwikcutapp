@@ -1,4 +1,31 @@
-
+							
+							
+							
+						<cfif structkeyexists( form, "filterresults" )>															
+							<cfif structkeyexists( form, "usertype" ) and trim( form.usertype ) neq "">
+								<cfset session.userrole = form.usertype />
+								<cflocation url="#application.root##url.event#" addtoken="no">
+							</cfif>
+						</cfif>
+						<cfif structkeyexists( url, "resetFilter" ) and ( url.resetFilter is "True" )>
+							<cfset tempVar = structdelete( session, "userrole" ) />
+							<cflocation url="#application.root##url.event#" addtoken="yes">
+						</cfif>
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
 
 
 						<div class="row">
@@ -11,26 +38,26 @@
 										<div class="ibox-content m-b-sm border-bottom">
 											<form name="data-filter" method="post" action="#application.root##url.event#">
 												<div class="row">
-													<div class="col-sm-2">
+													<div class="col-sm-3">
 														<div class="form-group">
 															<label class="control-label" for="state">Type</label>
-															<select name="usertype" id="usertype" class="form-control" onchange="javascript:this.form.submit();">
+															<select name="usertype" id="usertype" class="form-control" onchange="javascript:this.form.submit();">																
 																<option value="" selected>Filter by Type</option>
 																<cfif isuserinrole( "admin" )>
-																<option value="admin"<cfif structkeyexists( form, "usertype" )><cfif trim( form.usertype ) eq "admin">selected</cfif></cfif>>Admin</option>
-																<option value="confadmin"<cfif structkeyexists( form, "usertype" )><cfif trim( form.usertype ) eq "confadmin">selected</cfif></cfif>>Conference Admin</option>
+																<option value="admin"<cfif structkeyexists( form, "usertype" )><cfif trim( form.usertype ) eq "admin">selected</cfif><cfelseif structkeyexists( session, "userrole" )><cfif trim( session.userrole ) eq "admin">selected</cfif></cfif>>Admin</option>
+																<option value="confadmin"<cfif structkeyexists( form, "usertype" )><cfif trim( form.usertype ) eq "confadmin">selected</cfif><cfelseif structkeyexists( session, "userrole" )><cfif trim( session.userrole ) eq "confadmin">selected</cfif></cfif>>Conference Admin</option>
 																</cfif>
-																<option value="shooter"<cfif structkeyexists( form, "usertype" )><cfif trim( form.usertype ) eq "shooter">selected</cfif></cfif>>Shooter</option>
-																<option value="data"<cfif structkeyexists( form, "usertype" )><cfif trim( form.usertype ) eq "data">selected</cfif></cfif>>Data & Analytics</option>
-																<option value="future-use" disabled>Future Use</option>																
+																<option value="shooter"<cfif structkeyexists( form, "usertype" )><cfif trim( form.usertype ) eq "shooter">selected</cfif><cfelseif structkeyexists( session, "userrole" )><cfif trim( session.userrole ) eq "shooter">selected</cfif></cfif>>Shooter</option>
+																<option value="data"<cfif structkeyexists( form, "usertype" )><cfif trim( form.usertype ) eq "data">selected</cfif><cfelseif structkeyexists( session, "userrole" )><cfif trim( session.userrole ) eq "data">selected</cfif></cfif>>Data & Analytics</option>
+																<option value="statsapi"<cfif structkeyexists( form, "usertype" )><cfif trim( form.usertype ) eq "statsapi">selected</cfif><cfelseif structkeyexists( session, "userrole" )><cfif trim( session.userrole ) eq "statsapi">selected</cfif></cfif>>STATS APP USER</option>																
 															</select>
 														</div>
 													</div>
 													
 													<input name="filterresults" type="hidden" value="true" />													
 													<!---<button type="submit" name="filterresults" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> Filter Results</button>--->
-													<cfif structkeyexists( form, "filterresults" )>
-														<a style="margin-left:3px;margin-top:24px;" href="#application.root##url.event#" class="btn btn-md btn-success"><i class="fa fa-remove"></i> Reset Filters</a>
+													<cfif structkeyexists( form, "filterresults" ) or structkeyexists( session, "userrole" )>
+														<a style="margin-left:3px;margin-top:24px;" href="#application.root##url.event#&resetFilter=True" class="btn btn-md btn-success"><i class="fa fa-remove"></i> Reset Filters</a>
 													</cfif>
 													
 												</div>
@@ -51,7 +78,8 @@
 									<cfoutput>
 										<div class="ibox-title">
 											<h5><i class="fa fa-database"></i> The database found #userlist.recordcount# user records.   <cfif not structkeyexists( form, "filterresults" )><span style="margin-left:15px;" class="help-text"><small><i class="fa fa-exclamation-triangle"></i> Only admin users are displayed in the default view.  To manage other user types, select the filter <i>type</i>.</small></span></cfif></h5>										
-											<a href="#application.root#admin.users&fuseaction=user.add" class="btn btn-xs btn-primary pull-right"><i class="fa fa-user-plus"></i> Add User</a>
+											<a href="#application.root#admin.users&fuseaction=user.add" style="margin-left:5px" class="btn btn-xs btn-primary btn-outline pull-right"><i class="fa fa-user-plus"></i> Add New User</a>
+											<a href="#application.root#admin.users&fuseaction=user.add&userType=statsapi" style="margin-left:5px" class="btn btn-xs btn-danger pull-right"><i class="fa fa-th-list"></i> Add Stats App User</a>
 										</div>
 									</cfoutput>
 									
@@ -96,6 +124,9 @@
 																	<cfcase value="shooter">
 																		<cfset cleanuserrole = "Shooter">
 																	</cfcase>
+																	<cfcase value="statsapi">
+																		<cfset cleanuserrole = "STATS APP">
+																	</cfcase>
 																	<cfdefaultcase>
 																		<cfset cleanuserrole = "Not Set">
 																	</cfdefaultcase>															
@@ -128,6 +159,8 @@
 																		<span class="label label-warning">#cleanuserrole#</span>
 																	<cfelseif trim( userrole ) eq "shooter">
 																		<span class="label label-success">#cleanuserrole#</span>
+																	<cfelseif trim( userrole ) eq "statsapi">
+																		<span class="label label-danger">#cleanuserrole#</span>
 																	<cfelse>
 																		<span class="label label-danger">Unknown</span>
 																	</cfif></th>

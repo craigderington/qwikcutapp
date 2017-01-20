@@ -52,6 +52,9 @@
 												<cfcase value="data">
 													<cfset user.acl = 4 />
 												</cfcase>
+												<cfcase value="statsapi">
+													<cfset user.acl = 3 />
+												</cfcase>
 												<cfdefaultcase>
 													<cfset user.acl = 1 />
 												</cfdefaultcase>
@@ -182,7 +185,7 @@
 											<option value="admin">Admin</option>
 											<option value="confadmin">Conference Admin</option>
 											<option value="data">Data & Analytics</option>
-											<option value="future-use">Future Use</option>
+											<option value="statsapi"<cfif structkeyexists( url, "userType" )><cfif url.usertype eq "statsapi">selected</cfif></cfif>>Stats App User</b></option>
 										</select>
 										<span class="help-block m-b-none">Please select the system role of the user.</span>
                                     </div>

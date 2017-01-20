@@ -157,6 +157,8 @@
 							 where u.username = <cfqueryparam value="#cflogin.name#" cfsqltype="cf_sql_varchar" />
 							   and u.password = <cfqueryparam value="#hash( cflogin.password, "SHA-384", "UTF-8" )#" cfsqltype="cf_sql_varchar" />
 							   and u.useractive = <cfqueryparam value="1" cfsqltype="cf_sql_bit" />
+							   and u.useracl <> <cfqueryparam value="3" cfsqltype="cf_sql_integer" />
+							   and u.userrole <> <cfqueryparam value="statsapi" cfsqltype="cf_sql_varchar" />
 						</cfquery>
 						<cfif loginquery.userid NEQ "">
 							<cfloginuser 
