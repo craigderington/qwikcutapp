@@ -368,6 +368,7 @@
 	
 	
 	<cffunction name="getcustomgames" access="public" returntype="query" output="false" hint="I get the custom game list.">				
+		<cfargument name="today" type="date" required="no" default="#now()#">
 		<cfset var customgames = "" />
 			<cfquery name="customgames">
 				select top 15 g.gameid, g.vsid, g.fieldid, g.confid, g.hometeamid, g.awayteamid, g.gamedate, g.gamestart, g.gameend,
@@ -379,6 +380,7 @@
 				   and t1.teamlevelid = tl.teamlevelid
 				   and g.customgame = <cfqueryparam value="1" cfsqltype="cf_sql_bit" />
 				   and g.gamestatus <> <cfqueryparam value="FINAL" cfsqltype="cf_sql_varchar" />
+				   and g.gamedate >= <cfqueryparam value="#arguments.today#" cfsqltype="cf_sql_timestamp" />
 			</cfquery>	
 		<cfreturn customgames>
 	</cffunction>

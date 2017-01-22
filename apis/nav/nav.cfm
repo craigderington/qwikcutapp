@@ -83,6 +83,9 @@
 				<cfcase value="notification.service">					
 					<cfinclude template="../../templates/notification.service.cfm">					
 				</cfcase>
+				<cfcase value="do.alerts">
+					<cfinclude template="../../templates/alerts.cfm">
+				</cfcase>
 				
 				<!--- default case --->
 				<cfdefaultcase>

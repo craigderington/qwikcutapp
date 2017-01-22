@@ -1,4 +1,9 @@
-
+			
+			
+			
+			<cfif not isuseinrole("admin")>
+				<cflocation url="#application.root#userhome" addtoken="yes">
+			</cfif>
 
 
 
