@@ -153,7 +153,7 @@
 											
 												<!--- // add team contact data operation --->													
 												<cfquery name="addteamcontact">
-													insert into teamcontacts(teamid, contactname, coachlastname, contactnumber, contactemail, contactprovider, contactactive, contactactivedate, numalerts)
+													insert into teamcontacts(teamid, contactname, coachlastname, contactnumber, contactemail, contactprovider, contactactive, contactactivedate, numalerts, contactmethod)
 														values(
 																<cfqueryparam value="#tc.teamid#" cfsqltype="cf_sql_integer" />,
 																<cfqueryparam value="#tc.contactname#" cfsqltype="cf_sql_varchar" maxlength="50" />,
@@ -163,7 +163,8 @@
 																<cfqueryparam value="#tc.contactprovider#" cfsqltype="cf_sql_varchar" maxlength="50" />,
 																<cfqueryparam value="1" cfsqltype="cf_sql_bit" />,																	
 																<cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" maxlength="50" />,
-																<cfqueryparam value="0" cfsqltype="cf_sql_numeric" />
+																<cfqueryparam value="0" cfsqltype="cf_sql_numeric" />,
+																<cfqueryparam value="text" cfsqltype="cf_sql_varchar" />
 															  );
 												</cfquery>										
 													

@@ -26,6 +26,9 @@
 				<cfcase value="user.image">					
 					<cfinclude template="../../templates/user.image.cfm">				
 				</cfcase>
+				<cfcase value="admin.alerts">					
+					<cfinclude template="../../templates/admin.alerts.cfm">				
+				</cfcase>
 				<cfcase value="admin.home">					
 					<cfinclude template="../../templates/admin.home.cfm">				
 				</cfcase>

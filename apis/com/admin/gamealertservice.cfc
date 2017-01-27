@@ -122,10 +122,10 @@
 			</cfquery>
 
 			<cfif contactinfo.contactprovider is not "" and trim( contactinfo.contactprovider ) is not "@noprovider">
-				<cfset sendtoaddress = contactinfo.contactnumber & contactinfo.contactprovider />			
+				<cfset cleanedphonenumber = rereplace( contactinfo.contactnumber, "-", "", "all" ) />
+				<cfset sendtoaddress = cleanedphonenumber & contactinfo.contactprovider />			
 				<!--- // send text message.  limit messages to 100 characters to avoid message splitting --->
-				<cfmail from="#arguments.senderemail#" to="#sendtoaddress#" subject="#alertinfo.alerttype#">
-					 #alertinfo.alerttext#
+				<cfmail from="#arguments.senderemail#" to="#sendtoaddress#" subject="#alertinfo.alerttype#">this is a test message
 					<cfmailparam name="reply-to" value="info@qwikcut.com">
 				</cfmail>
 				
@@ -149,11 +149,11 @@
 			
 				<!--- TODO:  send email confirmation instead ---> 
 				
-			</cfif>
-				
+			</cfif>				
 				
 			<cfset msgstatus = "Message Sent!" />
 		<cfreturn msgstatus>
 	</cffunction>
+	
 	
 </cfcomponent>

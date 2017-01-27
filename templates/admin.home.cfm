@@ -161,15 +161,15 @@
 														</a>
 													</div>
 													<div class="col-lg-3">
-														<a href="#application.root#admin.store">
-															<div class="widget style1 blue-bg">
+														<a href="#application.root#admin.alerts">
+															<div class="widget style1 red-bg">
 																<div class="row vertical-align">
 																	<div class="col-xs-3">
-																		<i class="fa fa-shopping-cart fa-3x"></i>
+																		<i class="fa fa-warning fa-3x"></i>
 																	</div>
 																	<div class="col-xs-9 text-right">
-																		<h2 class="font-bold">#numberformat( storedashboard.totalorders )#</h2>
-																		 <small>Orders</small>
+																		<h2 class="font-bold">2</h2>
+																		 <small>Alerts</small>
 																	</div>
 																</div>
 															</div>
