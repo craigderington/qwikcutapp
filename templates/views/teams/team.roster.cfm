@@ -69,11 +69,11 @@
 								<cfif structkeyexists( url, "scope" )>								
 									<cfif trim( url.scope ) is "a1">
 										<div class="alert alert-warning">
-										  <strong><i class="fa fa-info"></i> SUCCESS!</strong> The team player was successfully added.
+										  <strong><i class="fa fa-info-circle"></i> SUCCESS!</strong> The team player was successfully added.
 										</div>									
 									<cfelseif trim( url.scope ) is "b2">
 										<div class="alert alert-success">
-										  <strong><i class="fa fa-exclamation"></i> SUCCESS!</strong> The team player was successfully updated.
+										  <strong><i class="fa fa-check-circle"></i> SUCCESS!</strong> The team player was successfully updated.
 										</div>
 									<cfelseif trim( url.scope ) is "d3">
 										<div class="alert alert-danger">
