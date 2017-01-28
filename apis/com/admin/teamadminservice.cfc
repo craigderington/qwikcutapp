@@ -95,8 +95,8 @@
 	</cffunction>
 
 	<cffunction name="getteamlevelsforconference" access="remote" output="false" hint="I get the team levels for the conference type.">
-		<cfargument name="teamlevelconftype" type="any" required="yes" default="#trim( form.teamlevelconftype )#">
-		<cfargument name="conferenceid" type="numeric" required="yes" default="1">
+		<cfargument name="teamlevelconftype" type="any" required="yes">
+		<cfargument name="conferenceid" type="numeric" required="yes">
 		<cfset var teamlevels = "" />
 		<cfquery name="teamlevels">
 			select tl.teamlevelid, c.confname, tl.teamlevelname, tl.teamlevelcode, tl.teamlevelconftype, tl.confid

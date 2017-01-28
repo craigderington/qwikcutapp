@@ -64,11 +64,11 @@
 								<cfif structkeyexists( url, "scope" )>								
 									<cfif trim( url.scope ) is "a1">
 										<div class="alert alert-warning">
-										  <strong><i class="fa fa-info"></i> SUCCESS!</strong> The team contact was successfully added.
+										  <strong><i class="fa fa-info-circle"></i> SUCCESS!</strong> The team contact was successfully added.
 										</div>									
 									<cfelseif trim( url.scope ) is "b2">
 										<div class="alert alert-success">
-										  <strong><i class="fa fa-exclamation"></i> SUCCESS!</strong> The team contact was successfully updated.
+										  <strong><i class="fa fa-check-circle"></i> SUCCESS!</strong> The team contact was successfully updated.
 										</div>
 									<cfelseif trim( url.scope ) is "d3">
 										<div class="alert alert-danger">
@@ -87,22 +87,24 @@
 													<th>Title</th>
 													<th>Phone</th>
 													<th>Email</th>
-													<th>Txt Address</th>												
+													<th>Status</th>
+													<th>Actions</th>
 												</tr>
 											</thead>
 											<tbody>
 												<cfloop query="teamcontacts">
 													<tr>														
-														<td><a href="#application.root##url.event#&fuseaction=#url.fuseaction#&id=#url.id#&tcid=#contactid#">#contactname#</a> <cfif contactactive eq 1> <i title="Active" class="fa fa-check-circle text-primary"></i></cfif></td>
+														<td><a href="#application.root##url.event#&fuseaction=#url.fuseaction#&id=#url.id#&tcid=#contactid#">#contactname#</a></td>
 														<td>#coachlastname#</td>
-														<td>#contactnumber#</td>
+														<td><span class="label label-success"><i class="fa fa-mobile"></i> #contactnumber#</span></td>
 														<td>#contactemail#</td>
-														<td>#contactprovider#</td>
+														<td><cfif contactactive eq 1> <i title="Active" class="fa fa-check-circle text-primary"></i></cfif></td>
+														<td><a href="" title="Send Email Message"><i class="fa fa-envelope"></i></a><a style="margin-left:5px;" href="" title="Send SMS"><i class="fa fa-mobile"></i></a></td>
 													</tr>
 												</cfloop>
 											</tbody>
 											<tfoot>
-												<tr><td colspan="5"><small><i class="fa fa-info"></i> Click the contact name to edit details.<span class="pull-right"><i class="fa fa-check-circle text-primary"></i> Active Contact</span>  </td></small></tr>
+												<tr><td colspan="6"><small><i class="fa fa-info"></i> Click the contact name to edit details.<span class="pull-right"><i class="fa fa-check-circle text-primary"></i> Active Contact</span>  </td></small></tr>
 											</tfoot>
 										</table>
 									</div>
@@ -118,7 +120,7 @@
 								<!-- form processing -->
 								<cfif isDefined( "form.fieldnames" ) and structkeyexists( form, "teamid" )>
 										
-									<cfset form.validate_require = "contactid|There was a form error.  Please try again.;contactname|The contact name is required.;contactphone|The contact phone number is required.;contacttitle|Please enter the contacts title or position.;contactemail|The contact email is required.;teamid|There was an internal error posting this form.  Please go back and try again.;contactprovider|The mobile provider is required to send notifications." />
+									<cfset form.validate_require = "contactid|There was a form error.  Please try again.;contactname|The contact name is required.;contactphone|The contact phone number is required.;contacttitle|Please enter the contacts title or position.;contactemail|The contact email is required.;teamid|There was an internal error posting this form.  Please go back and try again." />
 										
 										<cfscript>
 											objValidation = createobject( "component","apis.udfs.validation" ).init();
@@ -135,7 +137,7 @@
 											<cfset tc.contacttitle = trim( form.contacttitle ) />
 											<cfset tc.contactemail = trim( form.contactemail ) />
 											<cfset tc.contactphone = trim( form.contactphone ) />
-											<cfset tc.contactprovider = trim( form.contactprovider ) />
+											<cfset tc.contactprovider = "@noprovider" />
 
 											<cfif structkeyexists( form, "contactid" ) and isnumeric( form.contactid )>
 												<cfset tc.contactid = form.contactid />
@@ -271,7 +273,7 @@
 												<input type="text" class="form-control" placeholder="Contact Email Address" name="contactemail" <cfif structkeyexists( form, "contactemail" )>value="#trim( form.contactemail )#"<cfelse>value="#trim( teamcontactdetails.contactemail )#"</cfif> />
 											</div>
 										</div>
-										
+										<!---
 										<div class="form-group">
 											<label class="col-lg-2 control-label">Provider</label>
 											<div class="col-lg-10">
@@ -292,7 +294,7 @@
 												</select>
 											</div>
 										</div>
-										
+										--->
 										<div class="form-group">											
 											<div class="col-sm10 col-sm-offset-2">
 												<label class="checkbox-inline"><input type="checkbox" name="isactive" value="1" <cfif teamcontactdetails.contactactive eq 1>checked</cfif>>Active Status</label>
@@ -347,7 +349,7 @@
 												<input type="text" class="form-control" placeholder="Contact Email Address" name="contactemail" <cfif structkeyexists( form, "contactemail" )>value="#trim( form.contactemail )#"</cfif> />
 											</div>
 										</div>
-										
+										<!---
 										<div class="form-group">
 											<label class="col-lg-2 control-label">Provider</label>
 											<div class="col-lg-10">
@@ -368,7 +370,7 @@
 												</select>
 											</div>
 										</div>								
-												
+										--->		
 										<div class="form-group">
 											<div class="col-sm-10 col-sm-offset-2">
 												<button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-save"></i> Save Team Contact</button>

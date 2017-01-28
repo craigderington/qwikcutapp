@@ -50,6 +50,11 @@
 				 where g.fieldid = f.fieldid
 				   and f.stateid = <cfqueryparam value="#arguments.stateid#" cfsqltype="cf_sql_integer" />
 			</cfquery>
+			
+			<cfquery name="alerts">
+				select count(alertid) as totalalerts
+				  from alerts				 
+			</cfquery>
 
 				<cfset admindashboard = structnew() />
 				<cfset states = structinsert( admindashboard, "totalstates", adminstates.totalstates ) />
@@ -59,6 +64,7 @@
 				<cfset fields = structinsert( admindashboard, "totalfields", adminfields.totalfields ) />
 				<cfset shooters = structinsert( admindashboard, "totalshooters", adminshooters.totalshooters ) />
 				<cfset users = structinsert( admindashboard, "totalusers", adminusers.totalusers ) />
+				<cfset alerts = structinsert( admindashboard, "totalalerts", alerts.totalalerts ) />
 			
 		<cfreturn admindashboard>
 	</cffunction>		

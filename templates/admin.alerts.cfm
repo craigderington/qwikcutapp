@@ -274,8 +274,8 @@
 																		</table>
 																	</div>
 															<cfelse>
-																<div class="alert alert-danger alert-dismissable">
-																	<h5>There are no alerts in the database.</h5>
+																<div class="alert alert-danger alert-dismissable" style="margin-top:15px;">
+																	<h5><i class="fa fa-warning"></i> There are <b>zero</b> sent alerts in the database.</h5>
 																</div>
 															</cfif>
 														</div>														  

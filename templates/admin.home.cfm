@@ -168,7 +168,7 @@
 																		<i class="fa fa-warning fa-3x"></i>
 																	</div>
 																	<div class="col-xs-9 text-right">
-																		<h2 class="font-bold">2</h2>
+																		<h2 class="font-bold">#numberformat( admindashboard.totalalerts )#</h2>
 																		 <small>Alerts</small>
 																	</div>
 																</div>

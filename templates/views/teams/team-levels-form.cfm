@@ -24,7 +24,7 @@
 													<div class="ibox-content">								
 														
 														<!--- // begin form processing --->
-														<cfif isdefined( "form.fieldnames" ) and isdefined("form.add-new-team-level")>
+														<cfif isdefined( "form.fieldnames" ) and structkeyexists( form, "add-new-team-level" )>
 														
 															<cfset form.validate_require = "tlid|Ops, internal form error...;teamlevelname|Please enter a team level name.;teamlevelcode|Please enter a team level code (i.e. JV for Junior Varsity).;teamlevelconftype|Please select the conference type." />																
 														
@@ -46,7 +46,7 @@
 																<cfif tl.tlid eq 0>
 																
 																	<cfquery name="addteamlevel">
-																		insert into teamlevels(teamlevelname, teamlevelconftype, teamlevelcode)
+																		insert into teamlevels(teamlevelname, teamlevelconftype, teamlevelcode, confid)
 																		 values(
 																				<cfqueryparam value="#tl.teamlevelname#" cfsqltype="cf_sql_varchar" />,																				
 																				<cfqueryparam value="#tl.teamlevelconftype#" cfsqltype="cf_sql_varchar" maxlength="2" />,
@@ -133,7 +133,7 @@
 																			<input type="hidden" name="tlid" value="#url.id#" />
 																			<a href="#application.root##url.event#&fuseaction=#url.fuseaction#" class="btn btn-sm btn-default"><i class="fa fa-remove"></i> Cancel</a>
 																		</cfif>
-																		<input type="hidden" name="add-new-team-level" value="True">
+																		<input type="hidden" name="add-new-team-level" value="1" />
 																	</div>
 																</div>
 															</form>

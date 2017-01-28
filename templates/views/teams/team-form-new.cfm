@@ -115,6 +115,7 @@
 													<!--- // this enables the user to add all team levels for the team being added --->
 													<cfinvoke component="apis.com.admin.teamadminservice" method="getteamlevelsforconference" returnvariable="teamlevels">
 														<cfinvokeargument name="teamlevelconftype" value="#trim( conferencedetail.conftype )#">
+														<cfinvokeargument name="conferenceid" value="#conferencedetail.confid#">
 													</cfinvoke>
 												
 												
