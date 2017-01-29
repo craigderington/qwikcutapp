@@ -54,8 +54,9 @@
 								<div style="margin-top:12px;">
 									<cfif trim( url.scope ) eq "t1">
 										<div class="alert alert-info alert-dismissable">
-											<button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
-											<i class="fa fa-plus"></i> The new team was successfully added to the database...
+											<button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>											
+											<h5><i class="fa fa-info-circle"></i> Teams Created</h5>
+											<p>Teams successfully created...  Continue managing the selected team by using the navigation tabs below...</p>
 										</div>
 									<cfelseif trim( url.scope ) eq "t2">
 										<div class="alert alert-success alert-dismissable">
@@ -95,6 +96,8 @@
 									<cfinclude template="views/teams/team.roster.cfm">
 								<cfelseif trim( url.fuseaction ) eq "team.contacts">
 									<cfinclude template="views/teams/team.contacts.cfm">
+								<cfelseif trim( url.fuseaction ) eq "team.schedule">
+									<cfinclude template="views/teams/team.schedule.cfm">
 								<cfelse>
 									<!-- // no view found, show message -->
 									<div class="alert alert-danger" style="margin-top:10px;">

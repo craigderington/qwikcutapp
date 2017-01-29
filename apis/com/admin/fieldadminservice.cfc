@@ -97,7 +97,10 @@
 		<cfset var homefield = "" />
 		<cfquery name="homefield">
 			select f.fieldid, f.fieldname, f.fieldaddress1, f.fieldaddress2, f.fieldcity, f.stateid, 
-			       s.stateabbr, f.fieldzip, f.fieldcontactname, f.fieldcontacttitle, f.fieldcontactnumber
+			       s.stateabbr, f.fieldzip, f.fieldcontactname, f.fieldcontacttitle, f.fieldcontactnumber,
+				   (select top 1 fc.fieldcontactname from fieldcontacts fc where fc.fieldid = f.fieldid) as fcname,
+				   (select top 1 fc.fieldcontacttitle from fieldcontacts fc where fc.fieldid = f.fieldid) as fctitle,
+                   (select top 1 fc.fieldcontactnumber from fieldcontacts fc where fc.fieldid = f.fieldid) as fcnumber
 			  from fields f, states s
 			 where f.stateid = s.stateid
 			   and f.fieldid = <cfqueryparam value="#arguments.id#" cfsqltype="cf_sql_integer" />

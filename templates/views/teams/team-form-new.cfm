@@ -52,7 +52,7 @@
 																	<cfqueryparam value="0-0" cfsqltype="cf_sql_varchar" maxlength="50" />,
 																	<cfqueryparam value="#teamlevelarr[i]#" cfsqltype="cf_sql_integer" />,
 																	<cfqueryparam value="#t.teamorgname#" cfsqltype="cf_sql_varchar" maxlength="50" />
-																	);
+																	);select @@identity as new_id
 													</cfquery>										
 												</cfloop>
 												
@@ -67,7 +67,11 @@
 																);
 													</cfquery>
 												
-												<cflocation url="#application.root##url.event#&scope=t1" addtoken="no">			
+												<cfif structkeyexists( form, "saveAndEditTeam" )>
+													<cflocation url="#application.root##url.event#&fuseaction=team.view&id=#addteams.new_id#&scope=t1" addtoken="no">
+												<cfelse>													
+													<cflocation url="#application.root##url.event#&scope=t1" addtoken="no">
+												</cfif>
 														
 										<!--- If the required data is missing - throw the validation error --->
 										<cfelse>
@@ -178,8 +182,9 @@
 												<div class="hr-line-dashed"></div>
 											
 												<div class="form-group">
-													<div class="col-sm-4 col-sm-offset-2">
-														<button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> Save Team</button>
+													<div class="col-sm-6 col-sm-offset-2">
+														<button class="btn btn-primary" type="submit" name="saveTeam"><i class="fa fa-save"></i> Save Team</button>
+														<button class="btn btn-success" type="submit" name="saveAndEditTeam"><i class="fa fa-save"></i> Save Team &amp; Continue <i class="fa fa-arrow-circle-right"></i></button>
 														<a href="#application.root##url.event#" class="btn btn-white" type="submit"><i class="fa fa-remove"></i> Cancel</a>													
 													</div>
 												</div>
