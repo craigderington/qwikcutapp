@@ -70,4 +70,31 @@
 			</cfquery>
 		<cfreturn contactslist>
 	</cffunction>
+	<cffunction name="getcurrentgameslist" access="remote" output="false" returntype="query" hint="I get the current games list for the game alert center.">
+		<cfargument name="startDate" type="date" required="yes" default="1/1/2017">
+		<cfargument name="endDate" type="date" required="yes" default="3/1/2017">		
+		<cfset var currentgames = "" />
+		<cfquery name="getcurrentgameseason">
+		  select gameseasonid from gameseasons where gameseasonactive = <cfqueryparam value="1" cfsqltype="cf_sql_bit" /> 
+		</cfquery>
+		<cfquery name="currentgames">
+			select gs.gameseason, g.gameid, f.fieldid, f.fieldname, c.conftype, c.confname, g.gamedate, g.gamestart, g.gamestatus,			       
+				   t1.teamname as hometeam, t2.teamname as awayteam
+			  from games g, gameseasons gs, conferences c, states s, fields f, teamlevels tl, teams t1, teams t2
+			 where g.gameseasonid = gs.gameseasonid
+			   and g.confid = c.confid
+			   and c.stateid = s.stateid
+			   and g.fieldid = f.fieldid
+			   and g.hometeamid = t1.teamid 
+			   and g.awayteamid = t2.teamid
+			   and t1.teamlevelid = tl.teamlevelid
+			   and gs.gameseasonid = <cfqueryparam value="#getcurrentgameseason.gameseasonid#" cfsqltype="cf_sql_integer" />
+			   and (
+			        gamedate between <cfqueryparam value="#arguments.startDate#" cfsqltype="cf_sql_timestamp" /> 
+					             and <cfqueryparam value="#arguments.endDate#" cfsqltype="cf_sql_timestamp" />
+					)
+			 order by g.gameid asc
+		</cfquery>
+		<cfreturn currentgames>
+	</cffunction>
 </cfcomponent>

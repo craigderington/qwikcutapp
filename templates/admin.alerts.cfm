@@ -121,7 +121,7 @@
 													<div class="form-group">
 														<label class="col-lg-2 control-label">Alert Type:</label>
 														<div class="col-lg-6">
-															<select name="alerttype" class="form-control" onchange="javascript:this.form.submit()">
+															<select name="alerttype" class="form-control" onchange="javascript:this.form.submit()" <cfif structkeyexists( form, "alerttype" )>disabled</cfif>>
 																<option value="">Select Alert Type</option>
 																<option value="Game Alert"<cfif structkeyexists( form, "alerttype" )><cfif trim( form.alerttype ) is "Game Alert">selected</cfif></cfif>>Game Alert</option>
 																<option value="Shooter Alert"<cfif structkeyexists( form, "alerttype" )><cfif trim( form.alerttype ) is "Shooter Alert">selected</cfif></cfif>>Shooter Alert</option>
@@ -133,6 +133,10 @@
 													<cfif structkeyexists( form, "alerttype" )>
 														<cfif trim( form.alerttype ) is "Game Alert">
 															<cfinvoke component="apis.com.admin.smsalertservice" method="getcontacts" returnvariable="contactslist">
+															<cfinvoke component="apis.com.admin.smsalertservice" method="getcurrentgameslist" returnvariable="currentgames">
+																<cfinvokeargument name="sDate" value="#dateadd( "d", -2, now() )#">
+																<cfinvokeargument name="endDate" value="#dateadd( "d", 7, now() )#">
+															</cfinvoke>
 															<div class="form-group">
 																<label class="col-lg-2 control-label">Team Contact:</label>
 																<div class="col-lg-6">
@@ -149,8 +153,10 @@
 																	<label class="col-lg-2 control-label">Game:</label>
 																	<div class="col-lg-6">
 																		<select name="gameid" class="form-control">
-																			<option value="">Select Game</option>
-																			<option value="6899">02-14-2017 : Silverhawks vs. Warriors</option> 
+																			<option value="0">Select Game</option>
+																			<cfloop query="currentgames">
+																				<option value="#gameid#">#gameid# - #dateformat( gamedate, "mm/dd/yyyy" )# - #hometeam# vs. #awayteam# @ #fieldname#</option>
+																			</cfloop>																			
 																		</select>
 																	</div>
 																</div>
