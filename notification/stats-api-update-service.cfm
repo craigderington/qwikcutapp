@@ -24,8 +24,8 @@
 				<cfdump var="#getteam#" label="Team ID">
 				--->
 				<cfif getteam.recordcount eq 1>
-					<cfset gamedate1 = "8/1/2016" />
-					<cfset gamedate2 = "8/31/2016" />
+					<cfset gamedate1 = dateadd( "d", -1, getstat.statdate ) />
+					<cfset gamedate2 = dateadd( "d", 1, gamedate1 ) />
 					<cfquery name="getgame">
 						select gameid, gamedate
 						  from games
@@ -88,6 +88,14 @@
 					</cfif>
 				
 				<cfelse>
+				
+					<!--- update the merged flag and follow up in reporting --->
+					<cfquery name="updatestat">
+						update lacrosse_stats
+						   set merged = <cfqueryparam value="1" cfsqltype="cf_sql_bit" />,
+						       teamid = <cfqueryparam value="-1" cfsqltype="cf_sql_integer" />
+						 where statid = <cfqueryparam value="#getstat.statid#" cfsqltype="cf_sql_integer" /> 
+					</cfquery>
 				
 					NO TEAMS MATCHING STATS TEAM NAME.  ABORTING!
 				

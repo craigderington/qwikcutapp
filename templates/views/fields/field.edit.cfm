@@ -36,7 +36,7 @@
 															<!--- // begin form processing --->
 															<cfif structkeyexists( form, "fieldnames" ) and structkeyexists( form, "saveFieldRecord" )>
 															
-																<cfset form.validate_require = "fieldid|Sorry, and internal error has occurred.;stateid|The state is required to edit this record.;regionid|The region is required to save this record.;fieldname|Please enter a name for this field.;fieldaddress1|Please enter the primary address.;fieldcity|Please enter the city for this field.;fieldzip|Please enter the field zip code.;fieldcontactname|Please enter the field contact name.;fieldcontactnumber|Please enter the primary contacts phone number.;fieldcontacttitle|Please enter the field contact title." />
+																<cfset form.validate_require = "fieldid|Sorry, and internal error has occurred.;stateid|The state is required to edit this record.;regionid|The region is required to save this record.;fieldname|Please enter a name for this field.;fieldaddress1|Please enter the primary address.;fieldcity|Please enter the city for this field.;fieldzip|Please enter the field zip code." />
 																
 																<cfscript>
 																	objValidation = createobject( "component","apis.udfs.validation" ).init();
@@ -57,9 +57,11 @@
 																	<cfset f.fieldaddress2 = trim( form.fieldaddress2 ) />
 																	<cfset f.fieldcity = trim( form.fieldcity ) />																	
 																	<cfset f.fieldzip = form.fieldzip />
+																	<!---
 																	<cfset f.fieldcontactname = trim( form.fieldcontactname ) />
 																	<cfset f.fieldcontacttitle = trim( form.fieldcontacttitle ) />
 																	<cfset f.fieldcontactnumber = trim( form.fieldcontactnumber ) />
+																	--->
 																	<cfset f.fieldoptionid = form.fieldoptionid />
 																	
 																		<cfquery name="savefielddetails">
@@ -71,9 +73,11 @@
 																				   fieldaddress2 = <cfqueryparam value="#f.fieldaddress2#" cfsqltype="cf_sql_varchar" maxlength="50" />,
 																				   fieldcity = <cfqueryparam value="#f.fieldcity#" cfsqltype="cf_sql_varchar" maxlength="50" />,																				   
 																				   fieldzip = <cfqueryparam value="#f.fieldzip#" cfsqltype="cf_sql_numeric" />,
+																				   <!---
 																				   fieldcontactname = <cfqueryparam value="#f.fieldcontactname#" cfsqltype="cf_sql_varchar" maxlength="50" />,
 																				   fieldcontacttitle =<cfqueryparam value="#f.fieldcontacttitle#" cfsqltype="cf_sql_varchar" maxlength="50" />,
 																				   fieldcontactnumber = <cfqueryparam value="#f.fieldcontactnumber#" cfsqltype="cf_sql_varchar" maxlength="50" />,
+																				   --->
 																				   fieldoptionid = <cfqueryparam value="#f.fieldoptionid#" cfsqltype="cf_sql_integer" />,
 																				   regionid = <cfqueryparam value="#f.regionid#" cfsqltype="cf_sql_integer" />
 																			 where fieldid = <cfqueryparam value="#f.fieldid#" cfsqltype="cf_sql_integer" /> 
@@ -169,6 +173,7 @@
 																			</select>
 																		</div>
 																	</div>
+																	<!---
 																	<div class="form-group"><label class="col-sm-2 control-label">Contact:</label>
 																		<div class="col-sm-10"><input type="text" name="fieldcontactname" class="form-control" placeholder="Primary Contact" value="#fielddetail.fieldcontactname#"></div>
 																	</div>
@@ -178,6 +183,7 @@
 																	<div class="form-group"><label class="col-sm-2 control-label">Number:</label>
 																		<div class="col-sm-10"><input type="text" name="fieldcontactnumber" class="form-control" placeholder="Contact Phone Number" value="#fielddetail.fieldcontactnumber#"></div>
 																	</div>
+																	--->
 																	<div class="form-group"><label class="col-sm-2 control-label">Option:</label>
 																		<div class="col-sm-10">
 																			<select class="form-control" name="fieldoptionid">

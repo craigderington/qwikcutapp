@@ -19,7 +19,7 @@
 										<!--- // begin form processing --->
 										<cfif isDefined( "form.fieldnames" )>
 										
-											<cfset form.validate_require = "stateid|Please select a state for this field.;regionid|Please select a region for this field;fieldname|Please enter a name for this field.;fieldaddress1|Please enter the primary address.;fieldcity|Please enter the city for this field.;fieldzip|Please enter the field zip code.;fieldcontactname|Please enter the field contact name.;fieldcontactnumber|Please enter the primary contacts phone number.;fieldcontacttitle|Please enter the field contact title." />
+											<cfset form.validate_require = "stateid|Please select a state for this field.;regionid|Please select a region for this field;fieldname|Please enter a name for this field.;fieldaddress1|Please enter the primary address.;fieldcity|Please enter the city for this field.;fieldzip|Please enter the field zip code." />
 											
 											<cfscript>
 												objValidation = createobject( "component","apis.udfs.validation" ).init();
@@ -39,9 +39,11 @@
 												<cfset f.fieldaddress2 = trim( form.fieldaddress2 ) />
 												<cfset f.fieldcity = trim( form.fieldcity ) />												
 												<cfset f.fieldzip = form.fieldzip />
+												<!---
 												<cfset f.fieldcontactname = trim( form.fieldcontactname ) />
 												<cfset f.fieldcontacttitle = trim( form.fieldcontacttitle ) />
 												<cfset f.fieldcontactnumber = trim( form.fieldcontactnumber ) />
+												--->
 												<cfif isnumeric( form.fieldoptionid )>
 													<cfset f.fieldoptionid = form.fieldoptionid />
 												<cfelse>
@@ -49,7 +51,7 @@
 												</cfif>
 												
 													<cfquery name="addfield">
-														insert into fields(stateid, fieldname, fieldactive, fieldaddress1, fieldaddress2, fieldcity, fieldzip, fieldcontactname, fieldcontacttitle, fieldcontactnumber, fieldoptionid, regionid)
+														insert into fields(stateid, fieldname, fieldactive, fieldaddress1, fieldaddress2, fieldcity, fieldzip, regionid)
 														 values(
 																<cfqueryparam value="#f.stateid#" cfsqltype="cf_sql_integer" />,
 																<cfqueryparam value="#f.fieldname#" cfsqltype="cf_sql_varchar" maxlength="50" />,
@@ -58,9 +60,11 @@
 																<cfqueryparam value="#f.fieldaddress2#" cfsqltype="cf_sql_varchar" maxlength="50" />,
 																<cfqueryparam value="#f.fieldcity#" cfsqltype="cf_sql_varchar" maxlength="50" />,																
 																<cfqueryparam value="#f.fieldzip#" cfsqltype="cf_sql_numeric" />,
+																<!---
 																<cfqueryparam value="#f.fieldcontactname#" cfsqltype="cf_sql_varchar" maxlength="50" />,
 																<cfqueryparam value="#f.fieldcontacttitle#" cfsqltype="cf_sql_varchar" maxlength="50" />,
 																<cfqueryparam value="#f.fieldcontactnumber#" cfsqltype="cf_sql_varchar" maxlength="50" />,
+																--->
 																<cfqueryparam value="#f.fieldoptionid#" cfsqltype="cf_sql_integer" />,
 																<cfqueryparam value="#f.regionid#" cfsqltype="cf_sql_integer" />
 																);
@@ -135,6 +139,7 @@
 												<div class="form-group"><label class="col-sm-2 control-label">Zip:</label>
 													<div class="col-sm-10"><input type="text" name="fieldzip" maxlength="5" class="form-control" placeholder="Zip Code" <cfif isdefined( "form.fieldzip" )>value="#form.fieldzip#"</cfif> /></div>
 												</div>													
+												<!---
 												<div class="form-group"><label class="col-sm-2 control-label">Contact:</label>
 													<div class="col-sm-10"><input type="text" name="fieldcontactname" class="form-control" placeholder="Primary Contact" <cfif isdefined( "form.fieldcontactname" )>value="#form.fieldcontactname#"</cfif> /></div>
 												</div>
@@ -144,6 +149,7 @@
 												<div class="form-group"><label class="col-sm-2 control-label">Number:</label>
 													<div class="col-sm-10"><input type="text" name="fieldcontactnumber" class="form-control" placeholder="Contact Phone Number" <cfif isdefined( "form.fieldcontactnumber" )>value="#form.fieldcontactnumber#"</cfif> /></div>
 												</div>
+												--->
 												<div class="form-group"><label class="col-sm-2 control-label">Option:</label>
 													<div class="col-sm-10">
 														<select class="form-control" name="fieldoptionid">
