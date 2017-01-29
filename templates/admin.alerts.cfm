@@ -170,7 +170,9 @@
 																<div class="col-lg-6">
 																	<select name="contactid" class="form-control">
 																		<cfloop query="shooterlist">
-																			<option value="#shooterid#">#shooterfirstname# #shooterlastname# (#shootercellphone#)</option>
+																			<cfif shooterlist.shootercellphone neq "">
+																				<option value="#shooterid#">#shooterfirstname# #shooterlastname# (#shootercellphone#)</option>
+																			</cfif>
 																		</cfloop>
 																	</select>														
 																</div>
