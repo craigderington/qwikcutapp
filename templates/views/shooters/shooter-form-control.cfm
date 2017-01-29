@@ -28,6 +28,7 @@
 							<cfset sh.shooterzip = form.shooterzip />
 							<cfset sh.shootercellphone = trim( form.shootercellphone ) />
 							<cfset sh.shooterregcode = #createuuid()# />
+							<cfset sh.shootercellphone = rereplacenocase( sh.shootercellphone, "[^0-9]", "", "all" ) />							
 							
 							<cfif sh.shooterid eq 0>							
 													
@@ -219,7 +220,7 @@
 								<select name="shooterstateid" id="shooterstateid" class="form-control">
 									<option value="" selected>Select State</option>
 									<cfloop query="statelist">
-										<option value="#stateid#"<cfif structkeyexists( form, "shooterstateid" )><cfif numberformat( form.shooterstateid ) eq statelist.stateid>selected</cfif><cfelse><cfif shooter.shooterstateid eq statelist.stateid>selected</cfif></cfif><cfif session.stateid eq statelist.stateid>selected</cfif>>#statename#</option>
+										<option value="#stateid#"<cfif structkeyexists( form, "shooterstateid" )><cfif numberformat( form.shooterstateid ) eq statelist.stateid>selected</cfif></cfif><cfif shooter.shooterstateid eq statelist.stateid>selected</cfif>>#statename#</option>
 									</cfloop>
 								</select>
 							</div>
