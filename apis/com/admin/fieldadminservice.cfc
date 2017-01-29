@@ -10,7 +10,10 @@
 		<cfquery name="fieldlist">
 			select f.fieldid, f.stateid, f.fieldname, f.fieldaddress1, f.fieldaddress2, f.fieldcity, f.fieldstate, f.fieldzip,
 				   f.fieldcontactnumber, f.fieldcontactname, f.fieldcontacttitle, f.fieldactive, 
-				   s.statename, s.stateabbr
+				   s.statename, s.stateabbr,
+				   (select top 1 fc.fieldcontactname from fieldcontacts fc where fc.fieldid = f.fieldid) as fcname,
+				   (select top 1 fc.fieldcontacttitle from fieldcontacts fc where fc.fieldid = f.fieldid) as fctitle,
+                   (select top 1 fc.fieldcontactnumber from fieldcontacts fc where fc.fieldid = f.fieldid) as fcnumber
 			  from fields f, states s
 			 where f.stateid = s.stateid
 			   and f.fieldid <> <cfqueryparam value="155" cfsqltype="cf_sql_integer" />

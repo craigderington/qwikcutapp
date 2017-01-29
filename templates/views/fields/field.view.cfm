@@ -92,6 +92,7 @@
 																		</select>
 																	</div>
 																</div>
+																<!---
 																<div class="form-group"><label class="col-sm-2 control-label">Contact:</label>
 																	<div class="col-sm-10"><input type="text" class="form-control" placeholder="Primary Contact" value="#fielddetail.fieldcontactname#"></div>
 																</div>
@@ -100,7 +101,7 @@
 																</div>
 																<div class="form-group"><label class="col-sm-2 control-label">Number:</label>
 																	<div class="col-sm-10"><input type="text" class="form-control" placeholder="Contact Phone Number" value="#fielddetail.fieldcontactnumber#"></div>
-																</div>
+																</div>--->
 																<div class="form-group"><label class="col-sm-2 control-label">Option:</label>
 																		<div class="col-sm-10">
 																			<select class="form-control" name="fieldoptionid" disabled>
