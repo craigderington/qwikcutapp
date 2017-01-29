@@ -47,7 +47,7 @@
 												<cfset m.alerttext = trim( form.msgtext ) />																						
 												<cfset m.alertdatetime = m.alertdate & ' ' & m.alerttime  />
 												<cfif isdefined( "form.gameid" )>
-													<cfset m.gameid = numberformat( form.gameid ) />
+													<cfset m.gameid = form.gameid />
 												</cfif>												
 												
 												<cfif trim( m.alerttype ) is "Game Alert">
