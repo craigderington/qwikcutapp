@@ -55,6 +55,13 @@
 				select count(alertid) as totalalerts
 				  from alerts				 
 			</cfquery>
+			
+			<cfquery name="shooteralerts">
+				select count(shooteralertid) as totalshooteralerts
+				  from shooteralerts				 
+			</cfquery>
+			
+			<cfset totalcombinedalerts = alerts.totalalerts + shooteralerts.totalshooteralerts />
 
 				<cfset admindashboard = structnew() />
 				<cfset states = structinsert( admindashboard, "totalstates", adminstates.totalstates ) />
@@ -64,7 +71,7 @@
 				<cfset fields = structinsert( admindashboard, "totalfields", adminfields.totalfields ) />
 				<cfset shooters = structinsert( admindashboard, "totalshooters", adminshooters.totalshooters ) />
 				<cfset users = structinsert( admindashboard, "totalusers", adminusers.totalusers ) />
-				<cfset alerts = structinsert( admindashboard, "totalalerts", alerts.totalalerts ) />
+				<cfset alerts = structinsert( admindashboard, "totalalerts", totalcombinedalerts ) />
 			
 		<cfreturn admindashboard>
 	</cffunction>		

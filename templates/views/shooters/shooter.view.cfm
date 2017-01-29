@@ -50,7 +50,7 @@
 												<div class="col-md-4">
 													<div class="form-group">														
 														<div class="col-lg-10">
-															<h3 class="form-control-static">#shooter.shooterfirstname#  #shooter.shooterlastname#</h3>
+															<h3 class="form-control-static">#shooter.shooterfirstname#  #shooter.shooterlastname#  <cfif shooter.shooterisactive eq 0><span class="label label-danger"><i class="fa fa-warning"></i> INACTIVE</span></span><cfelse><span class="label label-primary"><i class="fa fa-check-circle"></i> ACTIVE</cfif></h3>
 															<cfif shooter.shooteraddress1 neq "" and shooter.shootercity neq "">
 																<p class="form-control-static">#shooter.shooteraddress1#</p>															
 																<cfif shooter.shooteraddress2 neq "">

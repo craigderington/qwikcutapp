@@ -44,21 +44,35 @@
 												<cfset m.alerttype = trim( form.alerttype ) />
 												<cfset m.alertdate = dateformat( form.alertdate, "mm/dd/yyyy" ) />
 												<cfset m.alerttime = timeformat( form.alerttime, "hh:mm:ss" ) />
-												<cfset m.alerttext = trim( form.msgtext ) />
-												<cfset m.gameid = form.gameid />												
-												<cfset m.alertdatetime = m.alertdate & ' ' & m.alerttime  />												
+												<cfset m.alerttext = trim( form.msgtext ) />																						
+												<cfset m.alertdatetime = m.alertdate & ' ' & m.alerttime  />
+												<cfif isdefined( "form.gameid" )>
+													<cfset m.gameid = numberformat( form.gameid ) />
+												</cfif>												
 												
-												<cfquery name="addalert">
-													insert into alerts(contactid, alertdatetime, alerttype, alerttext, alertqueued, gameid)
-														values(
-															   <cfqueryparam value="#m.contactid#" cfsqltype="cf_sql_integer" />,
-															   <cfqueryparam value="#m.alertdatetime#" cfsqltype="cf_sql_timestamp" />,
-															   <cfqueryparam value="#m.alerttype#" cfsqltype="cf_sql_varchar" />,
-															   <cfqueryparam value="#m.alerttext#" cfsqltype="cf_sql_varchar" />,
-															   <cfqueryparam value="1" cfsqltype="cf_sql_bit" />,
-															   <cfqueryparam value="#m.gameid#" cfsqltype="cf_sql_integer" />
-														      );
-												</cfquery>
+												<cfif trim( m.alerttype ) is "Game Alert">
+													<cfquery name="addalert">
+														insert into alerts(contactid, alertdatetime, alerttype, alerttext, alertqueued, gameid)
+															values(
+																   <cfqueryparam value="#m.contactid#" cfsqltype="cf_sql_integer" />,
+																   <cfqueryparam value="#m.alertdatetime#" cfsqltype="cf_sql_timestamp" />,
+																   <cfqueryparam value="#m.alerttype#" cfsqltype="cf_sql_varchar" />,
+																   <cfqueryparam value="#m.alerttext#" cfsqltype="cf_sql_varchar" />,
+																   <cfqueryparam value="1" cfsqltype="cf_sql_bit" />,
+																   <cfqueryparam value="#m.gameid#" cfsqltype="cf_sql_integer" />
+																  );
+													</cfquery>
+												<cfelseif trim( m.alerttype ) is "Shooter Alert">
+													<cfquery name="addalert">
+														insert into shooteralerts(shooterid, alertdatetime, alerttype, alerttext)
+															values(
+																   <cfqueryparam value="#m.contactid#" cfsqltype="cf_sql_integer" />,
+																   <cfqueryparam value="#m.alertdatetime#" cfsqltype="cf_sql_timestamp" />,
+																   <cfqueryparam value="#m.alerttype#" cfsqltype="cf_sql_varchar" />,
+																   <cfqueryparam value="#m.alerttext#" cfsqltype="cf_sql_varchar" />																   
+																  );
+													</cfquery>											
+												</cfif>
 												
 												<!--- // record the activity --->
 												<cfquery name="activitylog">
@@ -70,7 +84,7 @@
 																<cfqueryparam value="created a new SMS #m.alerttype#." cfsqltype="cf_sql_varchar" />
 																);
 												</cfquery>
-																								
+																						
 												
 												<!--- // redirect to page --->
 												<cflocation url="#application.root##url.event#" addtoken="no">
@@ -111,8 +125,8 @@
 																<option value="">Select Alert Type</option>
 																<option value="Game Alert"<cfif structkeyexists( form, "alerttype" )><cfif trim( form.alerttype ) is "Game Alert">selected</cfif></cfif>>Game Alert</option>
 																<option value="Shooter Alert"<cfif structkeyexists( form, "alerttype" )><cfif trim( form.alerttype ) is "Shooter Alert">selected</cfif></cfif>>Shooter Alert</option>
-																<option value="Field Admin Alert"<cfif structkeyexists( form, "alerttype" )><cfif trim( form.alerttype ) is "Field Admin Alert">selected</cfif></cfif>>Field Admin Alert</option>
-																<option value="Change of Venue"<cfif structkeyexists( form, "alerttype" )><cfif trim( form.alerttype ) is "Change of Venue">selected</cfif></cfif>>Change of Venue</option>																
+																<option value="Field Admin Alert" disabled <cfif structkeyexists( form, "alerttype" )><cfif trim( form.alerttype ) is "Field Admin Alert">selected</cfif></cfif>>Field Admin Alert</option>
+																<option value="Change of Venue" disabled <cfif structkeyexists( form, "alerttype" )><cfif trim( form.alerttype ) is "Change of Venue">selected</cfif></cfif>>Change of Venue</option>																
 															</select>
 														</div>
 													</div>
@@ -141,12 +155,17 @@
 																	</div>
 																</div>
 															
-														<cfelseif trim( form.alerttype ) is "Shooter Alert">													
+														<cfelseif trim( form.alerttype ) is "Shooter Alert">
+															<cfinvoke component="apis.com.admin.shooteradminservice" method="getshooters" returnvariable="shooterlist">
+																<cfinvokeargument name="isactive" value="1">
+															</cfinvoke>
 															<div class="form-group">
 																<label class="col-lg-2 control-label">Shooter:</label>
 																<div class="col-lg-6">
-																	<select name="shooterid" class="form-control">
-																		<option value="">Select Shooter</option>
+																	<select name="contactid" class="form-control">
+																		<cfloop query="shooterlist">
+																			<option value="#shooterid#">#shooterfirstname# #shooterlastname# (#shootercellphone#)</option>
+																		</cfloop>
 																	</select>														
 																</div>
 															</div>
@@ -194,20 +213,25 @@
 										<cfif not structkeyexists( form, "alerttype" )>
 											<cfinvoke component="apis.com.admin.smsalertservice" method="getqueuedalerts" returnvariable="queuedalertslist">				
 											</cfinvoke>
-
 											<cfinvoke component="apis.com.admin.smsalertservice" method="getsentalerts" returnvariable="sentalertslist">				
+											</cfinvoke>
+											<cfinvoke component="apis.com.admin.smsalertservice" method="getshooterqueuedalerts" returnvariable="shooterqueuedlist">				
+											</cfinvoke>
+											<cfinvoke component="apis.com.admin.smsalertservice" method="getshootersentalerts" returnvariable="shootersentlist">				
 											</cfinvoke>
 											<div class="row" style="margin-top:25px;">
 												<div class="col-lg-12">													
 													<ul class="nav nav-tabs">
-														<li class="active"><a data-toggle="tab" href="##queued">Queued Alerts</a></li>
-														<li><a data-toggle="tab" href="##sent">Sent Alerts</a></li>														  
+														<li class="active"><a data-toggle="tab" href="##queued">Queued Game Alerts</a></li>
+														<li><a data-toggle="tab" href="##sent">Sent Game Alerts</a></li>
+														<li><a data-toggle="tab" href="##shooterqueued">Queued Shooter Alerts</a></li>
+														<li><a data-toggle="tab" href="##shootersent">Sent Shooter Alerts</a></li>
 													</ul>
 													
 													<div class="tab-content">
 														<div id="queued" class="tab-pane fade in active">
 															<cfif queuedalertslist.recordcount neq 0>														
-																<h2 style="margin-top:10px;vertical-align:middle"><i class="fa fa-mobile"></i> Queued Alerts <span style="padding:5px;" class="label label-default pull-right">Total Queued Alerts: #queuedalertslist.recordcount#</span></h2>																	
+																<h2 style="margin-top:10px;vertical-align:middle"><i class="fa fa-mobile"></i> Queued Game Alerts <span style="padding:5px;" class="label label-default pull-right">Total Queued Alerts: #queuedalertslist.recordcount#</span></h2>																	
 																	<div class="table-responsive">									
 																		<table class="table table-striped">
 																			<thead>
@@ -246,7 +270,7 @@
 															
 														<div id="sent" class="tab-pane fade">
 															<cfif sentalertslist.recordcount neq 0>	
-																<h2 style="margin-top:10px;vertical-align:middle"><i class="fa fa-mobile"></i> Sent Alerts <span style="padding:5px;" class="label label-success pull-right">Total Sent Alerts: #sentalertslist.recordcount#</span></h2>
+																<h2 style="margin-top:10px;vertical-align:middle"><i class="fa fa-mobile"></i> Sent Game Alerts <span style="padding:5px;" class="label label-success pull-right">Total Sent Alerts: #sentalertslist.recordcount#</span></h2>
 																	<div class="table-responsive">									
 																		<table class="table table-striped">
 																			<thead>
@@ -278,7 +302,75 @@
 																	<h5><i class="fa fa-warning"></i> There are <b>zero</b> sent alerts in the database.</h5>
 																</div>
 															</cfif>
-														</div>														  
+														</div>
+														<div id="shooterqueued" class="tab-pane fade">
+															<cfif shooterqueuedlist.recordcount neq 0>	
+																<h2 style="margin-top:10px;vertical-align:middle"><i class="fa fa-mobile"></i> Queued Shooter Alerts <span style="padding:5px;" class="label label-default pull-right">Total Queued Alerts: #shooterqueuedlist.recordcount#</span></h2>
+																	<div class="table-responsive">									
+																		<table class="table table-striped">
+																			<thead>
+																				<tr>										
+																					<th>Alert Date</th>
+																					<th>Shooter</th>
+																					<th>To</th>
+																					<th>Status</th>
+																					<th>Info</th>																					
+																				</tr>
+																			</thead>
+																			<tbody>															
+																				<cfloop query="shooterqueuedlist">
+																					<tr>
+																						<td>#dateformat( alertdatetime, "mm/dd/yyyy" )# #timeformat( alertdatetime, "hh:mm:ss" )#</td>
+																						<td>#shooterfirstname# #shooterlastname#</td>
+																						<td>#shootercellphone#</td>
+																						<td><cfif alertsent eq 1><span class="label label-success">Sent</span><cfelse><span class="label label-default">Queued</span></cfif></td>
+																						<td>#alerttext#</td>																						
+																					</tr>
+																				</cfloop>															
+																			</tbody>
+																		</table>
+																	</div>
+															<cfelse>
+																<div class="alert alert-danger alert-dismissable" style="margin-top:15px;">
+																	<h5><i class="fa fa-warning"></i> There are <b>zero</b> queued shooter alerts in the database.</h5>
+																</div>
+															</cfif>
+														</div>
+														<div id="shootersent" class="tab-pane fade">
+															<cfif shootersentlist.recordcount neq 0>	
+																<h2 style="margin-top:10px;vertical-align:middle"><i class="fa fa-mobile"></i> Sent Shooter Alerts <span style="padding:5px;" class="label label-success pull-right">Total Sent Alerts: #shootersentlist.recordcount#</span></h2>
+																	<div class="table-responsive">									
+																		<table class="table table-striped">
+																			<thead>
+																				<tr>										
+																					<th>Alert Sent Date</th>
+																					<th>Contact</th>
+																					<th>To</th>
+																					<th>Status</th>
+																					<th>Info</th>
+																					<th>MsgID</th>
+																				</tr>
+																			</thead>
+																			<tbody>															
+																				<cfloop query="shootersentlist">
+																					<tr>
+																						<td>#dateformat( alertsentdate, "mm/dd/yyyy" )# #timeformat( alertsentdate, "hh:mm:ss" )#</td>
+																						<td>#shooterfirstname# #shooterlastname#</td>
+																						<td>#shootercellphone#</td>
+																						<td><cfif alertsent eq 1><span class="label label-success">Sent</span><cfelse><span class="label label-default">Queued</span></cfif></td>
+																						<td>#alerttext#</td>
+																						<td>#sid#</td>
+																					</tr>
+																				</cfloop>															
+																			</tbody>
+																		</table>
+																	</div>
+															<cfelse>
+																<div class="alert alert-danger alert-dismissable" style="margin-top:15px;">
+																	<h5><i class="fa fa-warning"></i> There are <b>zero</b> sent shooter alerts in the database.</h5>
+																</div>
+															</cfif>
+														</div>
 													</div>												
 												</div>
 											</div>

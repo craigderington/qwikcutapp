@@ -6,7 +6,7 @@
 			
 	<cffunction name="getshooters" output="false" returntype="query" access="remote" hint="I get the list of shooters.">
 		<cfargument name="stateid" type="numeric" required="no">
-		<cfargument name="isactive" type="boolean" required="no">
+		<cfargument name="isactive" type="any" required="no" default="1">
 		<cfset var shooterlist = "" />
 			<cfquery name="shooterlist">
 					select sh.shooterid, sh.userid, sh.shooterfirstname, sh.shooterlastname, sh.shooteraddress1, sh.shooteraddress2, sh.shootercity, sh.shooterstateid, 
@@ -25,7 +25,10 @@
 							</cfif>
 							<cfif structkeyexists( form, "shootername" ) and trim( form.shootername ) neq "">
 								and sh.shooterfirstname + ' ' + sh.shooterlastname LIKE <cfqueryparam value="%#trim( form.shootername )#%" cfsqltype="cf_sql_varchar" />
-							</cfif>
+							</cfif>							
+						</cfif>
+						<cfif structkeyexists( arguments, "isactive" )>
+							and sh.shooterisactive = <cfqueryparam value="1" cfsqltype="cf_sql_bit" />
 						</cfif>
 						<cfif structkeyexists( arguments, "stateid" )>
 							and s.stateid = <cfqueryparam value="#arguments.stateid#" cfsqltype="cf_sql_integer" />

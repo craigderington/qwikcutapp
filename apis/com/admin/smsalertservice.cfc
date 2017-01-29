@@ -33,6 +33,32 @@
 		</cfquery>
 		<cfreturn sentalertslist>	
 	</cffunction>
+	<cffunction name="getshooterqueuedalerts" access="public" returntype="query" output="false" hint="I get the list of shooter queued alerts.">
+		<cfset var shooterqueuedlist = "" />
+		<cfquery name="shooterqueuedlist">
+			select sa.shooteralertid, sa.shooterid, sa.alertdatetime, sa.alerttype, sa.alerttext, sa.alertread, sa.alertdismissed,
+				   sa.alertqueued, sa.alertsent, sa.alertsentdate, s.shooterfirstname, s.shooterlastname, s.shootercellphone
+			  from shooteralerts sa 
+			       left join shooters s on sa.shooterid = s.shooterid			       		
+		     where sa.alertsent = <cfqueryparam value="0" cfsqltype="cf_sql_bit" />
+			   and sa.alertqueued = <cfqueryparam value="1" cfsqltype="cf_sql_bit" />		
+		  order by sa.alertdatetime desc, sa.shooteralertid asc
+		</cfquery>
+		<cfreturn shooterqueuedlist>	
+	</cffunction>
+	<cffunction name="getshootersentalerts" access="public" returntype="query" output="false" hint="I get the list of sent shooter alerts.">
+		<cfset var shootersentlist = "" />
+		<cfquery name="shootersentlist">
+			select sa.shooteralertid, sa.shooterid, sa.alertdatetime, sa.alerttype, sa.alerttext, sa.alertread, sa.alertdismissed,
+				   sa.alertqueued, sa.alertsent, sa.alertsentdate, sa.sid, s.shooterfirstname, s.shooterlastname, s.shootercellphone
+			  from shooteralerts sa 
+			       left join shooters s on sa.shooterid = s.shooterid		       	
+		     where sa.alertsent = <cfqueryparam value="1" cfsqltype="cf_sql_bit" />
+			   and sa.alertqueued = <cfqueryparam value="0" cfsqltype="cf_sql_bit" />		
+		  order by sa.alertdatetime desc, sa.shooteralertid asc
+		</cfquery>
+		<cfreturn shootersentlist>	
+	</cffunction>
 	<cffunction name="getcontacts" access="remote" output="false" hint="I get the team contacts">				
 		<cfset var contactslist = "" />
 			<cfquery name="contactslist">
