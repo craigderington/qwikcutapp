@@ -380,7 +380,7 @@
 				   and t1.teamlevelid = tl.teamlevelid
 				   and g.customgame = <cfqueryparam value="1" cfsqltype="cf_sql_bit" />
 				   and g.gamestatus <> <cfqueryparam value="FINAL" cfsqltype="cf_sql_varchar" />
-				   and g.gamedate >= <cfqueryparam value="#arguments.today#" cfsqltype="cf_sql_timestamp" />
+				   and g.gamedate >= <cfqueryparam value="#dateadd( "d", -1, arguments.today )#" cfsqltype="cf_sql_timestamp" />
 			</cfquery>	
 		<cfreturn customgames>
 	</cffunction>

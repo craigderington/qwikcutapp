@@ -3,13 +3,28 @@
 	<cfinvoke component="apis.com.qwikstats.qwikstatsdashboardservice" method="gettopgoals" returnvariable="goalleaderboard">		
 	</cfinvoke>
 	
+	<cfinvoke component="apis.com.qwikstats.qwikstatsdashboardservice" method="gettopassists" returnvariable="assistsleaderboard">		
+	</cfinvoke>
+	
+	<cfinvoke component="apis.com.qwikstats.qwikstatsdashboardservice" method="gettopshots" returnvariable="shotsleaderboard">		
+	</cfinvoke>
+	
+	<cfinvoke component="apis.com.qwikstats.qwikstatsdashboardservice" method="gettopsaves" returnvariable="savesleaderboard">		
+	</cfinvoke>
+	
+	<cfinvoke component="apis.com.qwikstats.qwikstatsdashboardservice" method="gettopgrounders" returnvariable="groundersleaderboard">		
+	</cfinvoke>
+	
+	<cfinvoke component="apis.com.qwikstats.qwikstatsdashboardservice" method="gettopturnovers" returnvariable="turnoversleaderboard">		
+	</cfinvoke>
+	
 	<cfinclude template="header.cfm">
 	
 	<!---
 	<cfdump var="#goalleaderboard#" label="Leaderboard">
 	
 	<ul>
-	<cfoutput query="goalleaderboard" maxrows="3">
+	<cfoutput query="goalleaderboard" maxrows="10">
 		<li>#playername#  #teamname# -  #total_goals#</li>
 	</cfoutput>
 	</ul>
@@ -35,53 +50,47 @@
 					<div class="ibox-content">
 						<div class="row">
 							<div class="col-lg-4">
-                                <div class="panel panel-default">
+                                <div class="panel panel-primary">
                                     <div class="panel-heading">
-                                        Conference Name I
+                                        <strong>Top Goals</strong>
                                     </div>
                                     <div class="panel-body">
-										<p>Team Name   <span class="pull-right">12-0</span></p>
-										<p>Team Name   <span class="pull-right">8-4</span></p>
-										<p>Team Name   <span class="pull-right">7-5</span></p>
-										<p>Team Name   <span class="pull-right">6-6</span></p>
-										<p>Team Name   <span class="pull-right">5-7</span></p>
+										<cfloop query="goalleaderboard" maxrows="5">
+											<p><strong>#playername#</strong> - #teamname#<span class="badge badge-primary pull-right">#total_goals#</span></p>
+										</cfloop>
                                     </div>
                                     <div class="panel-footer">
-										{{ team count }}
+										<small>Top 5 goals scored by player and team.</small>
                                     </div>
                                 </div>
                             </div>
 							<div class="col-lg-4">
-                                <div class="panel panel-primary">
+                                <div class="panel panel-success">
                                     <div class="panel-heading">
-										Conference Name II
+										Top Assists
                                     </div>
                                     <div class="panel-body">
-										<p>Team Name   <span class="pull-right">12-0</span></p>
-										<p>Team Name   <span class="pull-right">8-4</span></p>
-										<p>Team Name   <span class="pull-right">7-5</span></p>
-										<p>Team Name   <span class="pull-right">6-6</span></p>
-										<p>Team Name   <span class="pull-right">5-7</span></p>
+										<cfloop query="assistsleaderboard" maxrows="5">
+											<p><strong>#playername#</strong> - #teamname#<span class="badge badge-success pull-right">#total_assists#</span></p>
+										</cfloop>
 									</div>
                                     <div class="panel-footer">
-										{{ team count }}
+										<small>Top 5 assists by player and team.</small>
                                     </div>
                                 </div>
                             </div>
 							<div class="col-lg-4">
                                 <div class="panel panel-info">
                                     <div class="panel-heading">
-										Conference Name III
+										Top Shots
                                     </div>
                                     <div class="panel-body">
-										<p>Team Name   <span class="pull-right">12-0</span></p>
-										<p>Team Name   <span class="pull-right">8-4</span></p>
-										<p>Team Name   <span class="pull-right">7-5</span></p>
-										<p>Team Name   <span class="pull-right">6-6</span></p>
-										<p>Team Name   <span class="pull-right">5-7</span></p>
+										<cfloop query="shotsleaderboard" maxrows="5">
+											<p><strong>#playername#</strong> - #teamname#<span class="badge badge-info pull-right">#total_shots#</span></p>
+										</cfloop>
 									</div>
                                     <div class="panel-footer">
-										{{ team count }}
+										<small>Top 5 shots taken by player and team.</small>
                                     </div>
                                 </div>
                             </div>
@@ -91,51 +100,45 @@
 							<div class="col-lg-4">
                                 <div class="panel panel-warning">
                                     <div class="panel-heading">
-                                        Conference Name IV
+                                        Top Saves
                                     </div>
                                     <div class="panel-body">
-										<p>Team Name   <span class="pull-right">12-0</span></p>
-										<p>Team Name   <span class="pull-right">8-4</span></p>
-										<p>Team Name   <span class="pull-right">7-5</span></p>
-										<p>Team Name   <span class="pull-right">6-6</span></p>
-										<p>Team Name   <span class="pull-right">5-7</span></p>
+										<cfloop query="savesleaderboard" maxrows="5">
+											<p><strong>#playername#</strong> - #teamname#<span class="badge badge-warning pull-right">#total_saves#</span></p>
+										</cfloop>
                                     </div>
                                     <div class="panel-footer">
-										{{ team count }}
+										<small>Top 5 saves by player and team.</small>
                                     </div>
                                 </div>
                             </div>
 							<div class="col-lg-4">
-                                <div class="panel panel-success">
+                                <div class="panel panel-default">
                                     <div class="panel-heading">
-										Conference Name V
+										Top Grounders
                                     </div>
                                     <div class="panel-body">
-										<p>Team Name   <span class="pull-right">12-0</span></p>
-										<p>Team Name   <span class="pull-right">8-4</span></p>
-										<p>Team Name   <span class="pull-right">7-5</span></p>
-										<p>Team Name   <span class="pull-right">6-6</span></p>
-										<p>Team Name   <span class="pull-right">5-7</span></p>
+										<cfloop query="groundersleaderboard" maxrows="5">
+											<p><strong>#playername#</strong> - #teamname#<span class="badge badge-default pull-right">#total_grounders#</span></p>
+										</cfloop>
 									</div>
                                     <div class="panel-footer">
-										{{ team count }}
+										<small>Top 5 grounders by player and team.</small>
                                     </div>
                                 </div>
                             </div>
 							<div class="col-lg-4">
                                 <div class="panel panel-danger">
                                     <div class="panel-heading">
-										Conference Name VI
+										Turnovers
                                     </div>
                                     <div class="panel-body">
-										<p>Team Name   <span class="pull-right">12-0</span></p>
-										<p>Team Name   <span class="pull-right">8-4</span></p>
-										<p>Team Name   <span class="pull-right">7-5</span></p>
-										<p>Team Name   <span class="pull-right">6-6</span></p>
-										<p>Team Name   <span class="pull-right">5-7</span></p>
+										<cfloop query="turnoversleaderboard" maxrows="5">
+											<p><strong>#playername#</strong> - #teamname#<span class="badge badge-danger pull-right">#total_turnovers#</span></p>
+										</cfloop>
 									</div>
                                     <div class="panel-footer">
-										{{ team count }}
+										<small>Top 5 turnovers by player and team.</small>
                                     </div>
                                 </div>
                             </div>

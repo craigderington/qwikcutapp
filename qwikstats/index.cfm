@@ -6,9 +6,11 @@
 			<div class="row">
 				<div class="ibox">
 					<div class="ibox-title">
-						<h3><i class="fa fa-list"></i> Please choose a sport to view statistics...</h3>
+						<h3><i class="fa fa-list"></i> Please choose a sport to view statistics...
 						<span class="pull-right">
-						</span>
+							<!---<a href="" class="btn btn-sm btn-success"><i class="fa fa-soccer-ball-o"></i> QwikStats</a>--->
+							<img src="../img/sm_logo1.jpg" style="margin-top:-5px;margin-left:5px;">
+						</span></h3>
 					</div>
 					<div class="ibox-content">					
 						<ul class="nav nav-pills nav-stacked">

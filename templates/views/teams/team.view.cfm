@@ -50,6 +50,7 @@
 												<p>#teamdetail.teamcity#, #ucase( teamdetail.stateabbr )#</p>										
 												<p>#teamdetail.teammascot#</p>
 												<p>#teamdetail.teamcolors#</p>
+												<p><span class="label label-danger">QWIK STATS APP TEAM NAME:  #teamdetail.teamorgname#</span></p>
 										
 												<cfif teamdetail.homefieldid neq 0>
 													<cfinvoke component="apis.com.admin.fieldadminservice" method="gethomefield" returnvariable="homefield">
