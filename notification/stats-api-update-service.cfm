@@ -18,8 +18,8 @@
 					select top 1 teams.teamid, teams.teamorgname, teamlevels.teamlevelname
 					  from teams, teamlevels
 					 where teams.teamlevelid = teamlevels.teamlevelid
-					   and teamorgname LIKE <cfqueryparam value="#getstat.teamname#" cfsqltype="cf_sql_varchar" />
-					   and teamlevelid in (97, 98)					 
+					   and teams.teamorgname LIKE <cfqueryparam value="#getstat.teamname#" cfsqltype="cf_sql_varchar" />
+					   and teams.teamlevelid in (97, 98)					 
 				</cfquery>
 				<!---
 				<cfdump var="#getteam#" label="Team ID">
