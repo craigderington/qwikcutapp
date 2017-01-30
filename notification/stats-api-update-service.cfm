@@ -15,10 +15,11 @@
 			<cfif getstat.recordcount eq 1>
 			
 				<cfquery name="getteam">
-					select top 1 teamid, teamorgname
-					  from teams
-					 where teamorgname LIKE <cfqueryparam value="#getstat.teamname#" cfsqltype="cf_sql_varchar" />
-					   and teamlevelid in (95, 96)					 
+					select top 1 teams.teamid, teams.teamorgname, teamlevels.teamlevelname
+					  from teams, teamlevels
+					 where teams.teamlevelid = teamlevels.teamlevelid
+					   and teamorgname LIKE <cfqueryparam value="#getstat.teamname#" cfsqltype="cf_sql_varchar" />
+					   and teamlevelid in (97, 98)					 
 				</cfquery>
 				<!---
 				<cfdump var="#getteam#" label="Team ID">
@@ -60,7 +61,7 @@
 								   merged = <cfqueryparam value="1" cfsqltype="cf_sql_bit" />
 							 where statid = <cfqueryparam value="#getstat.statid#" cfsqltype="cf_sql_integer" /> 
 						</cfquery>				
-					
+						<p>
 						1 STAT RECORD UPDATED SUCCESSFULLY!<br />
 						-----------------------------------<br />
 						<cfoutput>
@@ -71,7 +72,7 @@
 						Game Date: #getgame.gamedate#<br />
 						Stat Date: #getstat.statdate#<br />
 						</cfoutput>
-					
+						</p>
 					<cfelse>
 						
 						<!--- update the merged flag and follow up in reporting --->
@@ -80,11 +81,11 @@
 							   set merged = <cfqueryparam value="1" cfsqltype="cf_sql_bit" />
 							 where statid = <cfqueryparam value="#getstat.statid#" cfsqltype="cf_sql_integer" /> 
 						</cfquery>
-
-						PLAYER, GAME, TEAM NO FOUND<br/>
+						<p>
+						PLAYER, GAME, TEAM NOT FOUND<br />
 						STAT RECORD FLAGGED AS 'ERROR'<br />
 						CONTINUING MERGE PROCESS...
-					
+						</p>
 					</cfif>
 				
 				<cfelse>

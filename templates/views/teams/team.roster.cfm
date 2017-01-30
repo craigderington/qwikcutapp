@@ -63,7 +63,7 @@
 								</span>							
 						</div>								
 								
-						<div class="ibox-content" style="min-height:500px;">									
+						<div class="ibox-content" style="min-height:700px;">									
 							
 							<ul class="nav nav-tabs">
 									<li><a href="#application.root##url.event#&fuseaction=team.view&id=#url.id#"><i class="fa fa-check-circle"></i> Team Details</a></li>
