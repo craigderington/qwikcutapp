@@ -212,6 +212,7 @@
 																<button class="btn btn-md btn-success" type="submit"><i class="fa fa-envelope"></i> Send</button>
 																<a href="#application.root##url.event#" class="btn btn-md btn-default"><i class="fa fa-times-circle"></i> Reset</a>
 																<input type="hidden" name="createAlert" value="True" />
+																<input type="hidden" name="alertType" value="#trim( form.alerttype )#">
 															</div>
 														</div>
 													</cfif>
