@@ -56,7 +56,8 @@
 									<cfif trim( url.scope ) eq "f1">
 										<div class="alert alert-info alert-dismissable">
 											<button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
-											<i class="fa fa-plus"></i> The new field was successfully added to the database...
+											<h5><i class="fa fa-plus"></i> NEW FIELD ADDED! </h5> 
+											<p>The new field was successfully added to the database...</p>
 										</div>
 									<cfelseif trim( url.scope ) eq "f2">
 										<div class="alert alert-success alert-dismissable">

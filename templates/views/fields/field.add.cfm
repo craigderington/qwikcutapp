@@ -51,7 +51,7 @@
 												</cfif>
 												
 													<cfquery name="addfield">
-														insert into fields(stateid, fieldname, fieldactive, fieldaddress1, fieldaddress2, fieldcity, fieldzip, regionid)
+														insert into fields(stateid, fieldname, fieldactive, fieldaddress1, fieldaddress2, fieldcity, fieldzip, fieldoptionid, regionid)
 														 values(
 																<cfqueryparam value="#f.stateid#" cfsqltype="cf_sql_integer" />,
 																<cfqueryparam value="#f.fieldname#" cfsqltype="cf_sql_varchar" maxlength="50" />,
@@ -67,7 +67,7 @@
 																--->
 																<cfqueryparam value="#f.fieldoptionid#" cfsqltype="cf_sql_integer" />,
 																<cfqueryparam value="#f.regionid#" cfsqltype="cf_sql_integer" />
-																);
+																); select @@identity as new_field_id
 													</cfquery>
 
 													<!--- // record the activity --->
@@ -81,7 +81,12 @@
 																);
 													</cfquery>
 													
-													<cflocation url="#application.root##url.event#&scope=f1" addtoken="no">				
+													
+													<cfif structkeyexists( form, "saveFieldAndContinue" )>
+														<cflocation url="#application.root##url.event#&fuseaction=field.view&id=#addfield.new_field_id#&scope=f1" addtoken="no">
+													<cfelse>
+														<cflocation url="#application.root##url.event#&scope=f1" addtoken="no">
+													</cfif>
 												
 									
 											<!--- If the required data is missing - throw the validation error --->
@@ -165,7 +170,8 @@
 												<div class="hr-line-dashed" style="margin-top:25px;"></div>
 												<div class="form-group">
 													<div class="col-lg-offset-2 col-lg-10">
-														<button class="btn btn-primary" type="submit" name="stateFieldRecord"><i class="fa fa-save"></i> Save Field</button>
+														<button class="btn btn-primary" type="submit" name="saveFieldRecord"><i class="fa fa-save"></i> Save Field</button>
+														<button class="btn btn-success" type="submit" name="saveFieldAndContinue"><i class="fa fa-save"></i> Save Field &amp; Continue <i class="fa fa-arrow-circle-right"></i></button>
 														<a href="#application.root##url.event#" class="btn btn-default"><i class="fa fa-remove"></i> Cancel</a>																		
 													</div>
 												</div>																
