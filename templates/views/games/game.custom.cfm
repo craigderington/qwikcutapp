@@ -27,7 +27,7 @@
 										<a href="#application.root#user.home" class="btn btn-xs btn-default btn-outline"><i class="fa fa-dashboard"></i> Dashboard</a>
 									</span>
 								</div>
-								<div class="ibox-content border-bottom" style="min-height:600px;">									
+								<div class="ibox-content border-bottom" style="min-height:700px;">									
 									<div class="col-md-6">
 										<cfinclude template="game-custom-schedule-form.cfm">
 									</div>

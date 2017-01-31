@@ -42,7 +42,7 @@
 					<div class="ibox-title" style="padding:5px;">
 						<h5 style="margin-left:10px;margin-top:5px;"><i class="fa fa-trophy"></i> Lacrosse Team Stats Leaderboard   <a style="margin-left:10px;" href="" class="btn btn-xs btn-white btn-outline"><i class="fa fa-th-list"></i> List View</a></h5>
 						<span class="pull-right">
-							<a href="login.cfm" style="margin-bottom:5px;" class="btn btn-sm btn-success"><i class="fa fa-lock"></i> Login for Team Stats</a>
+							<a href="login.cfm" style="margin-right:5px;margin-bottom:5px;" class="btn btn-sm btn-success"><i class="fa fa-lock"></i> Login for Team QwikStats</a>
 							<a style="margin-right:5px;margin-bottom:5px;" href="" class="btn btn-sm btn-primary"><i class="fa fa-mobile"></i> Contact Us!</a>
 							<a style="margin-right:5px;margin-bottom:5px;" href="" class="btn btn-sm btn-danger"><i class="fa fa-credit-card"></i> Purchase Now!</a>
 						</span>
@@ -52,7 +52,7 @@
 							<div class="col-lg-4">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">
-                                        <strong>Top Goals</strong>
+                                        <strong><i class="fa fa-check-circle-o"></i> Top Goals</strong>
                                     </div>
                                     <div class="panel-body">
 										<cfloop query="goalleaderboard" maxrows="5">
@@ -67,7 +67,7 @@
 							<div class="col-lg-4">
                                 <div class="panel panel-success">
                                     <div class="panel-heading">
-										<strong>Top Assists</strong>
+										<strong><i class="fa fa-check-circle-o"></i> Top Assists</strong>
                                     </div>
                                     <div class="panel-body">
 										<cfloop query="assistsleaderboard" maxrows="5">
@@ -82,7 +82,7 @@
 							<div class="col-lg-4">
                                 <div class="panel panel-info">
                                     <div class="panel-heading">
-										<strong>Top Shots</strong>
+										<strong><i class="fa fa-check-circle-o"></i> Top Shots</strong>
                                     </div>
                                     <div class="panel-body">
 										<cfloop query="shotsleaderboard" maxrows="5">
@@ -100,7 +100,7 @@
 							<div class="col-lg-4">
                                 <div class="panel panel-warning">
                                     <div class="panel-heading">
-                                        <strong>Top Saves</strong>
+                                        <strong><i class="fa fa-check-circle-o"></i> Top Saves</strong>
                                     </div>
                                     <div class="panel-body">
 										<cfloop query="savesleaderboard" maxrows="5">
@@ -115,7 +115,7 @@
 							<div class="col-lg-4">
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
-										<strong>Top Grounders</strong>
+										<strong><i class="fa fa-check-circle-o"></i> Top Grounders</strong>
                                     </div>
                                     <div class="panel-body">
 										<cfloop query="groundersleaderboard" maxrows="5">
@@ -130,7 +130,7 @@
 							<div class="col-lg-4">
                                 <div class="panel panel-danger">
                                     <div class="panel-heading">
-										<strong>Turnovers</strong>
+										<strong><i class="fa fa-check-circle-o"></i> Turnovers</strong>
                                     </div>
                                     <div class="panel-body">
 										<cfloop query="turnoversleaderboard" maxrows="5">

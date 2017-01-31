@@ -190,6 +190,7 @@
 										<option value="">Select Conference Type</option>
 										<option value="YF"<cfif structkeyexists( form, "conferencetype" ) and trim( form.conferencetype ) eq "YF">selected</cfif>>Youth Football</option>
 										<option value="HS"<cfif structkeyexists( form, "conferencetype" ) and trim( form.conferencetype ) eq "HS">selected</cfif>>High School Football</option>
+										<option value="LX"<cfif structkeyexists( form, "conferencetype" ) and trim( form.conferencetype ) eq "LX">selected</cfif>>High School Lacrosse</option>
 									</select>
 								</div>
 							</div>
@@ -303,7 +304,7 @@
 
 								<div class="form-group">
 									<div class="col-sm-offset-4 col-sm-8">
-										<button type="submit" name="createCustomGame" class="btn btn-md btn-primary">Schedule Game</button>
+										<button type="submit" name="createCustomGame" class="btn btn-md btn-primary"><i class="fa fa-soccer-ball-o"></i> Schedule Game</button>
 										<a href="" class="btn btn-md btn-success"><i class="fa fa-refresh"></i> Reset</a>
 									</div>
 								</div>

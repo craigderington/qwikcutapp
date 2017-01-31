@@ -134,6 +134,7 @@
 											<cfif isDefined( "form.fieldnames" ) and structkeyexists( form, "playerid" ) and structkeyexists( form, "teamid" )>
 													
 												<cfset form.validate_require = "playerid|There was a form error.  Please try again.;playername|The player name is required.;playerposition|The player position is required.;playernumber|The player number is required.;teamid|There was an internal error posting this form.  Please go back and try again.;" />
+												<cfset form.validate_numeric = "playernumber|The player number must be a numeric value." />
 													
 													<cfscript>
 														objValidation = createobject( "component","apis.udfs.validation" ).init();

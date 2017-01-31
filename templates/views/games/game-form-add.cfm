@@ -61,18 +61,20 @@
 										
 										<!--- get all of our home team teamlevelids --->																				
 										<cfquery name="gethometeams">
-											select teamid, teamname, teamlevelid, homefieldid
-											  from teams
-											 where teamorgname = <cfqueryparam value="#g.hometeam#" cfsqltype="cf_sql_varchar" />											   
-											 order by teamlevelid asc
+											select t.teamid, t.teamname, t.teamlevelid, t.homefieldid, c.confid, c.confname
+											  from teams t inner join conferences c on t.confid = c.confid
+											 where t.teamorgname = <cfqueryparam value="#g.hometeam#" cfsqltype="cf_sql_varchar" />
+											   and c.confid = <cfqueryparam value="#g.conferenceid#" cfsqltype="cf_sql_integer" />
+											 order by t.teamlevelid asc
 										</cfquery>									
 											
 										<!--- get all of our away team teamlevelids --->
 										<cfquery name="getawayteams">
-											select teamid, teamname, teamlevelid
-											  from teams
-										     where teamorgname = <cfqueryparam value="#g.awayteam#" cfsqltype="cf_sql_varchar" />											   
-											order by teamlevelid asc
+											select t.teamid, t.teamname, t.teamlevelid, c.confid, c.confname
+											  from teams t inner join conferences c on t.confid = c.confid
+										     where t.teamorgname = <cfqueryparam value="#g.awayteam#" cfsqltype="cf_sql_varchar" />
+											   and c.confid = <cfqueryparam value="#g.conferenceid#" cfsqltype="cf_sql_integer" />
+											order by t.teamlevelid asc
 										</cfquery>											
 										
 										<!--- // outer loop ( home teams ) --->
@@ -203,7 +205,8 @@
 												<div class="form-group"><label class="control-label" for="conferencetype">Game Type</label>
 													<select name="conferencetype" class="form-control" multiple="true" onchange="javascript:this.form.submit();">
 														<option value="YF"<cfif structkeyexists( form, "conferencetype" ) and trim( form.conferencetype ) eq "YF">selected</cfif>>Youth Football</option>
-														<option value="HS"<cfif structkeyexists( form, "conferencetype" ) and trim( form.conferencetype ) eq "HS">selected</cfif>>High School Football</option>																								
+														<option value="HS"<cfif structkeyexists( form, "conferencetype" ) and trim( form.conferencetype ) eq "HS">selected</cfif>>High School Football</option>
+														<option value="LX"<cfif structkeyexists( form, "conferencetype" ) and trim( form.conferencetype ) eq "LX">selected</cfif>>High School Lacrosse</option>
 													</select>
 												</div>
 											</div>
