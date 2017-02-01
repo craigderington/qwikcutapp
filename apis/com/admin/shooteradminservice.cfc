@@ -45,7 +45,7 @@
 			<cfquery name="shooter">
 					select sh.shooterid, sh.userid, sh.shooterfirstname, sh.shooterlastname, sh.shooteraddress1, sh.shooteraddress2, sh.shootercity, sh.shooterstateid, 
 					       s.stateabbr, sh.shooterzip, sh.shooteremail, sh.shooterisactive, sh.shootercellphone, sh.shootercellprovider, sh.shooteralertpref,
-						   us.userprofileimagepath, u.regcomplete, u.regcompletedate, u.useractive, u.regcode
+						   us.userprofileimagepath, u.regcomplete, u.regcompletedate, u.useractive, u.regcode, u.username, u.email
 					  from dbo.shooters sh, dbo.states s, dbo.users u, dbo.usersettings us
 					 where sh.shooterstateid = s.stateid
 					   and sh.userid = u.userid

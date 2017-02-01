@@ -144,6 +144,13 @@
 									<form class="form-horizontal" method="post" action="#application.root##url.event#&fuseaction=#url.fuseaction#&id=#url.id#">
 										<p></p>
 										<div class="form-group">
+											<label class="col-md-2 control-label">Login Username:</label>
+											<div class="col-md-4">
+												<p class="form-control-static"><strong>#userdetail.username#</strong><br/>
+												<span class="help-text text-danger">The user's login ID can not be changed.</span>
+											</div>
+										</div>
+										<div class="form-group">
 											<label class="col-md-2 control-label">First Name</label>
 											<div class="col-md-4">
 												<input type="text" placeholder="First Name" class="form-control" name="firstname" value="#trim( userdetail.firstname )#" /> 

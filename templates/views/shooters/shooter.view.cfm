@@ -59,15 +59,18 @@
 																<p class="form-control-static">#shooter.shootercity#, #shooter.stateabbr#  #shooter.shooterzip#</p>
 															</cfif>
 														</div>														
+													</div>
+													<div class="form-group">														
+														<div class="col-lg-10"><p class="form-control-static"><strong>Login Username:</strong> #shooter.username#</p></div>														
 													</div>													
 													<div class="form-group">														
-														<div class="col-lg-10"><p class="form-control-static">#shooter.shooteremail#</p></div>														
+														<div class="col-lg-10"><p class="form-control-static"><strong>Primary Email:</strong> #shooter.shooteremail#</p></div>														
 													</div>
 													<div class="form-group">														
-														<div class="col-lg-10"><p class="form-control-static">#shooter.shootercellphone#</p></div>														
+														<div class="col-lg-10"><p class="form-control-static"><strong>Mobile:</strong> #shooter.shootercellphone#</p></div>														
 													</div>
 													<div class="form-group">														
-														<div class="col-lg-10"><p class="form-control-static">#shooter.shooteralertpref#</p></div>														
+														<div class="col-lg-10"><p class="form-control-static"><strong>Alert Preference:</strong> #shooter.shooteralertpref#</p></div>														
 													</div>
 												</div>
 												<div class="col-md-6">
