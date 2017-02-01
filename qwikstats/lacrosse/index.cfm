@@ -40,7 +40,7 @@
 			<div class="row">
 				<div class="ibox">
 					<div class="ibox-title" style="padding:5px;">
-						<h5 style="margin-left:10px;margin-top:5px;"><i class="fa fa-trophy"></i> Lacrosse Team Stats Leaderboard   <cfif structkeyexists( url, "list" )><a style="margin-left:10px;" href="index.cfm" class="btn btn-xs btn-default btn-outline"><i class="fa fa-dashboard"></i> Grid View</a><cfelse><a style="margin-left:10px;" href="index.cfm?list=view" class="btn btn-xs btn-white btn-outline"><i class="fa fa-th-list"></i> List View</a></cfif></h5>
+						<h5 style="margin-left:10px;margin-top:5px;"><i class="fa fa-trophy"></i> Lacrosse Team Stats Leaderboard   <cfif structkeyexists( url, "list" )><a style="margin-left:10px;" href="index.cfm" class="btn btn-xs btn-default btn-outline"><i class="fa fa-dashboard"></i> Grid View</a><cfelse><a style="margin-left:10px;" href="index.cfm?list=view" class="btn btn-xs btn-white btn-outline"><i class="fa fa-th-list"></i> List View</a></cfif><a style="margin-left:5px;" href="http://qwikcut.cloudapp.net/qwikstats/" class="btn btn-xs btn-success btn-outline"><i class="fa fa-arrow-circle-left"></i> Sports List</a></h5>
 						<span class="pull-right">
 							<a href="login.cfm" style="margin-right:5px;margin-bottom:5px;" class="btn btn-sm btn-success"><i class="fa fa-lock"></i> Login for Team QwikStats</a>
 							<a style="margin-right:5px;margin-bottom:5px;" href="" class="btn btn-sm btn-primary"><i class="fa fa-mobile"></i> Contact Us!</a>
