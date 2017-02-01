@@ -28,7 +28,7 @@
 					<cfset gamedate1 = dateadd( "d", -1, getstat.statdate ) />
 					<cfset gamedate2 = dateadd( "d", 1, gamedate1 ) />
 					<cfquery name="getgame">
-						select gameid, gamedate
+						select top 1 gameid, gamedate
 						  from games
 						 where (
 								hometeamid = <cfqueryparam value="#getteam.teamid#" cfsqltype="cf_sql_integer" />
@@ -38,6 +38,7 @@
 								gamedate between <cfqueryparam value="#gamedate1#" cfsqltype="cf_sql_timestamp" /> 
 										 and <cfqueryparam value="#gamedate2#" cfsqltype="cf_sql_timestamp" />
 							   )
+					        order by gameid desc
 					</cfquery>
 					<!---
 					<cfdump var="#getgame#" label="Game Info">
