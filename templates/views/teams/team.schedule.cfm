@@ -1,19 +1,27 @@
 
 
-
 	
 	
-		
-
-
-
-
+	
+				<!--- // if the game manager session id exists, kill it --->
+				<cfif structkeyexists( session, "vsid" )>
+					<cfset tempr = structdelete( session, "vsid" )>								
+				</cfif>
+				
 				<cfinvoke component="apis.com.admin.teamadminservice" method="getteamdetail" returnvariable="teamdetail">
 					<cfinvokeargument name="id" value="#url.id#">
-				</cfinvoke>		
+				</cfinvoke>
+				
+				<cfinvoke component="apis.com.admin.teamadminservice" method="getteamdetail" returnvariable="teamdetail">
+					<cfinvokeargument name="id" value="#url.id#">
+				</cfinvoke>
+				<cfinvoke component="apis.com.admin.gameadminservice" method="getteamgames" returnvariable="teamgames">
+					<cfinvokeargument name="teamid" value="#url.id#">
+				</cfinvoke>			
 									
 					
-				<cfoutput>					
+				<cfoutput>	
+					
 					<div class="ibox" style="margin-top:-15px;">								
 								
 						<div class="ibox-title">
@@ -38,17 +46,74 @@
 									--->
 								</ul>
 								<div class="tab-content" style="margin-top:25px;">
-								    <div id="teamroster" class="tab-pane fade in active">						
-										<div class="col-lg-8">								
-											{{ team game schedule | coming soon }}								
-										</div>
-										<div class="col-lg-4">			
+								    <div id="teamschedule" class="tab-pane fade in active">						
+										<div class="col-lg-12">								
+											<cfif teamgames.recordcount gt 0>
+													<div class="table-responsive">
+														<table class="table table-hover">
+															<thead>
+																<tr>
+																	<th class="text-center">Manage</th>
+																	<th>Home Team</th>
+																	<th>Away Team</th>
+																	<th>Field</th>
+																	<th>Game Date/Time</th>
+																	<th>Game Status</th>
+																</tr>
+															</thead>
+															<tbody>
+																<cfloop query="teamgames">														
+																	<tr>
+																		<td class="text-center"><a href="#application.root#admin.games&fuseaction=games.filter&vsid=#vsid#"><i class="fa fa-play-circle fa-2x text-primary"></i></a></td>
+																		<td><a style="font-weight:bold;" href="#application.root##url.event#&fuseaction=#trim( url.fuseaction )#&vsid=#vsid#">#hometeam#</a> (#teamlevelname#)</td>
+																		<td>#awayteam#</td>
+																		<td>#fieldname# Field</td>
+																		<td>#dateformat( gamedate, "mm-dd-yyyy" )#</td>
+																		<td>#gamestatus#</td>															
+																	</tr>
+																</cfloop>													
+															</tbody>
+															<tfoot>
+																<tr>
+																	<td colspan="6"><i class="fa fa-play-circle"></i> <small>Found #teamgames.recordcount# games.</small></td>										
+																</tr>
+															</tfoot>
+														</table>
+													</div>
 											
-										</div>
+											<cfelse>
+													
+													<div class="alert alert-danger">
+														<h4><i class="fa fa-warning"></i> No games are scheduled or exist for the selected team.</h4>
+														<p>Please click here to <a href="#application.root##url.event#&fuseaction=#trim( url.fuseaction )#">reset the filter</a>.</p>
+													</div>
+												
+											</cfif>						
+										</div>										
 									</div>
 								</div>
 						</div>
 					</div>
+					
+					
+					
+					
+								
+							
+								
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
 				</cfoutput>
 							
 						

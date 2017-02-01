@@ -9,12 +9,13 @@
 	<cffunction name="gettopgoals">		
 		<cfset var goalleaderboard = "" />
 		<cfquery name="goalleaderboard">
-			select tr.playername, tr.playernumber, ls.teamname, sum(ls.goals) as total_goals
+			select tr.playername, tr.playernumber, tr.playerposition, ls.teamname, 
+			       sum(ls.goals) as total_goals
 			  from teamrosters tr inner join lacrosse_stats ls on tr.rosterid = ls.playerid
 				   left join teams t on tr.teamid = t.teamid
 			 where ls.statdate between '1/1/2017' and '1/31/2017'
 			   and ls.merged = 1
-			   group by tr.playername, tr.playernumber, ls.teamname
+			   group by tr.playername, tr.playernumber, tr.playerposition, ls.teamname
 			   order by total_goals DESC, tr.playername, tr.playernumber, ls.teamname ASC
 		</cfquery>
 		<cfreturn goalleaderboard>
@@ -23,12 +24,13 @@
 	<cffunction name="gettopassists">		
 		<cfset var assistsleaderboard = "" />
 		<cfquery name="assistsleaderboard">
-			select tr.playername, tr.playernumber, ls.teamname, sum(ls.assists) as total_assists
+			select tr.playername, tr.playernumber, tr.playerposition, ls.teamname, 
+			       sum(ls.assists) as total_assists
 			  from teamrosters tr inner join lacrosse_stats ls on tr.rosterid = ls.playerid
 				   left join teams t on tr.teamid = t.teamid
 			 where ls.statdate between '1/1/2017' and '1/31/2017'
 			   and ls.merged = 1
-			   group by tr.playername, tr.playernumber, ls.teamname
+			   group by tr.playername, tr.playernumber, tr.playerposition, ls.teamname
 			   order by total_assists DESC, tr.playername, tr.playernumber, ls.teamname ASC
 		</cfquery>
 		<cfreturn assistsleaderboard>
@@ -37,12 +39,13 @@
 	<cffunction name="gettopshots">		
 		<cfset var shotsleaderboard = "" />
 		<cfquery name="shotsleaderboard">
-			select tr.playername, tr.playernumber, ls.teamname, sum(ls.shots) as total_shots
+			select tr.playername, tr.playernumber, tr.playerposition, ls.teamname, 
+			       sum(ls.shots) as total_shots
 			  from teamrosters tr inner join lacrosse_stats ls on tr.rosterid = ls.playerid
 				   left join teams t on tr.teamid = t.teamid
 			 where ls.statdate between '1/1/2017' and '1/31/2017'
 			   and ls.merged = 1
-			   group by tr.playername, tr.playernumber, ls.teamname
+			   group by tr.playername, tr.playernumber, tr.playerposition, ls.teamname
 			   order by total_shots DESC, tr.playername, tr.playernumber, ls.teamname ASC
 		</cfquery>
 		<cfreturn shotsleaderboard>
@@ -51,12 +54,13 @@
 	<cffunction name="gettopsaves">		
 		<cfset var savesleaderboard = "" />
 		<cfquery name="savesleaderboard">
-			select tr.playername, tr.playernumber, ls.teamname, sum(ls.saves) as total_saves
+			select tr.playername, tr.playernumber, tr.playerposition, ls.teamname, 
+			       sum(ls.saves) as total_saves
 			  from teamrosters tr inner join lacrosse_stats ls on tr.rosterid = ls.playerid
 				   left join teams t on tr.teamid = t.teamid
 			 where ls.statdate between '1/1/2017' and '1/31/2017'
 			   and ls.merged = 1
-			   group by tr.playername, tr.playernumber, ls.teamname
+			   group by tr.playername, tr.playernumber, tr.playerposition, ls.teamname
 			   order by total_saves DESC, tr.playername, tr.playernumber, ls.teamname ASC
 		</cfquery>
 		<cfreturn savesleaderboard>
@@ -65,12 +69,13 @@
 	<cffunction name="gettopgrounders">		
 		<cfset var groundersleaderboard = "" />
 		<cfquery name="groundersleaderboard">
-			select tr.playername, tr.playernumber, ls.teamname, sum(ls.grounders) as total_grounders
+			select tr.playername, tr.playernumber, tr.playerposition, ls.teamname, 
+			       sum(ls.grounders) as total_grounders
 			  from teamrosters tr inner join lacrosse_stats ls on tr.rosterid = ls.playerid
 				   left join teams t on tr.teamid = t.teamid
 			 where ls.statdate between '1/1/2017' and '1/31/2017'
 			   and ls.merged = 1
-			   group by tr.playername, tr.playernumber, ls.teamname
+			   group by tr.playername, tr.playernumber, tr.playerposition, ls.teamname
 			   order by total_grounders DESC, tr.playername, tr.playernumber, ls.teamname ASC
 		</cfquery>
 		<cfreturn groundersleaderboard>
@@ -79,12 +84,13 @@
 	<cffunction name="gettopturnovers">		
 		<cfset var turnoversleaderboard = "" />
 		<cfquery name="turnoversleaderboard">
-			select tr.playername, tr.playernumber, ls.teamname, sum(ls.turnovers) as total_turnovers
+			select tr.playername, tr.playernumber, tr.playerposition, ls.teamname, 
+			       sum(ls.turnovers) as total_turnovers
 			  from teamrosters tr inner join lacrosse_stats ls on tr.rosterid = ls.playerid
 				   left join teams t on tr.teamid = t.teamid
 			 where ls.statdate between '1/1/2017' and '1/31/2017'
 			   and ls.merged = 1
-			   group by tr.playername, tr.playernumber, ls.teamname
+			   group by tr.playername, tr.playernumber, tr.playerposition, ls.teamname
 			   order by total_turnovers DESC, tr.playername, tr.playernumber, ls.teamname ASC
 		</cfquery>
 		<cfreturn turnoversleaderboard>
