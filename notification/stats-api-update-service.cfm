@@ -26,9 +26,9 @@
 				--->
 				<cfif getteam.recordcount eq 1>
 					<cfset gamedate1 = dateadd( "d", -1, getstat.statdate ) />
-					<cfset gamedate2 = dateadd( "d", 1, gamedate1 ) />
+					<cfset gamedate2 = dateadd( "d", 2, gamedate1 ) />
 					<cfquery name="getgame">
-						select gameid, gamedate
+						select top 1 gameid, gamedate
 						  from games
 						 where (
 								hometeamid = <cfqueryparam value="#getteam.teamid#" cfsqltype="cf_sql_integer" />
@@ -38,19 +38,20 @@
 								gamedate between <cfqueryparam value="#gamedate1#" cfsqltype="cf_sql_timestamp" /> 
 										 and <cfqueryparam value="#gamedate2#" cfsqltype="cf_sql_timestamp" />
 							   )
+					        order by gameid desc
 					</cfquery>
-					<!---
-					<cfdump var="#getgame#" label="Game Info">
-					--->
+					
+					<!---<cfdump var="#getgame#" label="Game Info">--->
+					
 					<cfquery name="getplayer">
-						select rosterid
+						select top 1 rosterid
 						  from teamrosters
-						  where teamid = <cfqueryparam value="#getteam.teamid#" cfsqltype="cf_sql_integer" />
-							and playernumber = <cfqueryparam value="#getstat.playernumber#" cfsqltype="cf_sql_integer" />
+						 where teamid = <cfqueryparam value="#getteam.teamid#" cfsqltype="cf_sql_integer" />
+						   and playernumber = <cfqueryparam value="#getstat.playernumber#" cfsqltype="cf_sql_integer" />
 					</cfquery>
-					<!---
-					<cfdump var="#getplayer#" label="Player Info">
-					--->
+					
+					<!---<cfdump var="#getplayer#" label="Player Info">--->
+					
 					<cfif getgame.recordcount eq 1 and getplayer.recordcount eq 1>	
 					
 						<cfquery name="updatestat">

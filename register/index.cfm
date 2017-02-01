@@ -719,7 +719,7 @@
 																				<label for="acceptTerms"> I agree with the <a href="terms.html" target="_blank">terms and conditions</a>.</label> <br /><br />
 																				<button class="btn btn-primary btn-lg" name="finishregistration" type="submit"><i class="fa fa-arrow-circle-right"></i> Complete Registration</button>																				
 																				<input type="hidden" name="sname" value="#shooter.shooterfirstname#" />
-																				<input type="hidden" name="smail" value="#shooter.username#" />
+																				<input type="hidden" name="smail" value="#shooter.shooteremail#" />
 																			</form>
 																		</div>
 																	</div>
