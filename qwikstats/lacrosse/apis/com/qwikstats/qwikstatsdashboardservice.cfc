@@ -13,8 +13,8 @@
 			       sum(ls.goals) as total_goals
 			  from teamrosters tr inner join lacrosse_stats ls on tr.rosterid = ls.playerid
 				   left join teams t on tr.teamid = t.teamid
-			 where ls.statdate between '1/1/2017' and '1/31/2017'
-			   and ls.merged = 1
+			 where ls.merged = 1
+			   and ls.gameid <> 0 and ls.teamid <> 0 and ls.playerid <> 0
 			   group by tr.playername, tr.playernumber, tr.playerposition, ls.teamname
 			   order by total_goals DESC, tr.playername, tr.playernumber, ls.teamname ASC
 		</cfquery>
@@ -28,8 +28,8 @@
 			       sum(ls.assists) as total_assists
 			  from teamrosters tr inner join lacrosse_stats ls on tr.rosterid = ls.playerid
 				   left join teams t on tr.teamid = t.teamid
-			 where ls.statdate between '1/1/2017' and '1/31/2017'
-			   and ls.merged = 1
+			 where ls.merged = 1
+			   and ls.gameid <> 0 and ls.teamid <> 0 and ls.playerid <> 0
 			   group by tr.playername, tr.playernumber, tr.playerposition, ls.teamname
 			   order by total_assists DESC, tr.playername, tr.playernumber, ls.teamname ASC
 		</cfquery>
@@ -43,8 +43,8 @@
 			       sum(ls.shots) as total_shots
 			  from teamrosters tr inner join lacrosse_stats ls on tr.rosterid = ls.playerid
 				   left join teams t on tr.teamid = t.teamid
-			 where ls.statdate between '1/1/2017' and '1/31/2017'
-			   and ls.merged = 1
+			 where ls.merged = 1
+			   and ls.gameid <> 0 and ls.teamid <> 0 and ls.playerid <> 0
 			   group by tr.playername, tr.playernumber, tr.playerposition, ls.teamname
 			   order by total_shots DESC, tr.playername, tr.playernumber, ls.teamname ASC
 		</cfquery>
@@ -58,8 +58,8 @@
 			       sum(ls.saves) as total_saves
 			  from teamrosters tr inner join lacrosse_stats ls on tr.rosterid = ls.playerid
 				   left join teams t on tr.teamid = t.teamid
-			 where ls.statdate between '1/1/2017' and '1/31/2017'
-			   and ls.merged = 1
+			 where ls.merged = 1
+			   and ls.gameid <> 0 and ls.teamid <> 0 and ls.playerid <> 0
 			   group by tr.playername, tr.playernumber, tr.playerposition, ls.teamname
 			   order by total_saves DESC, tr.playername, tr.playernumber, ls.teamname ASC
 		</cfquery>
@@ -73,8 +73,8 @@
 			       sum(ls.grounders) as total_grounders
 			  from teamrosters tr inner join lacrosse_stats ls on tr.rosterid = ls.playerid
 				   left join teams t on tr.teamid = t.teamid
-			 where ls.statdate between '1/1/2017' and '1/31/2017'
-			   and ls.merged = 1
+			 where ls.merged = 1
+			   and ls.gameid <> 0 and ls.teamid <> 0 and ls.playerid <> 0
 			   group by tr.playername, tr.playernumber, tr.playerposition, ls.teamname
 			   order by total_grounders DESC, tr.playername, tr.playernumber, ls.teamname ASC
 		</cfquery>
@@ -88,8 +88,8 @@
 			       sum(ls.turnovers) as total_turnovers
 			  from teamrosters tr inner join lacrosse_stats ls on tr.rosterid = ls.playerid
 				   left join teams t on tr.teamid = t.teamid
-			 where ls.statdate between '1/1/2017' and '1/31/2017'
-			   and ls.merged = 1
+			 where ls.merged = 1
+			   and ls.gameid <> 0 and ls.teamid <> 0 and ls.playerid <> 0
 			   group by tr.playername, tr.playernumber, tr.playerposition, ls.teamname
 			   order by total_turnovers DESC, tr.playername, tr.playernumber, ls.teamname ASC
 		</cfquery>
