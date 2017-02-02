@@ -419,4 +419,18 @@
 		<cfreturn gameinfo>
 	</cffunction>
 	
+	<cffunction name="getalertversus" access="remote" output="false" hint="I get the game versus data.">
+		<cfargument name="vsid" type="numeric" required="yes">
+			<cfset var versus = "" />
+			<cfquery name="versus">
+				select v.vsid, v.hometeam, v.awayteam, v.gamedate, v.gametime, v.fieldid, f.fieldname, 
+					   f.fieldaddress1, f.fieldaddress2, f.fieldcity, f.stateid, f.regionid, s.stateabbr
+				  from versus v, fields f, states s
+				 where v.fieldid = f.fieldid
+				   and f.stateid = s.stateid
+				   and v.vsid = <cfqueryparam value="#arguments.vsid#" cfsqltype="cf_sql_integer" />			  
+			</cfquery>
+		<cfreturn versus>
+	</cffunction>
+	
 </cfcomponent>

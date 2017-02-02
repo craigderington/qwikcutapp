@@ -1,6 +1,5 @@
 
 
-
 							
 
 								
@@ -58,25 +57,53 @@
 																	<cfqueryparam value="#s.assigndate#" cfsqltype="cf_sql_timestamp" />,
 																	<cfqueryparam value="#s.assigndate#" cfsqltype="cf_sql_timestamp" />
 																	);
-													</cfquery>		
-													
-													
-													<cfquery name="creategamenotification">
-														<!--- // add game assignment to the notification service queue --->											
-														insert into notifications(vsid, gameid, notificationtype, notificationtext, notificationtimestamp, notificationstatus, shooterid, notificationqueued, notificationsent)														  													   
-															values(
-																	<cfqueryparam value="#s.gamevsid#" cfsqltype="cf_sql_integer" />,
-																	<cfqueryparam value="#s.gameid#" cfsqltype="cf_sql_integer" />,
-																	<cfqueryparam value="#s.notificationtype#" cfsqltype="cf_sql_varchar" />,
-																	<cfqueryparam value="#s.notificationtext#" cfsqltype="cf_sql_varchar" />,
-																	<cfqueryparam value="#s.assigndate#" cfsqltype="cf_sql_timestamp" />,
-																	<cfqueryparam value="#s.notificationstatus#" cfsqltype="cf_sql_varchar" />,
-																	<cfqueryparam value="#s.shooterid#" cfsqltype="cf_sql_integer" />,
-																	<cfqueryparam value="1" cfsqltype="cf_sql_bit" />,
-																	<cfqueryparam value="0" cfsqltype="cf_sql_bit" />
-																	);
 													</cfquery>
+
+													<cfinvoke component="apis.com.admin.shooteradminservice" method="getshooter" returnvariable="shooter">
+														<cfinvokeargument name="id" value="#s.shooterid#">
+													</cfinvoke>											
 													
+													<!--- // email --->
+														<cfquery name="creategamenotification">
+															<!--- // add game assignment to the notification service queue --->											
+															insert into notifications(vsid, gameid, notificationtype, notificationtext, notificationtimestamp, notificationstatus, shooterid, notificationqueued, notificationsent)														  													   
+																values(
+																		<cfqueryparam value="#s.gamevsid#" cfsqltype="cf_sql_integer" />,
+																		<cfqueryparam value="#s.gameid#" cfsqltype="cf_sql_integer" />,
+																		<cfqueryparam value="#s.notificationtype#" cfsqltype="cf_sql_varchar" />,
+																		<cfqueryparam value="#s.notificationtext#" cfsqltype="cf_sql_varchar" />,
+																		<cfqueryparam value="#s.assigndate#" cfsqltype="cf_sql_timestamp" />,
+																		<cfqueryparam value="#s.notificationstatus#" cfsqltype="cf_sql_varchar" />,																		
+																		<cfif trim( shooter.shooteralertpref ) eq "txt">
+																			<cfqueryparam value="0" cfsqltype="cf_sql_integer" />,
+																		<cfelse>
+																			<cfqueryparam value="#s.shooterid#" cfsqltype="cf_sql_integer" />,
+																		</cfif>
+																		<cfqueryparam value="1" cfsqltype="cf_sql_bit" />,
+																		<cfqueryparam value="0" cfsqltype="cf_sql_bit" />
+																		);
+														</cfquery>												
+															
+														<cfif trim( shooter.shooteralertpref ) eq "txt">	
+															
+															<cfinvoke component="apis.com.admin.gameadminservice" method="getalertversus" returnvariable="versus">
+																<cfinvokeargument name="vsid" value="#s.gamevsid#">
+															</cfinvoke>														
+															
+															<cfset s.alerttext = 'New game assignment: ' & versus.hometeam & 'vs. ' & versus.awayteam & ' on ' & dateformat( versus.gamedate, 'mm/dd/yyyy' ) & ' at ' & timeformat( versus.gametime, 'hh:mm' ) & '.  Field: ' & versus.fieldname & '.  Located at: ' & versus.fieldaddress1 & ' ' & versus.fieldaddress2 & ' ' & versus.fieldcity & ', ' & versus.stateabbr & '.' />
+															
+															<!--- // text message --->
+															<cfquery name="creategamenotification">
+																insert into shooteralerts(shooterid, alertdatetime, alerttype, alerttext)
+																	values(
+																		   <cfqueryparam value="#s.shooterid#" cfsqltype="cf_sql_integer" />,
+																		   <cfqueryparam value="#s.assigndate#" cfsqltype="cf_sql_timestamp" />,
+																		   <cfqueryparam value="Game Alert" cfsqltype="cf_sql_varchar" />,
+																		   <cfqueryparam value="#s.alerttext#" cfsqltype="cf_sql_varchar" />																   
+																		  );
+															</cfquery>
+													
+														</cfif>
 													<!--- // end notify shooters --->
 
 													<!--- // record the activity --->
