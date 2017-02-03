@@ -90,7 +90,7 @@
 																<cfinvokeargument name="vsid" value="#s.gamevsid#">
 															</cfinvoke>														
 															
-															<cfset s.alerttext = 'New game assignment: ' & versus.hometeam & 'vs. ' & versus.awayteam & ' on ' & dateformat( versus.gamedate, 'mm/dd/yyyy' ) & ' at ' & timeformat( versus.gametime, 'hh:mm' ) & '.  Field: ' & versus.fieldname & '.  Located at: ' & versus.fieldaddress1 & ' ' & versus.fieldaddress2 & ' ' & versus.fieldcity & ', ' & versus.stateabbr & '.' />
+															<cfset s.alerttext = 'New game assignment: ' & versus.hometeam & ' vs. ' & versus.awayteam & ' on ' & dateformat( versus.gamedate, 'mm/dd/yyyy' ) & ' at ' & timeformat( versus.gametime, 'hh:mm' ) & '.  Field: ' & versus.fieldname & '.  Located at: ' & versus.fieldaddress1 & ' ' & versus.fieldaddress2 & ' ' & versus.fieldcity & ', ' & versus.stateabbr & '.' />
 															
 															<!--- // text message --->
 															<cfquery name="creategamenotification">

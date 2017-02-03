@@ -258,7 +258,7 @@
 					<cfif isuserinrole( "confadmin" )>
 					    and t1.confid = <cfqueryparam value="#arguments.conferenceid#" cfsqltype="cf_sql_integer" />
 					</cfif>
-				order by g.gameid, g.gamedate asc
+				order by g.gamedate, g.gameid asc
 			</cfquery>					
 		<cfreturn teamgames>
 	</cffunction>

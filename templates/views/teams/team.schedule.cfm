@@ -17,7 +17,17 @@
 				</cfinvoke>
 				<cfinvoke component="apis.com.admin.gameadminservice" method="getteamgames" returnvariable="teamgames">
 					<cfinvokeargument name="teamid" value="#url.id#">
-				</cfinvoke>			
+				</cfinvoke>
+
+				<cfif teamgames.recordcount gte 15>
+					<cfset thisminheight = "min-height: 1280px;" />
+				<cfelseif teamgames.recordcount lt 15 and teamgames.recordcount gte 10>
+					<cfset thisminheight = "min-height: 960px;" />
+				<cfelseif teamgames.recordcount lt 10 and teamgames.recordcount gt 5>
+					<cfset thisminheight = "min-height: 600px;" />
+				<cfelse>
+					<cfset thisminheight = "min-height: 400px;" />
+				</cfif>
 									
 					
 				<cfoutput>	
@@ -33,7 +43,7 @@
 								</span>							
 						</div>								
 								
-						<div class="ibox-content" style="min-height:500px;">									
+						<div class="ibox-content" style="#thisminheight#">									
 							
 								<ul class="nav nav-tabs">
 									<li><a href="#application.root##url.event#&fuseaction=team.view&id=#url.id#"><i class="fa fa-check-circle"></i> Team Details</a></li>
