@@ -23,7 +23,7 @@
 					<cfset thisminheight = "min-height: 1280px;" />
 				<cfelseif teamgames.recordcount lt 15 and teamgames.recordcount gte 10>
 					<cfset thisminheight = "min-height: 960px;" />
-				<cfelseif teamgames.recordcount lt 10 and teamgames.recordcount gt 5>
+				<cfelseif teamgames.recordcount lt 10 and teamgames.recordcount gte 5>
 					<cfset thisminheight = "min-height: 600px;" />
 				<cfelse>
 					<cfset thisminheight = "min-height: 400px;" />
