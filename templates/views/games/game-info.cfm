@@ -113,9 +113,56 @@
 																	<cfqueryparam value="#s.assigndate#" cfsqltype="cf_sql_timestamp" />,
 																	<cfqueryparam value="#s.assigndate#" cfsqltype="cf_sql_timestamp" />
 																	);
-													</cfquery>		
+													</cfquery>
+
+													<cfinvoke component="apis.com.admin.shooteradminservice" method="getshooter" returnvariable="shooter">
+														<cfinvokeargument name="id" value="#s.shooterid#">
+													</cfinvoke>											
 													
+														<!--- // email --->
+														<cfquery name="creategamenotification">
+															<!--- // add game assignment to the notification service queue --->											
+															insert into notifications(vsid, gameid, notificationtype, notificationtext, notificationtimestamp, notificationstatus, shooterid, notificationqueued, notificationsent)														  													   
+																values(
+																		<cfqueryparam value="#s.gamevsid#" cfsqltype="cf_sql_integer" />,
+																		<cfqueryparam value="#s.gameid#" cfsqltype="cf_sql_integer" />,
+																		<cfqueryparam value="#s.notificationtype#" cfsqltype="cf_sql_varchar" />,
+																		<cfqueryparam value="#s.notificationtext#" cfsqltype="cf_sql_varchar" />,
+																		<cfqueryparam value="#s.assigndate#" cfsqltype="cf_sql_timestamp" />,
+																		<cfqueryparam value="#s.notificationstatus#" cfsqltype="cf_sql_varchar" />,																		
+																		<cfif trim( shooter.shooteralertpref ) eq "txt">
+																			<cfqueryparam value="0" cfsqltype="cf_sql_integer" />,
+																		<cfelse>
+																			<cfqueryparam value="#s.shooterid#" cfsqltype="cf_sql_integer" />,
+																		</cfif>
+																		<cfqueryparam value="1" cfsqltype="cf_sql_bit" />,
+																		<cfqueryparam value="0" cfsqltype="cf_sql_bit" />
+																		);
+														</cfquery>												
+															
+														<cfif trim( shooter.shooteralertpref ) eq "txt">	
+															
+															<cfinvoke component="apis.com.admin.gameadminservice" method="getalertversus" returnvariable="versus">
+																<cfinvokeargument name="vsid" value="#s.gamevsid#">
+															</cfinvoke>														
+															
+															<cfset s.alerttext = 'New game assignment: ' & versus.hometeam & ' vs. ' & versus.awayteam & ' on ' & dateformat( versus.gamedate, 'mm/dd/yyyy' ) & ' at ' & timeformat( versus.gametime, 'hh:mm' ) & '.  Field: ' & versus.fieldname & '.  Located at: ' & versus.fieldaddress1 & ' ' & versus.fieldaddress2 & ' ' & versus.fieldcity & ', ' & versus.stateabbr & '.' />
+															
+															<!--- // text message --->
+															<cfquery name="creategamenotification">
+																insert into shooteralerts(shooterid, alertdatetime, alerttype, alerttext)
+																	values(
+																		   <cfqueryparam value="#s.shooterid#" cfsqltype="cf_sql_integer" />,
+																		   <cfqueryparam value="#s.assigndate#" cfsqltype="cf_sql_timestamp" />,
+																		   <cfqueryparam value="Game Alert" cfsqltype="cf_sql_varchar" />,
+																		   <cfqueryparam value="#s.alerttext#" cfsqltype="cf_sql_varchar" />																   
+																		  );
+															</cfquery>
 													
+														</cfif>
+													<!--- // end notify shooters --->
+													
+													<!---
 													<cfquery name="creategamenotification">
 														<!--- // add game assignment to the notification service queue --->											
 														insert into notifications(vsid, gameid, notificationtype, notificationtext, notificationtimestamp, notificationstatus, shooterid, notificationqueued, notificationsent)														  													   
@@ -132,7 +179,7 @@
 																	);
 													</cfquery>
 													
-													<!--- // end notify shooters --->
+													 // end notify shooters --->
 
 													<!--- // record the activity --->
 													<cfquery name="activitylog">
@@ -145,6 +192,8 @@
 																	);
 													</cfquery>
 													
+													<cflocation url="#listlast(cgi.script_name, "/" )#?id=#s.gamevsid#" addtoken="no">													
+												
 													<div class="container">
 														<div style="padding:15px;">
 															<div class="alert alert-info">
@@ -185,8 +234,44 @@
 											</cfinvoke>
 									
 											<cfif gameinfo.recordcount gt 0>
+											
+												<cfinvoke component="apis.com.admin.gameadminservice" method="getgameshooters" returnvariable="gameshooters">
+													<cfinvokeargument name="vsid" value="#url.id#">
+												</cfinvoke>
 												
 												<div class="container" style="padding: 10px;">
+													<cfif gameshooters.recordcount gt 0>
+														<div class="table-responsive">														
+															<table class="table table-striped table-bordered table-hover">
+																<thead>
+																	<tr>
+																		<th>Shooter Assigned</th>
+																		<th>Assignment Date</th>
+																		<th>Assignment Status</th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<cfloop query="gameshooters">
+																		<tr>
+																			<td><i class="fa fa-video-camera"></i> #shooterfirstname# #shooterlastname#</td>
+																			<td>#dateformat( shooterassigndate, "mm/dd/yyyy" )#</td>
+																			<td><span class="<cfif trim( shooterassignstatus ) is "accepted">label label-primary<cfelseif trim( shooterassignstatus ) is "assigned">label label-danger<cfelse>label label-default</cfif>">#shooterassignstatus#</span></td>
+																		</tr>
+																	</cfloop>
+																</tbody>
+																<tfoot>
+																	<tr>
+																		<td colspan="3">#gameshooters.recordcount# total shooter<cfif gameshooters.recordcount neq 1>s</cfif> assigned.</td>
+																	</tr>
+																</tfoot>
+															</table>														
+														</div>
+													<cfelse>
+														<div class="alert alert-info alert-dismissable">
+															<p><i class="fa fa-info-circle"></i> There are no shooters assigned to this game.</p>
+														</div>													
+													</cfif>
+													
 													<div class="well">
 														
 														<div style="margin-left:15px;">
@@ -201,7 +286,7 @@
 														
 														<br />
 														
-														<form name="assign-shooter-to-game" method="post" class="form-inline" action="">						
+														<form name="assign-shooter-to-game" method="post" class="form-inline" action="#listlast(cgi.script_name, "/" )#?id=#url.id#">						
 															<div class="col-md-2">
 																<label class="control-label" for="shooterlist">Shooter List</label>
 															</div>
@@ -221,10 +306,28 @@
 																<span style="margin-left:15px;">
 																	<button type="submit" name="assignselectedshooter" class="btn btn-sm btn-primary"><i class="fa fa-save"></i> Assign Shooter</button>
 																	<a href="javascript:window.self.close();" class="btn btn-sm btn-default"><i class="fa fa-times-circle"></i> Cancel</a>
+																	<cfif gameshooters.recordcount gt 0>
+																		<a href="javascript:closeWindow();" class="btn btn-sm btn-success"><i class="fa fa-th-list"></i> Finished Assignments</a>	
+																	</cfif>
 																</span>
 															</div>									
 														</form>
 													</div>
+													
+													<!---
+													<cfif gameshooters.recordcount gt 0>
+														<div class="container">
+															<div style="padding:15px;">
+																<div class="alert alert-info">
+																	<h5><i class="fa fa-save"></i> <strong>Game Assignment Saved &amp; Shooter Notified. </strong></h5>
+																	<p>The selected shooter was assigned to the match.  Click Close to Continue Assignments.</p>
+																	<br />
+																	<a href="javascript:closeWindow();" class="btn btn-sm btn-primary"><i class="fa fa-save"></i> Close</a>											
+																</div>
+															</div>
+														</div>
+													</cfif>
+													--->
 													
 												</div>
 											<cfelse>

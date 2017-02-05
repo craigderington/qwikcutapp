@@ -57,6 +57,8 @@
 										<cfinclude template="views/games/game.custom.cfm">
 									<cfelseif trim( url.fuseaction ) eq "games.shooters">
 										<cfinclude template="views/games/games.shooters.cfm">
+									<cfelseif trim( url.fuseaction ) eq "games.week.view">
+										<cfinclude template="views/games/games-week-view.cfm">
 									<cfelse>
 										<!-- // no view found, show message -->
 										<div class="alert alert-danger" style="margin-top:10px;">

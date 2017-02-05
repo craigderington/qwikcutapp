@@ -5,8 +5,8 @@
 				<cfif isdefined( "form.fieldnames" ) and structkeyexists( form, "shooterid" )>
 										
 					<cfset form.validate_require = "shooterid|Opps, internal form error.;shooterfirstname|Please enter the shooters first name.;shooterlastname|Please enter the shooters last name.;shooteremail|Please enter the shooters email address.;shooterstateid|Please select the shooters state." />
-					<cfset form.validate_email = "shooteremail|The email you entered is not in the correct form.  Please use the format: alias@domain.xxx" />			
-						
+					<!---<cfset form.validate_email = "shooteremail|'Email address' must be a valid email address.  Please use the format: alias@domain.xxx;" />			
+					--->	
 						<cfscript>
 							objValidation = createobject( "component","apis.udfs.validation" ).init();
 							objValidation.setFields( form );

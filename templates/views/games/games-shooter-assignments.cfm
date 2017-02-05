@@ -26,7 +26,7 @@
 																<select name="confid" class="form-control">
 																	<option value="" selected>Select Conference</option>
 																	<cfloop query="conferencelist">
-																		<option value="#confid#"<cfif structkeyexists( form, "confid" ) and form.confid eq conferencelist.confid>selected</cfif>>#confname#</option>
+																		<option value="#confid#"<cfif structkeyexists( form, "confid" ) and form.confid eq conferencelist.confid>selected<cfelseif structkeyexists( session, "confid" )><cfif session.confid eq conferencelist.confid>selected</cfif></cfif>>#confname#</option>
 																	</cfloop>
 																</select>
 															</div>
@@ -34,13 +34,13 @@
 																<label class="sr-only" for="gamedate">Game Date</label>
 																<div class="input-group date">
 																	<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-																	<input type="text" class="form-control" name="gamedate" placeholder="Game Date" <cfif structkeyexists( form, "gamedate" )>value="#dateformat( form.gamedate, "mm/dd/yyyy" )#"</cfif> />													
+																	<input type="text" class="form-control" name="gamedate" placeholder="Game Date" <cfif structkeyexists( form, "gamedate" )>value="#dateformat( form.gamedate, "mm/dd/yyyy" )#"</cfif><cfif structkeyexists( session, "gamedate" )>value="#dateformat( session.gamedate, "mm/dd/yyyy" )#"</cfif> />													
 																</div>														
 															</div>
 															<div class="form-group">
-																<button type="submit" name="getgames" class="btn btn-sm btn-primary ">
+																<button type="submit" name="getgames" class="btn btn-sm btn-primary">
 																	<i class="fa fa-search"></i> Get Games
-																</button>
+																</button>				
 															</div>
 														</fieldset>
 													</form>																						
@@ -58,14 +58,14 @@
 										<cfparam name="edate" default="">
 										<cfif trim( form.confid ) neq "" and isnumeric( form.confid )>
 											<cfif isdate( form.gamedate ) and form.gamedate neq "">
-												<cfset gamedate = createdatetime( year( form.gamedate ), month( form.gamedate ), day( form.gamedate ), 06, 00, 00 ) />
-												<cfset confid = form.confid />											
-												<cfset edate = createdatetime( year( form.gamedate ), month( form.gamedate ), day( form.gamedate ), 23, 59, 00 ) />
+												<cfset session.gamedate = createdatetime( year( form.gamedate ), month( form.gamedate ), day( form.gamedate ), 06, 00, 00 ) />
+												<cfset session.confid = form.confid />											
+												<cfset session.edate = createdatetime( year( form.gamedate ), month( form.gamedate ), day( form.gamedate ), 23, 59, 00 ) />
 												
 												<cfinvoke component="apis.com.admin.gameadminservice" method="searchconferencegames" returnvariable="gameresults">
-													<cfinvokeargument name="confid" value="#confid#">
-													<cfinvokeargument name="gamedate" value="#gamedate#">
-													<cfinvokeargument name="edate" value="#edate#">
+													<cfinvokeargument name="confid" value="#session.confid#">
+													<cfinvokeargument name="gamedate" value="#session.gamedate#">
+													<cfinvokeargument name="edate" value="#session.edate#">
 												</cfinvoke>
 											
 												<cfif gameresults.recordcount gt 0>
@@ -87,7 +87,7 @@
 																	<tbody>
 																		<cfoutput query="gameresults">																			
 																			<tr>
-																				<td class="text-center text-primary"><cfif gameresults.totalshooters eq 0><a data-toggle="modal" class="btn btn-xs btn-primary" href="##" onclick="window.open('templates/views/games/game-info.cfm?id=#vsid#','','toolbar=no,width=500, height=500');"><i class="fa fa-video-camera"></i></a><cfelse><i class="fa fa-video-camera text-navy"></i></cfif></td>
+																				<td class="text-center text-primary"><cfif gameresults.totalshooters lte 3><a data-toggle="modal" class="btn btn-xs btn-primary" href="##" onclick="window.open('templates/views/games/game-info.cfm?id=#vsid#','','toolbar=no,width=600, height=600');"><i class="fa fa-video-camera"></i></a><cfelse><i class="fa fa-video-camera text-navy"></i></cfif></td>
 																				<td>#trim( awayteam )# <i>vs.</i> <strong>#trim( hometeam )#</strong></td>																				
 																				<td>#fieldname# field</td>
 																				<td>#dateformat( gamedate, "mm-dd-yyyy" )# @ #timeformat( gamedate, "hh:mm tt")#</td>

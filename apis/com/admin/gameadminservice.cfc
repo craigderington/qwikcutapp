@@ -433,4 +433,26 @@
 		<cfreturn versus>
 	</cffunction>
 	
+	
+	<cffunction name="getversuslist" access="remote" output="false" hint="I get the game versus data.">
+		<cfargument name="gamedate" type="date" required="yes">
+		<cfargument name="gametime" type="any" required="yes">
+		<cfargument name="endgametime" type="any" required="yes">
+			
+			<cfset var versuslist = "" />
+			<cfquery name="versuslist">
+				select v.vsid, v.hometeam, v.awayteam, v.gamedate, v.gametime, v.fieldid, f.fieldname, 
+					   f.fieldaddress1, f.fieldaddress2, f.fieldcity, f.stateid, f.regionid, s.stateabbr
+				  from versus v, fields f, states s
+				 where v.fieldid = f.fieldid
+				   and f.stateid = s.stateid
+				   and (
+				          v.gamedate between <cfqueryparam value="#arguments.gamedate# #arguments.gametime#" cfsqltype="cf_sql_timestamp" />
+				          and <cfqueryparam value="#arguments.gamedate# #arguments.endgametime#" cfsqltype="cf_sql_timestamp" />
+						)
+				   order by v.gamedate, v.gametime asc
+			</cfquery>
+		<cfreturn versuslist>
+	</cffunction>
+	
 </cfcomponent>
