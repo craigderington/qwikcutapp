@@ -11,7 +11,7 @@
 			<cfset gamedate = url.sDate />
 			<cfset endgamedate = url.eDate />
 		<cfelse>
-			<cflocation url="#application.root##url.event#&fuseaction=#url.fuseaction#&sDate=#dateformat( today, "mm/dd/yyyy" )#&eDate=#dateformat( todayplus4, "mm/dd/yyyy" )#">
+			<cflocation url="#application.root##url.event#&fuseaction=#url.fuseaction#&sDate=#dateformat( today, "mm/dd/yyyy" )#&eDate=#dateformat( todayplus4, "mm/dd/yyyy" )#" addtoken="no">
 		</cfif>
 		
 		
@@ -61,8 +61,8 @@
 															
 															<cfinvoke component="apis.com.admin.gameadminservice" method="getversuslist" returnvariable="versuslist">
 																<cfinvokeargument name="gamedate" value="#dateformat( loopgamedate, "mm/dd/yyyy" )#">
-																<cfinvokeargument name="gametime" value="#timeformat( createtime( hour, 0, 0 ), "hh:mm:ss" )#">
-																<cfinvokeargument name="endgametime" value="#timeformat( createtime( hour, 59, 59), "hh:mm:ss" )#">
+																<cfinvokeargument name="gametime" value="#timeformat( createtime( hour, 0, 0 ), "HH:mm:ss" )#">
+																<cfinvokeargument name="endgametime" value="#timeformat( createtime( hour, 59, 59), "HH:mm:ss" )#">
 															</cfinvoke>
 															
 															<cfinvoke component="apis.com.admin.gameadminservice" method="getgameshooters" returnvariable="gameshooters">
@@ -86,9 +86,8 @@
 																		</cfif>
 																	</td>
 																</tr>
-																
-															</cfloop>
-															<cfset count = count + 1 />
+																<cfset count = count + 1 />
+															</cfloop>															
 														</cfloop>
 														</tbody>
 														<tfoot>
@@ -103,7 +102,7 @@
 												Panel Footer
 											</div>
 										</div><!--- // panel --->
-									</div>							
+									</div>									
 								</cfloop>
 							</div>
 						</div>
