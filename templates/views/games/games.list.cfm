@@ -15,6 +15,7 @@
 									<h5><i class="fa fa-play-circle"></i> #session.username# | Manage Team Game Schedules</h5>
 									<span class="pull-right">																				
 										<a style="margin-right:5px;" href="#application.root#admin.home" class="btn btn-xs btn-default btn-outline"><i class="fa fa-home"></i> Admin Home</a>
+										<a style="margin-right:5px;" href="#application.root##url.event#&fuseaction=games.week.view" class="btn btn-xs btn-info btn-outline"><i class="fa fa-th-list"></i> Games by Week</a>
 										<a style="margin-right:5px;" href="#application.root##url.event#&fuseaction=teams.view" class="btn btn-xs btn-success btn-outline"><i class="fa fa-trophy"></i> Conference Standings</a>									
 										<a style="margin-right:5px;" href="#application.root##url.event#&fuseaction=game.schedule" class="btn btn-xs btn-primary btn-outline"><i class="fa fa-plus-square"></i> Create Game Schedules</a>
 									</span>

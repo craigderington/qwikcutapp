@@ -26,7 +26,7 @@
 					<div class="row">
 						<div class="ibox-content">
 							<div align="left">
-								<h3><i class="fa fa-play-circle-o"></i> Games By Week</h3>
+								<h3><i class="fa fa-play-circle-o"></i> Games By Week  <a href="#application.root##url.event#&fuseaction=#url.fuseaction#" style="margin-left:15px;" class="btn btn-sm btn-success btn-outline"><i class="fa fa-refresh"></i> RESET DATES</a></h3>
 							</div>
 							<div align="center">
 								<cfset prevdate = dateadd( "d", -4, gamedate ) />
