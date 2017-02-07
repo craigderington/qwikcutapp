@@ -79,7 +79,9 @@
 						select contactid, teamid, contactname, coachlastname, contactnumber, contactprovider, contactactive,
 						       contactemail
 						  from teamcontacts
-						 where teamid = <cfqueryparam value="#homeid#" cfsqltype="cf_sql_integer" />
+						 where ( teamid = <cfqueryparam value="#homeid#" cfsqltype="cf_sql_integer" />
+						         OR teamid = <cfqueryparam value="#awayid#" cfsqltype="cf_sql_integer" />
+								)
 						   and contactactive = <cfqueryparam value="1" cfsqltype="cf_sql_bit" />
 					</cfquery>
 					
@@ -94,7 +96,7 @@
 								<cfinvokeargument name="vsid" value="#vsid#">
 							</cfinvoke>														
 															
-							<cfset alerttext = 'Confirm Game/Field: ' & versus.hometeam & ' vs. ' & versus.awayteam & ' on ' & dateformat( versus.gamedate, 'mm/dd/yyyy' ) & ' at ' & timeformat( versus.gametime, 'hh:mm tt' ) & '.  Field: ' & versus.fieldname & '.  Located at: ' & versus.fieldaddress1 & ' ' & versus.fieldaddress2 & ' ' & versus.fieldcity & ', ' & versus.stateabbr & '.' />
+							<cfset alerttext = 'Confirm Game/Field: ' & versus.hometeam & ' vs. ' & versus.awayteam & ' on ' & dateformat( versus.gamedate, 'mm/dd/yyyy' ) & ' at ' & timeformat( versus.gametime, 'hh:mm tt' ) & '.  Field: ' & versus.fieldname & '.  Located at: ' & versus.fieldaddress1 & ' ' & versus.fieldaddress2 & ' ' & versus.fieldcity & ', ' & versus.stateabbr & '.  Reply CONFIRMED or CANCELED.' />
 					
 							<cfquery name="creategamealerts">
 								insert into alerts(contactid, alertdatetime, alerttype, alerttext, alertread, alertdismissed, alertqueued, alertsent, gameid)
