@@ -18,7 +18,7 @@
 										
 										<cfset form.validate_require = "email|The user's email address is required to add a new record.;firstname|The user's first name is required.;lastname|The user's last name is required.;userrole|Please select a user role from the list.;pass1|The user's password is required." />
 										<cfset form.validate_password = "pass1|pass2|Sorry, the passwords entered do not match.  Please try again..." />
-										<cfset form.validate_email = "email|The email address you entered is invalid.  Please try again..." />									
+										<!---<cfset form.validate_email = "email|The email address you entered is invalid.  Please try again..." />	--->								
 										
 										<cfscript>
 											objValidation = createobject( "component","apis.udfs.validation" ).init();
