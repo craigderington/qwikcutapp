@@ -102,14 +102,14 @@
 													
 													<cfelse>
 													
-														<!--- // send by text message --->
+														<!--- // send by text message 
 														<cfinvoke component="apis.com.notifications.gamesnotificationservice" method="sendgamenotifications" returnvariable="msgstatus">
 															<cfinvokeargument name="shooteremail" value="#shooter.shootercellphone##shooter.shootercellprovider#">
 															<cfinvokeargument name="senderemail" value="info@qwikcut.com">
 															<cfinvokeargument name="sendtype" value="txt">
 															<cfinvokeargument name="shootername" value="#shooter.shooterfirstname# #shooter.shooterlastname#">
 															<cfinvokeargument name="notificationtype" value="#notificationqueue.notificationtype#">				
-														</cfinvoke>
+														</cfinvoke>--->
 														
 														<!--- // update the notification service, mark as sent --->
 														<cfquery name="updatenotificationservice">
@@ -121,7 +121,7 @@
 														</cfquery>
 														
 														<div class="alert alert-success">
-															<h5><i class="fa fa-check-circle-o"></i> Shooter Notification Text Message Sent... </h5>
+															<h5><i class="fa fa-check-circle-o"></i> Notification Updated Successfully... </h5>
 														</div>
 														
 														<!--- // cease all processing --->
