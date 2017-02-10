@@ -280,10 +280,13 @@
 			<cfquery name="gameshooters">
 				select sa.shooterassignmentid, sa.vsid, sa.gameid, sa.shooterassignstatus, sa.shooterassigndate, sa.shooteracceptdate, sa.shooteracceptedassignment,
 					   sa.shooterassignlastupdated, sh.shooterid, sh.shooterfirstname, sh.shooterlastname, sh.shooteremail, sh.userid, us.userprofileimagepath
-				  from shooterassignments sa, shooters sh, usersettings us
+				  from shooterassignments sa, shooters sh, usersettings us, users u
 				 where sa.shooterid = sh.shooterid
 				   and sh.userid = us.userid
+				   and us.userid = u.userid
 				   and sa.vsid = <cfqueryparam value="#arguments.vsid#" cfsqltype="cf_sql_integer" />
+				   and u.regcomplete = <cfqueryparam value="1" cfsqltype="cf_sql_bit" />
+				   and u.regcompletedate is not null
 			</cfquery>	
 		<cfreturn gameshooters>
 	</cffunction>
