@@ -166,6 +166,22 @@
 				  order by sh.shooterlastname asc				
 			</cfquery>
 		<cfreturn shooterregionlist>
+	</cffunction>	
+	
+	<cffunction name="getshooterassignments" output="false" returntype="query" access="remote" hint="I get the shooter assignments.">
+		<cfargument name="shooterid" type="numeric" required="yes">
+		<cfset var shooterassignments = "" />
+		<cfquery name="shooterassignments">
+			select sa.shooterassignmentid, sa.shooterassigndate, sa.shooteracceptdate, sa.shooterassignstatus,
+				   v.hometeam, v.awayteam, v.gamedate, v.gamestatus, v.gametime, f.fieldname
+			  from shooterassignments sa 
+			       inner join shooters s on sa.shooterid = s.shooterid
+				   inner join versus v on sa.vsid = v.vsid
+			       inner join fields f on v.fieldid = f.fieldid
+			 where sa.shooterid = <cfqueryparam value="#arguments.shooterid#" cfsqltype="cf_sql_integer" />
+			order by sa.shooterassigndate asc 
+		</cfquery>
+		<cfreturn shooterassignments>
 	</cffunction>
 
 </cfcomponent>

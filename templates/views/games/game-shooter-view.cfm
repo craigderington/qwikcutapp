@@ -14,11 +14,48 @@
 					<cfif structkeyexists( url, "id" )>
 						<cfif isnumeric( url.id )>
 							<cfset assignid = url.id />
-							<cfquery name="killassignment">
-								delete 
+							<!-- get the current assignment --->
+							<cfquery name="getassignment">
+								select gameid, vsid, shooterassignmentid, shooterid, shooterassigndate 
 								  from shooterassignments
 								 where shooterassignmentid = <cfqueryparam value="#assignid#" cfsqltype="cf_sql_integer" />
 							</cfquery>
+							<!--- get the shooter alert pref --->
+							<cfquery name="getshooterinfo">
+								select shooterid, shooteralertpref
+								  from shooters
+								 where shooterid = <cfqueryparam value="#getassignment.shooterid#" cfsqltype="cf_sql_integer" />
+							</cfquery>							
+							<!--- kill the assignment --->
+							<cfquery name="killassignment">
+								delete 
+								  from shooterassignments
+								 where shooterassignmentid = <cfqueryparam value="#getassignment.shooterassignmentid#" cfsqltype="cf_sql_integer" />
+							</cfquery>
+							
+							<!--- alert the shooter that they have been removed from this event --->
+							<cfif trim( getshooterinfo.shooteralertpref ) eq "txt">	
+															
+								<cfinvoke component="apis.com.admin.gameadminservice" method="getalertversus" returnvariable="versus">
+									<cfinvokeargument name="vsid" value="#getassignment.vsid#">
+								</cfinvoke>														
+															
+								<cfset alerttext = 'Game Assignment Cancelled: ' & versus.hometeam & ' vs. ' & versus.awayteam & ' on ' & dateformat( versus.gamedate, 'mm/dd/yyyy' ) & ' at ' & timeformat( versus.gametime, 'hh:mm' ) & '.  Field: ' & versus.fieldname & ' has been cancelled.' />
+															
+								<!--- // text message --->
+								<cfquery name="creategamenotification">
+									insert into shooteralerts(shooterid, alertdatetime, alerttype, alerttext)
+										values(
+												<cfqueryparam value="#getassignment.shooterid#" cfsqltype="cf_sql_integer" />,
+												<cfqueryparam value="#getassignment.shooterassigndate#" cfsqltype="cf_sql_timestamp" />,
+												<cfqueryparam value="Game Change Alert" cfsqltype="cf_sql_varchar" />,
+												<cfqueryparam value="#alerttext#" cfsqltype="cf_sql_varchar" />																   
+											   );
+								</cfquery>
+													
+							</cfif>
+							<!--- // end notify shooters --->				
+							
 							<cflocation url="#application.root##url.event#&fuseaction=#url.fuseaction#&manage=#url.manage#" addtoken="no">
 						</cfif>				
 					</cfif>

@@ -1,8 +1,20 @@
 
-
-
-
-
+					
+					
+				
+				
+				<cfif structkeyexists( url, "id" )>
+					<cfinvoke component="apis.com.admin.shooteradminservice" method="getshooterassignments" returnvariable="shooterassignments">
+						<cfinvokeargument name="shooterid" value="#url.id#">
+					</cfinvoke>
+				<cfelse>
+					<cflocation url="#application.root##url.event#" addtoken="yes">
+				</cfif>
+				
+				
+				
+				
+				
 				<cfoutput>
 					<div class="row">
 						<div class="ibox">					
@@ -28,12 +40,51 @@
 									<div class="tab-content">
 										<div id="tab-1" class="tab-pane active">
 											<div class="panel-body">
-												<div class="col-lg-12">
-													<div class="alert alert-danger alert-dismissable">
-														<button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
-														<p><i class="fa fa-warning"></i> No scheduled games found for this shooter...</p>								
+												<cfif shooterassignments.recordcount gt 0>
+													<div class="table-responsive">
+														<table class="table table-striped table-bordered table-hover" >
+															<thead>
+																<tr>
+																	<th>Actions</th>
+																	<th>Game Date</th>
+																	<th>Field</th>
+																	<th>Teams</th>
+																	<th>Status</th>
+																	<th>Last Updated</th>
+																</tr>
+															</thead>
+															<tbody>
+																<cfloop query="shooterassignments">
+																	<tr>
+																		<td><i class="fa fa-check-circle text-success"></i> <i class="fa fa-times-circle text-success"></i></td>
+																		<td>#dateformat( gamedate, "mm/dd/yyyy" )# @ #timeformat( gamedate, "hh:mm tt" )#</td>
+																		<td>#fieldname#</td>
+																		<td>#hometeam# vs. #awayteam#</td>
+																		<td><label class="label label-<cfif shooterassignstatus eq "accepted">success<cfelseif shooterassignstatus eq "assigned">danger<cfelseif shooterassignstatus eq "completed">success</cfif>">#shooterassignstatus#</span></td>
+																		<td><cfif shooterassignstatus eq "accepted">#dateformat( shooteracceptdate, "mm/dd/yyyy" )#<cfelse><span class="label label-danger">Not Accepted</span></cfif></td>
+																	</tr>
+																</cfloop>
+															</tbody>
+														</table>
+														<tfoot>
+															<tr>
+																<td colspan="6">
+																	<i class="fa fa-info-circle"></i> #shooterassignments.recordcount# shooter assignment record<cfif shooterassignments.recordcount neq 1>s</cfif> found.
+																</td>
+															</tr>
+														</tfoot>
 													</div>
-												</div>												
+												
+												<cfelse>												
+												
+													<div class="col-lg-12">
+														<div class="alert alert-danger alert-dismissable">
+															<button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
+															<p><i class="fa fa-warning"></i> No scheduled games found for this shooter...</p>								
+														</div>
+													</div>
+
+												</cfif>
 											</div>
 										</div>											
 									</div><!-- / .tab-content -->

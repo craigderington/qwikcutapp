@@ -255,7 +255,9 @@
 																				</tr>
 																			</thead>
 																			<tbody>															
-																				<cfloop query="queuedalertslist">
+																				<cfloop query="queuedalertslist"
+																				    startrow="1"
+																					endrow="50">
 																					<tr>
 																						<td><i class="fa fa-check-circle" title="edit"></i> <i class="fa fa-times-circle" title="delete"></i></td>
 																						<td>#dateformat( alertdatetime, "mm/dd/yyyy" )# #timeformat( alertdatetime, "hh:mm:ss" )#</td>
@@ -293,7 +295,9 @@
 																				</tr>
 																			</thead>
 																			<tbody>															
-																				<cfloop query="sentalertslist">
+																				<cfloop query="sentalertslist"
+																				     startrow="1"
+																					 endrow="50">
 																					<tr>
 																						<td>#dateformat( alertsentdate, "mm/dd/yyyy" )# #timeformat( alertsentdate, "hh:mm:ss" )#</td>
 																						<td>#contactname#</td>
@@ -327,7 +331,9 @@
 																				</tr>
 																			</thead>
 																			<tbody>															
-																				<cfloop query="shooterqueuedlist">
+																				<cfloop query="shooterqueuedlist"
+																					startrow="1"
+																					endrow="50">
 																					<tr>
 																						<td>#dateformat( alertdatetime, "mm/dd/yyyy" )# #timeformat( alertdatetime, "hh:mm:ss" )#</td>
 																						<td>#shooterfirstname# #shooterlastname#</td>
@@ -361,7 +367,9 @@
 																				</tr>
 																			</thead>
 																			<tbody>															
-																				<cfloop query="shootersentlist">
+																				<cfloop query="shootersentlist"
+																				    startrow="1"
+																					endrow="50">
 																					<tr>
 																						<td>#dateformat( alertsentdate, "mm/dd/yyyy" )# #timeformat( alertsentdate, "hh:mm:ss" )#</td>
 																						<td>#shooterfirstname# #shooterlastname#</td>
