@@ -62,8 +62,8 @@
 		
 		 <cfscript>
 			//set your app vars for the application			
-			application.title = "QwikStats: Video and Analytics";
-			application.developer = "Craig Derington, Inc.";
+			application.title = "QwikStats: QwikCut Video and Analytics";
+			application.developer = "Python Development Systems, LLC.";
 			application.bootver = "v 3.3.2";
 			application.softver = "v 1.0.0 Alpha";
 			application.root = "index.cfm?event=";

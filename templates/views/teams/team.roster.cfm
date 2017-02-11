@@ -134,6 +134,9 @@
 																		<cfcase value="D">
 																			<cfset position = "Defender" />
 																		</cfcase>
+																		<cfcase value="G">
+																			<cfset position = "Goalie" />
+																		</cfcase>
 																		<cfcase value="LSM">
 																			<cfset position = "Long-Stick Midfielder" />
 																		</cfcase>																	
