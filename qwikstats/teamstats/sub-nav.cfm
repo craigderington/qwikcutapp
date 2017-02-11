@@ -48,8 +48,13 @@
 																Team Roster
 															</a>
 														</li>
+														<li>
+															<a aria-expanded="false" role="button" class="text-success" href="http://qwikcut.cloudapp.net/qwikstats/lacrosse/" target="_blank">
+																Conference Leaders
+															</a>
+														</li>											
 													</ul>
-													<ul class="nav navbar-right" style="margin-right:10px;float:right;">												
+													<ul class="nav navbar-right" style="margin-right:10px;float:right;">													
 														<li><a href="#application.root#do.logout"><i class="fa fa-sign-out"></i> Logout</a></li>							
 													</ul>
 													
