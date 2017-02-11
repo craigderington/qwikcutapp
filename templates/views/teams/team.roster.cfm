@@ -17,13 +17,15 @@
 				</cfinvoke>
 				
 				<cfif teamroster.recordcount gte 30>
-					<cfset thisminheight = "min-height: 1280px;" />
-				<cfelseif teamroster.recordcount lt 30 and teamroster.recordcount gte 20>
-					<cfset thisminheight = "min-height: 960px;" />
-				<cfelseif teamroster.recordcount lt 20 and teamroster.recordcount gte 10>
-					<cfset thisminheight = "min-height: 600px;" />
+					<cfset thisminheight = "min-height: 1560px;" />
+				<cfelseif teamroster.recordcount lt 30 and teamroster.recordcount gte 25>
+					<cfset thisminheight = "min-height: 1380px;" />
+				<cfelseif teamroster.recordcount lt 25 and teamroster.recordcount gte 20>
+					<cfset thisminheight = "min-height: 1120px;" />
+				<cfelseif teamroster.recordcount lt 20 and teamroster.recordcount gte 15>
+					<cfset thisminheight = "min-height: 1040px;" />
 				<cfelse>
-					<cfset thisminheight = "min-height: 400px;" />
+					<cfset thisminheight = "min-height: 680px;" />
 				</cfif>
 				
 				<cfif structkeyexists( url, "trid" ) and url.trid is not "">
@@ -104,10 +106,11 @@
 														  <strong><i class="fa fa-warning"></i> WARNING!</strong> The team player was successfully deleted.
 														</div>										
 													</cfif>
-												</cfif>
+												</cfif>												
 												
 												
 												<cfif teamroster.recordcount gt 0>
+													<h5><i class="fa fa-th-list"></i> #teamroster.recordcount# player<cfif teamroster.recordcount neq 1>s</cfif> found.</h5>
 													<div class="table-responsive">									
 														<table class="table table-striped">
 															<thead>
@@ -120,9 +123,30 @@
 															</thead>
 															<tbody>
 																<cfloop query="teamroster">
+																
+																	<cfswitch expression="#playerposition#">
+																		<cfcase value="M">
+																			<cfset position = "Midfielder" />
+																		</cfcase>
+																		<cfcase value="A">
+																			<cfset position = "Attacker" />
+																		</cfcase>
+																		<cfcase value="D">
+																			<cfset position = "Defender" />
+																		</cfcase>
+																		<cfcase value="LSM">
+																			<cfset position = "Long-Stick Midfielder" />
+																		</cfcase>																	
+																		<cfdefaultcase>
+																			<cfset position = #playerposition# />
+																		</cfdefaultcase>
+																	</cfswitch>
+																
+																
+																
 																	<tr>														
 																		<td><a href="#application.root##url.event#&fuseaction=#url.fuseaction#&id=#url.id#&trid=#rosterid#">#playername#</a></td>
-																		<td>#playerposition#</td>
+																		<td>#position#</td>
 																		<td>#playernumber#</td>
 																		<td><cfif playerstatus eq 1><i title="Active" class="fa fa-check-circle text-success"></i><cfelse><i title="Inactive" class="fa fa-ban text-danger"></cfif></td>
 																	</tr>
