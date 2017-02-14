@@ -160,11 +160,7 @@
 							   and u.useracl = <cfqueryparam value="3" cfsqltype="cf_sql_integer" />
 							   and u.userrole = <cfqueryparam value="statsapi" cfsqltype="cf_sql_varchar" />
 						</cfquery>
-						<cfif loginquery.userid NEQ "">
-							<cfloginuser 
-								name = "#cflogin.name#" 
-								password = "#hash( cflogin.password, "SHA-384", "UTF-8" )#" 
-								roles="#loginquery.userrole#">
+						<cfif loginquery.userid NEQ "">												
 								
 								<cfquery name="getteamdata">
 									select distinct(teamid)
@@ -173,37 +169,48 @@
 									   and userid = <cfqueryparam value="#loginquery.userid#" cfsqltype="cf_sql_integer" />
 								</cfquery>
 								
+								<cfif getteamdata.recordcount eq 1>								
 								
-								<!--- Start a few session vars we will require for our queries --->								
-								<cfset session.userid = loginquery.userid />								
-								<cfset session.username = "#loginquery.firstname# #loginquery.lastname#" />
-								<cfset session.teamid = getteamdata.teamid />
-								<cfset session.teamname = trim( loginquery.teamname ) />
-								
-								<!--- Log this users activity to the database --->
-								<cfquery name="logUser">
-									update dbo.users
-									   set lastlogindate = <cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />,
-									       lastloginip = <cfqueryparam value="#cgi.remote_addr#" cfsqltype="cf_sql_varchar" />
-									 where userid = <cfqueryparam value="#loginquery.userid#" cfsqltype="cf_sql_integer" />									   
-						        </cfquery>
-							   
-							    <!--- // record the activity --->
-								<cfquery name="activitylog">
-									insert into activity(userid, activitydate, activitytype, activitytext)														  													   
-										values(
-												<cfqueryparam value="#loginquery.userid#" cfsqltype="cf_sql_integer" />,
-												<cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />,
-												<cfqueryparam value="Login" cfsqltype="cf_sql_varchar" />,
-												<cfqueryparam value="logged into the system." cfsqltype="cf_sql_varchar" />																
-												);
-								</cfquery>						   		   
+									<!--- Start a few session vars we will require for our queries --->								
+									<cfset session.userid = loginquery.userid />								
+									<cfset session.username = "#loginquery.firstname# #loginquery.lastname#" />
+									<cfset session.teamid = getteamdata.teamid />
+									<cfset session.teamname = trim( loginquery.teamname ) />
+									
+									<!--- Log this users activity to the database --->
+									<cfquery name="logUser">
+										update dbo.users
+										   set lastlogindate = <cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />,
+											   lastloginip = <cfqueryparam value="#cgi.remote_addr#" cfsqltype="cf_sql_varchar" />
+										 where userid = <cfqueryparam value="#loginquery.userid#" cfsqltype="cf_sql_integer" />									   
+									</cfquery>
+								   
+									<!--- // record the activity --->
+									<cfquery name="activitylog">
+										insert into activity(userid, activitydate, activitytype, activitytext)														  													   
+											values(
+													<cfqueryparam value="#loginquery.userid#" cfsqltype="cf_sql_integer" />,
+													<cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />,
+													<cfqueryparam value="Login" cfsqltype="cf_sql_varchar" />,
+													<cfqueryparam value="logged into the system." cfsqltype="cf_sql_varchar" />																
+													);
+									</cfquery>
+									
+									<cfloginuser 
+										name = "#cflogin.name#" 
+										password = "#hash( cflogin.password, "SHA-384", "UTF-8" )#" 
+										roles="#loginquery.userrole#">			
+									
+								<cfelse>								
+									<cfset REQUEST.nostatsdata = true />
+									<cfinclude template="login.cfm">
+									<cfabort>								
+								</cfif>
 						<cfelse>
 							<cfset REQUEST.badlogin = true />    
 							<cfinclude template="login.cfm">
 							<cfabort>
-						</cfif>
-						
+						</cfif>						
 					</cfif>    
 				</cfif>
 			</cflogin>			

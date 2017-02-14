@@ -20,6 +20,12 @@
 							<h4 class="alert-heading"><i class="fa fa-warning"></i> Login Failed!</h4>
 								<p>Sorry, your login credentials have failed.  Either your username OR password was entered incorrectly.  Please try again...</p>
 					</div>
+				<cfelseif isdefined( "REQUEST.nostatsdata" )>
+					<div class="alert alert-info alert-dismissable fade in">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<h3 class="alert-heading"><i class="fa fa-warning"></i> Your login is working OK!</h3>
+								<p>However, we're still crunching your numbers.  Your team's stats will be ready soon.  Please check back.</p>
+					</div>
 				<cfelseif isdefined( "url.logout" ) and url.logout eq 1>
 					<div class="alert alert-success alert-dismissable fade in">
 						<button type="button" class="close" data-dismiss="alert">&times;</button>
