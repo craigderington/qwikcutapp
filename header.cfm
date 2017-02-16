@@ -27,9 +27,9 @@
 					<cfheader name="expires" value="#getHttpTimeString( Now() )#" >
 					
 					<!--- // shortcut icons // add to homescreen --->
-					<link rel="shortcut icon" href="http://qwikcut.cloudapp.net/qwikcutapp/favicon.ico?v=2" type="image/x-icon" />
-					<link rel="icon" href="http://qwikcut.cloudapp.net/qwikcutapp/favicon.ico?v=2" type="image/x-icon">
-					<link rel="apple-touch-icon" href="http://qwikcut.cloudapp.net/qwikcutapp/img/QCIcon.png"/>
+					<link rel="shortcut icon" href="//app.qwikcut.com/favicon.ico?v=2" type="image/x-icon" />
+					<link rel="icon" href="//app.qwikcut.com/favicon.ico?v=2" type="image/x-icon">
+					<link rel="apple-touch-icon" href="//app.qwikcut.com/img/QCIcon.png"/>
 					
 					
 					<!--- // also ensure that non-dynamic pages are not cached by the users browser --->
