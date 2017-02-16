@@ -8,6 +8,10 @@
 				<cfinvokeargument name="id" value="#session.userid#">
 			</cfinvoke>
 			
+			<cfinvoke component="apis.com.user.usershooterservice" method="getshooterdetails" returnvariable="shooterdetails">
+				<cfinvokeargument name="id" value="#session.userid#">
+			</cfinvoke>
+			
 
 				
 			<cfoutput>	
@@ -50,10 +54,16 @@
 											<!--- define our form structure and set form values --->
 											<cfset user = structnew() />
 											<cfset user.userid = session.userid />
-											<cfset user.mailserver = trim( form.mailserveraddress ) />
-											<cfset user.mailserverport = trim( form.mailserverport ) />
-											<cfset user.mailserverusername = trim( form.mailserverusername ) />
-											<cfset user.mailserverpassword =trim( form.mailserverpassword ) />
+											
+											<cfif structkeyexists( form, "bankname" )>
+												<cfset user.bankname = trim( form.bankname ) />
+											</cfif>
+											<cfif structkeyexists( form, "routingnumber" )>
+												<cfset user.routingnumber = trim( form.routingnumber ) />
+											</cfif>
+											<cfif structkeyexists( form, "accountnumber" )>
+												<cfset user.accountnumber = trim( form.accountnumber ) />
+											</cfif>
 											
 											<cfif trim( form.useralertpref) neq "">
 												<cfset user.useralertpref = trim( form.useralertpref ) />
@@ -83,11 +93,7 @@
 												<cfquery name="saveusersettings">
 													update usersettings
 													   set useralertpref = <cfqueryparam value="#user.useralertpref#" cfsqltype="cf_sql_varchar" maxlength="50" />,
-														   usertextmsgaddress = <cfqueryparam value="#user.serviceprovider#" cfsqltype="cf_sql_varchar" maxlength="50" />,
-														   mailserver = <cfqueryparam value="#user.mailserver#" cfsqltype="cf_sql_varchar" maxlength="50" />,
-														   mailserverport = <cfqueryparam value="#user.mailserverport#" cfsqltype="cf_sql_numeric" />,
-														   mailserverusername = <cfqueryparam value="#user.mailserverusername#" cfsqltype="cf_sql_varchar" maxlength="50" />,
-														   mailserverpassword = <cfqueryparam value="#user.mailserverpassword#" cfsqltype="cf_sql_varchar" maxlength="50" />
+														   usertextmsgaddress = <cfqueryparam value="#user.serviceprovider#" cfsqltype="cf_sql_varchar" maxlength="50" />														   
 													 where userid = <cfqueryparam value="#user.userid#" cfsqltype="cf_sql_integer" />														
 												</cfquery>
 												
@@ -103,7 +109,10 @@
 														<cfquery name="saveshooterprofile">
 															update shooters
 															   set shooteralertpref = <cfqueryparam value="#user.useralertpref#" cfsqltype="cf_sql_varchar" maxlength="50" />,
-														           shootercellprovider = <cfqueryparam value="#user.serviceprovider#" cfsqltype="cf_sql_varchar" maxlength="50" />
+														           shootercellprovider = <cfqueryparam value="#user.serviceprovider#" cfsqltype="cf_sql_varchar" maxlength="50" />,
+																   shooterbankname = <cfqueryparam value="#user.bankname#" cfsqltype="cf_sql_varchar" />,
+																   shooterbankroutingnumber = <cfqueryparam value="#user.routingnumber#" cfsqltype="cf_sql_varchar" />,
+																   shooterbankaccountnumber = <cfqueryparam value="#user.accountnumber#" cfsqltype="cf_sql_varchar" />
 															 where shooterid = <cfqueryparam value="#chkshooter.shooterid#" cfsqltype="cf_sql_integer" />
 														</cfquery>											
 													</cfif>
@@ -190,28 +199,25 @@
 														</div>
 													</cfif>														
 													
-													<div class="hr-line-dashed" style="margin-top:15px;"></div>											
-													
-													<!--- // mail server for CFPOP or CFIMAP --->
-													<div class="form-group"><label class="col-sm-2 control-label">Mail Server Address:</label>
-														<div class="col-sm-6">
-															<input type="text" class="form-control" placeholder="Mail Server Address" name="mailserveraddress" value="#trim( usersettings.mailserver)#" />
-															<span class="help-block m-b-none">Example: mail.domain.com</span> 
+													<cfif shooterdetails.recordcount eq 1>
+														<div class="hr-line-dashed" style="margin-top:15px;"></div>											
+														
+														<!--- // account settings for payroll --->
+														<div class="form-group"><label class="col-sm-2 control-label">Name of Bank:</label>
+															<div class="col-sm-6">
+																<input type="text" class="form-control" placeholder="Name of Bank" name="bankname" value="#trim( shooterdetails.shooterbankname )#" />
+																<span class="help-block m-b-none">Example: Wells Fargo</span> 
+															</div>
 														</div>
-													</div>
-													<div class="form-group"><label class="col-sm-2 control-label">Mail Server Port:</label>
-														<div class="col-sm-6"><input type="text" class="form-control" placeholder="Mail Server Port" name="mailserverport" value="#trim( usersettings.mailserverport )#" /></div>
-													</div>
-													<div class="form-group"><label class="col-sm-2 control-label">Mail Username:</label>
-														<div class="col-sm-6"><input type="text" class="form-control" placeholder="Mail Server Username" name="mailserverusername" value="#trim( usersettings.mailserverusername )#" /></div>
-													</div>																							
-													<div class="form-group"><label class="col-sm-2 control-label">Mail Password:</label>
-														<div class="col-sm-6">
-															<input type="text" class="form-control" placeholder="Mail Server Password" name="mailserverpassword" value="#trim( usersettings.mailserverpassword )#" />
+														<div class="form-group"><label class="col-sm-2 control-label">Routing Number:</label>
+															<div class="col-sm-6"><input type="text" class="form-control" placeholder="Routing Number" name="routingnumber" value="#trim( shooterdetails.shooterbankroutingnumber )#" /></div>
 														</div>
-													</div>													
-													<div class="hr-line-dashed" style="margin-top:15px;"></div>
-													
+														<div class="form-group"><label class="col-sm-2 control-label">Account Number:</label>
+															<div class="col-sm-6"><input type="text" class="form-control" placeholder="Account Number" name="accountnumber" value="#trim( shooterdetails.shooterbankaccountnumber )#" /></div>
+														</div>													
+																											
+														<div class="hr-line-dashed" style="margin-top:25px;"></div>
+													</cfif>
 													<div class="form-group">
 														<div class="col-lg-offset-2 col-lg-6">
 															<button class="btn btn-primary" type="submit" name="saveUserSettings"><i class="fa fa-save"></i> Save Settings</button>

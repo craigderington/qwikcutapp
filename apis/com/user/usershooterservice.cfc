@@ -138,7 +138,7 @@
 			</cfif>
 	</cffunction>
 	
-	<cffunction name="getcompletedgames" acces="public" output="false" hint="I get the list of completed games for the shooter.">
+	<cffunction name="getcompletedgames" access="public" output="false" hint="I get the list of completed games for the shooter.">
 		<cfargument name="userid" type="numeric" required="yes" default="#session.userid#">
 		<cfset gamescomplete = "" />
 			<cfquery name="gamescomplete">
@@ -156,6 +156,18 @@
 			  order by sa.shooterassignmentid desc
 			</cfquery>
 		<cfreturn gamescomplete>
+	</cffunction>
+	
+	<cffunction name="getshooterdetails" access="remote" output="false" hint="I get the shooter details for the user settings.">
+		<cfargument name="id" type="numeric" required="yes">
+		<cfset var shooterdetails = "" />
+		<cfquery name="shooterdetails">
+			select s.shooterid, s.shooterfirstname, s.shooterlastname, s.shooterisactive, s.shooterbankname, 
+			       s.shooterbankroutingnumber, s.shooterbankaccountnumber
+			  from shooters s
+			 where userid = <cfqueryparam value="#arguments.id#" cfsqltype="cf_sql_integer" />
+		</cfquery>
+		<cfreturn shooterdetails>
 	</cffunction>
 	
 	
