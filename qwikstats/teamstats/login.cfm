@@ -49,7 +49,7 @@
 
 
 
-						<form class="m-t" role="form" action="#application.root#dashboard" method="post">
+						<form class="m-t" role="form" action="https://app.qwikcut.com/qwikstats/teamstats/index.cfm?event=dashboard" method="post">
 							<div class="form-group">
 								<div class="input-group">
 									<div class="input-group-addon"><i class="fa fa-user"></i></div>
