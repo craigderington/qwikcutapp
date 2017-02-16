@@ -42,7 +42,7 @@
 
 
 
-						<form class="m-t" role="form" action="#application.root#user.home" method="post">
+						<form class="m-t" role="form" action="https://app.qwikcut.com/index.cfm?event=user.home" method="post">
 							<div class="form-group">
 								<div class="input-group">
 									<div class="input-group-addon"><i class="fa fa-user"></i></div>
