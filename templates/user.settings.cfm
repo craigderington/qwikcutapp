@@ -201,7 +201,16 @@
 													
 													<cfif shooterdetails.recordcount eq 1>
 														<div class="hr-line-dashed" style="margin-top:15px;"></div>											
-														
+														<cfif len( shooterdetails.shooterbankaccountnumber ) gt 6>
+															<cfset accountmask = repeatstring( "*", len( shooterdetails.shooterbankaccountnumber ) - 6 ) />
+														<cfelse>
+															<cfset accountmask = "" />
+														</cfif>
+														<cfif len( shooterdetails.shooterbankroutingnumber ) gt 5>
+															<cfset routingmask = repeatstring( "*", len( shooterdetails.shooterbankroutingnumber ) - 5 ) />
+														<cfelse>
+															<cfset routingmask = "" />
+														</cfif>
 														<!--- // account settings for payroll --->
 														<div class="form-group"><label class="col-sm-2 control-label">Name of Bank:</label>
 															<div class="col-sm-6">
@@ -210,10 +219,10 @@
 															</div>
 														</div>
 														<div class="form-group"><label class="col-sm-2 control-label">Routing Number:</label>
-															<div class="col-sm-6"><input type="text" class="form-control" placeholder="Routing Number" name="routingnumber" value="#trim( shooterdetails.shooterbankroutingnumber )#" /></div>
+															<div class="col-sm-6"><input type="text" class="form-control" placeholder="Routing Number" name="routingnumber" value="#routingmask##trim( right( shooterdetails.shooterbankroutingnumber, 5 ))#" /></div>
 														</div>
 														<div class="form-group"><label class="col-sm-2 control-label">Account Number:</label>
-															<div class="col-sm-6"><input type="text" class="form-control" placeholder="Account Number" name="accountnumber" value="#trim( shooterdetails.shooterbankaccountnumber )#" /></div>
+															<div class="col-sm-6"><input type="text" class="form-control" placeholder="Account Number" name="accountnumber" value="#accountmask##trim( right( shooterdetails.shooterbankaccountnumber, 6 ))#" /></div>
 														</div>													
 																											
 														<div class="hr-line-dashed" style="margin-top:25px;"></div>
@@ -221,7 +230,7 @@
 													<div class="form-group">
 														<div class="col-lg-offset-2 col-lg-6">
 															<button class="btn btn-primary" type="submit" name="saveUserSettings"><i class="fa fa-save"></i> Save Settings</button>
-															<a href="#application.root#user.home" class="btn btn-default"><i class="fa fa-remove"></i> Cancel</a>																		
+															<a href="#application.root#user.home" class="btn btn-default"><i class="fa fa-remove"></i> Cancel #session.userid#</a>																		
 														</div>
 													</div>
 												</form>
