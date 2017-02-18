@@ -84,6 +84,8 @@
 										<cfinclude template="views/shooters/shooter.dates.cfm">
 									<cfelseif trim( url.fuseaction ) eq "shooter.comments">
 										<cfinclude template="views/shooters/shooter.comments.cfm">
+									<cfelseif trim( url.fuseaction ) eq "shooter.account">
+										<cfinclude template="views/shooters/shooter.account.cfm">
 									<cfelseif trim( url.fuseaction ) eq "shooter.invite">
 										<cfinclude template="views/shooters/shooter.invite.cfm">
 									<cfelse>

@@ -32,7 +32,8 @@
 										<li class=""><a href="#application.root##url.event#&fuseaction=shooter.view&id=#url.id#"><i class="fa fa-video-camera"></i> Shooter Details</a></li>
 										<li class=""><a href="#application.root##url.event#&fuseaction=shooter.regions&id=#url.id#"><i class="fa fa-map-marker"></i> Regions</a></li>
 										<li class=""><a href="#application.root##url.event#&fuseaction=shooter.dates&id=#url.id#"><i class="fa fa-calendar"></i> Availability</a></li>
-										<li class="active"><a href="#application.root##url.event#&fuseaction=shooter.games&id=#url.id#"><i class="fa fa-play"></i> Scheduled Games</a></li>										
+										<li class="active"><a href="#application.root##url.event#&fuseaction=shooter.games&id=#url.id#"><i class="fa fa-play"></i> Scheduled Games</a></li>
+										<li class=""><a href="#application.root##url.event#&fuseaction=shooter.account&id=#url.id#"><i class="fa fa-money"></i> Account</a></li>
 										<li class=""><a href="#application.root##url.event#&fuseaction=shooter.comments&id=#url.id#"><i class="fa fa-comments"></i> Rating &amp; Comments</a></li>																							
 									</ul>			
 											

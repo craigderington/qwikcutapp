@@ -14,7 +14,7 @@
 					
 						<!--- // show message if user attempts to circumvent security settings --->
 						<cfif structkeyexists( url, "accessdenied" )>
-							<div class="row">
+							<div class="row" style="margin-top:15px;">
 								<div class="alert alert-danger alert-dismissable">
 									<button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
 									<h3><i class="fa fa-lock fa-2x"></i>  You have attempted to access a restricted resource.  Access Denied.</h3>								

@@ -183,5 +183,17 @@
 		</cfquery>
 		<cfreturn shooterassignments>
 	</cffunction>
+	
+	<cffunction name="getshooteraccountdetails" access="remote" output="false" hint="I get the shooter account details for the shooter admin.">
+		<cfargument name="id" type="numeric" required="yes">
+		<cfset var shooteraccountdetails = "" />
+		<cfquery name="shooteraccountdetails">
+			select s.shooterid, s.shooterfirstname, s.shooterlastname, s.shooterisactive, s.shooterbankname, 
+			       s.shooterbankroutingnumber, s.shooterbankaccountnumber
+			  from shooters s
+			 where s.shooterid = <cfqueryparam value="#arguments.id#" cfsqltype="cf_sql_integer" />
+		</cfquery>
+		<cfreturn shooteraccountdetails>
+	</cffunction>
 
 </cfcomponent>

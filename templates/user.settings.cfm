@@ -230,7 +230,7 @@
 													<div class="form-group">
 														<div class="col-lg-offset-2 col-lg-6">
 															<button class="btn btn-primary" type="submit" name="saveUserSettings"><i class="fa fa-save"></i> Save Settings</button>
-															<a href="#application.root#user.home" class="btn btn-default"><i class="fa fa-remove"></i> Cancel #session.userid#</a>																		
+															<a href="#application.root#user.home" class="btn btn-default"><i class="fa fa-remove"></i> Cancel</a>																		
 														</div>
 													</div>
 												</form>

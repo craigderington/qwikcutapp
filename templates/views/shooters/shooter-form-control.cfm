@@ -5,6 +5,7 @@
 				<cfif isdefined( "form.fieldnames" ) and structkeyexists( form, "shooterid" )>
 										
 					<cfset form.validate_require = "shooterid|Opps, internal form error.;shooterfirstname|Please enter the shooters first name.;shooterlastname|Please enter the shooters last name.;shooteremail|Please enter the shooters email address.;shooterstateid|Please select the shooters state." />
+					
 					<!---<cfset form.validate_email = "shooteremail|'Email address' must be a valid email address.  Please use the format: alias@domain.xxx;" />			
 					--->	
 						<cfscript>
@@ -28,7 +29,12 @@
 							<cfset sh.shooterzip = form.shooterzip />
 							<cfset sh.shootercellphone = trim( form.shootercellphone ) />
 							<cfset sh.shooterregcode = #createuuid()# />
-							<cfset sh.shootercellphone = rereplacenocase( sh.shootercellphone, "[^0-9]", "", "all" ) />							
+							<cfset sh.shootercellphone = rereplacenocase( sh.shootercellphone, "[^0-9]", "", "all" ) />
+							<cfif structkeyexists( form, "shooteractive" )>
+								<cfset sh.shooteractive = 1 />
+							<cfelse>
+								<cfset sh.shooteractive = 0 />
+							</cfif>
 							
 							<cfif sh.shooterid eq 0>							
 													
@@ -131,9 +137,19 @@
 										   shooterstateid = <cfqueryparam value="#sh.shooterstateid#" cfsqltype="cf_sql_integer" />,
 										   shooterzip = <cfqueryparam value="#sh.shooterzip#" cfsqltype="cf_sql_numeric" />,
 										   shooteremail = <cfqueryparam value="#sh.shooteremail#" cfsqltype="cf_sql_varchar" maxlength="50" />,
-										   shootercellphone = <cfqueryparam value="#sh.shootercellphone#" cfsqltype="cf_sql_varchar" maxlength="50" />
+										   shootercellphone = <cfqueryparam value="#sh.shootercellphone#" cfsqltype="cf_sql_varchar" maxlength="50" />,
+										   shooterisactive = <cfqueryparam value="#sh.shooteractive#" cfsqltype="cf_sql_bit" />
 								     where shooterid = <cfqueryparam value="#sh.shooterid#" cfsqltype="cf_sql_integer" /> 
 								</cfquery>
+								
+								<!--- mark the user inactive to prevent future logins --->
+								<cfif sh.shooteractive eq 0>
+									<cfquery name="markuserinactive">
+										update users
+										   set useractive = <cfqueryparam value="0" cfsqltype="cf_sql_bit" />
+										 where userid = <cfqueryparam value="#shooter.userid#" cfsqltype="cf_sql_integer" /> 
+									</cfquery>
+								</cfif>
 								
 								<!--- // record the activity --->
 								<cfquery name="activitylog">
@@ -247,6 +263,19 @@
 							</div>
 						</div>											
 						<div class="hr-line-dashed"></div>
+						<cfif structkeyexists( url, "id" )>
+							<cfif url.id neq 0>
+								<div class="form-group">
+									<label class="col-lg-2 control-label">Status</label>
+									<div class="col-lg-10">						
+										<div class="checkbox">
+										  <label><input name="shooteractive" type="checkbox" value="1"<cfif shooter.shooterisactive eq 1>checked</cfif>>Active Status</label>
+										</div>
+									</div>
+								</div>
+								<div class="hr-line-dashed"></div>
+							</cfif>							
+						</cfif>
 						<div class="form-group">
 							<div class="col-sm-6 col-sm-offset-2">
 								<button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> Save Shooter</button>
