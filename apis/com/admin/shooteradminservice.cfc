@@ -163,6 +163,8 @@
 					   and sh.shooterisactive = <cfqueryparam value="1" cfsqltype="cf_sql_bit" />					
 					   and u.useractive = <cfqueryparam value="1" cfsqltype="cf_sql_bit" />
 					   and r.regionid = <cfqueryparam value="#arguments.regionid#" cfsqltype="cf_sql_integer" />
+					   and u.regcomplete = <cfqueryparam value="1" cfsqltype="cf_sql_bit" />
+					   and u.regcompletedate is not null
 				  order by sh.shooterlastname asc				
 			</cfquery>
 		<cfreturn shooterregionlist>
