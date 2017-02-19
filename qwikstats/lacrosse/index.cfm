@@ -55,15 +55,62 @@
 								<div class="row">
 									<h3>Top Goals</h3>										
 										<ul style="list-style:none;">
-											<cfloop query="goalleaderboard">
-												<li>#playernumber#  #playername#  #playerposition#   #teamname# - #total_goals#</li>
+											<cfloop query="goalleaderboard" maxrows="5">
+											
+												<cfswitch expression="#playerposition#">
+													<cfcase value="M">
+														<cfset position = "Midfielder" />
+													</cfcase>
+													<cfcase value="A">
+														<cfset position = "Attacker" />
+													</cfcase>
+													<cfcase value="D">
+														<cfset position = "Defender" />
+													</cfcase>
+													<cfcase value="G">
+														<cfset position = "Goalie" />
+													</cfcase>
+													<cfcase value="LSM">
+														<cfset position = "Long-Stick Midfielder" />
+													</cfcase>																	
+													<cfdefaultcase>
+														<cfset position = #playerposition# />
+													</cfdefaultcase>
+												</cfswitch>
+											
+											
+												<li>#playernumber#  #playername#  - #position# - #teamname# - #total_goals#</li>
 											</cfloop>
 										</ul>
 									
 									<h3>Top Assists</h3>										
 										<ul style="list-style:none;">
 											<cfloop query="assistsleaderboard" maxrows="5">
-												<li>#playernumber#  #playername#  #playerposition#   #teamname# - #total_assists#</li>
+											
+												<cfswitch expression="#playerposition#">
+													<cfcase value="M">
+														<cfset position = "Midfielder" />
+													</cfcase>
+													<cfcase value="A">
+														<cfset position = "Attacker" />
+													</cfcase>
+													<cfcase value="D">
+														<cfset position = "Defender" />
+													</cfcase>
+													<cfcase value="G">
+														<cfset position = "Goalie" />
+													</cfcase>
+													<cfcase value="LSM">
+														<cfset position = "Long-Stick Midfielder" />
+													</cfcase>																	
+													<cfdefaultcase>
+														<cfset position = #playerposition# />
+													</cfdefaultcase>
+												</cfswitch>
+											
+											
+											
+												<li>#playernumber#  #playername# - #position# - #teamname# - #total_assists#</li>
 											</cfloop>
 										</ul>										
 									
@@ -71,28 +118,116 @@
 									<h3>Top Shots</h3>										
 										<ul style="list-style:none;">
 											<cfloop query="shotsleaderboard" maxrows="5">
-												<li>#playernumber#     #playername#   #playerposition# - #teamname# - #total_shots#</li>
+												
+												<cfswitch expression="#playerposition#">
+													<cfcase value="M">
+														<cfset position = "Midfielder" />
+													</cfcase>
+													<cfcase value="A">
+														<cfset position = "Attacker" />
+													</cfcase>
+													<cfcase value="D">
+														<cfset position = "Defender" />
+													</cfcase>
+													<cfcase value="G">
+														<cfset position = "Goalie" />
+													</cfcase>
+													<cfcase value="LSM">
+														<cfset position = "Long-Stick Midfielder" />
+													</cfcase>																	
+													<cfdefaultcase>
+														<cfset position = #playerposition# />
+													</cfdefaultcase>
+												</cfswitch>
+											
+												<li>#playernumber#     #playername# - #position# - #teamname# - #total_shots#</li>
 											</cfloop>
 										</ul>
 										
 									<h3>Top Saves</h3>										
 										<ul style="list-style:none;">
 											<cfloop query="savesleaderboard" maxrows="5">
-												<li>#playernumber#     #playername#   #playerposition# - #teamname# - #total_saves#</li>
+											
+												<cfswitch expression="#playerposition#">
+													<cfcase value="M">
+														<cfset position = "Midfielder" />
+													</cfcase>
+													<cfcase value="A">
+														<cfset position = "Attacker" />
+													</cfcase>
+													<cfcase value="D">
+														<cfset position = "Defender" />
+													</cfcase>
+													<cfcase value="G">
+														<cfset position = "Goalie" />
+													</cfcase>
+													<cfcase value="LSM">
+														<cfset position = "Long-Stick Midfielder" />
+													</cfcase>																	
+													<cfdefaultcase>
+														<cfset position = #playerposition# />
+													</cfdefaultcase>
+												</cfswitch>
+											
+												<li>#playernumber#     #playername# - #position# - #teamname# - #total_saves#</li>
 											</cfloop>
 										</ul>
 										
 									<h3>Top Grounders</h3>										
 										<ul style="list-style:none;">
 											<cfloop query="groundersleaderboard" maxrows="5">
-												<li>#playernumber#    #playername#    #playerposition# - #teamname# - #total_grounders#</li>
+											
+												<cfswitch expression="#playerposition#">
+													<cfcase value="M">
+														<cfset position = "Midfielder" />
+													</cfcase>
+													<cfcase value="A">
+														<cfset position = "Attacker" />
+													</cfcase>
+													<cfcase value="D">
+														<cfset position = "Defender" />
+													</cfcase>
+													<cfcase value="G">
+														<cfset position = "Goalie" />
+													</cfcase>
+													<cfcase value="LSM">
+														<cfset position = "Long-Stick Midfielder" />
+													</cfcase>																	
+													<cfdefaultcase>
+														<cfset position = #playerposition# />
+													</cfdefaultcase>
+												</cfswitch>
+											
+												<li>#playernumber#    #playername# - #position# - #teamname# - #total_grounders#</li>
 											</cfloop>
 										</ul>
 										
 									<h3>Top Turnovers</h3>										
 										<ul style="list-style:none;">
 											<cfloop query="turnoversleaderboard" maxrows="5">
-												<li>#playernumber#       #playername#     #playerposition# - #teamname# - #total_turnovers#</li>
+												
+												<cfswitch expression="#playerposition#">
+													<cfcase value="M">
+														<cfset position = "Midfielder" />
+													</cfcase>
+													<cfcase value="A">
+														<cfset position = "Attacker" />
+													</cfcase>
+													<cfcase value="D">
+														<cfset position = "Defender" />
+													</cfcase>
+													<cfcase value="G">
+														<cfset position = "Goalie" />
+													</cfcase>
+													<cfcase value="LSM">
+														<cfset position = "Long-Stick Midfielder" />
+													</cfcase>																	
+													<cfdefaultcase>
+														<cfset position = #playerposition# />
+													</cfdefaultcase>
+												</cfswitch>
+											
+												<li>#playernumber#   #playername# - #position# - #teamname# - #total_turnovers#</li>
 											</cfloop>
 										</ul>								
 									
@@ -123,7 +258,30 @@
 											</div>
 											<div class="panel-body">
 												<cfloop query="goalleaderboard" maxrows="5">
-													<p><span class="label label-primary">## #playernumber#</span> <strong>#playername#</strong> #playerposition# - #teamname#<span class="badge badge-primary pull-right">#total_goals#</span></p>
+												
+													<cfswitch expression="#playerposition#">
+														<cfcase value="M">
+															<cfset position = "Midfielder" />
+														</cfcase>
+														<cfcase value="A">
+															<cfset position = "Attacker" />
+														</cfcase>
+														<cfcase value="D">
+															<cfset position = "Defender" />
+														</cfcase>
+														<cfcase value="G">
+															<cfset position = "Goalie" />
+														</cfcase>
+														<cfcase value="LSM">
+															<cfset position = "Long-Stick Midfielder" />
+														</cfcase>																	
+														<cfdefaultcase>
+															<cfset position = #playerposition# />
+														</cfdefaultcase>
+													</cfswitch>											
+												
+												
+													<p><span class="label label-primary">## #playernumber#</span> <strong>#playername#</strong> #position# - #teamname#<span class="badge badge-primary pull-right">#total_goals#</span></p>
 												</cfloop>
 											</div>
 											<div class="panel-footer">
@@ -138,7 +296,29 @@
 											</div>
 											<div class="panel-body">
 												<cfloop query="assistsleaderboard" maxrows="5">
-													<p><span class="label label-success">## #playernumber#</span> <strong>#playername#</strong> #playerposition# - #teamname#<span class="badge badge-success pull-right">#total_assists#</span></p>
+												
+													<cfswitch expression="#playerposition#">
+														<cfcase value="M">
+															<cfset position = "Midfielder" />
+														</cfcase>
+														<cfcase value="A">
+															<cfset position = "Attacker" />
+														</cfcase>
+														<cfcase value="D">
+															<cfset position = "Defender" />
+														</cfcase>
+														<cfcase value="G">
+															<cfset position = "Goalie" />
+														</cfcase>
+														<cfcase value="LSM">
+															<cfset position = "Long-Stick Midfielder" />
+														</cfcase>																	
+														<cfdefaultcase>
+															<cfset position = #playerposition# />
+														</cfdefaultcase>
+													</cfswitch>
+												
+													<p><span class="label label-success">## #playernumber#</span> <strong>#playername#</strong> #position# - #teamname#<span class="badge badge-success pull-right">#total_assists#</span></p>
 												</cfloop>
 											</div>
 											<div class="panel-footer">
@@ -153,7 +333,29 @@
 											</div>
 											<div class="panel-body">
 												<cfloop query="shotsleaderboard" maxrows="5">
-													<p><span class="label label-info">## #playernumber#</span> <strong>#playername#</strong> #playerposition# - #teamname#<span class="badge badge-info pull-right">#total_shots#</span></p>
+												
+													<cfswitch expression="#playerposition#">
+														<cfcase value="M">
+															<cfset position = "Midfielder" />
+														</cfcase>
+														<cfcase value="A">
+															<cfset position = "Attacker" />
+														</cfcase>
+														<cfcase value="D">
+															<cfset position = "Defender" />
+														</cfcase>
+														<cfcase value="G">
+															<cfset position = "Goalie" />
+														</cfcase>
+														<cfcase value="LSM">
+															<cfset position = "Long-Stick Midfielder" />
+														</cfcase>																	
+														<cfdefaultcase>
+															<cfset position = #playerposition# />
+														</cfdefaultcase>
+													</cfswitch>
+												
+													<p><span class="label label-info">## #playernumber#</span> <strong>#playername#</strong> #position# - #teamname#<span class="badge badge-info pull-right">#total_shots#</span></p>
 												</cfloop>
 											</div>
 											<div class="panel-footer">
@@ -171,7 +373,29 @@
 											</div>
 											<div class="panel-body">
 												<cfloop query="savesleaderboard" maxrows="5">
-													<p><span class="label label-warning">## #playernumber#</span> <strong>#playername#</strong> #playerposition# - #teamname#<span class="badge badge-warning pull-right">#total_saves#</span></p>
+													
+													<cfswitch expression="#playerposition#">
+														<cfcase value="M">
+															<cfset position = "Midfielder" />
+														</cfcase>
+														<cfcase value="A">
+															<cfset position = "Attacker" />
+														</cfcase>
+														<cfcase value="D">
+															<cfset position = "Defender" />
+														</cfcase>
+														<cfcase value="G">
+															<cfset position = "Goalie" />
+														</cfcase>
+														<cfcase value="LSM">
+															<cfset position = "Long-Stick Midfielder" />
+														</cfcase>																	
+														<cfdefaultcase>
+															<cfset position = #playerposition# />
+														</cfdefaultcase>
+													</cfswitch>
+												
+													<p><span class="label label-warning">## #playernumber#</span> <strong>#playername#</strong> #position# - #teamname#<span class="badge badge-warning pull-right">#total_saves#</span></p>
 												</cfloop>
 											</div>
 											<div class="panel-footer">
@@ -186,7 +410,29 @@
 											</div>
 											<div class="panel-body">
 												<cfloop query="groundersleaderboard" maxrows="5">
-													<p><span class="label lebale-default">## #playernumber#</span> <strong>#playername#</strong> #playerposition# - #teamname#<span class="badge badge-default pull-right">#total_grounders#</span></p>
+													
+													<cfswitch expression="#playerposition#">
+														<cfcase value="M">
+															<cfset position = "Midfielder" />
+														</cfcase>
+														<cfcase value="A">
+															<cfset position = "Attacker" />
+														</cfcase>
+														<cfcase value="D">
+															<cfset position = "Defender" />
+														</cfcase>
+														<cfcase value="G">
+															<cfset position = "Goalie" />
+														</cfcase>
+														<cfcase value="LSM">
+															<cfset position = "Long-Stick Midfielder" />
+														</cfcase>																	
+														<cfdefaultcase>
+															<cfset position = #playerposition# />
+														</cfdefaultcase>
+													</cfswitch>
+												
+													<p><span class="label lebale-default">## #playernumber#</span> <strong>#playername#</strong> #position# - #teamname#<span class="badge badge-default pull-right">#total_grounders#</span></p>
 												</cfloop>
 											</div>
 											<div class="panel-footer">
@@ -201,7 +447,29 @@
 											</div>
 											<div class="panel-body">
 												<cfloop query="turnoversleaderboard" maxrows="5">
-													<p><span class="label label-danger">## #playernumber#</span> <strong>#playername#</strong> #playerposition# - #teamname#<span class="badge badge-danger pull-right">#total_turnovers#</span></p>
+												
+													<cfswitch expression="#playerposition#">
+														<cfcase value="M">
+															<cfset position = "Midfielder" />
+														</cfcase>
+														<cfcase value="A">
+															<cfset position = "Attacker" />
+														</cfcase>
+														<cfcase value="D">
+															<cfset position = "Defender" />
+														</cfcase>
+														<cfcase value="G">
+															<cfset position = "Goalie" />
+														</cfcase>
+														<cfcase value="LSM">
+															<cfset position = "Long-Stick Midfielder" />
+														</cfcase>																	
+														<cfdefaultcase>
+															<cfset position = #playerposition# />
+														</cfdefaultcase>
+													</cfswitch>
+												
+													<p><span class="label label-danger">## #playernumber#</span> <strong>#playername#</strong> #position# - #teamname#<span class="badge badge-danger pull-right">#total_turnovers#</span></p>
 												</cfloop>
 											</div>
 											<div class="panel-footer">
