@@ -15,7 +15,7 @@
 				
 					<cfoutput>
 						
-								<div class="middle-box text-center animated fadeInRightBig">
+								<div class="text-center animated fadeInRightBig" style="margin-top:15px;">
 									<div class="col-lg-12 white-bg">                        
 										<h3><i class="fa fa-video-camera"></i> Welcome #session.username#</h3>
 										<button 
@@ -30,7 +30,7 @@
 											class="btn btn-primary btn-lg btn-block"
 											onclick="window.location.href='#application.root#shooter.games';">
 											<i class="fa fa-soccer-ball-o"></i> 
-											View Completed Games
+											View Games
 										</button> 
 										<button 
 											type="button" 

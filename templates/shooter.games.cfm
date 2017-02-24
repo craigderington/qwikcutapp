@@ -113,10 +113,10 @@
 					<div class="container">						
 							
 						<div class="row" style="margin-top:15px;">
-							<div class="middle-box text-center animated fadeInRightBig">
+							<div class="text-center animated fadeInRightBig">
 								<div class="col-lg-12 white-bg" style="padding:50px;">								
 									<h3><i class="fa fa-play-circle"></i> #session.username# </h3>
-									<h5>Games & Assignment History</h5>
+									<h5>Games & Shooter Assignment History</h5>
 										
 									<a href="#application.root#user.home" class="btn btn-sm btn-success btn-outline btn-block"><i class="fa fa-home"></i> Home</a>
 									<a href="#application.root#user.profile" class="btn btn-sm btn-primary btn-outline btn-block"><i class="fa fa-user"></i> My Profile</a>

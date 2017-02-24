@@ -28,7 +28,7 @@
 						<cfoutput>
 							<div class="row" style="margin-top:15px;">
 							
-								<div class="middle-box text-center animated fadeInRightBig">
+								<div class="text-center animated fadeInRightBig">
 									<div class="col-lg-12 white-bg" style="padding:50px;">							
 								
 										<cfif structkeyexists( url, "ac" )>

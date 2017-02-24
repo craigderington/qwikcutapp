@@ -32,6 +32,7 @@
 							<div class="alert alert-info">
 								<p class="small"><i class="fa fa-clock-o"></i> You have no recent assignments.</p>
 							</div>
+							<a href="#application.root#user.home" class="btn btn-md btn-outline btn-info"><i class="fa fa-home"></i> Home</a>
 						</cfif>
 											
 					</cfoutput>
