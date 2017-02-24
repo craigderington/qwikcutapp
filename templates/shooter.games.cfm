@@ -153,8 +153,8 @@
 												<cfset link_text = "Check in 15 min. before game time." />											
 											</cfif>
 										<cfelse>
-											<cfset linkto = "#application.root##url.event#" />
-											<cfset confirm = "javascript:void(0);" />
+											<cfset linkto = "#application.root##url.event#&do=game&gameid=#vsid#" />
+											<cfset confirm = "return confirm('This will open the game assignment to view details.  Continue?');" />
 											<cfset fa_ = "fa fa-circle text-danger" />
 											<cfset link_text = "Check in on game date" />
 										</cfif>
