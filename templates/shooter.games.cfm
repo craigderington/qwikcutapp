@@ -100,93 +100,134 @@
 				<!--- // some date/time vars for the page --->
 				<cfset currentdatetime = now() />
 				<cfset currentdatetime = ParseDateTime( currentdatetime ) />
-								
+				<cfparam name="linkto" default="">				
+				<cfparam name="confirm" default="" />
+				<cfparam name="fa_" default="" />
+				<cfparam name="link_text" default="" />
+				
+				<cfoutput>
 				
 				
 				<!--- // main wrapper --->
 				<div class="wrapper wrapper-content animated fadeIn">
-					<div class="container">
-						<cfoutput>
-							<div class="row" style="margin-top:15px;">						
-								<div class="ibox">
-									<div class="ibox-title">
-										<h5><i class="fa fa-play-circle"></i> #session.username# | Games & Assignment History</h5>
-										<span class="pull-right">
-											<a href="#application.root#user.home" class="btn btn-xs btn-success"><i class="fa fa-home"></i> Home</a>
-											<a href="#application.root#user.profile" class="btn btn-xs btn-primary" style="margin-left:5px;"><i class="fa fa-user"></i> My Profile</a>
-										</span>
-									</div>							
-									<div class="ibox-content">			
-										<span class="help-block text-navy" style="margin-bottom:15px;"><i class="fa fa-clock-o"></i> Game check-in 15 minutes prior to game start. <span class="help-block small pull-right"><i class="fa fa-calendar-o"></i> <strong>Current Server Time:</strong> #dateformat( currentdatetime, "mm-dd-yyyy" )# : #timeformat( currentdatetime, "hh:mm:ss tt" )#</span></span>
+					<div class="container">						
+							
+						<div class="row" style="margin-top:15px;">
+							<div class="middle-box text-center animated fadeInRightBig">
+								<div class="col-lg-12 white-bg" style="padding:50px;">								
+									<h3><i class="fa fa-play-circle"></i> #session.username# </h3>
+									<h5>Games & Assignment History</h5>
 										
-										<cfif shootergames.recordcount gt 0>
-											<div class="table-responsive">
-												<table class="table table-striped table-hover">
-													<thead>
-														<tr class="small">													
-															<th>Game Date</th>
-															<th>Game</th>
-															<th>Field</th>
-															<th>Status</th>
-															<th>Game Check In</th>
-														</tr>
-													</thead>
-													<tbody>
-														<cfloop query="shootergames">															
-															<!--- // test anomalies in CF date time structure --->
-															<!--- // use parsedatetime tag 
-															<cfset thisdate = datediff( "d", gamedate, currentdatetime ) />
-															<cfset thistime = datediff( "n", gamedate, currentdatetime ) />
-															--->
-															
-															<tr class="small">														
-																<td>#dateformat( gamedate, "mm-dd-yyyy" )# : #timeformat( gametime, "hh:mm tt" )#</td>
-																<td>#hometeam# vs #awayteam# <!--- | #thisdate# : #thistime#---></td>
-																<td>#fieldname# Field <a style="margin-left:5px;" href=""><i class="fa fa-map-marker"></i></a></td>
-																<td><cfif trim( shooterassignstatus ) eq "assigned"><span class="label label-danger"><cfelseif trim( shooterassignstatus ) eq "accepted"><span class="label label-primary"><cfelseif trim( shooterassignstatus ) eq "game complete"><span class="label label-success"><cfelse><span class="label"></cfif>#ucase( shooterassignstatus )#</span></td>
-																<td>																
-																	<cfif trim( shooterassignstatus ) eq "accepted" and shooteracceptedassignment eq 1>
-																		<cfif ( datediff( "d", gamedate, currentdatetime ) eq 0 )>
-																			<cfif datediff( "n", gametime, currentdatetime ) gte -15>
-																				<a href="#application.root##url.event#&fuseaction=game-check-in&vsid=#vsid#&fieldid=#fieldid#&myid=#session.userid#" onclick="javascript:return confirm('You are checking into this game.  Continue?');" class="btn btn-sm btn-success"><i class="fa fa-check-circle"></i> Check In</a>																			
-																			<cfelse>
-																				<i class="fa fa-circle text-danger" title="Check in 15 minutes before game time."></i>
-																			</cfif>
-																		<cfelse>
-																			<i class="fa fa-circle text-navy" title="Check in on game date."></i>
-																		</cfif>
-																	<cfelseif trim( shooterassignstatus ) eq "checked in" and shooteracceptedassignment eq 1>
-																		<a href="#application.root##url.event#&fuseaction=resume-game&saID=#shooterassignmentid#" onclick="javascript:return confirm('You are already checked in to this game.  Resume Game?');" class="btn btn-sm btn-primary">Resume <i class="fa fa-play-circle"></i></a>
-																	<cfelseif trim( shooterassignstatus ) eq "completed" and shooteracceptedassignment eq 1>
-																		<a href="#application.root##url.event#&do=game&gameid=#vsid#"><i class="fa fa-circle-o" title="Game Completed.  Click to access game history..."></i></a>
-																	<cfelse>
-																		<i class="fa fa-circle" title="You have not accepted the assignment."></i>
-																	</cfif>
-																	
-																</td>
-															</tr>
-														</cfloop>
-													</tbody>													
-												</table>
-												<small class="help-block" style="margin-bottom:25px;">* You must accept assignments to confirm your filming schedule.</small>
-											</div>
+									<a href="#application.root#user.home" class="btn btn-sm btn-success btn-outline btn-block"><i class="fa fa-home"></i> Home</a>
+									<a href="#application.root#user.profile" class="btn btn-sm btn-primary btn-outline btn-block"><i class="fa fa-user"></i> My Profile</a>
+									<p>&nbsp;</p>										
+									<p class="label label-default text-navy" style="margin-top:15px;margin-bottom:15px;">
+										<i class="fa fa-clock-o"></i> Game check-in 15 minutes prior to game start. 
+									</p>
+									<p>&nbsp;</p>							
+									<p><i class="fa fa-calendar-o"></i> <strong>Current Server Time:</strong></p>
+									<p>#dateformat( currentdatetime, "mm-dd-yyyy" )# : #timeformat( currentdatetime, "hh:mm:ss tt" )#</p>
+									
+								
+										
+							<cfif shootergames.recordcount gt 0>
+											
+								<cfloop query="shootergames">															
+									<!--- // test anomalies in CF date time structure --->
+									<!--- // use parsedatetime tag 
+									<cfset thisdate = datediff( "d", gamedate, currentdatetime ) />
+									<cfset thistime = datediff( "n", gamedate, currentdatetime ) />
+									--->
+									
+									<cfif trim( shooterassignstatus ) eq "accepted" and shooteracceptedassignment eq 1>
+										<cfif ( datediff( "d", gamedate, currentdatetime ) eq 0 )>
+											<cfif datediff( "n", gametime, currentdatetime ) gte -15>
+												<cfset linkto = "#application.root##url.event#&fuseaction=game-check-in&vsid=#vsid#&fieldid=#fieldid#&myid=#session.userid#" />																			
+												<cfset confirm = "javascript:return confirm('You are checking into this game.  Continue?');" />												
+												<cfset fa_ = "fa fa-check-circle-o" />
+												<cfset link_text = "<span class='label label-danger' style='font-size:18px;'>CHECK IN NOW</span>" />										
+											<cfelse>
+												<cfset linkto = "#application.root##url.event#" />
+												<cfset confirm = "javascript:void(0);" />
+												<cfset fa_ = "fa fa-circle text-danger" />
+												<cfset link_text = "Check in 15 min. before game time." />											
+											</cfif>
 										<cfelse>
-											<div class="alert alert-warning">
-												<p class="small"><i class="fa fa-clock-o"></i> Sorry, there are no accepted game assignments.</p>
-											</div>
-										</cfif>										
-									</div>
-								</div>						
-							</div>
-
+											<cfset linkto = "#application.root##url.event#" />
+											<cfset confirm = "javascript:void(0);" />
+											<cfset fa_ = "fa fa-circle text-danger" />
+											<cfset link_text = "Check in on game date" />
+										</cfif>
+									
+									<cfelseif trim( shooterassignstatus ) eq "checked in" and shooteracceptedassignment eq 1>										
+										
+										<cfset linkto = "#application.root##url.event#&fuseaction=resume-game&saID=#shooterassignmentid#" />
+										<cfset confirm = "javascript:return confirm('You are already checked in to this game.  Resume Game?');" />
+										<cfset fa_ = "fa fa-play-circle text-danger" />
+										<cfset link_text = "Resume Game" />				
+										
+										
+									<cfelseif trim( shooterassignstatus ) eq "completed" and shooteracceptedassignment eq 1>										
+										
+										<cfset linkto = "#application.root##url.event#&do=game&gameid=#vsid#" />
+										<cfset confirm = "" />
+										<cfset fa_ = "fa fa-circle-o text-success" />
+										<cfset link_text = "GAME COMPLETED" />									
+										
+									<cfelse>
+										
+										<cfset linkto = "#application.root#shooter-assignments" />
+										<cfset confirm = "" />
+										<cfset fa_ = "fa fa-circle text-danger" />
+										<cfset link_text = "ACCEPT ASSIGNMENT." />								
+										
+										
+									</cfif>
+									
+									
+									
+									
+															
+									<a href="#linkto#" 
+									   class="btn btn-<cfif trim( shooterassignstatus ) eq "assigned">danger btn-outline<cfelseif trim( shooterassignstatus ) eq "accepted">success<cfelseif trim( shooterassignstatus ) eq "completed">primary<cfelse>default btn-outline</cfif> btn-lg btn-block"																				
+									   onclick="#confirm#">
+										
+										<p><i class="#fa_#"></i></p>
+										<p>#dateformat( gamedate, "mm-dd-yyyy" )# : #timeformat( gametime, "hh:mm tt" )#</p>
+																
+										<p>#hometeam#</p> 
+										<p>vs.</p>
+										<p>#awayteam#</p> 
+										<!--- | #thisdate# : #thistime#--->
+										<p>@</p>							
+										<p>#fieldname# Field</p>
+										<p><span class="label label-<cfif trim( shooterassignstatus ) eq "assigned">danger<cfelseif trim( shooterassignstatus ) eq "accepted">warning<cfelseif trim( shooterassignstatus ) eq "completed">info<cfelse>default</cfif>">#ucase( shooterassignstatus )#</span></p>
+										<p><small>#link_text#</small></p>
+									
+									
+									</a>
+									
+									
+								</cfloop>
+															
+									<small class="help-block" style="margin-bottom:25px;">* You must accept assignments to confirm your filming schedule.</small>
+											
+							<cfelse>
+								<div class="alert alert-warning">
+									<p class="small"><i class="fa fa-clock-o"></i> Sorry, there are no accepted game assignments.</p>
+								</div>
+							</cfif>										
+									
+								
+							
+							
 							<cfif structkeyexists( strShooterGameManager, "checkedinstatus" )>
 								<cfif strShooterGameManager.checkedinstatus eq true>
 									<span class="label label-danger">{{ CHECKED IN }}</span>
 								<cfelse>
 									<span class="label label-warning">{{ NOT CHECKED IN }}</span>
-								</cfif>
-								
-								
+								</cfif>									
+									
 								<!--- // debug 
 								<cfif structkeyexists( session, "vsid" )>
 									#session.vsid#

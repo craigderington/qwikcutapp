@@ -77,6 +77,9 @@
 				<cfcase value="shooter.games">					
 					<cfinclude template="../../templates/shooter.games.cfm">					
 				</cfcase>
+				<cfcase value="shooter.assignments">					
+					<cfinclude template="../../templates/shooter.assignments.cfm">					
+				</cfcase>
 				<cfcase value="team.games">					
 					<cfinclude template="../../templates/team.games.cfm">					
 				</cfcase>

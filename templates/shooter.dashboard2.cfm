@@ -14,16 +14,14 @@
 				
 				
 					<cfoutput>
-						<div class="row" style="margin-top:15px;">						
-							<h5><i class="fa fa-video-camera"></i> Welcome #session.username#</h5>
-							<div class="wrapper wrapper-content">
+						
 								<div class="middle-box text-center animated fadeInRightBig">
 									<div class="col-lg-12 white-bg">                        
-										<p>&nbsp;</p>
+										<h3><i class="fa fa-video-camera"></i> Welcome #session.username#</h3>
 										<button 
 											type="button" 
 											class="btn btn-success btn-lg btn-block"
-											onclick="window.location.href='#application.root#shooter.games';">
+											onclick="window.location.href='#application.root#shooter.assignments';">
 											<i class="fa fa-arrow-circle-right"></i> 
 											View Game Assignments
 										</button>
@@ -51,15 +49,14 @@
 										<button 
 											type="button" 
 											class="btn btn-default btn-outline btn-lg btn-block"
-											onclick="window.location.href='#application.root#logout';">
+											onclick="window.location.href='#application.root#user.logout';">
 											<i class="fa fa-sign-out"></i> 
 											Logout
 										</button>
 										<p>&nbsp;</p>
 									</div>
 								</div>
-							</div>							
-						</div>				
+										
 					</cfoutput>
 				
 				

@@ -6,7 +6,7 @@
 			
 			
 			<!--- // main wrapper --->
-			<div class="wrapper wrapper-content animated fadeIn">
+			<div class="wrapper wrapper-content white-bg animated fadeIn">
 				<div class="container">
 					
 					<cfoutput>
@@ -36,7 +36,7 @@
 								<cfinclude template="data.dashboard.cfm">							
 							<!--- // shooter dashboard - game day app --->
 							<cfelseif isuserinrole( "shooter" )>								
-								<cfinclude template="shooter.dashboard.cfm">					
+								<cfinclude template="shooter.dashboard2.cfm">					
 							<!--- // role undefined --->
 							<cfelse>				
 								<div class="alert alert-info">
@@ -45,8 +45,9 @@
 								</div>					
 							</cfif>			
 					
-							<!--- // show user's recent activity - all users --->
-							<cfinclude template="views/users/user-activity.cfm">						
+							<!--- // show user's recent activity - all users 
+							<cfinclude template="views/users/user-activity.cfm">
+							--->						
 						
 					</cfoutput>		
 				</div><!-- /.container -->

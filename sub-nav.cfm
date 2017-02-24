@@ -45,34 +45,36 @@
 															</ul>
 													</li>												
 													--->
-												<ul class="nav navbar-right">
+												<cfif not isuserinrole( "shooter" )>
+													<ul class="nav navbar-right">
+														
+														<!---
+														<li class="dropdown">
+															<a aria-expanded="false" role="button" href="##" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gear"></i> Administration <span class="caret"></span></a>
+																<ul role="menu" class="dropdown-menu">
+																	<li><a href="#application.root#admin.states">States</a></li>
+																	<li><a href="#application.root#admin.conferences">Conferences</a></li>
+																	<li><a href="#application.root#admin.teams">Teams</a></li>
+																	<li><a href="#application.root#admin.fields">Fields</a></li>
+																	<li><a href="#application.root#admin.shooters">Shooters</a></li>
+																	<li><a href="#application.root#admin.users">Users</a></li>
+																</ul>
+														</li>
+														--->
+														
 													
-													<!---
-													<li class="dropdown">
-														<a aria-expanded="false" role="button" href="##" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gear"></i> Administration <span class="caret"></span></a>
-															<ul role="menu" class="dropdown-menu">
-																<li><a href="#application.root#admin.states">States</a></li>
-																<li><a href="#application.root#admin.conferences">Conferences</a></li>
-																<li><a href="#application.root#admin.teams">Teams</a></li>
-																<li><a href="#application.root#admin.fields">Fields</a></li>
-																<li><a href="#application.root#admin.shooters">Shooters</a></li>
-																<li><a href="#application.root#admin.users">Users</a></li>
-															</ul>
-													</li>
-													--->
-													
-												
-													<li class="dropdown">
-														<a aria-expanded="false" role="button" href="##" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gears"></i> #GetAuthUser()# <span class="caret"></span></a>
-															<ul role="menu" class="dropdown-menu">
-																<cfif isuserinrole( "admin" )><li><a href="#application.root#admin.home"><i class="fa fa-cog"></i> Administration</a></li></cfif>
-																<li><a href="#application.root#user.profile"><i class="fa fa-user"></i> My Profile</a></li>
-																<li><a href="#application.root#user.settings"><i class="fa fa-gears"></i> Settings</a></li>
-																<li><a href="#application.root#user.reminders"><i class="fa fa-calendar-o"></i> Reminders</a></li>
-																<li><a href="#application.root#user.logout"><i class="fa fa-sign-out"></i> Log Out</a></li>																								
-															</ul>
-													</li>
-												</ul>
+														<li class="dropdown">
+															<a aria-expanded="false" role="button" href="##" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gears"></i> #GetAuthUser()# <span class="caret"></span></a>
+																<ul role="menu" class="dropdown-menu">
+																	<cfif isuserinrole( "admin" )><li><a href="#application.root#admin.home"><i class="fa fa-cog"></i> Administration</a></li></cfif>
+																	<li><a href="#application.root#user.profile"><i class="fa fa-user"></i> My Profile</a></li>
+																	<li><a href="#application.root#user.settings"><i class="fa fa-gears"></i> Settings</a></li>
+																	<li><a href="#application.root#user.reminders"><i class="fa fa-calendar-o"></i> Reminders</a></li>
+																	<li><a href="#application.root#user.logout"><i class="fa fa-sign-out"></i> Log Out</a></li>																								
+																</ul>
+														</li>
+													</ul>
+												</cfif>
 												
 											</div>
 									</nav>

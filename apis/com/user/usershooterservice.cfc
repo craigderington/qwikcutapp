@@ -35,7 +35,7 @@
 				   and sa.vsid = v.vsid
 				   and v.fieldid = f.fieldid
 				   and s.userid = <cfqueryparam value="#arguments.userid#" cfsqltype="cf_sql_integer" />				  
-			  order by sa.shooterassignmentid desc
+			  order by v.gamedate desc, sa.shooterassignmentid desc
 			</cfquery>
 		<cfreturn shootergames>
 	</cffunction>
