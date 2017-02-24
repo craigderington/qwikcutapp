@@ -21,7 +21,8 @@
 							<div class="row" style="margin-top:15px;">
 								<div class="text-center animated fadeInRightBig">
 									<div class="col-lg-12 white-bg" style="padding:50px;">                        
-										<h3><i class="fa fa-video-camera"></i> #session.username# Game Assignments</h3>							
+										<h3><i class="fa fa-video-camera"></i> #session.username# </h3>
+										<h5>New Game Assignments</h5>							
 											<p><span class="label -label-warning"><i class="fa fa-clock-o"></i> Game check-in 15 minutes prior to game start.</span></p> 
 										
 											<p><i class="fa fa-calendar-o"></i> <strong>Current Server Time:</strong></p> 

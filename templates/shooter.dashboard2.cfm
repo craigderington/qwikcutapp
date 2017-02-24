@@ -15,7 +15,7 @@
 				
 					<cfoutput>
 						
-								<div class="text-center animated fadeInRightBig" style="margin-top:15px;">
+								<div class="text-center animated fadeInRightBig" style="margin-top:25px;">
 									<div class="col-lg-12 white-bg">                        
 										<h3><i class="fa fa-video-camera"></i> Welcome #session.username#</h3>
 										<button 
