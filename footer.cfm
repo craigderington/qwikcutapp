@@ -9,12 +9,13 @@
 		
 		
 		<cfoutput>
-			<div class="footer fixed">
-				<div class="pull-right">
-					Game Video &amp; Analytics
+			<div class="footer fixed">				
+				<div class="text-center">
+					<strong>&copy; #year( now() )# Qwikcut.com.  All Rights Reserved.</strong>					
+					<div class="hidden-phone">
+						<div>Game Video &amp; Analytics</div>
+					</div>
 				</div>
-				<div>
-					<strong>&copy; #year( now() )# Qwikcut.com.  All Rights Reserved.</strong>
 				</div>				
 			</div>
 		</cfoutput>
