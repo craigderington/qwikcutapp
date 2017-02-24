@@ -74,7 +74,7 @@
 
 						<cfoutput>
 							<div class="row">																
-								<h5><i class="fa fa-play-circle"></i> Team Games</h5>
+								
 									
 									<cfif isuserinrole( "admin" )>
 										<cfif structkeyexists( url, "manage" )>
@@ -108,7 +108,7 @@
 											<small>Select an individual game to update the game status.</small>
 										</cfif>									
 									<cfelse>
-										<small>#games.recordcount# game<cfif ( games.recordcount gt 0 ) or ( games.recordcount eq 0 )>s</cfif> scheduled</small>									
+										<small>#games.recordcount# game<cfif ( games.recordcount neq 1 )>s</cfif> scheduled</small>									
 									</cfif>
 								
 								
@@ -117,29 +117,34 @@
 									
 									
 									
-									<div class="feed-activity-list white-bg">										
-										<cfloop query="games">
-											<div class="feed-element">
-												<div>
-													<p><small class="text-navy">#dateformat( gamedate, "mm-dd-yyyy" )#</small></P>													
-													<p><strong>#teamlevelname#</strong></p>
-													<p><small>#awayteam# <i>vs.</i> #hometeam#</small>												
-													<p><small class="text-muted">#gamestatus#</small>
+									<div class="ibox" style="margin-top:10px;">										
+										<div class="ibox-title">
+											<h5><i class="fa fa-play-circle"></i> Team Games  <cfif ( games.recordcount gt 0 )>(#games.recordcount#)</cfif></h5>
+										</div>
+										<div class="ibox-content">
+											<cfloop query="games">
+												<div class="feed-element">
+													<div>
+														<p><small class="text-navy">#dateformat( gamedate, "mm-dd-yyyy" )#</small></P>													
+														<p><strong>#teamlevelname#</strong></p>
+														<p><small>#awayteam# <i>vs.</i> #hometeam#</small>												
+														<p><small class="text-muted">#gamestatus#</small>
+															
+														<p>	<small class="pull-right">
+																<cfif structkeyexists( session, "checkedinstatus" ) and structkeyexists( session, "shooterid" )>
+																	<cfif structkeyexists( url, "gamestatus" )>					
+																		<a style="margin-right:5px;" href="#application.root##url.event#&fuseaction=#url.fuseaction#&gamestatus=update&sgid=#gameid#"><i class="fa fa-play-circle fa-2x"></i></a>
+																	</cfif>													
+																</cfif>
+															</small>
 														
-													<p>	<small class="pull-right">
-															<cfif structkeyexists( session, "checkedinstatus" ) and structkeyexists( session, "shooterid" )>
-																<cfif structkeyexists( url, "gamestatus" )>					
-																	<a style="margin-right:5px;" href="#application.root##url.event#&fuseaction=#url.fuseaction#&gamestatus=update&sgid=#gameid#"><i class="fa fa-play-circle fa-2x"></i></a>
-																</cfif>													
-															</cfif>
-														</small>
-													
-													</p>
+														</p>
 
-													<p><small>#timeformat( gamestart, "hh:mm tt" )#</small><p>
-												</div>
-											</div>										
-										</cfloop>
+														<p><small>#timeformat( gamestart, "hh:mm tt" )#</small><p>
+													</div>
+												</div>										
+											</cfloop>
+										</div>
 									</div>
 										
 							</div>	
