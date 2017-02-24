@@ -117,7 +117,7 @@
 									
 									
 									
-									<div class="feed-activity-list">										
+									<div class="feed-activity-list white-bg">										
 										<cfloop query="games">
 											<div class="feed-element">
 												<div>
