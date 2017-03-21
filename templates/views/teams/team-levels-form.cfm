@@ -131,6 +131,7 @@
 																		<cfelse>
 																			<button class="btn btn-sm btn-white" type="submit"><i class="fa fa-save"></i> Save Team Level</button>
 																			<input type="hidden" name="tlid" value="#url.id#" />
+																			<input type="hidden" name="confid" value="<cfif structkeyexists( session, "conferenceid" )>#session.conferenceid#<cfelse>1</cfif>">
 																			<a href="#application.root##url.event#&fuseaction=#url.fuseaction#" class="btn btn-sm btn-default"><i class="fa fa-remove"></i> Cancel</a>
 																		</cfif>
 																		<input type="hidden" name="add-new-team-level" value="1" />

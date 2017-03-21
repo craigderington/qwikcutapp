@@ -59,7 +59,7 @@
 																				<cfqueryparam value="#session.userid#" cfsqltype="cf_sql_integer" />,
 																				<cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />,
 																				<cfqueryparam value="Add Record" cfsqltype="cf_sql_varchar" />,
-																				<cfqueryparam value="added the field contact #f.fieldcontactname# to the system." cfsqltype="cf_sql_varchar" />																
+																				<cfqueryparam value="added the field contact #fc.fieldcontactname# to the system." cfsqltype="cf_sql_varchar" />																
 																				);
 																	</cfquery>
 																	
@@ -84,7 +84,7 @@
 																				<cfqueryparam value="#session.userid#" cfsqltype="cf_sql_integer" />,
 																				<cfqueryparam value="#CreateODBCDateTime(Now())#" cfsqltype="cf_sql_timestamp" />,
 																				<cfqueryparam value="Modify Record" cfsqltype="cf_sql_varchar" />,
-																				<cfqueryparam value="updated the field contact #f.fieldcontactname# in the system." cfsqltype="cf_sql_varchar" />																
+																				<cfqueryparam value="updated the field contact #fc.fieldcontactname# in the system." cfsqltype="cf_sql_varchar" />																
 																				);
 																	</cfquery>
 																	
