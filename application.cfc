@@ -63,13 +63,9 @@
 		 <cfscript>
 			//set your app vars for the application			
 			application.title = "Qwikcut Game Day Video Application";
-			application.developer = "Craig Derington, Inc.";
-			application.bootver = "v 3.3.2";
-			application.softver = "v 1.0.0 Alpha";
+			application.developer = "";
 			application.root = "index.cfm?event=";
 			application.sessions = 0;
-			application.googlemapsbrowserkey = "AIzaSyAj0UwvjzfzPnJOGZapF5HQBm9E4-FMZyY";
-			application.googlemapsserverkey = "AIzaSyBDiAgcl_aDCU0twSIhtwNi76Dhzcut8dk";
 		</cfscript>
 		
 		<cftry>
